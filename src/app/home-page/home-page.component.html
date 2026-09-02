@@ -1,40 +1,6 @@
 @if (!isDynamicHomePageEnabled) {
-  @if (homeHeaderMetadataValue$ | async; as homeHeaderMetadataValue) {
-    <div class="container home-header">
-      <ds-markdown-viewer [value]="homeHeaderMetadataValue"></ds-markdown-viewer>
-    </div>
-  }
-
-  <ds-home-coar></ds-home-coar>
-  <ds-home-news></ds-home-news>
-
-  @if (showDiscoverFilters) {
-    <ds-configuration-search-page
-      [sideBarWidth]="3"
-      [showViewModes]="false"
-      [searchEnabled]="false"
-      [inPlaceSearch]="false"
-      [showScopeSelector]="false">
-      <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
-    </ds-configuration-search-page>
-  }
-  @if (!showDiscoverFilters) {
-    <div class="container">
-      <ng-container *ngTemplateOutlet="homeContent"></ng-container>
-    </div>
-  }
-  <ds-suggestions-popup></ds-suggestions-popup>
-
-  <ng-template #homeContent>
-    <ds-search-form [inPlaceSearch]="false"
-                    [searchPlaceholder]="'home.search-form.placeholder' | translate">
-    </ds-search-form>
-    <ds-top-level-community-list></ds-top-level-community-list>
-    @if (recentSubmissionspageSize>0) {
-      <ds-recent-item-list></ds-recent-item-list>
-    }
-  </ng-template>
-} @else {
+  <ng-container *ngTemplateOutlet="staticHomePage"></ng-container>
+} @else if (hasConfiguredSections$ | async) {
   @if ((site$.value && hasHomeHeaderMetadata)) {
     <div id="home-header-wrapper">
       <ds-text-section [sectionId]="'site'"
@@ -60,6 +26,11 @@
                     <ds-top-section
                       [sectionId]="sectionId"
                       [topSection]="$any(sectionComponent)"></ds-top-section>
+                  }
+                  @case ('multi-column-top') {
+                    <ds-multi-column-top-section
+                      [sectionId]="sectionId"
+                      [topSection]="$any(sectionComponent)"></ds-multi-column-top-section>
                   }
                   @case ('browse') {
                     <ds-browse-section
@@ -98,6 +69,45 @@
 
   <ds-suggestions-popup></ds-suggestions-popup>
 
+} @else {
+  <ng-container *ngTemplateOutlet="staticHomePage"></ng-container>
 }
 
 
+<ng-template #staticHomePage>
+  @if (homeHeaderMetadataValue$ | async; as homeHeaderMetadataValue) {
+    <div class="container home-header">
+      <ds-markdown-viewer [value]="homeHeaderMetadataValue"></ds-markdown-viewer>
+    </div>
+  }
+
+  <ds-home-coar></ds-home-coar>
+  <ds-home-news></ds-home-news>
+
+  @if (showDiscoverFilters) {
+    <ds-configuration-search-page
+      [sideBarWidth]="3"
+      [showViewModes]="false"
+      [searchEnabled]="false"
+      [inPlaceSearch]="false"
+      [showScopeSelector]="false">
+      <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
+    </ds-configuration-search-page>
+  }
+  @if (!showDiscoverFilters) {
+    <div class="container">
+      <ng-container *ngTemplateOutlet="homeContent"></ng-container>
+    </div>
+  }
+  <ds-suggestions-popup></ds-suggestions-popup>
+
+  <ng-template #homeContent>
+    <ds-search-form [inPlaceSearch]="false"
+                    [searchPlaceholder]="'home.search-form.placeholder' | translate">
+    </ds-search-form>
+    <ds-top-level-community-list></ds-top-level-community-list>
+    @if (recentSubmissionspageSize>0) {
+      <ds-recent-item-list></ds-recent-item-list>
+    }
+  </ng-template>
+</ng-template>

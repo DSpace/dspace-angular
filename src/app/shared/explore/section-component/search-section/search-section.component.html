@@ -8,18 +8,18 @@
         <div formArrayName="queryArray">
           <div [formGroupName]="i" class="row mb-3 mb-md-0" data-test="form-row">
             <div class="col-md-4 pb-3">
-              <select name="filter" id="filter" formControlName="filter" class="form-control me-2">
+              <select [name]="'filter-' + i" [id]="'filter-' + i" formControlName="filter" class="form-control me-2">
                 @for (filter of (filters | async); track filter) {
                   <option [value]="filter">{{'explore.index.' + filter | translate}}</option>
                 }
               </select>
             </div>
             <div class="col-md-5 col-xl-6 pb-3">
-              <input type="text" name="query" id="query" formControlName="query" class="form-control me-2"/>
+              <input type="text" [name]="'query-' + i" [id]="'query-' + i" formControlName="query" class="form-control me-2"/>
             </div>
             <div class="col-md-3 col-xl-2 pb-3">
               @if (!isLast) {
-                <select name="operation" id="operation" formControlName="operation" class="form-control">
+                <select [name]="'operation-' + i" [id]="'operation-' + i" formControlName="operation" class="form-control">
                   @for (operation of operations; track operation) {
                     <option [value]="operation">{{operation}}</option>
                   }
@@ -52,7 +52,7 @@
           <ds-search-form
             [inPlaceSearch]="false"
             [configuration]="searchSection.discoveryConfigurationName"
-            [searchPlaceholder]="'search.search-form.placeholder' | translate"> ></ds-search-form>
+            [searchPlaceholder]="'search.search-form.placeholder' | translate"></ds-search-form>
         }
       </div>
     </div>

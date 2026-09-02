@@ -10,6 +10,11 @@
                 [sectionId]="sectionId"
                 [topSection]="$any(sectionComponent)"></ds-top-section>
             }
+            @case ('multi-column-top') {
+              <ds-multi-column-top-section
+                [sectionId]="sectionId"
+                [topSection]="$any(sectionComponent)"></ds-multi-column-top-section>
+            }
             @case ('browse') {
               <ds-browse-section
                 [sectionId]="sectionId"

@@ -1,21 +1,17 @@
 import {
   AsyncPipe,
-  isPlatformServer,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
   Component,
   Inject,
-  OnDestroy,
   OnInit,
-  PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
-import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { SectionDataService } from '@dspace/core/data/section-data.service';
 import { SiteDataService } from '@dspace/core/data/site-data.service';
 import {
@@ -24,11 +20,9 @@ import {
 } from '@dspace/core/layout/models/section.model';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import {
-  LinkDefinition,
-  LinkHeadService,
-} from '@dspace/core/services/link-head.service';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { Site } from '@dspace/core/shared/site.model';
 import {
   isEmpty,
@@ -43,7 +37,7 @@ import {
 } from 'rxjs';
 import {
   map,
-  switchMap,
+  shareReplay,
   take,
 } from 'rxjs/operators';
 
@@ -52,6 +46,7 @@ import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-co
 import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
 import { ThemedCountersSectionComponent } from '../shared/explore/section-component/counters-section/themed-counters-section.component';
 import { ThemedFacetSectionComponent } from '../shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedMultiColumnTopSectionComponent } from '../shared/explore/section-component/multi-column-top-section/themed-multi-column-top-section.component';
 import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
@@ -68,7 +63,9 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
  * Supports both a static layout and a dynamic layout driven by section configurations
  * fetched from the REST API. When dynamic layout is enabled (via `enableDynamicLayout` config),
  * it renders section components similar to the explore page (top, browse, search, facet, text-row, counters).
- * Also handles COAR Notify inbox link headers and site metadata rendering.
+ * Also handles site metadata rendering.
+ *
+ * COAR Notify inbox link headers are handled by the {@link HomeCoarComponent} rendered in the template.
  */
 @Component({
   selector: 'ds-base-home-page',
@@ -86,6 +83,7 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
     ThemedCountersSectionComponent,
     ThemedFacetSectionComponent,
     ThemedHomeNewsComponent,
+    ThemedMultiColumnTopSectionComponent,
     ThemedSearchFormComponent,
     ThemedSearchSectionComponent,
     ThemedTextSectionComponent,
@@ -94,7 +92,7 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
     TranslateModule,
   ],
 })
-export class HomePageComponent implements OnInit, OnDestroy {
+export class HomePageComponent implements OnInit {
 
   site$: BehaviorSubject<Site> = new BehaviorSubject<Site>(null);
   recentSubmissionspageSize: number;
@@ -113,50 +111,35 @@ export class HomePageComponent implements OnInit, OnDestroy {
    */
   sectionComponents: Observable<SectionComponent[][]>;
 
+  /**
+   * Emits `true` when the dynamic home page has at least one configured section
+   * component to render, `false` otherwise (no sections configured, empty rows,
+   * or the section configuration could not be retrieved). When `false`, the home
+   * page falls back to the default (static) layout.
+   */
+  hasConfiguredSections$: Observable<boolean>;
+
   /** Whether the site has a home header metadata value in the current language. */
   hasHomeHeaderMetadata: boolean;
 
   /** Default text-row section configuration for the home header CMS metadata. */
   homeHeaderSection: TextRowSection = {
-    content: 'cris.cms.home-header',
+    content: 'dspace.cms.home-header',
     contentType: 'text-metadata',
     componentType: 'text-row',
     style: '',
   };
 
-  /**
-   * An array of LinkDefinition objects representing inbox links for the home page.
-   */
-  inboxLinks: LinkDefinition[] = [];
-
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(PLATFORM_ID) private platformId: string,
     private route: ActivatedRoute,
     private sectionDataService: SectionDataService,
     private siteService: SiteDataService,
     private locale: LocaleService,
-    private responseService: ServerResponseService,
-    private notifyInfoService: NotifyInfoService,
-    protected linkHeadService: LinkHeadService,
   ) {
     this.recentSubmissionspageSize = this.appConfig.homePage.recentSubmissions.pageSize;
     this.showDiscoverFilters = this.appConfig.homePage.showDiscoverFilters;
     this.isDynamicHomePageEnabled = this.appConfig.homePage.enableDynamicLayout;
-
-    this.notifyInfoService.isCoarConfigEnabled().pipe(
-      switchMap((coarLdnEnabled: boolean) => {
-        if (coarLdnEnabled) {
-          return this.notifyInfoService.getCoarLdnLocalInboxUrls();
-        } else {
-          return of([]);
-        }
-      }),
-    ).subscribe((coarRestApiUrls: string[]) => {
-      if (coarRestApiUrls.length > 0) {
-        this.initPageLinks(coarRestApiUrls);
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -175,14 +158,25 @@ export class HomePageComponent implements OnInit, OnDestroy {
       map(({ site, language }) => site?.firstMetadataValue('dspace.cms.home-header', { language })),
     );
 
-    this.sectionComponents = this.sectionDataService.findById('site').pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((section) => section.componentRows),
-    );
+    if (this.isDynamicHomePageEnabled) {
+      this.sectionComponents = this.sectionDataService.findById('site').pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload(),
+        map((section) => section?.componentRows ?? []),
+        shareReplay({ bufferSize: 1, refCount: true }),
+      );
+
+      this.hasConfiguredSections$ = this.sectionComponents.pipe(
+        map((rows: SectionComponent[][]) => isNotEmpty(rows) && rows.some((row: SectionComponent[]) => isNotEmpty(row))),
+      );
+    } else {
+      this.sectionComponents = of([]);
+      this.hasConfiguredSections$ = of(false);
+    }
 
     combineLatest([this.siteService.find().pipe(take(1)), this.locale.getCurrentLanguageCode()]).subscribe(
       ([site, language]: [Site, string]) => {
-        this.hasHomeHeaderMetadata = !isEmpty(site?.firstMetadataValue('cris.cms.home-header',
+        this.hasHomeHeaderMetadata = !isEmpty(site?.firstMetadataValue('dspace.cms.home-header',
           { language }));
       },
     );
@@ -199,39 +193,5 @@ export class HomePageComponent implements OnInit, OnDestroy {
     const defaultCol = 'col-12';
     return (isNotEmpty(sectionComponent.style) && sectionComponent.style.includes('col')) ?
       sectionComponent.style : `${defaultCol} ${sectionComponent.style}`;
-  }
-
-  /**
-   * Initializes page links for COAR REST API URLs.
-   * @param coarRestApiUrls An array of COAR REST API URLs.
-   */
-  private initPageLinks(coarRestApiUrls: string[]): void {
-    const rel = this.notifyInfoService.getInboxRelationLink();
-    let links = '';
-    coarRestApiUrls.forEach((coarRestApiUrl: string) => {
-      // Add link to head
-      const tag: LinkDefinition = {
-        href: coarRestApiUrl,
-        rel: rel,
-      };
-      this.inboxLinks.push(tag);
-      this.linkHeadService.addTag(tag);
-
-      links = links + (isNotEmpty(links) ? ', ' : '') + `<${coarRestApiUrl}> ; rel="${rel}"`;
-    });
-
-    if (isPlatformServer(this.platformId)) {
-      // Add link to response header
-      this.responseService.setHeader('Link', links);
-    }
-  }
-
-  /**
-   * It removes the inbox links from the head of the html.
-   */
-  ngOnDestroy(): void {
-    this.inboxLinks.forEach((link: LinkDefinition) => {
-      this.linkHeadService.removeTag(`href='${link.href}'`);
-    });
   }
 }

@@ -13,6 +13,7 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Context } from '@dspace/core/shared/context.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
 
@@ -45,12 +46,18 @@ export class TopSectionComponent implements OnInit {
   /** Paginated search options built from the topSection configuration, passed to the browse component. */
   paginatedSearchOptions: PaginatedSearchOptions;
 
+  /**
+   * Unique pagination id for this section instance.
+   * Generated per instance so multiple top sections on the same page do not share pagination state.
+   */
+  paginationId = `search-object-pagination-${uuidv4()}`;
+
   ngOnInit() {
     const order = this.topSection.order;
     const numberOfItems = this.topSection.numberOfItems;
     const sortDirection = order && order.toUpperCase() === 'ASC' ? SortDirection.ASC : SortDirection.DESC;
     const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-      id: 'search-object-pagination',
+      id: this.paginationId,
       pageSize: numberOfItems,
       currentPage: 1,
     });

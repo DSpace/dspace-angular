@@ -282,7 +282,7 @@ export const environment: BuildConfig = {
       pageSize: 5,
     },
     showDiscoverFilters: false,
-    enableDynamicLayout: true,
+    enableDynamicLayout: false,
   },
   item: {
     edit: {
@@ -535,7 +535,7 @@ export const environment: BuildConfig = {
 
   // Configuration for layout customization of metadata rendering in Item page
   layout: {
-    enableExplorePages: true,
+    enableExplorePages: false,
     authorityRef: [
       {
         entityType: 'DEFAULT',

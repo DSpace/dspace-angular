@@ -19,6 +19,7 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
 import { ThemedCountersSectionComponent } from '../shared/explore/section-component/counters-section/themed-counters-section.component';
 import { ThemedFacetSectionComponent } from '../shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedMultiColumnTopSectionComponent } from '../shared/explore/section-component/multi-column-top-section/themed-multi-column-top-section.component';
 import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
@@ -28,7 +29,7 @@ import { ThemedTopSectionComponent } from '../shared/explore/section-component/t
  *
  * Fetches section configuration from the backend based on the current route parameter
  * and renders the configured sections as a responsive grid of section components.
- * Supported section types include: top, browse, search, facet, text-row, and counters.
+ * Supported section types include: top, multi-column-top, browse, search, facet, text-row, and counters.
  */
 @Component({
   selector: 'ds-explore',
@@ -39,6 +40,7 @@ import { ThemedTopSectionComponent } from '../shared/explore/section-component/t
     ThemedBrowseSectionComponent,
     ThemedCountersSectionComponent,
     ThemedFacetSectionComponent,
+    ThemedMultiColumnTopSectionComponent,
     ThemedSearchSectionComponent,
     ThemedTextSectionComponent,
     ThemedTopSectionComponent,

@@ -33,6 +33,7 @@ import { RemoteData } from '../core/data/remote-data';
 import {
   BrowseSection,
   FacetSection,
+  MultiColumnTopSection,
   SearchSection,
   Section,
   TopSection,
@@ -41,6 +42,7 @@ import {
 import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
 import { ThemedCountersSectionComponent } from '../shared/explore/section-component/counters-section/themed-counters-section.component';
 import { ThemedFacetSectionComponent } from '../shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedMultiColumnTopSectionComponent } from '../shared/explore/section-component/multi-column-top-section/themed-multi-column-top-section.component';
 import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
@@ -87,6 +89,16 @@ describe('ExploreComponent', () => {
     facetsPerRow: 4,
   };
 
+  const multiColumnTopComponent: MultiColumnTopSection = {
+    discoveryConfigurationName: 'publication',
+    componentType: 'multi-column-top',
+    style: 'col-md-12',
+    order: 'desc',
+    sortField: 'dc.date.accessioned',
+    titleKey: 'lastPublications',
+    columnList: [],
+  };
+
   beforeEach(waitForAsync(() => {
 
     sectionDataServiceStub = {
@@ -94,7 +106,7 @@ describe('ExploreComponent', () => {
         if (id === 'publications') {
           const section = new Section();
           section.id = 'publications';
-          section.componentRows = [[browseComponent, searchComponent], [topComponent], [facetComponent]];
+          section.componentRows = [[browseComponent, searchComponent], [topComponent], [facetComponent], [multiColumnTopComponent]];
           return createSuccessfulRemoteDataObject$(section);
         } else {
           return of(null);
@@ -119,7 +131,7 @@ describe('ExploreComponent', () => {
         { provide: SectionDataService, useValue: sectionDataServiceStub },
         { provide: ActivatedRoute, useValue: route }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(ExplorePageComponent, { remove: { imports: [ThemedTopSectionComponent, ThemedBrowseSectionComponent, ThemedSearchSectionComponent, ThemedFacetSectionComponent, ThemedTextSectionComponent, ThemedCountersSectionComponent] } }).compileComponents();
+    }).overrideComponent(ExplorePageComponent, { remove: { imports: [ThemedTopSectionComponent, ThemedMultiColumnTopSectionComponent, ThemedBrowseSectionComponent, ThemedSearchSectionComponent, ThemedFacetSectionComponent, ThemedTextSectionComponent, ThemedCountersSectionComponent] } }).compileComponents();
 
   }));
 
@@ -133,9 +145,9 @@ describe('ExploreComponent', () => {
     expect(comp).toBeDefined();
   }));
 
-  it('should place the sections on three rows', () => {
+  it('should place the sections on four rows', () => {
     const container = fixture.debugElement.query(By.css('.container'));
-    expect(container.children.length).toEqual(3);
+    expect(container.children.length).toEqual(4);
 
     const firstRow = container.children[0];
     expect(firstRow.children.length).toEqual(2);
@@ -149,6 +161,10 @@ describe('ExploreComponent', () => {
     const thirdRow = container.children[2];
     expect(thirdRow.children.length).toEqual(1);
     expect(thirdRow.children[0].children[0].name).toEqual('ds-facet-section');
+
+    const fourthRow = container.children[3];
+    expect(fourthRow.children.length).toEqual(1);
+    expect(fourthRow.children[0].children[0].name).toEqual('ds-multi-column-top-section');
 
     expect(component.sectionId).toEqual('publications');
   });

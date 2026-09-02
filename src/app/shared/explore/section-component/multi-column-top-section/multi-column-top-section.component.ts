@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SearchManager } from '@dspace/core/browse/search-manager';
 import {
   SortDirection,
@@ -21,8 +26,10 @@ import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operator
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
 
 
 /**
@@ -32,19 +39,31 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ds-base-multi-column-top-section',
   templateUrl: './multi-column-top-section.component.html',
+  imports: [
+    AsyncPipe,
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class MultiColumnTopSectionComponent implements OnInit {
 
   /** Unique identifier for this section instance. */
   @Input()
-    sectionId: string;
+  sectionId: string;
 
   /** Configuration object defining discovery query, sort, and column layout. */
   @Input()
-    topSection: MultiColumnTopSection;
+  topSection: MultiColumnTopSection;
 
   /** Observable emitting the array of top DSpaceObjects fetched from the search. */
   topObjects: Observable<DSpaceObject[]>;
+
+  /**
+   * Unique pagination id for this section instance.
+   * Generated per instance so multiple top sections on the same page do not share pagination state.
+   */
+  paginationId = `search-object-pagination-${uuidv4()}`;
 
   constructor(private searchService: SearchManager) {
 
@@ -54,7 +73,7 @@ export class MultiColumnTopSectionComponent implements OnInit {
     const order = this.topSection.order;
     const sortDirection = order && order.toUpperCase() === 'ASC' ? SortDirection.ASC : SortDirection.DESC;
     const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-      id: 'search-object-pagination',
+      id: this.paginationId,
       pageSize: 50,
       currentPage: 1,
     });

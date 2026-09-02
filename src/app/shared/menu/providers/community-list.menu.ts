@@ -23,17 +23,28 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the "Communities & Collections" menu section in the public navbar
+ * Menu provider to create the "Communities & Collections" menu section in the public navbar.
+ *
+ * The section is shown only when the {@link https://wiki.lyrasis.org/display/DSDOC9x/ layout.navbar.showCommunityCollection}
+ * config flag is enabled. When it is disabled, {@link AdminCommunityListMenuProvider} surfaces the same section in the
+ * admin sidebar instead, so the community list stays reachable.
  */
 @Injectable()
 export class CommunityListMenuProvider extends AbstractMenuProvider {
   protected appConfig = inject(APP_CONFIG);
 
-  public getSections(): Observable<PartialMenuSection[]> {
-    if (!this.appConfig.layout.navbar.showCommunityCollection) {
-      return of([]);
-    }
-    return of([
+  /**
+   * Whether the "Communities & Collections" link is configured to appear in the public navbar.
+   */
+  protected get showInNavbar(): boolean {
+    return this.appConfig.layout.navbar.showCommunityCollection;
+  }
+
+  /**
+   * The "Communities & Collections" menu section linking to the community list page.
+   */
+  protected communityListSection(): PartialMenuSection[] {
+    return [
       {
         visible: true,
         model: {
@@ -43,6 +54,10 @@ export class CommunityListMenuProvider extends AbstractMenuProvider {
         },
         icon: 'diagram-project',
       },
-    ] as PartialMenuSection[]);
+    ];
+  }
+
+  public getSections(): Observable<PartialMenuSection[]> {
+    return of(this.showInNavbar ? this.communityListSection() : []);
   }
 }

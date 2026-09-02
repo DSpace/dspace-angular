@@ -122,22 +122,22 @@ describe('SearchSectionComponent', () => {
     expect(formRows.length).toEqual(3);
 
     for (const formRow of formRows) {
-      const filterSelect = formRow.query(By.css('#filter'));
+      const filterSelect = formRow.query(By.css('[id^="filter"]'));
       expect(filterSelect).not.toBeNull();
       const filterOptions = filterSelect.children;
       expect(filterOptions.length).toEqual(3);
       expect(filterOptions.map((el) => el.nativeElement.value)).toEqual(['all','author','subject']);
 
-      const queryInput = formRow.query(By.css('#query'));
+      const queryInput = formRow.query(By.css('[id^="query"]'));
       expect(queryInput).not.toBeNull();
       expect(queryInput.nativeElement.value).toEqual('');
 
       const isLastRow = formRows.indexOf(formRow) === 2;
       if ( isLastRow ) {
         expect(formRow.query(By.css('#addButton'))).not.toBeNull();
-        expect(formRow.query(By.css('#operation'))).toBeNull();
+        expect(formRow.query(By.css('[id^="operation"]'))).toBeNull();
       } else {
-        const operationSelect = formRow.query(By.css('#operation'));
+        const operationSelect = formRow.query(By.css('[id^="operation"]'));
         expect(operationSelect).not.toBeNull();
         const operationOptions = operationSelect.children;
         expect(operationOptions.length).toEqual(3);
@@ -167,9 +167,9 @@ describe('SearchSectionComponent', () => {
 
     beforeEach(() => {
       const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
-      const filterSelect = firstFormRow.query(By.css('#filter'));
+      const filterSelect = firstFormRow.query(By.css('[id^="filter"]'));
       filterSelect.nativeElement.value = 'author';
-      const queryInput = firstFormRow.query(By.css('#query'));
+      const queryInput = firstFormRow.query(By.css('[id^="query"]'));
       queryInput.nativeElement.value = 'Adam';
       fixture.detectChanges();
     });
@@ -184,9 +184,9 @@ describe('SearchSectionComponent', () => {
       const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
       expect(formRows.length).toEqual(3);
       const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
-      const filterSelect = firstFormRow.query(By.css('#filter'));
+      const filterSelect = firstFormRow.query(By.css('[id^="filter"]'));
       expect(filterSelect.nativeElement.value).toEqual('all');
-      const queryInput = firstFormRow.query(By.css('#query'));
+      const queryInput = firstFormRow.query(By.css('[id^="query"]'));
       expect(queryInput.nativeElement.value).toEqual('');
     });
   });
@@ -195,18 +195,18 @@ describe('SearchSectionComponent', () => {
 
     beforeEach(() => {
       const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
-      const filterSelect = firstFormRow.query(By.css('#filter')).nativeElement;
+      const filterSelect = firstFormRow.query(By.css('[id^="filter"]')).nativeElement;
       filterSelect.value = 'author';
       filterSelect.dispatchEvent(new Event('change'));
-      const firstQueryInput = firstFormRow.query(By.css('#query')).nativeElement;
+      const firstQueryInput = firstFormRow.query(By.css('[id^="query"]')).nativeElement;
       firstQueryInput.value = 'Adam';
       firstQueryInput.dispatchEvent(new Event('input'));
-      const operationInput = firstFormRow.query(By.css('#operation')).nativeElement;
+      const operationInput = firstFormRow.query(By.css('[id^="operation"]')).nativeElement;
       operationInput.value = 'OR';
       operationInput.dispatchEvent(new Event('change'));
       const secondFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[1];
 
-      const secondQueryInput = secondFormRow.query(By.css('#query')).nativeElement;
+      const secondQueryInput = secondFormRow.query(By.css('[id^="query"]')).nativeElement;
       secondQueryInput.value = 'test';
       secondQueryInput.dispatchEvent(new Event('input'));
       fixture.detectChanges();

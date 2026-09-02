@@ -11,9 +11,9 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
-import { CommunityListMenuProvider } from './community-list.menu';
+import { AdminCommunityListMenuProvider } from './admin-community-list.menu';
 
-describe('CommunityListMenuProvider', () => {
+describe('AdminCommunityListMenuProvider', () => {
   const expectedSections: PartialMenuSection[] = [
     {
       visible: true,
@@ -26,29 +26,29 @@ describe('CommunityListMenuProvider', () => {
     },
   ];
 
-  const createProvider = (showCommunityCollection: boolean): CommunityListMenuProvider => {
+  const createProvider = (showCommunityCollection: boolean): AdminCommunityListMenuProvider => {
     TestBed.configureTestingModule({
       providers: [
-        CommunityListMenuProvider,
+        AdminCommunityListMenuProvider,
         { provide: APP_CONFIG, useValue: { layout: { navbar: { showCommunityCollection } } } },
       ],
     });
-    return TestBed.inject(CommunityListMenuProvider);
+    return TestBed.inject(AdminCommunityListMenuProvider);
   };
 
   it('should be created', () => {
     expect(createProvider(true)).toBeTruthy();
   });
 
-  it('getSections should return the community list section when showCommunityCollection is enabled', (done) => {
-    createProvider(true).getSections().subscribe((sections) => {
+  it('getSections should return the community list section when showCommunityCollection is disabled (navbar fallback)', (done) => {
+    createProvider(false).getSections().subscribe((sections) => {
       expect(sections).toEqual(expectedSections);
       done();
     });
   });
 
-  it('getSections should return no sections when showCommunityCollection is disabled', (done) => {
-    createProvider(false).getSections().subscribe((sections) => {
+  it('getSections should return no sections when showCommunityCollection is enabled (shown in navbar instead)', (done) => {
+    createProvider(true).getSections().subscribe((sections) => {
       expect(sections).toEqual([]);
       done();
     });

@@ -375,7 +375,7 @@ export class DefaultAppConfig implements AppConfig {
       pageSize: 5,
     },
     showDiscoverFilters: false,
-    enableDynamicLayout: true,
+    enableDynamicLayout: false,
   };
 
   // Item Config
@@ -746,7 +746,7 @@ export class DefaultAppConfig implements AppConfig {
   // These styles are used in components like MetadataLinkViewComponent to display entity type indicators
   // alongside metadata values, providing visual cues about the type of referenced entity.
   layout: LayoutConfig = {
-    enableExplorePages: true,
+    enableExplorePages: false,
     authorityRef: [
       {
         entityType: 'DEFAULT',

@@ -41,6 +41,7 @@ describe('ExploreMenuProvider', () => {
       ],
     });
     provider = TestBed.inject(ExploreMenuProvider);
+    provider.menuProviderId = 'explore';
   }
 
   describe('when enableExplorePages is true', () => {
@@ -81,6 +82,71 @@ describe('ExploreMenuProvider', () => {
 
       provider.getSections().subscribe((sections) => {
         expect(sections).toEqual(expectedSections);
+        done();
+      });
+    });
+  });
+
+  describe('when a visible section has nested sections', () => {
+    const nestedMockSections = [
+      { id: 'publications', componentRows: [], nestedSections: [] },
+      {
+        id: 'people',
+        componentRows: [],
+        nestedSections: [
+          { id: 'researchers', componentRows: [], nestedSections: [] },
+          { id: 'staff', componentRows: [], nestedSections: [] },
+        ],
+      },
+    ];
+
+    beforeEach(() => {
+      sectionDataServiceStub = {
+        findVisibleSections: jasmine.createSpy('findVisibleSections').and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(nestedMockSections)),
+        ),
+      };
+
+      TestBed.configureTestingModule({
+        providers: [
+          ExploreMenuProvider,
+          { provide: APP_CONFIG, useValue: { layout: { enableExplorePages: true } } },
+          { provide: SectionDataService, useValue: sectionDataServiceStub },
+        ],
+      });
+      provider = TestBed.inject(ExploreMenuProvider);
+      provider.menuProviderId = 'explore';
+    });
+
+    it('should render a flat link for a section without nested sections', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const flat = sections.find((s) => s.model.type === MenuItemType.LINK && (s.model as any).link === '/explore/publications');
+        expect(flat).toBeDefined();
+        expect(flat.parentID).toBeUndefined();
+        done();
+      });
+    });
+
+    it('should render an expandable top section for a section with nested sections', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const top = sections.find((s) => s.id === 'explore_people');
+        expect(top).toBeDefined();
+        expect(top.model.type).toEqual(MenuItemType.TEXT);
+        expect((top.model as any).text).toEqual('menu.section.explore_people');
+        expect(top.alwaysRenderExpandable).toBeTrue();
+        done();
+      });
+    });
+
+    it('should render a child link for each nested section, linked to the parent', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const children = sections.filter((s) => s.parentID === 'explore_people');
+        expect(children.length).toEqual(2);
+        children.forEach((child) => {
+          expect(child.model.type).toEqual(MenuItemType.LINK);
+          expect(child.alwaysRenderExpandable).toBeFalse();
+        });
+        expect(children.map((c) => (c.model as any).link)).toEqual(['/explore/researchers', '/explore/staff']);
         done();
       });
     });
