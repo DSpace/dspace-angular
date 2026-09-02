@@ -97,11 +97,6 @@ export class SubscriptionModalComponent implements OnInit {
   public processing$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * If true, show a message explaining how to delete a subscription
-   */
-  public showDeleteInfo$ = new BehaviorSubject<boolean>(false);
-
-  /**
    * Reactive form group that will be used to add/edit subscriptions
    */
   subscriptionForm: UntypedFormGroup;
@@ -122,7 +117,7 @@ export class SubscriptionModalComponent implements OnInit {
   frequencyDefaultValues = ['D', 'W', 'M'];
 
   /**
-   * True if form status has changed and at least one frequency is checked
+    * True if form status has changed and submit action is valid
    */
   isValid = false;
   /**
