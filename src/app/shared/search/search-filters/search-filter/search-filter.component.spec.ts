@@ -97,7 +97,7 @@ describe('SearchFilterComponent', () => {
 
   it('should not expose individual facet filter as a region landmark', () => {
     const facetFilterElement = fixture.debugElement.query(By.css('.facet-filter'));
-    expect(facetFilterElement.attributes['role']).not.toBe('region');
+    expect(facetFilterElement.attributes.role).not.toBe('region');
   });
 
   describe('when the toggle method is triggered', () => {
