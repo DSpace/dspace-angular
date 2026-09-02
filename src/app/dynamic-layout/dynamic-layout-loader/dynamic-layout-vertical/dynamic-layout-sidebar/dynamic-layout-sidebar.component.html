@@ -1,5 +1,4 @@
-<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': (isSideBarHidden$ | async) !== true,
-                                                            'container': (hasSidebar$ | async) }">
+<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': (isSideBarHidden$ | async) !== true}">
   @if ((hasSidebar$ | async) && (isSideBarHidden$ | async) !== true && showNav) {
     <nav id="sidebar" [ngClass]="{'active': (isSideBarHidden$ | async) !== true}">
       <div>

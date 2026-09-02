@@ -95,12 +95,14 @@ describe('DynamicLayoutLoaderComponent', () => {
       await configureTestBed('horizontal');
     });
 
-    beforeEach(() => {
+    beforeEach(async () => {
       fixture = TestBed.createComponent(DynamicLayoutLoaderComponent);
       component = fixture.componentInstance;
       component.item = mockItem;
       component.leadingTabs = [];
       component.tabs = loaderTabs;
+      fixture.detectChanges();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
 
@@ -118,12 +120,14 @@ describe('DynamicLayoutLoaderComponent', () => {
       await configureTestBed('vertical');
     });
 
-    beforeEach(() => {
+    beforeEach(async () => {
       fixture = TestBed.createComponent(DynamicLayoutLoaderComponent);
       component = fixture.componentInstance;
       component.item = mockItem;
       component.leadingTabs = [];
       component.tabs = loaderTabs;
+      fixture.detectChanges();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
 

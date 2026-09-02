@@ -7,7 +7,6 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { Item } from '@dspace/core/shared/item.model';
@@ -23,7 +22,6 @@ import { ToDatePipe } from '../../../../../../../../shared/access-control-form-c
 import { getMockThemeService } from '../../../../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { FieldRenderingType } from '../../../rendering-types/field-rendering-type';
-import { getMetadataBoxFieldRenderMap } from '../../../rendering-types/metadata-box.decorator';
 import { TableComponent } from '../../../rendering-types/metadataGroup/table/table.component';
 import { TextComponent } from '../../../rendering-types/text/text.component';
 import { MetadataRenderComponent } from './metadata-render.component';
@@ -141,7 +139,6 @@ describe('MetadataRenderComponent', () => {
       providers: [
         Injector,
         { provide: 'tabNameProvider', useValue: '' },
-        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: getMetadataBoxFieldRenderMap() },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -175,8 +172,10 @@ describe('MetadataRenderComponent', () => {
     });
 
     describe('and metadata value has placeholder', () => {
-      beforeEach(() => {
+      beforeEach(async () => {
         component.metadataValue = metadataValueWithPlaceholder;
+        fixture.detectChanges();
+        await fixture.whenStable();
         fixture.detectChanges();
       });
 

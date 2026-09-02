@@ -104,21 +104,41 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
       parent: this.injector,
     });
 
-    this.componentLoader = this.getComponent();
-    this.hasOwnContainer = (this.componentLoader as any)?.hasOwnContainer ?? false;
-
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.entityType + '.' + this.box.shortname;
     this.boxHeaderGenericI18nKey = this.boxI18nPrefix + this.box.shortname;
 
     if (hasNoValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }
+
+    void this.resolveComponent();
   }
 
   /**
-   * Active tab utilized by accordion
+   * Resolve the box component from the decorator registry and set it as the
+   * component to render, along with its `hasOwnContainer` flag.
    */
-  getComponent(): GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent> {
+  async resolveComponent(): Promise<void> {
+    let component: GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent>;
+    try {
+      component = await this.getComponent();
+    } catch (error) {
+      console.error('Failed to resolve the dynamic layout box component', error);
+      return;
+    }
+
+    if (hasNoValue(component)) {
+      return;
+    }
+
+    this.componentLoader = component;
+    this.hasOwnContainer = (component as any)?.hasOwnContainer ?? false;
+  }
+
+  /**
+   * Resolve the box component constructor for the current box type.
+   */
+  getComponent(): Promise<GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent>> {
     return getDynamicLayoutBox(this.box.boxType as LayoutBox);
   }
   /**

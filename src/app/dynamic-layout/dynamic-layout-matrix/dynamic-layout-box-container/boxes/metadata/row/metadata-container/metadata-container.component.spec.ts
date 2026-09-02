@@ -4,7 +4,6 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -20,7 +19,6 @@ import {
 
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
-import { getMetadataBoxFieldRenderMap } from '../../rendering-types/metadata-box.decorator';
 import { TextComponent } from '../../rendering-types/text/text.component';
 import { MetadataContainerComponent } from './metadata-container.component';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
@@ -172,7 +170,6 @@ describe('MetadataContainerComponent', () => {
       ],
       providers: [
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: getMetadataBoxFieldRenderMap() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -192,8 +189,10 @@ describe('MetadataContainerComponent', () => {
 
   describe('When field rendering type is not structured', () => {
 
-    beforeEach(() => {
+    beforeEach(async () => {
       component.field = fieldMock;
+      fixture.detectChanges();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
     it('should create', () => {
@@ -212,8 +211,10 @@ describe('MetadataContainerComponent', () => {
 
   describe('When field rendering type is structured', () => {
 
-    beforeEach(() => {
+    beforeEach(async () => {
       component.field = fieldStructuredMock;
+      fixture.detectChanges();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
 
@@ -233,8 +234,10 @@ describe('MetadataContainerComponent', () => {
 
   describe('When field has no label', () => {
 
-    beforeEach(() => {
+    beforeEach(async () => {
       component.field = fieldMockWithoutLabel;
+      fixture.detectChanges();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
     it('should create', () => {
@@ -297,8 +300,10 @@ describe('MetadataContainerComponent', () => {
 
     describe('and item has bitstream', () => {
 
-      beforeEach(() => {
+      beforeEach(async () => {
         mockBitstreamDataService.findShowableBitstreamsByItem.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+        fixture.detectChanges();
+        await fixture.whenStable();
         fixture.detectChanges();
       });
 

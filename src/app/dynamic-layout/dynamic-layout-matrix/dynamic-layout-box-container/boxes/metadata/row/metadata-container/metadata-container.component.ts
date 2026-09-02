@@ -7,7 +7,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
 import {
   BitstreamDataService,
   MetadataFilter,
@@ -89,7 +88,6 @@ export class MetadataContainerComponent implements OnInit {
   protected readonly bitstreamDataService = inject(BitstreamDataService);
   protected readonly translateService = inject(TranslateService);
   protected readonly cd = inject(ChangeDetectorRef);
-  protected readonly layoutBoxesMap: Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>> = inject(DYNAMIC_FIELD_RENDERING_MAP);
 
   /**
    * Returns all metadata values in the item
@@ -163,9 +161,11 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   initRenderOptions(renderingType: string | FieldRenderingType): void {
-    this.metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, renderingType);
-    this.isStructured = (this.metadataFieldRenderOptions as any).structured ?? false;
-    this.cd.detectChanges();
+    getMetadataBoxFieldRenderOptionsFn(renderingType).then((component: GenericConstructor<RenderingTypeDirective>) => {
+      this.metadataFieldRenderOptions = component;
+      this.isStructured = (component as any)?.structured ?? false;
+      this.cd.detectChanges();
+    });
   }
 
   hasBitstream(): Observable<boolean> {

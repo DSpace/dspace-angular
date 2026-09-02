@@ -86,11 +86,12 @@ describe('DynamicLayoutBoxContainerComponent', () => {
 
 
   describe('when inserting box', () => {
-    beforeEach(() => {
-      spyOn((component as any), 'getComponent').and.returnValue(TestDynamicLayoutBoxComponent);
+    beforeEach(async () => {
+      spyOn((component as any), 'getComponent').and.returnValue(Promise.resolve(TestDynamicLayoutBoxComponent));
       component.box = boxMetadata;
       component.item = mockItem;
       component.ngOnInit();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
 

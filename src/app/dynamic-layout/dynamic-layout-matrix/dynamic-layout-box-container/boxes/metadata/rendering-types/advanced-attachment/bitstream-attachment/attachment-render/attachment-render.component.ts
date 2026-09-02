@@ -73,8 +73,8 @@ export class AttachmentRenderComponent extends AbstractComponentLoaderComponent<
    *
    * @returns The constructor of the matching attachment render component
    */
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     const rendering = this.renderingType || AttachmentRenderingType.DOWNLOAD;
-    return getAttachmentTypeRendering(rendering);
+    return Promise.resolve(getAttachmentTypeRendering(rendering));
   }
 }

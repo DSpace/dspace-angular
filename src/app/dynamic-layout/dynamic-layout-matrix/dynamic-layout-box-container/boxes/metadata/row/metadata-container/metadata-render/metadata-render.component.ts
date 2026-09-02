@@ -4,7 +4,6 @@ import {
   Injector,
   Input,
 } from '@angular/core';
-import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
 import {
   DynamicLayoutBox,
   LayoutField,
@@ -18,7 +17,6 @@ import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { AbstractComponentLoaderComponent } from '../../../../../../../../shared/abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
-import { FieldRenderingType } from '../../../rendering-types/field-rendering-type';
 import {
   computeRenderingFn,
   getMetadataBoxFieldRenderOptionsFn,
@@ -58,7 +56,6 @@ export class MetadataRenderComponent extends AbstractComponentLoaderComponent<Re
    */
   renderingSubType: string;
 
-  protected readonly layoutBoxesMap: Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>> = inject(DYNAMIC_FIELD_RENDERING_MAP);
   private readonly parentInjector: Injector = inject(Injector);
 
   /**
@@ -78,10 +75,10 @@ export class MetadataRenderComponent extends AbstractComponentLoaderComponent<Re
   /**
    * Fetch the component depending on the field's rendering type
    */
-  public getComponent(): GenericConstructor<RenderingTypeDirective> {
+  public getComponent(): Promise<GenericConstructor<RenderingTypeDirective>> {
     this.renderingSubType = computeRenderingFn(this.field.rendering, true);
     const rendering = computeRenderingFn(this.field?.rendering);
-    return getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, rendering);
+    return getMetadataBoxFieldRenderOptionsFn(rendering);
   }
 
   /**

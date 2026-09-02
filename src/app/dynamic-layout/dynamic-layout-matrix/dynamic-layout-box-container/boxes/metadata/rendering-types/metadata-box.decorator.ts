@@ -1,43 +1,31 @@
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
+import { METADATA_BOX_FIELD_RENDERING_MAP } from '../../../../../../../decorator-registries/metadata-box-field-rendering-registry';
+import { getMatch } from '../../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { FieldRenderingType } from './field-rendering-type';
 import { RenderingTypeDirective } from './rendering-type.directive';
 
 /**
- * Registry mapping {@link FieldRenderingType} values to their rendering component.
- *
- * Entries are added dynamically at class-definition time by the
- * {@link metadataBoxFieldRendering} decorator, instead of being hardcoded in a map.
+ * Whether a rendering type renders all metadata values in a single structured render (`true`),
+ * or renders each metadata value individually (`false`).
  */
-const metadataBoxFieldRenderMap = new Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>>();
+export const DEFAULT_METADATA_BOX_STRUCTURED = false;
 
 /**
- * Decorator used to register a component as the renderer for a given {@link FieldRenderingType}.
+ * Marker decorator used to register a component as the renderer for a given {@link FieldRenderingType}.
+ *
+ * The actual registry ({@link METADATA_BOX_FIELD_RENDERING_MAP}) is generated at build time by
+ * `scripts/generate-decorator-registries.ts` from these decorator usages, so this function is a no-op
+ * at runtime and only serves as metadata for the generator.
  *
  * @param fieldRenderingType the field rendering type the decorated component renders
+ * @param structured whether the component renders all metadata values in a single structured render
  */
-export function metadataBoxFieldRendering(fieldRenderingType: FieldRenderingType) {
+export function metadataBoxFieldRendering(fieldRenderingType: FieldRenderingType, structured: boolean = DEFAULT_METADATA_BOX_STRUCTURED) {
   return function decorator(component: GenericConstructor<RenderingTypeDirective>) {
-    if (hasNoValue(fieldRenderingType)) {
-      return;
-    }
-    metadataBoxFieldRenderMap.set(fieldRenderingType, component);
+    /* intentionally empty: the registry is generated at build time */
   };
-}
-
-/**
- * Returns the registry of {@link FieldRenderingType} to their rendering component,
- * populated by the {@link metadataBoxFieldRendering} decorator.
- *
- * @returns the map of rendering types to rendering components
- */
-export function getMetadataBoxFieldRenderMap(): Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>> {
-  return metadataBoxFieldRenderMap;
 }
 
 /**
@@ -56,15 +44,24 @@ export const computeRenderingFn = (rendering: string, isSubtype = false): string
 };
 
 /**
- * Return the rendering component related to the given rendering type
- * @param layoutBoxesMap
- * @param fieldRenderingType
+ * Resolve the rendering component for the given rendering type.
+ *
+ * Falls back to the {@link FieldRenderingType.TEXT} component when the rendering type is not registered.
+ *
+ * @param fieldRenderingType the rendering type to look up
+ * @param structured whether to look up the structured variant of the rendering type
+ * @param registry the registry containing all the rendering components
+ * @returns a promise resolving to the matching rendering component, or undefined if none is registered
  */
-export const getMetadataBoxFieldRenderOptionsFn = (layoutBoxesMap: Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>>, fieldRenderingType: string): GenericConstructor<RenderingTypeDirective> => {
-  let renderOptions = layoutBoxesMap.get(fieldRenderingType?.toUpperCase() as FieldRenderingType);
-  // If the rendering type not exists will use TEXT type rendering
-  if (isEmpty(renderOptions)) {
-    renderOptions = layoutBoxesMap.get(FieldRenderingType.TEXT);
-  }
-  return renderOptions;
+export const getMetadataBoxFieldRenderOptionsFn = (
+  fieldRenderingType: string,
+  structured: boolean = DEFAULT_METADATA_BOX_STRUCTURED,
+  registry: Map<any, any> = METADATA_BOX_FIELD_RENDERING_MAP,
+): Promise<GenericConstructor<RenderingTypeDirective>> => {
+  const match = getMatch(
+    registry,
+    [fieldRenderingType?.toUpperCase(), structured],
+    [FieldRenderingType.TEXT, DEFAULT_METADATA_BOX_STRUCTURED],
+  );
+  return hasValue(match) ? (match.match() as Promise<GenericConstructor<RenderingTypeDirective>>) : undefined;
 };

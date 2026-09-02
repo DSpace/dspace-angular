@@ -1,5 +1,6 @@
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
+import { RENDER_DYNAMIC_LAYOUT_BOX_FOR_MAP } from '../../../decorator-registries/render-dynamic-layout-box-for-registry';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { LayoutBox } from '../enums/layout-box.enum';
 
@@ -13,15 +14,11 @@ import { LayoutBox } from '../enums/layout-box.enum';
 type DynamicLayoutBoxComponent = GenericConstructor<any>;
 
 /**
- * Registry mapping {@link LayoutBox} types to their rendering component.
+ * Marker decorator used to register a component as the renderer for a given {@link LayoutBox} type.
  *
- * Entries are added dynamically at class-definition time by the
- * {@link renderDynamicLayoutBoxFor} decorator, instead of being hardcoded here.
- */
-const layoutBoxesMap = new Map<LayoutBox, DynamicLayoutBoxComponent>();
-
-/**
- * Decorator used to register a component as the renderer for a given {@link LayoutBox} type.
+ * The actual registry ({@link RENDER_DYNAMIC_LAYOUT_BOX_FOR_MAP}) is generated at build time by
+ * `scripts/generate-decorator-registries.ts` from these decorator usages, so this function is a no-op
+ * at runtime and only serves as metadata for the generator.
  *
  * Components extending {@link DynamicLayoutBoxDirective} inherit a static
  * `hasOwnContainer` flag (default `false`). If a component provides its own
@@ -32,10 +29,6 @@ const layoutBoxesMap = new Map<LayoutBox, DynamicLayoutBoxComponent>();
  */
 export function renderDynamicLayoutBoxFor(boxType: LayoutBox) {
   return function decorator(component: DynamicLayoutBoxComponent) {
-    if (hasNoValue(boxType)) {
-      return;
-    }
-    layoutBoxesMap.set(boxType, component);
   };
 }
 
@@ -43,8 +36,14 @@ export function renderDynamicLayoutBoxFor(boxType: LayoutBox) {
  * Resolves the rendering component for a given box type.
  *
  * @param boxType the layout box type to look up
- * @returns the component constructor for the box type, or undefined if not registered
+ * @param registry the registry containing all the box rendering components
+ * @returns a promise resolving to the component constructor for the box type,
+ *          or undefined if not registered
  */
-export function getDynamicLayoutBox(boxType: LayoutBox): DynamicLayoutBoxComponent {
-  return layoutBoxesMap.get(boxType);
+export function getDynamicLayoutBox(
+  boxType: LayoutBox,
+  registry: Map<LayoutBox, () => Promise<DynamicLayoutBoxComponent>> = RENDER_DYNAMIC_LAYOUT_BOX_FOR_MAP,
+): Promise<DynamicLayoutBoxComponent> {
+  const loader = registry.get(boxType);
+  return hasValue(loader) ? loader() : undefined;
 }

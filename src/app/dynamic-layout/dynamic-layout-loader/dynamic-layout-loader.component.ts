@@ -98,7 +98,7 @@ export class DynamicLayoutLoaderComponent extends AbstractComponentLoaderCompone
    *
    * @returns The constructor of the layout page component (horizontal or vertical)
    */
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     const configuration = this.getConfiguration();
     return getDynamicLayoutPage(configuration.orientation as LayoutPage);
   }

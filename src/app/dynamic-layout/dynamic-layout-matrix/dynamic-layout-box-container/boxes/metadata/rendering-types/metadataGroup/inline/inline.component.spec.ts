@@ -9,7 +9,6 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -23,7 +22,6 @@ import { ToDatePipe } from '../../../../../../../../shared/access-control-form-c
 import { getMockThemeService } from '../../../../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
-import { getMetadataBoxFieldRenderMap } from '../../metadata-box.decorator';
 import { TextComponent } from '../../text/text.component';
 import { InlineComponent } from './inline.component';
 
@@ -101,7 +99,6 @@ describe('InlineComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
-        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: getMetadataBoxFieldRenderMap() },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -110,9 +107,11 @@ describe('InlineComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(InlineComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
   });
 

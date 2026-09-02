@@ -2,8 +2,8 @@ import {
   InjectionToken,
   makeStateKey,
 } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 
-import { GenericConstructor } from '../app/core/shared/generic-constructor';
 import { FieldRenderingType } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/field-rendering-type';
 import { RenderingTypeDirective } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/rendering-type.directive';
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';

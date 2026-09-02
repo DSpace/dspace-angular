@@ -150,4 +150,10 @@ export const DECORATORS: DecoratorConfig[] = [
       { name: 'boxType' },
     ],
   },
+  {
+    name: 'dynamicLayoutPage',
+    params: [
+      { name: 'orientation' },
+    ],
+  },
 ];
