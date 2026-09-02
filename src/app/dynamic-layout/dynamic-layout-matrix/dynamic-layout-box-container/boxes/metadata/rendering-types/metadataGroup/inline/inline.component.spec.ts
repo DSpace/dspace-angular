@@ -119,7 +119,9 @@ describe('InlineComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('check metadata rendering', (done) => {
+  it('check metadata rendering', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
     const rowsFound = fixture.debugElement.queryAll(By.css('div.metadata-group-entry'));
     expect(rowsFound.length).toBe(2);
 
@@ -135,7 +137,5 @@ describe('InlineComponent', () => {
     expect(span.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[0].metadata][1].value);
     span = divFound.query(By.css('span.metadata-group-entry-value:nth-child(2)'));
     expect(span.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[1].metadata][1].value);
-    done();
-
   });
 });

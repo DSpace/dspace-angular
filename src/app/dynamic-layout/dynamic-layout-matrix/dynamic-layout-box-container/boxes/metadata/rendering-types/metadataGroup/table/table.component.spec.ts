@@ -121,7 +121,10 @@ describe('TableComponent', () => {
 
   });
 
-  it('check metadata rendering', (done) => {
+  it('check metadata rendering', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
     const rowsFound = fixture.debugElement.queryAll(By.css('tr'));
     expect(rowsFound.length).toBe(3);
 
@@ -142,7 +145,5 @@ describe('TableComponent', () => {
     expect(td.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[0].metadata][1].value);
     td = rowFound.query(By.css('td:nth-child(2)'));
     expect(td.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[1].metadata][1].value);
-    done();
-
   });
 });

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { SECTION } from '@dspace/core/layout/models/section.resource-type';
 import { Observable } from 'rxjs';
 
 import { DSONameService } from '../breadcrumbs/dso-name.service';
@@ -20,6 +22,7 @@ import { Section } from './models/section.model';
  * A service responsible for fetching data from the REST API on the sections endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SECTION)
 export class SectionDataService extends IdentifiableDataService<Section> {
 
   protected linkPath = 'sections';
