@@ -2,5 +2,10 @@
  * List of possible MenuItemTypes
  */
 export enum MenuItemType {
-  TEXT, LINK, ALTMETRIC, SEARCH, ONCLICK, EXTERNAL
+  TEXT = 'text',
+  LINK = 'link',
+  ALTMETRIC = 'altmetric',
+  SEARCH = 'search',
+  ONCLICK = 'onclick',
+  EXTERNAL = 'external',
 }

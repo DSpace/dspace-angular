@@ -8,11 +8,13 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { Community } from '../shared/community.model';
+import { COMMUNITY } from '../shared/community.resource-type';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getAllCompletedRemoteData } from '../shared/operators';
@@ -25,6 +27,7 @@ import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
 @Injectable({ providedIn: 'root' })
+@dataService(COMMUNITY)
 export class CommunityDataService extends ComColDataService<Community> {
   protected topLinkPath = 'search/top';
 

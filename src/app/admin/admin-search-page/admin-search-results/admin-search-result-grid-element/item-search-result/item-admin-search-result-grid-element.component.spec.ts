@@ -23,7 +23,6 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { ListableModule } from '../../../../../shared/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
@@ -59,7 +58,6 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          ListableModule,
           ItemAdminSearchResultGridElementComponent,
         ],
         providers: [

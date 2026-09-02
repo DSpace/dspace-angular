@@ -4,7 +4,29 @@
 name: Build
 
 # Run this Build for all pushes / PRs to current branch
-on: [push, pull_request]
+on:
+  push:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
+  pull_request:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
 
 permissions:
   contents: read  # to fetch code (actions/checkout)
@@ -59,7 +81,7 @@ jobs:
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -149,7 +171,7 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v7.4.0
+        uses: cypress-io/github-action@v7.4.3
         with:
           # Run tests in Chrome, headless mode (default)
           browser: chrome

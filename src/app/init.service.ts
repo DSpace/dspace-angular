@@ -22,7 +22,6 @@ import {
 import { CheckAuthenticationTokenAction } from '@dspace/core/auth/auth.actions';
 import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
-import { LAZY_DATA_SERVICES } from '@dspace/core/data-services-map';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
@@ -39,6 +38,7 @@ import {
   find,
 } from 'rxjs/operators';
 
+import { DATA_SERVICE_MAP } from '../decorator-registries/data-service-registry';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
@@ -111,7 +111,7 @@ export abstract class InitService {
       provideAppInitializer(() => inject(InitService).init()()),
       {
         provide: APP_DATA_SERVICES_MAP,
-        useValue: LAZY_DATA_SERVICES,
+        useValue: DATA_SERVICE_MAP,
       },
       {
         provide: DYNAMIC_FORM_CONTROL_MAP_FN,
