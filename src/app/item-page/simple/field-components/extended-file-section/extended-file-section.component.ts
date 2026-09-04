@@ -11,7 +11,6 @@ import {
 } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -69,7 +68,6 @@ export class ExtendedFileSectionComponent implements OnInit {
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
-    protected bitstreamFormatDataService: BitstreamFormatDataService,
     public dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private paginationService: PaginationService,

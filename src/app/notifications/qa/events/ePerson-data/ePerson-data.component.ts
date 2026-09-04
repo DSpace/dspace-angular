@@ -2,6 +2,9 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
 } from '@angular/core';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
@@ -9,7 +12,11 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
-import { Observable } from 'rxjs';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
 
 @Component({
   selector: 'ds-eperson-data',
@@ -22,7 +29,7 @@ import { Observable } from 'rxjs';
 /**
  * Represents the component for displaying ePerson data.
  */
-export class EPersonDataComponent {
+export class EPersonDataComponent implements OnChanges, OnDestroy {
 
   /**
    * The ID of the ePerson.
@@ -35,21 +42,30 @@ export class EPersonDataComponent {
   @Input() properties: string[];
 
   /**
+   * The EPerson data based on the provided ePersonId.
+   */
+  ePersonData$: BehaviorSubject<EPerson> = new BehaviorSubject<EPerson>(null);
+
+  private subs: Subscription[] = [];
+
+  /**
    * Creates an instance of the EPersonDataComponent.
    * @param ePersonDataService The service for retrieving ePerson data.
    */
   constructor(private ePersonDataService: EPersonDataService) { }
 
-  /**
-   * Retrieves the EPerson data based on the provided ePersonId.
-   * @returns An Observable that emits the EPerson data.
-   */
-  getEPersonData$(): Observable<EPerson> {
-    if (this.ePersonId) {
-      return this.ePersonDataService.findById(this.ePersonId, true).pipe(
-        getFirstCompletedRemoteData(),
-        getRemoteDataPayload(),
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.ePersonId && hasValue(this.ePersonId)) {
+      this.subs.push(
+        this.ePersonDataService.findById(this.ePersonId, true).pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload(),
+        ).subscribe((ePerson: EPerson) => this.ePersonData$.next(ePerson)),
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }
