@@ -129,7 +129,6 @@ describe('itemPageResolver', () => {
 
   describe('when item has dspace.customurl metadata', () => {
 
-
     const customUrl = 'my-custom-item';
     let resolver: any;
     let itemService: any;
@@ -158,7 +157,7 @@ describe('itemPageResolver', () => {
         firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
           return _keyOrKeys === 'dspace.entity.type' ? 'person' : customUrl;
         },
-        hasMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): boolean {
+        hasMetadata(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): boolean {
           return true;
         },
         metadata: {
@@ -186,6 +185,21 @@ describe('itemPageResolver', () => {
         .subscribe((rd: any) => {
           const expectedUrl = `/entities/person/${customUrl}`;
           expect(router.navigateByUrl).toHaveBeenCalledWith(expectedUrl);
+          done();
+        });
+    });
+
+    // FIX #5479: uses state.url with /edit to detect navigation from edit/administer page
+    it('should not navigate to custom URL if coming from edit page', (done) => {
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
+      const route = { params: { id: uuid } } as any;
+      const state = { url: `/entities/person/${uuid}/edit` } as any;
+
+      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
+        .pipe(first())
+        .subscribe(() => {
+          expect(router.navigateByUrl).not.toHaveBeenCalled();
           done();
         });
     });
@@ -227,11 +241,12 @@ describe('itemPageResolver', () => {
       resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
         .pipe(first())
         .subscribe(() => {
-          expect(router.navigateByUrl).not.toHaveBeenCalled();;
+          expect(router.navigateByUrl).not.toHaveBeenCalled();
           done();
         });
     });
 
+    // FIX #5479: invalid custom URL characters should fall back to UUID routing
     it('should fall back to UUID and show a warning notification when dspace.customurl contains invalid characters', (done) => {
       const invalidCustomUrl = 'café-测试';
       const itemWithInvalidUrl = Object.assign(new DSpaceObject(), {
@@ -253,9 +268,8 @@ describe('itemPageResolver', () => {
 
       spyOn(router, 'navigateByUrl').and.callThrough();
 
-      const encodedInvalidUrl = encodeURIComponent(invalidCustomUrl);
-      const route = { params: { id: invalidCustomUrl } } as any;
-      const state = { url: `/entities/person/${encodedInvalidUrl}` } as any;
+      const route = { params: { id: uuid } } as any;
+      const state = { url: `/items/${uuid}` } as any;
 
       resolver(route, state, router, invalidItemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
         .pipe(first())
@@ -265,6 +279,7 @@ describe('itemPageResolver', () => {
           done();
         });
     });
+
   });
 
 });
