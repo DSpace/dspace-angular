@@ -1,0 +1,20 @@
+.source-icon {
+  height: var(--ds-identifier-sybetype-icon-height);
+  min-height: 16px;
+  width: auto;
+}
+
+.identifier-container-LEFT {
+  flex-direction: row;
+  .source-icon {
+    margin-right: 0.2em;
+  }
+}
+
+.identifier-container-RIGHT {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  .source-icon {
+    margin-left: 0.2em;
+  }
+}

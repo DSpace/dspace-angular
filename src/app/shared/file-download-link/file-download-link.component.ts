@@ -69,6 +69,10 @@ export class FileDownloadLinkComponent implements OnInit {
    */
   @Input() bitstream: Bitstream;
 
+
+  /**
+   * The item to which the file belongs
+   */
   @Input() item: Item;
 
   /**
@@ -204,7 +208,7 @@ export class FileDownloadLinkComponent implements OnInit {
   /**
    * Media type metadata value (`dc.type`), if present.
    */
-  get mediaType(): string {
+  get fileType(): string {
     return this.bitstream?.firstMetadataValue('dc.type');
   }
 
@@ -212,14 +216,14 @@ export class FileDownloadLinkComponent implements OnInit {
    * Indicates whether media type metadata contains "video" (case-insensitive).
    */
   get isVideoMediaType(): boolean {
-    return this.mediaType?.toLowerCase().includes('video');
+    return this.fileType?.toLowerCase().includes('video');
   }
 
   /**
    * Indicates whether media type metadata contains "audio" (case-insensitive).
    */
   get isAudioMediaType(): boolean {
-    return this.mediaType?.toLowerCase().includes('audio');
+    return this.fileType?.toLowerCase().includes('audio');
   }
 
   /**

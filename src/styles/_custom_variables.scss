@@ -146,6 +146,41 @@
 
   --ds-gap: 0.25rem;
 
+
+  --ds-dynamic-layout-sidebar-width: 350px;
+  --ds-dynamic-layout-sidebar-background-color: #{$gray-200};
+  --ds-dynamic-layout-sidebar-link-color: rgba(0, 0, 0, .8);
+  --ds-dynamic-layout-sidebar-link-color-active: #000000;
+  --ds-dynamic-layout-sidebar-menu-background: #207698;
+  --ds-dynamic-layout-sidebar-menu-color: #fff;
+  --ds-dynamic-layout-sidebar-link-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  --ds-dynamic-layout-sidebar-entry-height: 40px;
+  --ds-dynamic-layout-sidebar-entry-width: 40px;
+  --ds-dynamic-layout-sidebar-border-color: #207698;
+  --ds-dynamic-layout-sidebar-hover-focus-background-color: #207698;
+  --ds-dynamic-layout-sidebar-hover-focus-border-color: #207698;
+  --ds-dynamic-layout-sidebar-menu-active-color: #{$cyan};
+  --ds-dynamic-layout-sidebar-menu-active-background: #{map-get($theme-colors,'light')};
+  --ds-dynamic-layout-sidebar-tab-color-hover : #{map-get($theme-colors,'light')};
+
+  --ds-dynamic-layout-navbar-background-color: #{$gray-200};
+  --ds-dynamic-layout-navbar-border: 1px solid #d9dadb;
+  --ds-dynamic-layout-navbar-link-color: rgba(0, 0, 0, .8);
+  --ds-dynamic-layout-navbar-link-color-active: #000000;
+  --ds-dynamic-layout-navbar-menu-background: #207698;
+  --ds-dynamic-layout-navbar-menu-color: #fff;
+  --ds-dynamic-layout-navbar-link-border-bottom: none;
+
+  --ds-dynamic-layout-navbar-sub-level-backround-color: #{$gray-200};
+  --ds-dynamic-layout-navbar-tab-color-active: #006666;
+  --ds-dynamic-layout-navbar-tab-color-hover : #{map-get($theme-colors,'light')};
+
+  --ds-advanced-attachment-image-max-height: 160px;
+  --ds-advanced-attachment-image-object-fit: cover;
+  --ds-advanced-attachment-image-object-position: 0% 0%;
+  --ds-advanced-attachment-thumbnail-placeholder-font-weight: bold;
+
+
   --ds-dso-edit-field-width: 210px;
   --ds-dso-edit-lang-width: 90px;
   --ds-dso-edit-security-width: 136px;

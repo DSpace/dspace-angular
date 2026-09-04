@@ -2,7 +2,10 @@ import {
   InjectionToken,
   makeStateKey,
 } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 
+import { FieldRenderingType } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/field-rendering-type';
+import { RenderingTypeDirective } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/rendering-type.directive';
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
@@ -86,6 +89,8 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
+
+export const DYNAMIC_FIELD_RENDERING_MAP: InjectionToken<Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>>> = new InjectionToken<Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>>>('DYNAMIC_FIELD_RENDERING_MAP');
 
 type DeepPartial<T> = T extends object ? { [k in keyof T]?: DeepPartial<T[k]>} : T;
 
