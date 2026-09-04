@@ -164,55 +164,57 @@ describe('My DSpace page', () => {
     //Enter to MyDspace and validate that submission-dropdown is visible
     beforeEach(() => {
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       cy.get('[data-test="submission-dropdown"]').should('be.visible').click();
     });
 
     it('should let you send a new Item', () => {
       const title = 'test item';
-      startSubmission('none', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+      startSubmission('none', Cypress.expose('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
       fillSubmission(['title', 'date_issued', 'type'], title);
       validateSubmission(title);
     });
 
     it('should let you send a new Publication', () => {
       const title = 'test publication';
-      startSubmission('Publication', Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      startSubmission('Publication', Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
       fillSubmission(['title', 'date_issued', 'type'], title);
       validateSubmission(title);
     });
 
     it('should let you send a new Peson', () => {
       const name = 'Tester';
-      startSubmission('Person', Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
+      startSubmission('Person', Cypress.expose('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
       fillSubmission(['givenName'], undefined, name);
       validateSubmission(name);
     });
 
     it('should let you send a new Org Unit', () => {
       const name = 'test Org Unit';
-      startSubmission('OrgUnit', Cypress.env('DSPACE_TEST_ORG_UNIT_COLLECTION_NAME'));
+      startSubmission('OrgUnit', Cypress.expose('DSPACE_TEST_ORG_UNIT_COLLECTION_NAME'));
       fillSubmission(['legalName'], undefined, name);
       validateSubmission(name);
     });
 
     it('should let you send a new Journal', () => {
       const title = 'test Journal';
-      startSubmission('Journal', Cypress.env('DSPACE_TEST_JOURNAL_COLLECTION_NAME'));
+      startSubmission('Journal', Cypress.expose('DSPACE_TEST_JOURNAL_COLLECTION_NAME'));
       fillSubmission(['title'], title);
       validateSubmission(title);
     });
 
     it('should let you send a new Journal Volume', () => {
       const title = 'test Journal Volume';
-      startSubmission('JournalVolume', Cypress.env('DSPACE_TEST_JOURNAL_VOLUME_COLLECTION_NAME'));
+      startSubmission('JournalVolume', Cypress.expose('DSPACE_TEST_JOURNAL_VOLUME_COLLECTION_NAME'));
       fillSubmission(['title'], title);
       validateSubmission(title);
     });
 
     it('should let you send a new Journal Issue', () => {
       const title = 'test Journal Issue';
-      startSubmission('JournalIssue', Cypress.env('DSPACE_TEST_JOURNAL_ISSUE_COLLECTION_NAME'));
+      startSubmission('JournalIssue', Cypress.expose('DSPACE_TEST_JOURNAL_ISSUE_COLLECTION_NAME'));
       fillSubmission(['title'], title);
       validateSubmission(title);
     });
@@ -220,12 +222,16 @@ describe('My DSpace page', () => {
   });
 
   describe('Testing import external button', () => {
-    it('should pass accesibility tests', () => {
+    beforeEach(() => {
       cy.visit('/mydspace');
 
       // This page is restricted, so we will be shown the login form. Fill it out & submit.
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+      cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
+      });
+    });
 
+    it('should pass accesibility tests', () => {
       // Open the New Import dropdown
       cy.get('button[data-test="import-dropdown"]').click();
       // Click on the "Item" type in that dropdown
@@ -242,11 +248,6 @@ describe('My DSpace page', () => {
     });
 
     it('should let you import an item from external source', () => {
-      cy.visit('/mydspace');
-
-      // This page is restricted, so we will be shown the login form. Fill it out & submit.
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
-
       // Open the New Import dropdown
       cy.get('button[data-test="import-dropdown"]').click();
 
@@ -275,19 +276,14 @@ describe('My DSpace page', () => {
       cy.get('ds-collection-dropdown').should('be.visible');
 
       // Type the name of the collection and click
-      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
-      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.expose('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.expose('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
 
       // And the new URL should include /workspaceitems, as we've started a new submission
       cy.url().should('include', '/workspaceitems');
     });
 
     it('should let you import an publication from external source', () => {
-      cy.visit('/mydspace');
-
-      // This page is restricted, so we will be shown the login form. Fill it out & submit.
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
-
       // Open the New Import dropdown
       cy.get('button[data-test="import-dropdown"]').click();
 
@@ -316,19 +312,14 @@ describe('My DSpace page', () => {
       cy.get('ds-collection-dropdown').should('be.visible');
 
       // Type the name of the collection and click
-      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
-      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
 
       // And the new URL should include /workspaceitems, as we've started a new submission
       cy.url().should('include', '/workspaceitems');
     });
 
     it('should let you import a person from external source', () => {
-      cy.visit('/mydspace');
-
-      // This page is restricted, so we will be shown the login form. Fill it out & submit.
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
-
       // Open the New Import dropdown
       cy.get('button[data-test="import-dropdown"]').click();
 
@@ -357,8 +348,8 @@ describe('My DSpace page', () => {
       cy.get('ds-collection-dropdown').should('be.visible');
 
       // Type the name of the collection and click
-      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
-      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME')).concat('"]')).click();
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.expose('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.expose('DSPACE_TEST_PEOPLE_COLLECTION_NAME')).concat('"]')).click();
 
       // And the new URL should include /workspaceitems, as we've started a new submission
       cy.url().should('include', '/workspaceitems');
@@ -528,14 +519,16 @@ describe('My DSpace page', () => {
       const currentYear = new Date().getFullYear();
 
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+      cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
+      });
       cy.get('ds-my-dspace-page').should('be.visible');
 
       cy.wait(500);
       cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
       cy.get('ds-collection-dropdown').should('be.visible');
-      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
-      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
       cy.url().should('include', '/workspaceitems');
 
       cy.get('#dc_title').type('Workflow test item');
@@ -554,7 +547,9 @@ describe('My DSpace page', () => {
 
     const takeLastSubmittedItem = () => {
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       cy.get('[data-test="objects"]').should('be.visible');
 
       cy.intercept({
@@ -620,7 +615,9 @@ describe('My DSpace page', () => {
     it('should let you return to pool the workflow item', () => {
       //Log in
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       cy.get('[data-test="objects"]').should('be.visible');
 
       //Go to workflow items
@@ -697,7 +694,9 @@ describe('My DSpace page', () => {
     it('should let you reject an workflow item', () => {
       //Log in
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       cy.get('[data-test="objects"]').should('be.visible');
 
       //Go to workflow items
@@ -775,7 +774,9 @@ describe('My DSpace page', () => {
   describe('Testing supervised items', () => {
     before(()=> {
       cy.visit('/admin/workflow');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       //We are going to use an submission test item to generate a supervised item
       cy.get('input[data-test="search-box"]').type('workflow item');
       cy.get('button[data-test="search-button"]').type('workflow item');
@@ -845,7 +846,9 @@ describe('My DSpace page', () => {
     it('should let you edit metadata of supervised item', () => {
       //Visit myDSpace page
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       cy.get('[data-test="objects"]').should('be.visible');
 
       //Select the supervisedItemSearch value on selector
@@ -895,7 +898,9 @@ describe('My DSpace page', () => {
     it('should let you delete a supervised item', () => {
       //Visit myDSpace page
       cy.visit('/mydspace');
-      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+        cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      });
       cy.get('[data-test="objects"]').should('be.visible');
 
       //Select the supervisedItemSearch value on selector
