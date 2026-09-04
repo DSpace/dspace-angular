@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { LogInContainerComponent } from '../../../../../app/shared/log-in/container/log-in-container.component';
 import { LogInComponent as BaseComponent } from '../../../../../app/shared/log-in/log-in.component';
+import { LogInMfaComponent } from '../../../../../app/shared/log-in/methods/mfa/log-in-mfa.component';
 
 @Component({
   selector: 'ds-themed-log-in',
@@ -14,6 +15,7 @@ import { LogInComponent as BaseComponent } from '../../../../../app/shared/log-i
   imports: [
     AsyncPipe,
     LogInContainerComponent,
+    LogInMfaComponent,
     ThemedLoadingComponent,
   ],
 })

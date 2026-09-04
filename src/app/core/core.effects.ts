@@ -1,4 +1,5 @@
 import { AuthEffects } from './auth/auth.effects';
+import { MfaEffects } from './auth/mfa.effects';
 import { ObjectCacheEffects } from './cache/object-cache.effects';
 import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
 import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
@@ -14,6 +15,7 @@ export const coreEffects = [
   ObjectCacheEffects,
   UUIDIndexEffects,
   AuthEffects,
+  MfaEffects,
   JsonPatchOperationsEffects,
   ServerSyncBufferEffects,
   ObjectUpdatesEffects,

@@ -1,7 +1,12 @@
 @if ((loading | async) || (isAuthenticated | async)) {
   <ds-loading class="m-5"></ds-loading>
 }
-@if ((loading | async) !== true && (isAuthenticated | async) !== true) {
+@if (mfaRequired | async) {
+  <div class="px-4 py-3 mx-auto login-container">
+    <ds-log-in-mfa></ds-log-in-mfa>
+  </div>
+}
+@if ((loading | async) !== true && (isAuthenticated | async) !== true && (mfaRequired | async) !== true) {
   <div class="px-4 py-3 mx-auto login-container">
     @for (authMethod of (authMethods | async); track authMethod; let last = $last) {
       <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
