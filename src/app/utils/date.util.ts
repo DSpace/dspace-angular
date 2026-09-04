@@ -133,3 +133,20 @@ export function dateValueToString(value: string | Date | object): string {
     `Unsupported date value type: expected a string, Date, or object with {year, month, day} properties, but received: ${JSON.stringify(value)}`,
   );
 }
+
+export function localeDate(date: string, locale?: string): string {
+  const parts = date.split('-').map(part => parseInt(part, 10));
+  const year = parts[0];
+  const month = parts.length > 1 ? parts[1] - 1 : 0; // Default to January if no month
+  const day = parts.length > 2 ? parts[2] : 1; // Default to the first day if no day
+
+  const dateObj = new Date(year, month, day);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: parts.length > 1 ? 'long' : undefined, // Show month only if provided
+    day: parts.length > 2 ? 'numeric' : undefined, // Show day only if provided
+  };
+
+  return dateObj.toLocaleDateString(locale, options);
+}
