@@ -189,6 +189,11 @@ export class HeadTagService {
 
     this.setCitationAbstractUrlTag();
     this.setCitationDoiTag();
+
+    this.setCitationJournalTitleTag();
+    this.setCitationVolumeTag();
+    this.setCitationIssueTag();
+
     this.setCitationPdfUrlTag();
     this.setCitationPublisherTag();
 
@@ -196,9 +201,6 @@ export class HeadTagService {
       this.setCitationDissertationNameTag();
     }
 
-    // this.setCitationJournalTitleTag();
-    // this.setCitationVolumeTag();
-    // this.setCitationIssueTag();
     // this.setCitationFirstPageTag();
     // this.setCitationLastPageTag();
     // this.setCitationPMIDTag();
@@ -340,6 +342,30 @@ export class HeadTagService {
         this.addMetaTag('citation_doi', doi);
       }
     }
+  }
+
+  /**
+   * Add <meta name="citation_journal_title" ... >  to the <head>
+   */
+  protected setCitationJournalTitleTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartof');
+    this.addMetaTag('citation_journal_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_volume" ... >  to the <head>
+   */
+  protected setCitationVolumeTag(): void {
+    const value = this.getMetaTagValue('dc.citation.volume');
+    this.addMetaTag('citation_volume', value);
+  }
+
+  /**
+   * Add <meta name="citation_issue" ... >  to the <head>
+   */
+  protected setCitationIssueTag(): void {
+    const value = this.getMetaTagValue('dc.citation.issue');
+    this.addMetaTag('citation_issue', value);
   }
 
   /**
