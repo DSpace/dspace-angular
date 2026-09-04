@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -77,7 +74,6 @@ interface CollectionGroup {
     FilteredItemsExportCsvComponent,
     FiltersComponent,
     NgbAccordionModule,
-    NgClass,
     ReactiveFormsModule,
     ThemedLoadingComponent,
     TranslateModule,
@@ -139,6 +135,23 @@ export class FilteredItemsComponent implements OnInit {
       pageLimit: this.formBuilder.control('10', []),
       filters: FiltersComponent.formGroup(this.formBuilder),
       additionalFields: this.formBuilder.control([], []),
+    });
+
+    this.queryForm.get('collections').valueChanges.subscribe((selected: string[]) => {
+      if (!selected || selected.length <= 1) {return;}
+
+      const hasWholeRepo = selected.includes('');
+      if (hasWholeRepo) {
+        const lastSelected = selected[selected.length - 1];
+        if (lastSelected === '') {
+          this.queryForm.get('collections').setValue([''], { emitEvent: false });
+        } else {
+          this.queryForm.get('collections').setValue(
+            selected.filter(id => id !== ''),
+            { emitEvent: false },
+          );
+        }
+      }
     });
   }
 

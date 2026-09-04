@@ -15,25 +15,17 @@
               <ds-loading></ds-loading>
               }
               @if ((loadingCollections$ | async) !== true) {
-              <button type="button" class="list-group-item list-group-item-action border-0 fw-bold mb-2"
-                [ngClass]="{'bg-primary text-white': isCollectionSelected('')}" (click)="toggleCollection('')">
-                {{'admin.reports.items.wholeRepo' | translate}}
-              </button>
-              <div class="collection-tree-selector border rounded p-2"
-                style="max-height: 300px; overflow-y: auto; overflow-x: hidden;">
+              <select id="collSel" name="collSel" class="form-select" multiple="multiple" size="10"
+                formControlName="collections">
+                <option value="">{{'admin.reports.items.wholeRepo' | translate}}</option>
                 @for (group of collectionGroups; track group.communityName) {
-                <div class="mb-2">
-                  <div class="text-muted small">{{group.communityName}}</div>
+                <optgroup [label]="group.communityName">
                   @for (item of group.collections; track item) {
-                  <button type="button" class="list-group-item list-group-item-action border-0 fw-bold ms-3"
-                    [ngClass]="{'bg-primary text-white': isCollectionSelected(item.id)}"
-                    (click)="toggleCollection(item.id)">
-                    {{item.name$ | async}}
-                  </button>
+                  <option [value]="item.id">{{item.name$ | async}}</option>
                   }
-                </div>
+                </optgroup>
                 }
-              </div>
+              </select>
               }
               <div class="row">
                 <span class="col-3"></span>
