@@ -6,4 +6,5 @@ import { MenuItemType } from '../../menu-item-type.model';
 export interface MenuItemModel {
   type: MenuItemType;
   disabled?: boolean;
+  icon?: string;
 }
