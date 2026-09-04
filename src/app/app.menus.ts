@@ -9,6 +9,7 @@ import { buildMenuStructure } from './shared/menu/menu.structure';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuRoute } from './shared/menu/menu-route.model';
 import { AccessControlMenuProvider } from './shared/menu/providers/access-control.menu';
+import { AdminCommunityListMenuProvider } from './shared/menu/providers/admin-community-list.menu';
 import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.menu';
 import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { AuditOverviewMenuProvider } from './shared/menu/providers/audit-overview.menu';
@@ -25,6 +26,7 @@ import { EditMenuProvider } from './shared/menu/providers/edit.menu';
 import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-metadata.menu';
 import { EditItemMenuProvider } from './shared/menu/providers/edit-item-details.menu';
 import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
+import { ExploreMenuProvider } from './shared/menu/providers/explore.menu';
 import { ExportMenuProvider } from './shared/menu/providers/export.menu';
 import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
@@ -61,8 +63,10 @@ export const MENUS = buildMenuStructure({
     CommunityListMenuProvider,
     BrowseMenuProvider,
     StatisticsMenuProvider,
+    ExploreMenuProvider,
   ],
   [MenuID.ADMIN]: [
+    AdminCommunityListMenuProvider,
     NewMenuProvider,
     EditMenuProvider,
     ImportMenuProvider,

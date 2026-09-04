@@ -1,0 +1,26 @@
+
+@switch (textRowSection?.contentType) {
+  @case ('image') {
+    <div><img [src]="textRowSection.content" style="width: 100%"></div>
+  }
+  @case ('text-key') {
+    <div>{{ ('explore.text-section.' + textRowSection.content) | translate }}</div>
+  }
+  @case ('text-raw') {
+    <div>{{ textRowSection.content }}</div>
+  }
+  @case ('text-metadata') {
+    <div [class.text-section-home-news]="textRowSection.content === 'cris.cms.home-news'">
+      <ds-markdown-viewer data-test="ds-markdown-viewer"
+                          [value]="metadataValue(textRowSection.content) | async"></ds-markdown-viewer>
+    </div>
+  }
+  @case ('custom') {
+    <div>
+      <ng-container *ngTemplateOutlet="custom"></ng-container>
+    </div>
+  }
+}
+
+<!-- Custom content type -->
+<ng-template #custom></ng-template>

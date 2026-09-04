@@ -302,6 +302,10 @@ export const APP_ROUTES: Route[] = [
           .then((m) => m.ROUTES),
         canActivate: [notAuthenticatedGuard],
       },
+      {
+        path: 'explore',
+        loadChildren: () => import('./explore-page/explore-routes').then((m) => m.ROUTES),
+      },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, data: { title: '404.page-not-found' } },
     ],
   },
