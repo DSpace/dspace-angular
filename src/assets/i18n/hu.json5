@@ -7758,6 +7758,36 @@
   // "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
   "search.results.geospatial-map.empty": "Ezen az oldalon nincsenek földrajzi helyadatokkal rendelkező eredmények.",
 
+  // "geospatial-map-picker.title": "Select a location",
+  "geospatial-map-picker.title": "Válasszon helyszínt",
+
+  // "geospatial-map-picker.title-for-field": "Select a location for {{ field }}",
+  "geospatial-map-picker.title-for-field": "Válasszon helyszínt ehhez: {{ field }}",
+
+  // "geospatial-map-picker.instructions": "Click on the map to place a point, drag the marker to adjust it, or enter coordinates manually.",
+  "geospatial-map-picker.instructions": "Kattintson a térképre egy pont elhelyezéséhez, húzza a jelölőt a pontosításhoz, vagy adja meg a koordinátákat kézzel.",
+
+  // "geospatial-map-picker.latitude": "Latitude",
+  "geospatial-map-picker.latitude": "Szélesség",
+
+  // "geospatial-map-picker.longitude": "Longitude",
+  "geospatial-map-picker.longitude": "Hosszúság",
+
+  // "geospatial-map-picker.out-of-range": "Latitude must be between -90 and 90, longitude between -180 and 180.",
+  "geospatial-map-picker.out-of-range": "A szélességnek -90 és 90, a hosszúságnak -180 és 180 között kell lennie.",
+
+  // "geospatial-map-picker.cancel": "Cancel",
+  "geospatial-map-picker.cancel": "Mégse",
+
+  // "geospatial-map-picker.remove-point": "Remove point",
+  "geospatial-map-picker.remove-point": "Pont eltávolítása",
+
+  // "geospatial-map-picker.use-point": "Use this point",
+  "geospatial-map-picker.use-point": "Pont használata",
+
+  // "geospatial-map-picker.close": "Close",
+  "geospatial-map-picker.close": "Bezárás",
+
   // "search.results.view-result": "View",
   "search.results.view-result": "Megtekintés",
 
@@ -11319,6 +11349,9 @@
 
   // "form.date-picker.placeholder.day": "Day",
   "form.date-picker.placeholder.day": "Nap",
+
+  // "form.geospatial-map-picker.open": "Open map to pick or verify the location",
+  "form.geospatial-map-picker.open": "Térkép megnyitása a helyszín kiválasztásához vagy ellenőrzéséhez",
 
   // "item.page.license.title": "Rights and licensing",
   "item.page.license.title": "Jogok és licencelés",
