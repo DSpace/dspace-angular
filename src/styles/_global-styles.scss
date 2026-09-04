@@ -573,3 +573,5 @@ ngb-tooltip-window {
   mask-size: contain;
   background-color: currentColor;
 }
+
+ds-search-filter .facet-filter.filter-active { background-color: var(--bs-highlight-color); }
