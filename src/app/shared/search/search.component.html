@@ -47,6 +47,7 @@
     @if (inPlaceSearch) {
       <ds-search-results
         [searchResults]="resultsRD$ | async"
+        [spellCheckSuggestions]="(resultsRD$ | async)?.payload?.spellCheckSuggestions"
         [searchConfig]="searchOptions$ | async"
         [configuration]="(currentConfiguration$ | async)"
         [disableHeader]="!searchEnabled"
