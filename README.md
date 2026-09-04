@@ -386,9 +386,19 @@ Run:`npm run docs` to produce the documentation that will be available in the 'd
 Other commands
 --------------
 
-There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
+There are many more commands in the `scripts` section of [`package.json`](package.json). Most of these are executed by one of the commands mentioned above.
 
-A command with a name that starts with `pre` or `post` will be executed automatically before or after the script with the matching name. e.g. if you type `npm run start` the `prestart` script will run first, then the `start` script will trigger.
+To view the available scripts, run:
+
+```shell
+npm run
+```
+
+To run a specific script, use:
+
+```shell
+npm run <script-name>
+```
 
 Recommended Editors/IDEs
 ------------------------
