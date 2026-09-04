@@ -89,6 +89,14 @@ export abstract class FieldParser {
       if (this.configData.input.type === ParserType.Onebox.valueOf() && this.configData?.selectableMetadata?.length > 1) {
         isDraggable = false;
       }
+
+      let typeBindRelations = null;
+      if (isNotEmpty(this.configData.typeBind)) {
+        const typeBindToField = this.configData.typeBindToField ? this.configData.typeBindToField.replace(/\./g, '_') : undefined;
+        const typeField = typeBindToField ? typeBindToField : this.parserOptions.typeField;
+        typeBindRelations = getTypeBindRelations(this.configData.typeBind, typeField);
+      }
+
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
@@ -101,8 +109,7 @@ export abstract class FieldParser {
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         isDraggable,
-        typeBindRelations: isNotEmpty(this.configData.typeBind) ? getTypeBindRelations(this.configData.typeBind,
-          this.parserOptions.typeField) : null,
+        typeBindRelations: typeBindRelations,
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
@@ -358,8 +365,10 @@ export abstract class FieldParser {
 
     // If typeBind is configured
     if (isNotEmpty(this.configData.typeBind)) {
-      (controlModel as DsDynamicInputModel).typeBindRelations = getTypeBindRelations(this.configData.typeBind,
-        this.parserOptions.typeField);
+      const typeBindToField = this.configData.typeBindToField ? this.configData.typeBindToField.replace(/\./g, '_') : undefined;
+      const typeField = typeBindToField ? typeBindToField : this.parserOptions.typeField;
+
+      (controlModel as DsDynamicInputModel).typeBindRelations = getTypeBindRelations(this.configData.typeBind, typeField);
     }
     controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.getFieldId());
 

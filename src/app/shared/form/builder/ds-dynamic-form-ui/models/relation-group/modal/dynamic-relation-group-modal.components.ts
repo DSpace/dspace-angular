@@ -202,7 +202,6 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       {},
       this.model.submissionScope,
       this.model.readOnly,
-      null,
       true,
       this.metadataSecurityConfiguration);
     this.formBuilderService.addFormModel(this.formId, this.formModel);
