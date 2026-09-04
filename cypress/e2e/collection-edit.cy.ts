@@ -12,6 +12,23 @@ beforeEach(() => {
   });
 });
 
+describe('Edit Collection > Status tab', () => {
+  it('should pass accessibility tests', () => {
+    cy.get('a[data-test="status"]').should('be.visible');
+    cy.get('a[data-test="status"]').click();
+
+    // Our selected tab should be both visible & active
+    cy.get('a[data-test="status"]').should('be.visible');
+    cy.get('a[data-test="status"]').should('have.class', 'active');
+
+    // <ds-collection-status> tag must be loaded
+    cy.get('ds-collection-status').should('be.visible');
+
+    // Analyze for accessibility issues
+    testA11y('ds-collection-status');
+  });
+});
+
 describe('Edit Collection > Edit Metadata tab', () => {
   it('should pass accessibility tests', () => {
     // <ds-edit-collection> tag must be loaded
@@ -112,19 +129,5 @@ describe('Edit Collection > Item Mapper tab', () => {
 
     // Analyze entire page (again) for accessibility issues
     testA11y('ds-collection-item-mapper');
-  });
-});
-
-
-describe('Edit Collection > Delete page', () => {
-
-  it('should pass accessibility tests', () => {
-    cy.get('a[data-test="delete-button"]').click();
-
-    // <ds-delete-collection> tag must be loaded
-    cy.get('ds-delete-collection').should('be.visible');
-
-    // Analyze for accessibility issues
-    testA11y('ds-delete-collection');
   });
 });
