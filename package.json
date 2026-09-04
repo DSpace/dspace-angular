@@ -40,7 +40,7 @@
     "clean:prod": "npm run clean:dist && npm run clean:log && npm run clean:doc && npm run clean:coverage && npm run clean:json",
     "clean": "npm run clean:prod && npm run clean:dev:config && npm run clean:cli && npm run clean:decorator:registries && npm run clean:node",
     "sync-i18n": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts",
-    "build:mirador": "webpack --config webpack/webpack.mirador.config.ts",
+    "build:mirador": "cross-env TS_NODE_PROJECT=./tsconfig.ts-node.json webpack --config webpack/webpack.mirador.config.ts",
     "merge-i18n": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
@@ -76,6 +76,11 @@
     "@nicky-lenaers/ngx-scroll-to": {
       "@angular/common": "^20.3.12",
       "@angular/core": "^20.3.12"
+    },
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "mirador-share-plugin": {
+      "notistack": "1.0.10"
     }
   },
   "dependencies": {
