@@ -279,7 +279,8 @@ Once you have tested the Pull Request, please add a comment and/or approval to t
 
 Unit tests use the [Jasmine test framework](https://jasmine.github.io/), and are run via [Karma](https://karma-runner.github.io/).
 
-You can find the Karma configuration file at the same level of this README file:`./karma.conf.js` If you are going to use a remote test environment you need to edit the `./karma.conf.js`. Follow the instructions you will find inside it. To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'. A coverage report is also available at: http://localhost:9876/ after you run: `npm run coverage`.
+You can find the Karma configuration file at the same level as this README file: [`karma.conf.js`](karma.conf.js). If
+you are going to use a remote test environment, you need to edit `karma.conf.js` and follow the instructions inside it.
 
 The default browser is Google Chrome.
 
@@ -289,9 +290,24 @@ and run: `npm test`
 
 If you run into odd test errors, see the Angular guide to debugging tests: https://angular.io/guide/test-debugging
 
+To execute tests in watch mode (re-running them whenever a file changes), run:
+
+```shell
+npm run test:watch
+```
+
+To run tests and generate a code coverage report, run:
+
+```shell
+npm run test:headless
+```
+
+This will generate the coverage report in the `coverage/` directory. You can view it by opening
+`coverage/dspace-angular/index.html` in your browser.
+
 ### E2E Tests
 
-E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for cypress can be found in the `cypress.json` file in the root directory.
+E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for Cypress can be found in the [`cypress.config.ts`](cypress.config.ts) file in the root directory.
 
 The test files can be found in the `./cypress/e2e/` folder.
 
@@ -311,8 +327,8 @@ Before you can run e2e tests, two things are REQUIRED:
 After performing the above setup, you can run the e2e tests using
 ```
 ng e2e
-````
-NOTE: By default these tests will run against the REST API backend configured via environment variables or in `config.prod.yml`. If you'd rather it use `config.dev.yml`, just set the NODE_ENV environment variable like this:
+```
+NOTE: By default, these tests will run against the REST API backend configured via environment variables or in `config.prod.yml`. If you'd rather it use `config.dev.yml`, set the NODE_ENV environment variable like this:
 ```
 NODE_ENV=development ng e2e
 ```
@@ -321,11 +337,11 @@ The `ng e2e` command will start Cypress and allow you to select the browser you 
 
 #### Writing E2E Tests
 
-All E2E tests must be created under the `./cypress/e2e/` folder, and must end in `.spec.ts`. Subfolders are allowed.
+All E2E tests must be created under the `./cypress/e2e/` folder, and must end in `.cy.ts`. Subfolders are allowed.
 
 * The easiest way to start creating new tests is by running `ng e2e`. This builds the app and brings up Cypress.
 * From here, if you are editing an existing test file, you can either open it in your IDE or run it first to see what it already does.
-* To create a new test file, click `+ New Spec File`.  Choose a meaningful name ending in `spec.ts` (Please make sure it ends in `.ts` so that it's a Typescript file, and not plain Javascript)
+* To create a new test file, click `+ New Spec File`.  Choose a meaningful name ending in `.cy.ts` (Please make sure it ends in `.ts` so that it's a TypeScript file, and not plain Javascript)
 * Start small. Add a basic `describe` and `it` which just [cy.visit](https://docs.cypress.io/api/commands/visit) the page you want to test. For example:
    ```
    describe('Community/Collection Browse Page', () => {
@@ -335,7 +351,7 @@ All E2E tests must be created under the `./cypress/e2e/` folder, and must end in
    });
    ```
 * Run your test file from the Cypress window. This starts the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) in a new browser window.
-* In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), you'll Cypress automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
+* In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), Cypress will automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
 * From here, you can use the [Selector Playground](https://docs.cypress.io/guides/core-concepts/test-runner#Selector-Playground) in the Cypress Test Runner window to determine how to tell Cypress to interact with a specific HTML element on that page.
     * Most commands start by telling Cypress to [get()](https://docs.cypress.io/api/commands/get) a specific element, using a CSS or jQuery style selector
       * It's generally best not to rely on attributes like `class` and `id` in tests, as those are likely to change later on. Instead, you can add a `data-test` attribute to makes it clear that it's required for a test.
@@ -344,7 +360,7 @@ All E2E tests must be created under the `./cypress/e2e/` folder, and must end in
       * To work around this issue, define the attributes you use for Cypress selectors as `[attr.data-test]="'button' | ngBrowserOnly"`. This will only show the attribute in CSR HTML, forcing Cypress to wait until CSR is complete before interacting with the element.
     * Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
 * Any time you save your test file, the Cypress Test Runner will reload & rerun it. This allows you can see your results quickly as you write the tests & correct any broken tests rapidly.
-* Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve Javascript files (.js), the same examples will work in our Typescript (.ts) e2e tests.
+* Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve JavaScript files (.js), the same examples will work in our TypeScript (.ts) e2e tests.
 
 _Hint: Creating e2e tests is easiest in an IDE (like Visual Studio), as it can help prompt/autocomplete your Cypress commands._
 
