@@ -68,6 +68,8 @@ describe('buildMenuStructure', () => {
           ),
         ]),
       ],
+      [MenuID.DSO_PUBLIC]: [
+      ],
     };
 
   const orderedProviderTypeList =

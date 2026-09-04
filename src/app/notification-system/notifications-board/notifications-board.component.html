@@ -9,3 +9,12 @@
     </ds-notification>
   }
 </div>
+
+<div class="notifications-wrapper position-fixed bottom right">
+  @for (procNotification of processNotifications; track procNotification; let ix = $index) {
+    <ds-process-notification
+      class="notification"
+      [notification]="procNotification">
+    </ds-process-notification>
+  }
+</div>

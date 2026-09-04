@@ -54,6 +54,7 @@ import { ThemedMetadataRepresentationListComponent } from '../../../../item-page
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from '../../../../shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { SearchService } from '../../../../shared/search/search.service';
@@ -144,6 +145,7 @@ describe('JournalComponent', () => {
           RelatedItemsComponent,
           TabbedRelatedEntitiesSearchComponent,
           ThemedMetadataRepresentationListComponent,
+          DsoPublicMenuComponent,
         ],
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },
