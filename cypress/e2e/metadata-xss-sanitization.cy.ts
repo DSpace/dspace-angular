@@ -12,8 +12,8 @@
 describe('Metadata XSS sanitization', () => {
   // A classic XSS payload: an image with a broken `src` so that its `onerror` handler fires as soon as
   // the browser tries (and fails) to load it. If the payload is not sanitized, `onerror` will run and set
-  // `window.dsXssExecuted = true`.
-  const XSS_PAYLOAD = 'XSS Test <img src="x" onerror="window.dsXssExecuted = true;"/>';
+  // `window.dsXssExecuted = true`. (NOTE: This uses "role=presentation" to avoid failing accessibility checks)
+  const XSS_PAYLOAD = 'XSS Test <img src="x" onerror="window.dsXssExecuted = true;" role="presentation"/>';
   const SAFE_TEXT = 'XSS Test';
   const UNIQUE_TITLE = `XSS sanitization test item ${Date.now()}`;
 
