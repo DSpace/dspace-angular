@@ -342,8 +342,10 @@ export class SearchService {
    */
   getViewMode(): Observable<ViewMode> {
     return this.routeService.getQueryParamMap().pipe(map((params) => {
-      if (isNotEmpty(params.get('view')) && hasValue(params.get('view'))) {
-        return params.get('view');
+      const viewParam = this.searchConfigurationService.getCurrentSearchInstanceParam('view');
+      const view = hasValue(params.get(viewParam)) ? params.get(viewParam) : params.get('view');
+      if (isNotEmpty(view) && hasValue(view)) {
+        return view;
       } else {
         return ViewMode.ListElement;
       }
@@ -356,16 +358,16 @@ export class SearchService {
    * @param {string[]} searchLinkParts
    */
   setViewMode(viewMode: ViewMode, searchLinkParts?: string[]) {
-    this.paginationService.getCurrentPagination(this.searchConfigurationService.paginationID, new PaginationComponentOptions()).pipe(take(1))
+    this.paginationService.getCurrentPagination(this.searchConfigurationService.searchInstanceId, new PaginationComponentOptions()).pipe(take(1))
       .subscribe((config) => {
         let pageParams = { page: 1 };
-        const queryParams = { view: viewMode };
+        const queryParams = { [this.searchConfigurationService.getCurrentSearchInstanceParam('view')]: viewMode };
         if (viewMode === ViewMode.DetailedListElement) {
           pageParams = Object.assign(pageParams, { pageSize: 1 });
         } else if (config.pageSize === 1) {
           pageParams = Object.assign(pageParams, { pageSize: 10 });
         }
-        this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
+        this.paginationService.updateRouteWithUrl(this.searchConfigurationService.searchInstanceId, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
       });
   }
 

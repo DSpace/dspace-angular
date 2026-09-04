@@ -13,8 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
@@ -72,7 +72,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
         { provide: SearchService, useValue:searchService },
         { provide: Router, useValue: router },
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
