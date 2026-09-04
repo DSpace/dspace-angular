@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -19,9 +20,13 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -111,7 +116,7 @@ describe('OrcidQueueComponent test suite', () => {
 
   const orcidQueueElements = [orcidQueueElement(1), orcidQueueElement(2)];
 
-  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByProfileItemId', 'clearFindByProfileItemRequests']);
+  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByProfileItemId', 'clearFindByProfileItemRequests', 'deleteById']);
   orcidQueueServiceSpy.searchByProfileItemId.and.returnValue(createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements)));
 
   beforeEach(waitForAsync(() => {
@@ -136,6 +141,7 @@ describe('OrcidQueueComponent test suite', () => {
         { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: Router, useValue: new RouterMock() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -166,4 +172,18 @@ describe('OrcidQueueComponent test suite', () => {
     expect(table.length).toBe(2);
   });
 
+  it('should handle pagination change', () => {
+    spyOn(component, 'updateList');
+    component.onPaginationChange();
+    expect(component.updateList).toHaveBeenCalled();
+  });
+
+  it('should discard an entry', waitForAsync(() => {
+    spyOn(component, 'removeEntryFromList');
+    orcidQueueServiceSpy.deleteById.and.returnValue(createNoContentRemoteDataObject$());
+    component.discardEntry(orcidQueueElements[0]);
+    fixture.whenStable().then(() => {
+      expect(component.removeEntryFromList).toHaveBeenCalledWith(orcidQueueElements[0].id);
+    });
+  }));
 });
