@@ -185,6 +185,28 @@ describe('BrowserOrejimeService', () => {
     });
   });
 
+  describe('initialize when cookie consent popup is disabled', () => {
+    it('should skip Orejime init so an empty apps list is never validated', () => {
+      const init = jasmine.createSpy('init');
+      (service as any).appConfig = {
+        info: {
+          enablePrivacyStatement: true,
+          enableCookieConsentPopup: false,
+        },
+        fallbackLanguage: 'en',
+      };
+      (service as any).lazyOrejime = Promise.resolve({ init });
+      spyOn(service, 'addAppMessages');
+      spyOn(service, 'translateConfiguration');
+
+      service.initialize();
+
+      expect(service.addAppMessages).not.toHaveBeenCalled();
+      expect(service.translateConfiguration).not.toHaveBeenCalled();
+      expect(init).not.toHaveBeenCalled();
+    });
+  });
+
   it('addAppMessages', () => {
     service.addAppMessages();
     expect(mockConfig.translations.zz[appName]).toBeDefined();
