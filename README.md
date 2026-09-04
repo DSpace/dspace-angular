@@ -92,7 +92,7 @@ Table of Contents
 Introduction to the technology
 ------------------------------
 
-You can find more information on the technologies used in this project (Angular.io, Angular CLI, Typescript, Angular Universal, RxJS, etc) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
+You can find more information on the technologies used in this project (Angular.io, Angular CLI, TypeScript, Angular Universal, RxJS, etc) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
 
 Requirements
 ------------
@@ -154,7 +154,7 @@ cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
 auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
 ```
 
-The equavelant to the non-conventional legacy settings:
+The equivalent to the non-conventional legacy settings:
 
 ```bash
 DSPACE_UI_HOST => DSPACE_HOST
@@ -177,7 +177,7 @@ The configuration file can be externalized by using environment variable `DSPACE
 
 #### Buildtime Configuring
 
-Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
+Buildtime configuration must be defined before build to be included in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
 
 To override the default configuration values for development, create local file that override the build time parameters you need to change.
 
@@ -236,8 +236,9 @@ npm run serve:ssr
 ```
 
 ### Running the application with Docker
-NOTE: At this time, we do not have production-ready Docker images for DSpace.
-That said, we do have quick-start Docker Compose scripts for development or testing purposes.
+> [!WARNING]
+> At this time, we do not have production-ready Docker images for DSpace.
+> That said, we do have quick-start Docker Compose scripts for development or testing purposes.
 
 See [Docker Runtime Options](docker/README.md)
 
@@ -379,7 +380,7 @@ Some UI specific configuration documentation is also found in the [`./docs`](doc
 
 ### Building code documentation
 
-To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects. It extracts information from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
+To build the code documentation we use [TypeDoc](http://typedoc.org). TypeDoc is a documentation generator for TypeScript projects. It extracts information from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
 
 Run:`npm run docs` to produce the documentation that will be available in the 'doc' folder.
 
@@ -407,11 +408,12 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 
 -	Free
 	-	[Visual Studio Code](https://code.visualstudio.com/)
-		-	[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 -	Paid
 	-	[Webstorm](https://www.jetbrains.com/webstorm/download/) or [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)
 	-	[Sublime Text](http://www.sublimetext.com/3)
-		-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
+		-	[TypeScript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
+
+The repository also includes an [`.editorconfig](.editorconfig) file to help compatible editors use the project's formatting conventions.
 
 Contributing
 -------------
@@ -428,6 +430,7 @@ File Structure
 ```
 dspace-angular
 ├── config                                              *
+│   ├── config.example.yml                              * Example app config with comments
 │   └── config.yml                                      * Default app config
 ├── cypress                                             * Folder for Cypress (https://cypress.io/) / e2e tests
 │   ├── downloads                                       * (Optional) Folder for files downloaded during e2e tests
@@ -442,11 +445,13 @@ dspace-angular
 │   ├── cli.yml                                         *
 │   ├── db.entities.yml                                 *
 │   ├── docker-compose-ci.yml                           *
+│   ├── docker-compose-dist.yml                         *
 │   ├── docker-compose-rest.yml                         *
 │   ├── docker-compose.yml                              *
 │   └── README.md                                       *
 ├── docs                                                * Folder for documentation
 │   └── Configuration.md                                * Configuration documentation
+├── lint                                                * Folder for custom ESLint plugins and rules. See lint/README.md for details
 ├── scripts                                             *
 │   ├── merge-i18n-files.ts                             *
 │   ├── serve.ts                                        *
@@ -471,12 +476,11 @@ dspace-angular
 │   ├── themes                                          * Folder containing available themes
 │   │   ├── custom                                      * Template folder for creating a custom theme
 │   │   └── dspace                                      * Default 'dspace' theme
-│   ├── index.csr.html                                  * The index file for client side rendering fallback
 │   ├── index.html                                      * The index file
 │   ├── main.browser.ts                                 * The bootstrap file for the client
-│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server
+│   ├── main.server.ts                                  * The Express (https://expressjs.com/) config and bootstrap file for the server
 │   ├── polyfills.ts                                    *
-│   ├── robots.txt                                      * The robots.txt file
+│   ├── robots.txt.ejs                                  * EJS template used to generate robots.txt file
 │   ├── test.ts                                         *
 │   └── typings.d.ts                                    *
 ├── webpack                                             *
@@ -486,15 +490,16 @@ dspace-angular
 │   ├── webpack.mirador.config.ts                       * Webpack (https://webpack.github.io/) config for mirador config build
 │   ├── webpack.prod.ts                                 * Webpack (https://webpack.github.io/) config for prod build
 │   └── webpack.test.ts                                 * Webpack (https://webpack.github.io/) config for test build
+├── .eslintrc.json                                      * ESLint configuration
 ├── angular.json                                        * Angular CLI (https://angular.io/cli) configuration
-├── cypress.json                                        * Cypress Test (https://www.cypress.io/) configuration
+├── cypress.config.ts                                   * Cypress Test (https://www.cypress.io/) configuration
 ├── Dockerfile                                          *
 ├── karma.conf.js                                       * Karma configuration file for Unit Test
 ├── LICENSE                                             *
 ├── LICENSES_THIRD_PARTY                                *
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── package-lock.json                                   * npm lockfile (https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
-├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration
+├── postcss.config.js                                   * PostCSS (https://postcss.org/) configuration
 ├── README.md                                           * This document
 ├── SECURITY.md                                         *
 ├── server.ts                                           * Angular Universal Node.js Express server
@@ -503,8 +508,7 @@ dspace-angular
 ├── tsconfig.server.json                                * TypeScript config for server
 ├── tsconfig.spec.json                                  * TypeScript config for tests
 ├── tsconfig.ts-node.json                               * TypeScript config for using ts-node directly
-├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
-└── typedoc.json                                        * TYPEDOC configuration
+└── typedoc.json                                        * TypeDoc configuration
 ```
 
 Managing Dependencies (via npm)
@@ -514,7 +518,7 @@ This project makes use of [`npm`](https://docs.npmjs.com/about-npm) to ensure th
 
 * `npm` creates a [`package-lock.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via npm.
 * **Adding new dependencies**: To install/add a new dependency (third party library), use [`npm install`](https://docs.npmjs.com/cli/v10/commands/npm-install). For example: `npm install some-lib`.
-    * If you are adding a new build tool dependency (to `devDependencies`), use `npm install some-lib --save--dev`
+    * If you are adding a new build tool dependency (to `devDependencies`), use `npm install some-lib --save-dev`
 * **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`npm update`](https://docs.npmjs.com/cli/v10/commands/npm-update).  For example: `npm update some-lib` or `npm update some-lib@version`
 * **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`npm uninstall`](https://docs.npmjs.com/cli/v10/commands/npm-uninstall) to remove it.
 
@@ -562,11 +566,9 @@ Frequently asked questions
 -	How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
 	-	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
 -	What are the naming conventions for Angular?
-	-	See [the official angular style guide](https://angular.io/styleguide)
+	-	See [the official Angular style guide](https://angular.dev/style-guide)
 -	Why is the size of my app larger in development?
 	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the interest of build speed.
--	node-pre-gyp ERR in npm install (Windows)
-	-	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
 -	How do I handle merge conflicts in package-lock.json?
 	-	first check out the package-lock.json file from the branch you're merging in to yours: e.g. `git checkout --theirs package-lock.json`
 	-	now run `npm install` again. NPM will create a new lockfile that contains both sets of changes.
