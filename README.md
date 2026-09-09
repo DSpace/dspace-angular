@@ -471,7 +471,7 @@ dspace-angular
 ├── tsconfig.server.json                                * TypeScript config for server
 ├── tsconfig.spec.json                                  * TypeScript config for tests
 ├── tsconfig.ts-node.json                               * TypeScript config for using ts-node directly
-├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
+├── eslint.config.mjs                                   * TSLint (https://palantir.github.io/tslint/) configuration
 └── typedoc.json                                        * TYPEDOC configuration
 ```
 
