@@ -8419,10 +8419,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ng-mocks@^14.17.2:
-  version "14.17.2"
-  resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-14.17.2.tgz#4ab60f67639895244c5d3cc7f4f52210c0d97989"
-  integrity sha512-eCTmM0754/ABjcXsNNLldq/NeJfYdysfoBENVZK3exqTqVNfPnTyVNwsJmfVoOiSfgztwneAtpWzAdvcryDl9w==
+ng-mocks@^14.17.3:
+  version "14.17.3"
+  resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-14.17.3.tgz#59670b3aab0f5ac494010ee76ab8dc7a6273fef8"
+  integrity sha512-IQ6j31VlX9m2vxq08eyJ2A+EXdFvE5QkjgURHXwq0kqW/jpk0QBuaNpiKz4zSXA+rAcl4DtuYQGTGYf5CTC6ug==
 
 ng2-file-upload@5.0.0:
   version "5.0.0"
