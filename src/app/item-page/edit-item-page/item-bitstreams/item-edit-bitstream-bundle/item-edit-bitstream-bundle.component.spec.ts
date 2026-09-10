@@ -1,5 +1,6 @@
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
@@ -8,6 +9,7 @@ import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;
@@ -59,12 +61,51 @@ describe('ItemEditBitstreamBundleComponent', () => {
     comp.item = item;
     comp.bundle = bundle;
     comp.columnSizes = columnSizes;
+    comp.bundleUpdatesUrl = 'item-1-selflink/bundles';
     viewContainerRef = (comp as any).viewContainerRef;
-    spyOn(viewContainerRef, 'createEmbeddedView');
+    spyOn(viewContainerRef, 'createEmbeddedView').and.callThrough();
     fixture.detectChanges();
   });
 
   it('should create an embedded view of the component', () => {
     expect(viewContainerRef.createEmbeddedView).toHaveBeenCalled();
+  });
+
+  it('should center the bundle action buttons', () => {
+    const actionButtons = fixture.debugElement.query(By.css('.bundle-action-buttons'));
+
+    expect(actionButtons.parent.classes['text-center']).toBeTrue();
+  });
+
+  it('should use the danger state when the bundle is marked for removal', () => {
+    comp.bundleUpdate = {
+      field: bundle,
+      changeType: FieldChangeType.REMOVE
+    };
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('.bundle-row')).classes['table-danger']).toBeTrue();
+  });
+
+  it('should use non-submitting remove and undo buttons', () => {
+    const removeButton = fixture.debugElement.query(By.css('button.btn-outline-danger'));
+    const undoButton = fixture.debugElement.query(By.css('button.btn-outline-warning'));
+
+    expect(removeButton.attributes.type).toBe('button');
+    expect(undoButton.attributes.type).toBe('button');
+  });
+
+  describe('bundle removal', () => {
+    it('should register removal with object updates', () => {
+      comp.removeBundle();
+
+      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(comp.bundleUpdatesUrl, bundle);
+    });
+
+    it('should undo removal with object updates', () => {
+      comp.undoBundleRemove();
+
+      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(comp.bundleUpdatesUrl, bundle.uuid);
+    });
   });
 });

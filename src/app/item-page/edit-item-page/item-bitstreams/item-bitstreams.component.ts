@@ -112,7 +112,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     );
 
     // Initialize the bundle field updates in the object updates service
-    this.subs.push(this.bundles$.subscribe((bundles: Bundle[]) => {
+    this.subs.push(this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
       this.objectUpdatesService.initialize(this.bundleUpdatesUrl, bundles, new Date());
     }));
 
@@ -120,6 +120,16 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.bundleFieldUpdates$ = this.bundles$.pipe(
       switchMap((bundles: Bundle[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUpdatesUrl, bundles))
     );
+  }
+
+  /**
+   * Track bundles by UUID so their components and staged updates survive list refreshes.
+   *
+   * @param index  The bundle's index in the list
+   * @param bundle The bundle to track
+   */
+  trackBundle(index: number, bundle: Bundle): string {
+    return bundle.uuid;
   }
 
   /**

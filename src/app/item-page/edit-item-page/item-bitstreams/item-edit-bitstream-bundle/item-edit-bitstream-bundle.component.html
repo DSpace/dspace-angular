@@ -21,12 +21,12 @@
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
           <i class="fas fa-upload fa-fw"></i>
         </button>
-        <button [disabled]="!canRemove()" (click)="removeBundle()"
+        <button type="button" [disabled]="!canRemove()" (click)="removeBundle()"
                 class="btn btn-outline-danger btn-sm"
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.remove' | translate}}">
           <i class="fas fa-trash-alt fa-fw"></i>
         </button>
-        <button [disabled]="!canUndo()" (click)="undoBundleRemove()"
+        <button type="button" [disabled]="!canUndo()" (click)="undoBundleRemove()"
                 class="btn btn-outline-warning btn-sm"
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.undo' | translate}}">
           <i class="fas fa-undo-alt fa-fw"></i>

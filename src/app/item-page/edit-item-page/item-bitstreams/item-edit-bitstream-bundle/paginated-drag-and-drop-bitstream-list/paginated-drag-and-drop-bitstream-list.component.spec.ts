@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Bundle } from '../../../../../core/shared/bundle.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,6 +19,7 @@ import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
+import { FieldChangeType } from '../../../../../core/data/object-updates/field-change-type.model';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -146,5 +148,24 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
 
   it('should initialize the URL', () => {
     expect(comp.url).toEqual(bundle.self);
+  });
+
+  it('should use the danger state for all bitstreams when the bundle is marked for removal', () => {
+    comp.bundleUpdate = {
+      field: bundle,
+      changeType: FieldChangeType.REMOVE
+    };
+    fixture.detectChanges();
+
+    const bitstreamRows = fixture.debugElement.queryAll(By.css('.bitstream-row'));
+    expect(bitstreamRows.length).toBe(2);
+    expect(bitstreamRows.every((row) => row.classes['table-danger'])).toBeTrue();
+  });
+
+  it('should keep the drag handle aligned with the bitstream name', () => {
+    const dragHandle = fixture.debugElement.query(By.css('.bitstream-row-drag-handle'));
+
+    expect(dragHandle.classes['d-flex']).toBeTrue();
+    expect(dragHandle.classes['align-items-center']).toBeTrue();
   });
 });

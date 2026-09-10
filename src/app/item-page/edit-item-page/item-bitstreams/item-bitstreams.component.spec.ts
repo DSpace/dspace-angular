@@ -1,21 +1,21 @@
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from '@angular/core';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { RestResponse } from '../../../core/cache/response.models';
@@ -94,6 +94,21 @@ let objectCache: ObjectCacheService;
 let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
+let bundlesRD$: BehaviorSubject<any>;
+let bundleFieldUpdates$: BehaviorSubject<any>;
+
+@Component({
+  selector: 'ds-item-edit-bitstream-bundle',
+  template: ''
+})
+class ItemEditBitstreamBundleTestComponent {
+  @Input() bundle: Bundle;
+  @Input() item: Item;
+  @Input() columnSizes;
+  @Input() bundleUpdate;
+  @Input() bundleUpdatesUrl: string;
+  @Output() dropObject = new EventEmitter<any>();
+}
 
 describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -103,10 +118,7 @@ describe('ItemBitstreamsComponent', () => {
           [bitstream1.uuid]: fieldUpdate1,
           [bitstream2.uuid]: fieldUpdate2,
         }),
-        getFieldUpdatesExclusive: observableOf({
-          [bitstream1.uuid]: fieldUpdate1,
-          [bitstream2.uuid]: fieldUpdate2,
-        }),
+        getFieldUpdatesExclusive: observableOf({}),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
         discardAllFieldUpdates: {},
@@ -120,6 +132,18 @@ describe('ItemBitstreamsComponent', () => {
         getMoveOperations: observableOf(moveOperations)
       }
     );
+    bundleFieldUpdates$ = new BehaviorSubject({
+      [bundle.uuid]: bundleFieldUpdate
+    });
+    (objectUpdatesService.getFieldUpdatesExclusive as jasmine.Spy).and.callFake((updatesUrl: string) => {
+      if (updatesUrl?.endsWith('/bundles')) {
+        return bundleFieldUpdates$.asObservable();
+      }
+      return observableOf({
+        [bitstream1.uuid]: fieldUpdate1,
+        [bitstream2.uuid]: fieldUpdate2,
+      });
+    });
     router = Object.assign(new RouterStub(), {
       url: url
     });
@@ -160,15 +184,16 @@ describe('ItemBitstreamsComponent', () => {
       data: observableOf({}),
       url: url
     });
+    bundlesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(createPaginatedList([bundle])));
     bundleService = jasmine.createSpyObj('bundleService', {
       patch: observableOf(new RestResponse(true, 200, 'OK')),
-      findAllByItem: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
+      findAllByItem: bundlesRD$.asObservable(),
       removeMultiple: createSuccessfulRemoteDataObject$({} as NoContent),
     });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+      declarations: [ItemBitstreamsComponent, ItemEditBitstreamBundleTestComponent, ObjectValuesPipe],
       providers: [
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -192,6 +217,31 @@ describe('ItemBitstreamsComponent', () => {
     comp = fixture.componentInstance;
     comp.url = url;
     fixture.detectChanges();
+  });
+
+  it('should preserve bundle components and staged updates when bundle observables emit again', () => {
+    const bundleDebugElement = fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent));
+    const bundleComponent = bundleDebugElement.componentInstance as ItemEditBitstreamBundleTestComponent;
+
+    bundleFieldUpdates$.next({
+      [bundle.uuid]: {
+        field: bundle,
+        changeType: FieldChangeType.REMOVE
+      }
+    });
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent)).componentInstance)
+      .toBe(bundleComponent);
+    expect(bundleComponent.bundleUpdate.changeType).toBe(FieldChangeType.REMOVE);
+
+    const refreshedBundle = Object.assign(new Bundle(), bundle);
+    bundlesRD$.next(createSuccessfulRemoteDataObject(createPaginatedList([refreshedBundle])));
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent)).componentInstance)
+      .toBe(bundleComponent);
+    expect(objectUpdatesService.initialize).toHaveBeenCalledTimes(1);
   });
 
   describe('when submit is called with bitstreams marked for removal', () => {
@@ -244,7 +294,7 @@ describe('ItemBitstreamsComponent', () => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot()],
-        declarations: [ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+        declarations: [ItemBitstreamsComponent, ObjectValuesPipe],
         providers: [
           { provide: ItemDataService, useValue: itemService },
           { provide: ObjectUpdatesService, useValue: bundleObjectUpdatesService },

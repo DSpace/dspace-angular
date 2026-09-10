@@ -1,4 +1,4 @@
-<div class="item-bitstreams" *ngVar="(bundles$ | async) as bundles">
+<div class="item-bitstreams" *ngIf="(bundles$ | async) as bundles; else loading">
   <div class="button-row top d-flex mt-2 space-children-mr">
     <button class="mr-auto btn btn-success"
             [routerLink]="[itemPageRoute, 'bitstreams', 'new']"><i
@@ -33,8 +33,8 @@
       <div class="{{columnSizes.columns[2].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.format' | translate}}</div>
       <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.actions' | translate}}</div>
     </div>
-    <ng-container *ngVar="(bundleFieldUpdates$ | async) as bundleUpdates">
-      <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles"
+    <ng-container *ngIf="(bundleFieldUpdates$ | async) as bundleUpdates">
+      <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles; trackBy: trackBundle"
                                      [bundle]="bundle"
                                      [item]="item"
                                      [columnSizes]="columnSizes"
@@ -48,8 +48,6 @@
        class="alert alert-info w-100 d-inline-block mt-4" role="alert">
     {{'item.edit.bitstreams.empty' | translate}}
   </div>
-  <ds-themed-loading *ngIf="!bundles" message="{{'loading.bitstreams' | translate}}"></ds-themed-loading>
-
   <div class="button-row bottom">
     <div class="mt-4 float-right space-children-mr ml-gap">
       <button class="btn btn-warning" *ngIf="isReinstatable() | async"
@@ -71,3 +69,6 @@
     </div>
   </div>
 </div>
+<ng-template #loading>
+  <ds-themed-loading message="{{'loading.bitstreams' | translate}}"></ds-themed-loading>
+</ng-template>
