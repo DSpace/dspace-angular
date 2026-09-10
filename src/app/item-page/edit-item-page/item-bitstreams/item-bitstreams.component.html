@@ -1,5 +1,4 @@
-@let bundles = (bundles$ | async);
-<div class="item-bitstreams">
+<div class="item-bitstreams" *ngVar="(bundles$ | async) as bundles">
   <div class="mt-2" id="reorder-description">
     <ds-alert [content]="'item.edit.bitstreams.info-alert'" [type]="AlertType.Info"></ds-alert>
   </div>
@@ -38,18 +37,19 @@ class="fas fa-save"></i>
 
 @if (item && bundles?.length > 0) {
   <div class="mt-4 table-border scrollable-table" [ngClass]="{'disabled-overlay': (isProcessingMoveRequest | async)}">
-    @let bundleUpdates = (bundleFieldUpdates$ | async);
-    @for (bundle of bundles; track bundle.uuid; let isFirst = $first) {
-      <ds-item-edit-bitstream-bundle
-        [bundle]="bundle"
-        [item]="item"
-        [columnSizes]="columnSizes"
-        [isFirstTable]="isFirst"
-        [bundleUpdate]="bundleUpdates?.[bundle.uuid]"
-        [bundleUpdatesUrl]="bundleUpdatesUrl"
-        aria-describedby="reorder-description">
-      </ds-item-edit-bitstream-bundle>
-    }
+    <ng-container *ngVar="(bundleFieldUpdates$ | async) as bundleUpdates">
+      @for (bundle of bundles; track bundle; let isFirst = $first) {
+        <ds-item-edit-bitstream-bundle
+          [bundle]="bundle"
+          [item]="item"
+          [columnSizes]="columnSizes"
+          [isFirstTable]="isFirst"
+          [bundleUpdate]="bundleUpdates?.[bundle.uuid]"
+          [bundleUpdatesUrl]="bundleUpdatesUrl"
+          aria-describedby="reorder-description">
+        </ds-item-edit-bitstream-bundle>
+      }
+    </ng-container>
   </div>
 }
 @if (bundles?.length === 0) {

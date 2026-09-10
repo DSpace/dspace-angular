@@ -444,7 +444,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    */
   getRowClass(update: FieldUpdate, bitstream: BitstreamTableEntry): string {
     if (this.isMarkedForRemoval()) {
-      return 'table-danger';
+      return 'table-secondary';
     }
 
     const selected = this.itemBitstreamsService.getSelectedBitstream();
