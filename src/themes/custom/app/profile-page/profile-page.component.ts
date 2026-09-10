@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions/notification/suggestions-notification.component';
 import { ProfilePageComponent as BaseComponent } from '../../../../app/profile-page/profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from '../../../../app/profile-page/profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import { ProfilePageMfaFormComponent } from '../../../../app/profile-page/profile-page-mfa-form/profile-page-mfa-form.component';
 import { ProfilePageResearcherFormComponent } from '../../../../app/profile-page/profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from '../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
 import { AlertComponent } from '../../../../app/shared/alert/alert.component';
@@ -29,6 +30,7 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     ErrorComponent,
     NgTemplateOutlet,
     PaginationComponent,
+    ProfilePageMfaFormComponent,
     ProfilePageResearcherFormComponent,
     ProfilePageSecurityFormComponent,
     RouterModule,

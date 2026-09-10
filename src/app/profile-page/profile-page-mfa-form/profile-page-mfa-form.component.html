@@ -1,0 +1,91 @@
+@if (error$ | async; as error) {
+  <div class="alert alert-danger" role="alert">{{ error | translate }}</div>
+}
+
+<!-- Recovery codes display (shown after setup or regeneration) -->
+@if (recoveryCodes$ | async; as codes) {
+  <div class="alert alert-warning">
+    <h6>{{ 'profile.mfa.recovery.title' | translate }}</h6>
+    <p>{{ 'profile.mfa.recovery.warning' | translate }}</p>
+    <div class="font-monospace mb-2">
+      @for (code of codes; track code) {
+        <div>{{ code }}</div>
+      }
+    </div>
+    <button class="btn btn-sm btn-outline-secondary" (click)="dismissCodes()">
+      {{ 'profile.mfa.recovery.dismiss' | translate }}
+    </button>
+  </div>
+}
+
+<!-- MFA not enabled: show setup button -->
+@if ((mfaEnabled$ | async) === false && (setupMode$ | async) === false && (recoveryCodes$ | async) === null) {
+  <p>{{ 'profile.mfa.disabled.description' | translate }}</p>
+  <button class="btn btn-primary" (click)="startSetup()" [dsBtnDisabled]="loading$ | async">
+    {{ 'profile.mfa.setup.button' | translate }}
+  </button>
+}
+
+<!-- Setup mode: show QR code and verification -->
+@if (setupMode$ | async) {
+  <div class="mfa-setup">
+    <p>{{ 'profile.mfa.setup.instructions' | translate }}</p>
+    @if (provisioningUri$ | async; as uri) {
+      <div class="mb-3 text-center">
+        <canvas #qrCanvas></canvas>
+      </div>
+      <div class="mb-3">
+        <p class="text-muted small">{{ 'profile.mfa.setup.manual' | translate }}</p>
+        <code class="user-select-all">{{ uri }}</code>
+      </div>
+    }
+    <form [formGroup]="verifyForm" (ngSubmit)="confirmSetup()">
+      <div class="mb-3">
+        <label for="mfa-setup-code" class="form-label">{{ 'profile.mfa.setup.code.label' | translate }}</label>
+        <input id="mfa-setup-code" type="text" class="form-control" style="max-width: 200px;"
+               formControlName="code" placeholder="000000" autocomplete="one-time-code" />
+      </div>
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" [dsBtnDisabled]="verifyForm.invalid || (loading$ | async)">
+          {{ 'profile.mfa.setup.confirm' | translate }}
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="cancelSetup()">
+          {{ 'profile.mfa.cancel' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+}
+
+<!-- MFA enabled: show status and management options -->
+@if ((mfaEnabled$ | async) === true && (recoveryCodes$ | async) === null) {
+  <p>
+    <span class="badge bg-success">{{ 'profile.mfa.enabled.badge' | translate }}</span>
+    {{ 'profile.mfa.enabled.description' | translate }}
+  </p>
+  <p class="text-muted">
+    {{ 'profile.mfa.remaining.codes' | translate:{ count: (remainingCodes$ | async) } }}
+  </p>
+
+  <div class="mb-3">
+    <h6>{{ 'profile.mfa.disable.title' | translate }}</h6>
+    <form [formGroup]="disableForm" (ngSubmit)="disable()" class="d-flex gap-2 align-items-end">
+      <input type="text" class="form-control" style="max-width: 200px;"
+             formControlName="code" placeholder="000000" autocomplete="one-time-code" />
+      <button type="submit" class="btn btn-danger" [dsBtnDisabled]="disableForm.invalid || (loading$ | async)">
+        {{ 'profile.mfa.disable.button' | translate }}
+      </button>
+    </form>
+  </div>
+
+  <div class="mb-3">
+    <h6>{{ 'profile.mfa.regenerate.title' | translate }}</h6>
+    <form [formGroup]="regenForm" (ngSubmit)="regenerateCodes()" class="d-flex gap-2 align-items-end">
+      <input type="text" class="form-control" style="max-width: 200px;"
+             formControlName="code" placeholder="000000" autocomplete="one-time-code" />
+      <button type="submit" class="btn btn-outline-primary" [dsBtnDisabled]="regenForm.invalid || (loading$ | async)">
+        {{ 'profile.mfa.regenerate.button' | translate }}
+      </button>
+    </form>
+  </div>
+}

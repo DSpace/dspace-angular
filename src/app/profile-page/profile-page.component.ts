@@ -55,6 +55,7 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import { ProfilePageMfaFormComponent } from './profile-page-mfa-form/profile-page-mfa-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
@@ -68,6 +69,7 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     ErrorComponent,
     NgTemplateOutlet,
     PaginationComponent,
+    ProfilePageMfaFormComponent,
     ProfilePageResearcherFormComponent,
     ProfilePageSecurityFormComponent,
     RouterModule,

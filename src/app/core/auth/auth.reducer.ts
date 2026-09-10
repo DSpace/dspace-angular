@@ -15,6 +15,12 @@ import {
   SetAuthCookieStatus,
   SetRedirectUrlAction,
 } from './auth.actions';
+import {
+  MfaActions,
+  MfaActionTypes,
+  MfaRequiredAction,
+  MfaVerifyErrorAction,
+} from './mfa.actions';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
 // import models
@@ -65,6 +71,12 @@ export interface AuthState {
   // true when the current user is idle
   idle: boolean;
 
+  // MFA state
+  mfaRequired?: boolean;
+  mfaPendingToken?: AuthTokenInfo;
+  mfaError?: string;
+  mfaVerifying?: boolean;
+
 }
 
 /**
@@ -78,6 +90,8 @@ const initialState: AuthState = {
   authMethods: [],
   externalAuth: false,
   idle: false,
+  mfaRequired: false,
+  mfaVerifying: false,
 };
 
 /**
@@ -86,7 +100,7 @@ const initialState: AuthState = {
  * @param {State} state Current state
  * @param {AuthActions} action Incoming action
  */
-export function authReducer(state: any = initialState, action: AuthActions): AuthState {
+export function authReducer(state: any = initialState, action: AuthActions | MfaActions): AuthState {
 
   switch (action.type) {
     case AuthActionTypes.AUTHENTICATE:
@@ -264,6 +278,44 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case StoreActionTypes.REHYDRATE:
       return Object.assign({}, state, {
         blocking: true,
+      });
+
+    case MfaActionTypes.MFA_REQUIRED:
+      return Object.assign({}, state, {
+        mfaRequired: true,
+        mfaPendingToken: (action as MfaRequiredAction).payload,
+        mfaError: undefined,
+        mfaVerifying: false,
+        loading: false,
+        blocking: false,
+      });
+
+    case MfaActionTypes.MFA_VERIFY:
+      return Object.assign({}, state, {
+        mfaVerifying: true,
+        mfaError: undefined,
+      });
+
+    case MfaActionTypes.MFA_VERIFY_SUCCESS:
+      return Object.assign({}, state, {
+        mfaRequired: false,
+        mfaPendingToken: undefined,
+        mfaError: undefined,
+        mfaVerifying: false,
+      });
+
+    case MfaActionTypes.MFA_VERIFY_ERROR:
+      return Object.assign({}, state, {
+        mfaVerifying: false,
+        mfaError: (action as MfaVerifyErrorAction).payload,
+      });
+
+    case MfaActionTypes.MFA_RESET:
+      return Object.assign({}, state, {
+        mfaRequired: false,
+        mfaPendingToken: undefined,
+        mfaError: undefined,
+        mfaVerifying: false,
       });
 
     default:
