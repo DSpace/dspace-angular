@@ -138,6 +138,12 @@ describe('ItemEditBitstreamBundleComponent', () => {
     expect(undoButton.attributes.type).toBe('button');
   });
 
+  it('should center the bundle action buttons', () => {
+    const actionCell = fixture.debugElement.query(By.css('.bundle-row-actions'));
+    expect(actionCell.classes['text-center']).toBeTrue();
+    expect(actionCell.classes['text-end']).not.toBeTrue();
+  });
+
   describe('bundle removal', () => {
     it('removeBundle should register removal with object updates', () => {
       comp.removeBundle();
@@ -224,6 +230,15 @@ describe('ItemEditBitstreamBundleComponent', () => {
   });
 
   describe('getRowClass', () => {
+    it('should return \'table-danger\' when the bundle is marked for removal', () => {
+      comp.bundleUpdate = {
+        field: bundle,
+        changeType: FieldChangeType.REMOVE,
+      };
+
+      expect(comp.getRowClass(undefined, undefined)).toEqual('table-danger');
+    });
+
     it('should return \'table-info\' when the bitstream is the selected bitstream', () => {
       itemBitstreamsService.getSelectedBitstream.and.returnValue({
         bitstream: { id: 'bitstream-id' },
