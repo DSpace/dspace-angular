@@ -32,6 +32,7 @@ import {
 
 import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { DiscoveryConfigurationDataService } from '../shared/search/services/discovery-configuration.data.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
 export const MyDSpaceConfigurationToContextMap = new Map([
@@ -89,6 +90,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
               protected requestService: RequestService,
               protected rdb: RemoteDataBuildService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              protected configurationDataService: DiscoveryConfigurationDataService,
   ) {
     super(
       routeService,
@@ -99,6 +101,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
       requestService,
       rdb,
       appConfig,
+      configurationDataService,
     );
 
     // override parent class initialization

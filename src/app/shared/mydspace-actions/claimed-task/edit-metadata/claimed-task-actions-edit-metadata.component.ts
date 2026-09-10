@@ -15,7 +15,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { ClaimedTaskType } from '../claimed-task-type';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
@@ -41,8 +41,8 @@ export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsA
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 }

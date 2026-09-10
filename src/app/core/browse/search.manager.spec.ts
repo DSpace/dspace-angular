@@ -109,13 +109,13 @@ describe('SearchManager', () => {
       of(createSuccessfulRemoteDataObject(createPaginatedList([]))),
   };
 
-  const mockSearchService: any = {
-    search: (options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
+  const mockSearchResultsDataService: any = {
+    searchObjects: (options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
       of(createSuccessfulRemoteDataObject(createPaginatedList([]))),
   };
 
   function initTestService() {
-    return new SearchManager(mockItemService, mockBrowseService, mockSearchService);
+    return new SearchManager(mockItemService, mockBrowseService, mockSearchResultsDataService);
   }
 
   beforeEach(() => {

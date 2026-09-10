@@ -26,8 +26,8 @@ import {
 import { map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 
 @Component({
@@ -63,7 +63,7 @@ export class AdminNotifyDashboardComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    private searchService: SearchService,
+    private searchResultsService: SearchResultsDataService,
   ) {
   }
 
@@ -79,7 +79,7 @@ export class AdminNotifyDashboardComponent implements OnInit {
       ));
 
     forkJoin(
-      searchConfigurations.map(config => this.searchService.search(config)
+      searchConfigurations.map(config => this.searchResultsService.searchObjects(config)
         .pipe(
           getFirstCompletedRemoteData(),
           map(response => this.mapSearchObjectsToMetricsBox(config.configuration, response.payload)),

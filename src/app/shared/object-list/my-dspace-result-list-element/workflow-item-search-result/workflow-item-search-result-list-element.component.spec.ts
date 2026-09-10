@@ -22,7 +22,10 @@ import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model'
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -108,12 +111,13 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
 
   beforeEach(() => {
     component.object = mockResultObject;
+    linkService.resolveLinkWithoutAttaching.and.returnValue(createSuccessfulRemoteDataObject$(item));
     fixture.detectChanges();
   });
 
   it('should init derivedSearchResult$ properly', (done) => {
     component.derivedSearchResult$.pipe(take(1)).subscribe((i) => {
-      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(linkService.resolveLinkWithoutAttaching).toHaveBeenCalled();
       expect(i.indexableObject).toBe(item);
       expect(i.hitHighlights).toBe(mockResultObject.hitHighlights);
       done();

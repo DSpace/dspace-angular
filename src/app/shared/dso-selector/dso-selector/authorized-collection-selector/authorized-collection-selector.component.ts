@@ -38,7 +38,7 @@ import { map } from 'rxjs/operators';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
@@ -72,13 +72,13 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
   @Input() action: ActionType = ActionType.ADMIN;
 
   constructor(
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected collectionDataService: CollectionDataService,
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
   ) {
-    super(searchService, notifcationsService, translate, dsoNameService);
+    super(searchResultsService, notifcationsService, translate, dsoNameService);
   }
 
   /**

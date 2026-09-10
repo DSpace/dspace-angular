@@ -13,7 +13,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../tabbed-related-entities-search/tabbed-related-entities-search.component';
 
 @Component({
@@ -26,7 +26,7 @@ import { TabbedRelatedEntitiesSearchComponent } from '../tabbed-related-entities
     NgbNavItem,
     NgbNavLink,
     NgbNavOutlet,
-    ThemedConfigurationSearchPageComponent,
+    ThemedSearchComponent,
     TranslateModule,
   ],
 })

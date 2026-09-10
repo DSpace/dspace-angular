@@ -14,6 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
@@ -25,7 +26,6 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
@@ -42,7 +42,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchService } from '../../search/search.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 
 let component: WorkspaceitemActionsComponent;
@@ -57,7 +57,9 @@ const mockDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
   delete: jasmine.createSpy('delete'),
 });
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  invalidateSearchObjects: of(true),
+});
 
 const requestServce = getMockRequestService();
 
@@ -92,6 +94,10 @@ const item = Object.assign(new Item(), {
 });
 const rd = createSuccessfulRemoteDataObject(item);
 mockObject = Object.assign(new WorkspaceItem(), { item: of(rd), id: '1234', uuid: '1234' });
+
+const linkService = jasmine.createSpyObj('linkService', {
+  resolveLinkWithoutAttaching: createSuccessfulRemoteDataObject$(item),
+});
 
 const ePersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
@@ -193,11 +199,12 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkspaceitemDataService, useValue: mockDataService },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestServce },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: LinkService, useValue: linkService },
         NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -298,8 +305,7 @@ describe('WorkspaceitemActionsComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      expect(searchService.getEndpoint).toHaveBeenCalled();
-      expect(requestServce.removeByHrefSubstring).toHaveBeenCalledWith('discover/search/objects');
+      expect(searchResultsService.invalidateSearchObjects).toHaveBeenCalled();
     });
   }));
 });

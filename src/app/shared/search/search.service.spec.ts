@@ -1,18 +1,14 @@
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
-import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -26,9 +22,15 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
-import anything = jasmine.anything;
 import SpyObj = jasmine.SpyObj;
-import { Component } from '@angular/core';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+
+import { SearchFacetDataService } from './services/search-facet.data.service';
 
 @Component({
   template: '',
@@ -46,6 +48,7 @@ describe('SearchService', () => {
   let requestService: SpyObj<RequestService>;
   let routeService: RouteService;
   let searchConfigService: SearchConfigurationServiceStub;
+  let searchFacetService: SearchFacetDataService;
 
   let testScheduler: TestScheduler;
   let msToLive: number;
@@ -63,6 +66,9 @@ describe('SearchService', () => {
     remoteDataBuildService = getMockRemoteDataBuildService();
     requestService = getMockRequestService();
     searchConfigService = new SearchConfigurationServiceStub();
+    searchFacetService = jasmine.createSpyObj('searchFacetService', {
+      findValues: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    });
 
     initTestData();
 
@@ -80,6 +86,7 @@ describe('SearchService', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: Angulartics2, useValue: {} },
+        { provide: SearchFacetDataService, useValue: searchFacetService },
         SearchService,
       ],
     });
@@ -146,200 +153,28 @@ describe('SearchService', () => {
     });
   });
 
-  describe('search', () => {
-    let remoteDataMocks: Record<string, RemoteData<SearchObjects<any>>>;
-
-    beforeEach(() => {
-      remoteDataMocks = {
-        RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
-        ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
-        Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined, new SearchObjects(), 200),
-        SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, new SearchObjects(), 200),
-      };
-    });
-
-    describe('when useCachedVersionIfAvailable is true', () => {
-      it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets re-requested`, () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          }));
-          const expected = 'a-b-c-d-e';
-          const values = {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          };
-
-          expectObservable(service.search(undefined, msToLive, true)).toBe(expected, values);
-        });
-      });
-    });
-
-    describe('when useCachedVersionIfAvailable is false', () => {
-      it('should not emit a cached completed RemoteData', () => {
-        // Old cached value from 1 minute before the test started
-        const oldCachedSucceededData: RemoteData<SearchObjects<any>> = Object.assign(new SearchObjects(), remoteDataMocks.Success, {
-          timeCompleted: remoteDataTimestamp - 2 * 60 * 1000,
-          lastUpdated: remoteDataTimestamp - 2 * 60 * 1000,
-        });
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
-            a: oldCachedSucceededData,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          }));
-          const expected = '--b-c-d-e';
-          const values = {
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          };
-
-          expectObservable(service.search(undefined, msToLive, false)).toBe(expected, values);
-        });
-      });
-
-      it('should emit the first completed RemoteData since the request was made', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.SuccessStale,
-          }));
-          const expected = 'a-b';
-          const values = {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.SuccessStale,
-          };
-          expectObservable(service.search(undefined, msToLive, false)).toBe(expected, values);
-        });
-      });
-    });
-
-    it('should call getEndpoint on the halService', () => {
-      spyOn(halService, 'getEndpoint').and.callThrough();
-
-      service.search(new PaginatedSearchOptions({})).subscribe();
-
-      expect(halService.getEndpoint).toHaveBeenCalled();
-    });
-
-    it('should send out the request on the request service', () => {
-      service.search(new PaginatedSearchOptions({})).subscribe();
-
-      expect(requestService.send).toHaveBeenCalled();
-    });
-
-    it('should call getByHref on the request service with the correct request url', () => {
-      spyOn(remoteDataBuildService, 'buildFromHref').and.callThrough();
-
-      service.search(new PaginatedSearchOptions({})).subscribe();
-
-      expect(remoteDataBuildService.buildFromHref).toHaveBeenCalledWith(envConfig.rest.baseUrl + '/discover/search/objects');
-    });
-  });
-
   describe('getFacetValuesFor', () => {
-    let remoteDataMocks: Record<string, RemoteData<FacetValues>>;
     let filterConfig: SearchFilterConfig;
 
     beforeEach(() => {
-      remoteDataMocks = {
-        RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
-        ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
-        Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined, new FacetValues(), 200),
-        SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, new FacetValues(), 200),
-      };
       filterConfig = new SearchFilterConfig();
-      filterConfig._links = {
-        self: {
-          href: envConfig.rest.baseUrl,
-        },
-      };
+      filterConfig.filter = 'mock-filter';
+      filterConfig.filterType = FilterType.text;
+      filterConfig.pageSize = 10;
     });
 
-    describe('when useCachedVersionIfAvailable is true', () => {
-      it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets re-requested`, () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          }));
-          const expected = 'a-b-c-d-e';
-          const values = {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          };
-
-          expectObservable(service.getFacetValuesFor(filterConfig, 1, undefined, undefined, true)).toBe(expected, values);
-        });
+    it('should combine searchOptions with the requested page, query and filter config\'s page size', (done) => {
+      service.getFacetValuesFor(filterConfig, 5, new PaginatedSearchOptions({ pagination: { id: 'mock-pagination', currentPage: 2, pageSize: 20, maxSize: 40 } as PaginationComponentOptions }), 'mock-query', true).subscribe(() => {
+        expect(searchFacetService.findValues).toHaveBeenCalledWith('mock-filter', jasmine.objectContaining({
+          // Page from method takes precedent over options
+          currentPage: 5,
+          // Page size from filter-config takes precedent over options
+          elementsPerPage: 10,
+          // Query is passed as a search-param with nam "prefix"
+          searchParams: jasmine.arrayContaining([new RequestParam('prefix', 'mock-query')]),
+        }), true);
+        done();
       });
-    });
-
-    describe('when useCachedVersionIfAvailable is false', () => {
-      it('should not emit a cached completed RemoteData', () => {
-        // Old cached value from 1 minute before the test started
-        const oldCachedSucceededData: RemoteData<FacetValues> = Object.assign(new FacetValues(), remoteDataMocks.Success, {
-          timeCompleted: remoteDataTimestamp - 2 * 60 * 1000,
-          lastUpdated: remoteDataTimestamp - 2 * 60 * 1000,
-        });
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
-            a: oldCachedSucceededData,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          }));
-          const expected = '--b-c-d-e';
-          const values = {
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
-          };
-
-          expectObservable(service.getFacetValuesFor(filterConfig, 1, undefined, undefined, false)).toBe(expected, values);
-        });
-      });
-
-      it('should emit the first completed RemoteData since the request was made', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.SuccessStale,
-          }));
-          const expected = 'a-b';
-          const values = {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.SuccessStale,
-          };
-          expectObservable(service.getFacetValuesFor(filterConfig, 1, undefined, undefined, false)).toBe(expected, values);
-        });
-      });
-    });
-
-    it('should encode the filterQuery', () => {
-      spyOn((service as any), 'request').and.callThrough();
-
-      service.getFacetValuesFor(filterConfig, 1, undefined, 'filter&Query');
-
-      expect((service as any).request).toHaveBeenCalledWith(anything(), envConfig.rest.baseUrl + '?page=0&size=5&prefix=filter%26Query');
     });
   });
 });

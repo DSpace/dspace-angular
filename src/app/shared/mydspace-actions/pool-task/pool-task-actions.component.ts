@@ -32,7 +32,7 @@ import {
 
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { SearchService } from '../../search/search.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 
 /**
@@ -82,7 +82,7 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
    * @param {NotificationsService} notificationsService
    * @param {ClaimedTaskDataService} claimedTaskService
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
@@ -90,9 +90,9 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
     protected notificationsService: NotificationsService,
     protected claimedTaskService: ClaimedTaskDataService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService) {
-    super(PoolTask.type, injector, router, notificationsService, translate, searchService, requestService);
+    super(PoolTask.type, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**

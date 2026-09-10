@@ -1,4 +1,8 @@
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 
 import { SortOptions } from '../../../cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
@@ -36,5 +40,20 @@ export class PaginatedSearchOptions extends SearchOptions {
       args.push(`size=${this.pagination.pageSize}`);
     }
     return super.toRestUrl(url, args);
+  }
+
+  /**
+   * Transform this {@link PaginatedSearchOptions} into a {@link FindListOptions}
+   */
+  toFindListOptions(): FindListOptions {
+    const findListOptions = super.toFindListOptions();
+    if (hasValue(this.pagination)) {
+      findListOptions.currentPage = this.pagination.currentPage;
+      findListOptions.elementsPerPage = this.pagination.pageSize;
+    }
+    if (hasValue(this.sort)) {
+      findListOptions.sort = this.sort;
+    }
+    return findListOptions;
   }
 }

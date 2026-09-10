@@ -12,10 +12,10 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -24,6 +24,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { Facet } from '../../../core/shared/search/facet.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { SearchConfigurationService } from '../search-configuration.service';
@@ -79,9 +81,14 @@ export class SearchSidebarComponent implements OnInit {
   @Input() currentSortOption: SortOptions;
 
   /**
-   * An observable containing configuration about which filters are shown and how they are shown
+   * An observable containing configuration about which facets are shown and how they are shown
    */
-  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() facets: Observable<RemoteData<PaginatedList<Facet>>>;
+
+  /**
+   * An observable containing configuration of filters that are supported by the current available facets
+   */
+  @Input() facetFilters: Observable<SearchFilterConfig[]>;
 
   /**
    * The total amount of results
@@ -137,13 +144,13 @@ export class SearchSidebarComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    protected searchConfigurationService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigurationService: SearchConfigurationService,
   ) {
   }
 
   ngOnInit(): void {
     this.showAdvancedSearch$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.currentScope).pipe(
-      map((advancedFilters: FilterConfig[]) => this.appConfig.search.advancedFilters.enabled && advancedFilters.length > 0),
+      map((advancedFilters: SearchFilterConfig[]) => this.appConfig.search.advancedFilters.enabled && advancedFilters.length > 0),
     );
   }
 

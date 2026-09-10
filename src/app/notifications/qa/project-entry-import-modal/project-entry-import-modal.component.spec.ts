@@ -22,7 +22,6 @@ import {
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
 } from '@dspace/core/testing/notifications.mock';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -32,8 +31,8 @@ import { of } from 'rxjs';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { SearchService } from '../../../shared/search/search.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { ProjectEntryImportModalComponent } from './project-entry-import-modal.component';
 
 const eventData = {
@@ -81,7 +80,9 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
   const modalStub = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   const uuid = '123e4567-e89b-12d3-a456-426614174003';
-  const searchServiceStub: any = getMockSearchService();
+  const searchResultsServiceStub: any = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: '',
+  });
 
 
   beforeEach(waitForAsync (() => {
@@ -94,7 +95,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
       ],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchResultsDataService, useValue: searchResultsServiceStub },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
         ProjectEntryImportModalComponent,
@@ -120,7 +121,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      searchServiceStub.search.and.returnValue(of(paginatedListRD));
+      searchResultsServiceStub.searchObjects.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-project-entry-import-modal [externalSourceEntry]="eventData"></ds-project-entry-import-modal>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -152,13 +153,13 @@ describe('ProjectEntryImportModalComponent test suite', () => {
     });
 
     describe('search', () => {
-      it('should call SearchService.search', () => {
+      it('should call searchResultsService.searchObjects', () => {
 
-        (searchServiceStub as any).search.and.returnValue(of(paginatedListRD));
+        (searchResultsServiceStub as any).searchObjects.and.returnValue(of(paginatedListRD));
         comp.pagination = pagination;
 
         comp.search(searchString);
-        expect(comp.searchService.search).toHaveBeenCalledWith(searchOptions);
+        expect(comp.searchResultsService.searchObjects).toHaveBeenCalledWith(searchOptions);
       });
     });
 

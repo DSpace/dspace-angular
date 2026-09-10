@@ -30,8 +30,10 @@ import {
   of,
 } from 'rxjs';
 
+import { Facet } from '../../../../../core/shared/search/facet.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../../search.service';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
@@ -46,13 +48,11 @@ describe('SearchRangeFilterComponent', () => {
   const value2 = '1992 - 2000';
   const value3 = '1990 - 1992';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
+    filter: filterName1,
     filterType: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2,
-    minValue: 200,
-    maxValue: 3000,
   });
   const values: FacetValue[] = [
     {
@@ -99,16 +99,24 @@ describe('SearchRangeFilterComponent', () => {
   let filterService: SearchFilterServiceStub;
   let router: RouterStub;
   let searchService: SearchServiceStub;
+  let facetService: SearchFacetDataService;
 
   beforeEach(waitForAsync(() => {
     filterService = new SearchFilterServiceStub();
     router = new RouterStub();
     searchService =  new SearchServiceStub(searchLink);
+    facetService = jasmine.createSpyObj('facetService',{
+      searchFacet: createSuccessfulRemoteDataObject$(Object.assign(new Facet(), {
+        minValue: 200,
+        maxValue: 3000,
+      })),
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchRangeFilterComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
+        { provide: SearchFacetDataService, useValue: facetService },
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
         { provide: RouteService, useValue: routeServiceStub },

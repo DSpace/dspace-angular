@@ -11,11 +11,12 @@ import {
   ActivatedRoute,
   Params,
 } from '@angular/router';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '@dspace/core/shared/operators';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
@@ -59,7 +60,7 @@ export class BrowseByGeospatialDataComponent implements OnInit {
 
   protected readonly isPlatformBrowser = isPlatformBrowser;
 
-  public facetValues$: Observable<FacetValues> = of(null);
+  public facetValues$: Observable<PaginatedList<FacetValue>> = of(null);
 
   constructor(
     private searchConfigurationService: SearchConfigurationService,
@@ -79,7 +80,7 @@ export class BrowseByGeospatialDataComponent implements OnInit {
   /**
    * Get facet values for use in rendering 'browse by' geospatial map
    */
-  getFacetValues(): Observable<FacetValues> {
+  getFacetValues(): Observable<PaginatedList<FacetValue>> {
     return combineLatest([this.scope$, this.searchConfigurationService.getConfig(
       // If the geospatial configuration is not found, default will be returned and used
       '', environment.geospatialMapViewer.spatialFacetDiscoveryConfiguration).pipe(

@@ -17,8 +17,11 @@ import {
   Router,
 } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { Facet } from '@dspace/core/shared/search/facet.model';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
 import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
@@ -57,6 +60,7 @@ import {
   stripOperatorFromFilterValue,
 } from '../../../search.utils';
 import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFilterService } from '../../search-filter.service';
 
 /**
@@ -99,9 +103,14 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   @Input() scope: string;
 
   /**
+   * The facet related to the filter config
+   */
+  facet$: Observable<RemoteData<Facet>>;
+
+  /**
    * Emits an array of pages with values found for this facet
    */
-  facetValues$: BehaviorSubject<FacetValues[]> = new BehaviorSubject([]);
+  facetValues$: BehaviorSubject<PaginatedList<FacetValue>[]> = new BehaviorSubject([]);
 
   /**
    * Emits the current last shown page of this facet's values
@@ -155,6 +164,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   currentUrl: string;
 
   constructor(protected searchService: SearchService,
+              protected facetService: SearchFacetDataService,
               protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
@@ -172,6 +182,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign(new SearchOptions(options), {
         scope: this.scope,
       })),
+    );
+    this.facet$ = this.searchOptions$.pipe(
+      switchMap((options) => this.facetService.searchFacet(this.filterConfig.name, options)),
     );
     this.subs.push(
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
@@ -318,18 +331,20 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Retrieves all the filter value suggestion pages that need to be displayed in the facet and combines it into one
    * list.
    */
-  protected retrieveFilterValues(): Observable<FacetValues[]> {
+  protected retrieveFilterValues(): Observable<PaginatedList<FacetValue>[]> {
     return observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
-      switchMap(([options, page]: [SearchOptions, number]) => this.searchService.getFacetValuesFor(this.filterConfig, page, options).pipe(
-        getFirstSucceededRemoteDataPayload(),
-        tap((facetValues: FacetValues) => {
+      switchMap(([options, page]: [SearchOptions, number]) => observableCombineLatest([
+        this.facet$.pipe(getFirstSucceededRemoteDataPayload()),
+        this.searchService.getFacetValuesFor(this.filterConfig, page, options).pipe(getFirstSucceededRemoteDataPayload()),
+      ]).pipe(
+        tap(([facet, facetValues]: [Facet, PaginatedList<FacetValue>]) => {
           this.isLastPage$.next(hasNoValue(facetValues?.next));
-          const hasLimitFacets =  facetValues?.page?.length < facetValues?.facetLimit;
+          const hasLimitFacets =  facetValues?.page?.length < facet?.facetLimit;
           this.isAvailableForShowSearchText.next(hasLimitFacets && hasNoValue(facetValues?.next));
         }),
       )),
-      map((newFacetValues: FacetValues) => {
-        let filterValues: FacetValues[] = this.facetValues$.value;
+      map(([facet, newFacetValues]: [Facet, PaginatedList<FacetValue>]) => {
+        let filterValues: PaginatedList<FacetValue>[] = this.facetValues$.value;
 
         if (this.collapseNextUpdate) {
           this.showFirstPageOnly();
@@ -344,7 +359,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
         return filterValues;
       }),
-      tap((allFacetValues: FacetValues[]) => {
+      tap((allFacetValues: PaginatedList<FacetValue>[]) => {
         this.animationState = 'ready';
         this.facetValues$.next(allFacetValues);
       }),

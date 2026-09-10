@@ -29,7 +29,7 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { SearchService } from '../../../../search/search.service';
+import { SearchResultsDataService } from '../../../../search/services/search-results.data.service';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup
@@ -50,7 +50,7 @@ export class LookupRelationService {
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService) {
   }
 
@@ -67,7 +67,7 @@ export class LookupRelationService {
     if (setSearchConfig) {
       this.searchConfig = newConfig;
     }
-    return this.searchService.search(newConfig).pipe(
+    return this.searchResultsService.searchObjects(newConfig).pipe(
       /* Make sure to only listen to the first x results, until loading is finished */
       /* TODO: in Rxjs 6.4.0 and up, we can replace this with takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
       multicast(
@@ -114,6 +114,6 @@ export class LookupRelationService {
    * Remove cached requests from local results
    */
   removeLocalResultsCache() {
-    this.searchService.getEndpoint().subscribe((href) => this.requestService.removeByHrefSubstring(href));
+    this.searchResultsService.invalidateSearchObjects().pipe(take(1)).subscribe();
   }
 }

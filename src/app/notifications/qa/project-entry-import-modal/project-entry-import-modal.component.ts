@@ -38,8 +38,8 @@ import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { SearchService } from '../../../shared/search/search.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 
 @Component({
   selector: 'ds-project-entry-import-modal',
@@ -142,11 +142,11 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
   /**
    * Initialize the component variables.
    * @param {NgbActiveModal} modal
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {SelectableListService} selectService
    */
   constructor(public modal: NgbActiveModal,
-              public searchService: SearchService,
+              public searchResultsService: SearchResultsDataService,
               private selectService: SelectableListService) { }
 
   /**
@@ -163,7 +163,7 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
         pagination: this.pagination,
       },
     ));
-    this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
+    this.localEntitiesRD$ = this.searchResultsService.searchObjects(this.searchOptions);
     this.subs.push(
       this.localEntitiesRD$.subscribe(
         () => this.isLoading$ = of(false),
@@ -193,7 +193,7 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
           pagination: this.pagination,
         },
       ));
-      this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
+      this.localEntitiesRD$ = this.searchResultsService.searchObjects(this.searchOptions);
       this.subs.push(
         this.localEntitiesRD$.subscribe(
           () => this.isLoading$ = of(false),

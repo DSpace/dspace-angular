@@ -1,3 +1,5 @@
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
   hasValue,
   isNotEmpty,
@@ -41,49 +43,36 @@ export class SearchOptions {
    * @returns {string} URL with all search options and passed arguments as query parameters
    */
   toRestUrl(url: string, args: string[] = []): string {
-    if (isNotEmpty(this.configuration)) {
-      args.push(`configuration=${encodeURIComponent(this.configuration)}`);
-    }
-    if (isNotEmpty(this.fixedFilter)) {
-      args.push(this.encodedFixedFilter);
-    }
-    if (isNotEmpty(this.query)) {
-      args.push(`query=${encodeURIComponent(this.query)}`);
-    }
-    if (isNotEmpty(this.scope)) {
-      args.push(`scope=${encodeURIComponent(this.scope)}`);
-    }
-    if (isNotEmpty(this.dsoTypes)) {
-      this.dsoTypes.forEach((dsoType: string) => {
-        args.push(`dsoType=${encodeURIComponent(dsoType)}`);
-      });
-    }
-    if (isNotEmpty(this.filters)) {
-      this.filters.forEach((filter: SearchFilter) => {
-        filter.values.forEach((value) => {
-          const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
-          args.push(`${filter.key}=${this.encodeFilterQueryValue(filterValue)}`);
-        });
-      });
-    }
+    this.searchParams.forEach((param: RequestParam) => {
+      args.push(`${param.fieldName}=${param.fieldValue}`);
+    });
     if (isNotEmpty(args)) {
       url = new URLCombiner(url, `?${args.join('&')}`).toString();
     }
     return url;
   }
 
-  get encodedFixedFilter(): string {
+  /**
+   * Parse the plain text fixed filter to a {@link RequestParam}
+   */
+  get encodedFixedFilter(): RequestParam {
     // expected format: 'arg=value'
-    //  -> split the query argument into (arg=)(value) and only encode 'value'
-    const match = this.fixedFilter.match(/^([^=]+=)(.+)$/);
+    //  -> split the query argument into (arg)=(value) and only encode 'value'
+    const match = this.fixedFilter.match(/^([^=]+)=(.+)$/);
 
     if (hasValue(match)) {
-      return match[1] + this.encodeFilterQueryValue(match[2]);
+      return new RequestParam(match[1], this.encodeFilterQueryValue(match[2]), false);
     } else {
-      return this.encodeFilterQueryValue(this.fixedFilter);
+      return null;
     }
   }
 
+  /**
+   * Encode the value section of a filter parameter value
+   * parameter value can contain the operator, e.g. "author,equals",
+   * only "author" in the case of the example will be encoded
+   * @param filterQueryValue
+   */
   encodeFilterQueryValue(filterQueryValue: string): string {
     // expected format: 'value' or 'value,operator'
     //  -> split into (value)(,operator) and only encode 'value'
@@ -94,5 +83,50 @@ export class SearchOptions {
     } else {
       return encodeURIComponent(filterQueryValue);
     }
+  }
+
+  /**
+   * Create an array of {@link RequestParam} based on this option's parameters
+   */
+  get searchParams(): RequestParam[] {
+    const searchParams: RequestParam[] = [];
+    if (isNotEmpty(this.configuration)) {
+      searchParams.push(new RequestParam('configuration', this.configuration));
+    }
+    if (isNotEmpty(this.fixedFilter)) {
+      const fixedFilterParam = this.encodedFixedFilter;
+      if (hasValue(fixedFilterParam)) {
+        searchParams.push(fixedFilterParam);
+      }
+    }
+    if (isNotEmpty(this.query)) {
+      searchParams.push(new RequestParam('query', this.query));
+    }
+    if (isNotEmpty(this.scope)) {
+      searchParams.push(new RequestParam('scope', this.scope));
+    }
+    if (isNotEmpty(this.dsoTypes)) {
+      this.dsoTypes.forEach((dsoType: string) => {
+        searchParams.push(new RequestParam('dsoType', dsoType));
+      });
+    }
+    if (isNotEmpty(this.filters)) {
+      this.filters.forEach((filter: SearchFilter) => {
+        filter.values.forEach((value) => {
+          const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
+          searchParams.push(new RequestParam(filter.key, this.encodeFilterQueryValue(filterValue), false));
+        });
+      });
+    }
+    return searchParams;
+  }
+
+  /**
+   * Transform this {@link SearchOptions} into a {@link FindListOptions}
+   */
+  toFindListOptions(): FindListOptions {
+    const findListOptions = new FindListOptions();
+    findListOptions.searchParams = this.searchParams;
+    return findListOptions;
   }
 }

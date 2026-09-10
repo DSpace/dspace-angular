@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   Output,
 } from '@angular/core';
@@ -28,6 +29,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
@@ -153,7 +155,7 @@ export class SearchResultsComponent {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   constructor(
-    protected searchConfigService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
     protected searchService: SearchService,
   ) {
     this.activeFilters$ = this.searchConfigService.getCurrentFilters();

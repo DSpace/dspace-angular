@@ -70,7 +70,7 @@ import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchService } from '../../search/search.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 
 @Component({
   selector: 'ds-dso-selector',
@@ -191,7 +191,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   randomSeed: string = Math.random().toString(36).substring(2, 6);
 
   constructor(
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
@@ -283,7 +283,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     // default sort is only used when there is not query
     const efectiveSort = query ? null : this.sort;
-    return this.searchService.search(
+    return this.searchResultsService.searchObjects(
       new PaginatedSearchOptions({
         query: query,
         dsoTypes: this.types,
@@ -292,7 +292,6 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         }),
         sort: efectiveSort,
       }),
-      null,
       useCache,
     ).pipe(
       getFirstCompletedRemoteData(),

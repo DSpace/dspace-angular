@@ -4,6 +4,7 @@ import {
 } from '@dspace/core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
+import { DiscoveryConfiguration } from '@dspace/core/shared/search/discovery-configuration.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -11,6 +12,8 @@ import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-servic
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { getMockRemoteDataBuildService } from '@dspace/core/testing/remote-data-build.service.mock';
 import { RoleServiceMock } from '@dspace/core/testing/role-service.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   cold,
   hot,
@@ -58,8 +61,14 @@ describe('MyDSpaceConfigurationService', () => {
   const requestService: any = {};
   const rdb: any = getMockRemoteDataBuildService();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByIdOrScope: createSuccessfulRemoteDataObject$(Object.assign(new DiscoveryConfiguration(), {
+      searchfilters: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    })),
+  });
+
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment, configurationDataService);
   });
 
   describe('when the scope is called', () => {

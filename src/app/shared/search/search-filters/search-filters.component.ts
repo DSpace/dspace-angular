@@ -13,7 +13,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
-import { RemoteData } from '@dspace/core/data/remote-data';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
@@ -55,7 +54,7 @@ export class SearchFiltersComponent implements OnInit {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
-  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() filters: Observable<SearchFilterConfig[]>;
 
   /**
    * List of all filters that are currently active with their value set to null.
@@ -154,27 +153,24 @@ export class SearchFiltersComponent implements OnInit {
     if (computed) {
       this.filters.pipe(
         // Get filter data and check if we need to increment the counter
-        map(filtersData => {
-          if (filtersData && filtersData.hasSucceeded && filtersData.payload) {
-            const totalFilters = filtersData.payload.length;
-            const currentComputed = this.getCurrentFiltersComputed(this.currentConfiguration);
+        map(filters => {
+          const totalFilters = filters.length;
+          const currentComputed = this.getCurrentFiltersComputed(this.currentConfiguration);
 
-            // If we've already computed all filters for this configuration
-            if (currentComputed >= totalFilters) {
-              // Register in finalFiltersComputed if not already registered
-              if (!this.findConfigInFinalFilters(this.currentConfiguration)) {
-                this.updateFinalFiltersComputed(this.currentConfiguration, totalFilters);
-              }
-              return { shouldIncrement: false };
+          // If we've already computed all filters for this configuration
+          if (currentComputed >= totalFilters) {
+            // Register in finalFiltersComputed if not already registered
+            if (!this.findConfigInFinalFilters(this.currentConfiguration)) {
+              this.updateFinalFiltersComputed(this.currentConfiguration, totalFilters);
             }
-
-            // We haven't reached the total yet, proceed with increment
-            return {
-              shouldIncrement: true,
-              totalFilters,
-            };
+            return { shouldIncrement: false };
           }
-          return { shouldIncrement: false };
+
+          // We haven't reached the total yet, proceed with increment
+          return {
+            shouldIncrement: true,
+            totalFilters,
+          };
         }),
         // Only continue if we need to increment the counter
         filter(result => result.shouldIncrement),

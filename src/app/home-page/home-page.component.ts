@@ -24,9 +24,11 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
-import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
+import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
@@ -37,6 +39,12 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService,
+    },
+  ],
   imports: [
     AsyncPipe,
     HomeCoarComponent,
@@ -44,8 +52,8 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
     NgTemplateOutlet,
     RecentItemListComponent,
     SuggestionsPopupComponent,
-    ThemedConfigurationSearchPageComponent,
     ThemedHomeNewsComponent,
+    ThemedSearchComponent,
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,

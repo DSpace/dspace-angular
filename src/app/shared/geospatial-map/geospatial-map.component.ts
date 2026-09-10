@@ -10,8 +10,8 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
 import {
   hasValue,
   isEmpty,
@@ -75,7 +75,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
   /**
    * Facet values and current scope used by browse-by components
    */
-  @Input() facetValues?: Observable<FacetValues>;
+  @Input() facetValues?: Observable<PaginatedList<FacetValue>>;
 
   /**
    * Current search scope, if any (for marker click links)

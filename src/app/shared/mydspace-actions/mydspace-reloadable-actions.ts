@@ -26,8 +26,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SearchService } from '../search/search.service';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
+import { SearchResultsDataService } from '../search/services/search-results.data.service';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
 /**
@@ -46,10 +46,10 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
   ) {
-    super(objectType, injector, router, notificationsService, translate, searchService, requestService);
+    super(objectType, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**

@@ -9,7 +9,7 @@ import { isNotEmpty } from '@dspace/shared/utils/empty.util';
  * @param searchFilterConfig
  */
 export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  const regex = new RegExp(`[?|&]${escapeRegExp(encodeURIComponent(searchFilterConfig.paramName))}=(${escapeRegExp(encodeURIComponent(facetValue.value))}[^&]*)`, 'g');
+  const regex = new RegExp(`[?|&]${escapeRegExp(encodeURIComponent(searchFilterConfig.paramName))}=(${escapeRegExp(encodeURIComponent(facetValue.label))}[^&]*)`, 'g');
   if (isNotEmpty(facetValue._links)) {
     const values = regex.exec(facetValue._links.search.href);
     if (isNotEmpty(values)) {

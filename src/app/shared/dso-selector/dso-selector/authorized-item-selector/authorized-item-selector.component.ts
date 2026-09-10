@@ -24,7 +24,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { Item } from 'src/app/core/shared/item.model';
-import { SearchService } from 'src/app/shared/search/search.service';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
@@ -38,6 +37,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { SelectorActionType } from '../../modal-wrappers/dso-selector-modal-wrapper.component';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
@@ -63,13 +63,13 @@ import { DSOSelectorComponent } from '../dso-selector.component';
 export class AuthorizedItemSelectorComponent extends DSOSelectorComponent {
 
   constructor(
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected itemDataService: ItemDataService,
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
   ) {
-    super(searchService, notifcationsService, translate, dsoNameService);
+    super(searchResultsService, notifcationsService, translate, dsoNameService);
   }
 
   @Input() action: SelectorActionType = SelectorActionType.EDIT;

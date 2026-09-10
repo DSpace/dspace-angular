@@ -18,12 +18,11 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { ClaimedTaskDataServiceStub } from '@dspace/core/testing/claimed-task-data-service.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 
 const taskId = 'claimed-task-1';
@@ -43,14 +42,17 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
   let notificationService: NotificationsServiceStub;
   let route: ActivatedRouteStub;
   let router: RouterStub;
-  let searchService: SearchServiceStub;
+  let searchResultsService: SearchResultsDataService;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
     notificationService = new NotificationsServiceStub();
     route = new ActivatedRouteStub();
     router = new RouterStub();
-    searchService = new SearchServiceStub();
+    searchResultsService = jasmine.createSpyObj('searchResultsService', {
+      searchObjects: '',
+      invalidateSearchObjects: of(true),
+    });
 
     await TestBed.configureTestingModule({
       imports: [
@@ -63,7 +65,7 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: RequestService, useValue: {} },
         { provide: Router, useValue: router },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         Location,
       ],
       schemas: [NO_ERRORS_SCHEMA],

@@ -63,6 +63,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { SearchService } from '../shared/search/search.service';
+import { SearchResultsDataService } from '../shared/search/services/search-results.data.service';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -413,6 +414,10 @@ describe('SubmissionService', () => {
   const searchService = getMockSearchService();
 
   const requestService = getMockRequestService();
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: '',
+    invalidateSearchObjects: of(true),
+  });
 
   beforeEach(waitForAsync(() => {
     itemService = new ItemDataServiceStub();
@@ -433,6 +438,7 @@ describe('SubmissionService', () => {
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
         { provide: ItemDataService, useValue: itemService },
         NotificationsService,

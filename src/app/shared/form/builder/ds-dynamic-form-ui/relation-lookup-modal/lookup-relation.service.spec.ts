@@ -15,13 +15,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SearchService } from '../../../../search/search.service';
+import { SearchResultsDataService } from '../../../../search/services/search-results.data.service';
 import { LookupRelationService } from './lookup-relation.service';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
   let externalSourceService: ExternalSourceDataService;
-  let searchService: SearchService;
+  let searchResultsService: SearchResultsDataService;
   let requestService: RequestService;
 
   const totalExternal = 8;
@@ -54,12 +54,12 @@ describe('LookupRelationService', () => {
         currentPage: 1,
       }), [{}])),
     });
-    searchService = jasmine.createSpyObj('searchService', {
-      search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
-      getEndpoint: of(searchServiceEndpoint),
+    searchResultsService = jasmine.createSpyObj('searchResultsService', {
+      searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
+      invalidateSearchObjects: of(searchServiceEndpoint),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
-    service = new LookupRelationService(externalSourceService, searchService, requestService);
+    service = new LookupRelationService(externalSourceService, searchResultsService, requestService);
   }
 
   beforeEach(() => {
@@ -135,8 +135,8 @@ describe('LookupRelationService', () => {
       service.removeLocalResultsCache();
     });
 
-    it('should call requestService\'s removeByHrefSubstring with the search endpoint', () => {
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(searchServiceEndpoint);
+    it('should call invalidateSearchObjects', () => {
+      expect(searchResultsService.invalidateSearchObjects).toHaveBeenCalled();
     });
   });
 });
