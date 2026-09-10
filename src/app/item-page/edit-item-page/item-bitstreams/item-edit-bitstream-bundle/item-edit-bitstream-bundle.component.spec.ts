@@ -8,6 +8,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
@@ -15,6 +17,7 @@ import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model
 import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
@@ -22,6 +25,7 @@ import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.s
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of,
@@ -77,12 +81,20 @@ describe('ItemEditBitstreamBundleComponent', () => {
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
       initialize: undefined,
-      getFieldUpdatesExclusive: of(null),
+      getFieldUpdatesExclusive: of({}),
       saveRemoveFieldUpdate: undefined,
       removeSingleFieldUpdate: undefined,
     });
 
     itemBitstreamsService = getItemBitstreamsServiceStub();
+    itemBitstreamsService.getInitialBitstreamsPaginationOptions.and.returnValue(
+      Object.assign(new PaginationComponentOptions(), {
+        id: 'bundle-bitstreams-test',
+        currentPage: 1,
+        pageSize: 10,
+        pageSizeOptions: [5, 10],
+      }),
+    );
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
@@ -93,6 +105,8 @@ describe('ItemEditBitstreamBundleComponent', () => {
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: ItemBitstreamsService, useValue: itemBitstreamsService },
         { provide: AuthorizationDataService, useValue: new AuthorizationDataServiceStub() },
+        provideMockStore(),
+        provideRouter([]),
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
@@ -108,12 +122,20 @@ describe('ItemEditBitstreamBundleComponent', () => {
     comp.columnSizes = columnSizes;
     comp.bundleUpdatesUrl = 'https://rest/api/core/items/item/bundles';
     viewContainerRef = (comp as any).viewContainerRef;
-    spyOn(viewContainerRef, 'createEmbeddedView');
+    spyOn(viewContainerRef, 'createEmbeddedView').and.callThrough();
     fixture.detectChanges();
   });
 
   it('should create an embedded view of the component', () => {
     expect(viewContainerRef.createEmbeddedView).toHaveBeenCalled();
+  });
+
+  it('should use non-submitting remove and undo buttons', () => {
+    const removeButton = fixture.debugElement.query(By.css('button.btn-outline-danger'));
+    const undoButton = fixture.debugElement.query(By.css('button.btn-outline-warning'));
+
+    expect(removeButton.attributes.type).toBe('button');
+    expect(undoButton.attributes.type).toBe('button');
   });
 
   describe('bundle removal', () => {

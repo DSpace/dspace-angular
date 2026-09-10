@@ -53,12 +53,12 @@
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
                     <i class="fas fa-upload fa-fw"></i>
                   </button>
-                  <button [dsBtnDisabled]="!canRemoveBundle()" (click)="removeBundle()"
+                  <button type="button" [dsBtnDisabled]="!canRemoveBundle()" (click)="removeBundle()"
                     class="btn btn-outline-danger btn-sm"
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.remove' | translate}}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
-                  <button [dsBtnDisabled]="!canUndoBundleRemove()" (click)="undoBundleRemove()"
+                  <button type="button" [dsBtnDisabled]="!canUndoBundleRemove()" (click)="undoBundleRemove()"
                     class="btn btn-outline-warning btn-sm"
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.undo' | translate}}">
                     <i class="fas fa-undo-alt fa-fw"></i>
@@ -160,5 +160,4 @@
       }
     </ds-pagination>
   }
-
 </ng-template>

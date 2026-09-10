@@ -61,7 +61,6 @@ import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
@@ -79,7 +78,6 @@ import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/i
     RouterLink,
     ThemedLoadingComponent,
     TranslateModule,
-    VarDirective,
   ],
   providers: [ObjectValuesPipe],
 })
@@ -173,7 +171,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       shareReplay({ bufferSize: 1, refCount: true }),
     );
 
-    this.subs.push(this.bundles$.subscribe((bundles: Bundle[]) => {
+    this.subs.push(this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
       this.objectUpdatesService.initialize(this.bundleUpdatesUrl, bundles, new Date());
     }));
 
