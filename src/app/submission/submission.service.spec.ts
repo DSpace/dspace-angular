@@ -30,7 +30,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { ErrorResponse } from '../core/cache/response.models';
-import { RequestService } from '../core/data/request.service';
 import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { RouteService } from '../core/services/route.service';
@@ -39,7 +38,6 @@ import { SubmissionJsonPatchOperationsService } from '../core/submission/submiss
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { RouterMock } from '../shared/mocks/router.mock';
 import {
   mockSubmissionDefinition,
@@ -399,8 +397,6 @@ describe('SubmissionService test suite', () => {
     invalidateSearchObjects: of(true),
   });
 
-  const requestServce = getMockRequestService();
-
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -418,7 +414,6 @@ describe('SubmissionService test suite', () => {
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: SearchResultsDataService, useValue: searchResultsService },
-        { provide: RequestService, useValue: requestServce },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
         NotificationsService,
         RouteService,

@@ -30,7 +30,6 @@ import { environment } from '../../environments/environment';
 import { ErrorResponse } from '../core/cache/response.models';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
 import { RemoteData } from '../core/data/remote-data';
-import { RequestService } from '../core/data/request.service';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
@@ -118,7 +117,6 @@ export class SubmissionService {
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
    * @param {SearchResultsDataService} searchResultsService
-   * @param {RequestService} requestService
    * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
   constructor(protected notificationsService: NotificationsService,
@@ -128,7 +126,6 @@ export class SubmissionService {
               protected store: Store<SubmissionState>,
               protected translate: TranslateService,
               protected searchResultsService: SearchResultsDataService,
-              protected requestService: RequestService,
               protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
 

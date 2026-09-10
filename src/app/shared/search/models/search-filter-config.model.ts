@@ -55,6 +55,9 @@ export class SearchFilterConfig implements CacheableObject {
   @autoserialize
   pageSize = 5;
 
+  /**
+   * The operator(s) of the search filter when applied, e.g. "equals"
+   */
   @autoserialize
   operators: SearchFilterOperator[];
 

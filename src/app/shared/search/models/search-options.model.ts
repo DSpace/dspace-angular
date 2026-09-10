@@ -51,6 +51,9 @@ export class SearchOptions {
     return url;
   }
 
+  /**
+   * Parse the plain text fixed filter to a {@link RequestParam}
+   */
   get encodedFixedFilter(): RequestParam {
     // expected format: 'arg=value'
     //  -> split the query argument into (arg)=(value) and only encode 'value'
@@ -63,6 +66,12 @@ export class SearchOptions {
     }
   }
 
+  /**
+   * Encode the value section of a filter parameter value
+   * parameter value can contain the operator, e.g. "author,equals",
+   * only "author" in the case of the example will be encoded
+   * @param filterQueryValue
+   */
   encodeFilterQueryValue(filterQueryValue: string): string {
     // expected format: 'value' or 'value,operator'
     //  -> split into (value)(,operator) and only encode 'value'

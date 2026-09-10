@@ -30,13 +30,13 @@ import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
+import { Facet } from '../../../models/facet.model';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
-import { Facet } from '../../../models/facet.model';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;

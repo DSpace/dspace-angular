@@ -15,7 +15,10 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { NouisliderComponent } from 'ng2-nouislider';
-import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+} from 'rxjs';
 import {
   map,
   startWith,
@@ -23,13 +26,16 @@ import {
 import { yearFromString } from 'src/app/shared/date.util';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
 import { RouteService } from '../../../../../core/services/route.service';
+import { getAllCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
+import { Facet } from '../../../models/facet.model';
 import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import {
   facetLoad,
@@ -40,9 +46,6 @@ import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
 } from './search-range-filter-constants';
-import { getAllCompletedRemoteData } from '../../../../../core/shared/operators';
-import { Facet } from '../../../models/facet.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
 
 /**
  * This component renders a simple item page.
