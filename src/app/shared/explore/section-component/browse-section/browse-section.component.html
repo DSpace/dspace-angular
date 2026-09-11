@@ -1,0 +1,10 @@
+<div>
+  <h2>{{ 'explore.browse-section.title' | translate }}</h2>
+  @for (name of browseSection.browseNames; track name) {
+    <div class="mb-2">
+      <a [routerLink]="'/browse/' + name" class="lead mb-3">
+        {{'explore.index.' + name | translate}}
+      </a>
+    </div>
+  }
+</div>
