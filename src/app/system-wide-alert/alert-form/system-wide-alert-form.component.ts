@@ -1,6 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  NgZone,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -39,7 +41,9 @@ import {
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
+  interval,
   Observable,
+  Subscription,
 } from 'rxjs';
 import {
   filter,
@@ -67,7 +71,7 @@ import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
     UiSwitchModule,
   ],
 })
-export class SystemWideAlertFormComponent implements OnInit {
+export class SystemWideAlertFormComponent implements OnInit, OnDestroy {
 
   /**
    * Observable to track an existing system-wide alert
@@ -119,6 +123,11 @@ export class SystemWideAlertFormComponent implements OnInit {
    */
   previewDays: number;
 
+  /**
+   * Subscription used to periodically update the preview countdown timer
+   */
+  previewSubscription: Subscription;
+
 
   constructor(
     protected systemWideAlertDataService: SystemWideAlertDataService,
@@ -126,6 +135,7 @@ export class SystemWideAlertFormComponent implements OnInit {
     protected router: Router,
     protected requestService: RequestService,
     protected translateService: TranslateService,
+    protected ngZone: NgZone,
   ) {
   }
 
@@ -152,6 +162,14 @@ export class SystemWideAlertFormComponent implements OnInit {
     this.systemWideAlert$.subscribe((alert) => {
       this.currentAlert = alert;
       this.initFormValues(alert);
+    });
+
+    this.ngZone.runOutsideAngular(() => {
+      this.previewSubscription = interval(1000).subscribe(() => {
+        if (this.counterEnabled$.getValue() && this.date && this.time) {
+          this.ngZone.run(() => this.updatePreviewTime());
+        }
+      });
     });
   }
 
@@ -231,6 +249,12 @@ export class SystemWideAlertFormComponent implements OnInit {
    * @param timeDifference  - The time difference to calculate and push the time units for
    */
   private allocateTimeUnits(timeDifference) {
+    if (timeDifference <= 0) {
+      this.previewMinutes = 0;
+      this.previewHours = 0;
+      this.previewDays = 0;
+      return;
+    }
     this.previewMinutes = Math.floor((timeDifference) / (1000 * 60) % 60);
     this.previewHours = Math.floor((timeDifference) / (1000 * 60 * 60) % 24);
     this.previewDays = Math.floor((timeDifference) / (1000 * 60 * 60 * 24));
@@ -293,6 +317,12 @@ export class SystemWideAlertFormComponent implements OnInit {
    */
   back() {
     this.router.navigate(['/home']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.previewSubscription) {
+      this.previewSubscription.unsubscribe();
+    }
   }
 
 
