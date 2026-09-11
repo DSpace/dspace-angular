@@ -1,9 +1,10 @@
 <div>
-  <div class="modal-header">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}
+  <div class="modal-header">
+    <h4 id="modal-title" class="modal-title h4 mb-0">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}</h4>
     <button type="button" class="btn-close" (click)="close()" aria-label="Close">
     </button>
   </div>
-  <div class="modal-body">
+    <div class="modal-body">
     @if (header) {
       <span class="h5 px-2">{{header | translate}}</span>
     }
