@@ -9,6 +9,7 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { Context } from '@dspace/core/shared/context.model';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
@@ -112,6 +113,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     comp.selectedOption = configurationList[1];
     const navigationExtras: NavigationExtras = {
       queryParams: { configuration: MyDSpaceConfigurationValueType.Workflow },
+      fragment: SEARCH_COMPONENT_ANCHOR_ID,
     };
 
     fixture.detectChanges();

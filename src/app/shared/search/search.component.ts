@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostBinding,
   Inject,
   Input,
   OnDestroy,
@@ -31,7 +32,10 @@ import {
   COMMUNITY_MODULE_PATH,
   ITEM_MODULE_PATH,
 } from '@dspace/core/router/core-routing-paths';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
+import {
+  currentPath,
+  SEARCH_COMPONENT_ANCHOR_ID,
+} from '@dspace/core/router/utils/route.utils';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
@@ -109,6 +113,12 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
  * This component renders a sidebar, a search input bar and the search results.
  */
 export class SearchComponent implements OnDestroy, OnInit {
+
+  /**
+   * Anchor for the browser to scroll to the top of this search component,
+   * instead of the top of the page, after a search interaction
+   */
+  @HostBinding('attr.id') hostId = SEARCH_COMPONENT_ANCHOR_ID;
 
   /**
    * The list of available configuration options
