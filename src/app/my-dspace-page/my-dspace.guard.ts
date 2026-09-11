@@ -26,9 +26,11 @@ export const myDSpaceGuard: CanActivateFn = (
   configurationService: MyDSpaceConfigurationService = inject(MyDSpaceConfigurationService),
   router: Router = inject(Router),
 ): Observable<boolean> => {
+  const configurationParam = configurationService.getCurrentSearchInstanceParam('configuration');
+  const configuration = route.queryParamMap.get(configurationParam) || route.queryParamMap.get('configuration');
   return configurationService.getAvailableConfigurationTypes().pipe(
     first(),
-    map((configurationList) => validateConfigurationParam(router, route.queryParamMap.get('configuration'), configurationList)));
+    map((configurationList) => validateConfigurationParam(router, configurationService, configuration, configurationList)));
 };
 
 /**
@@ -36,18 +38,22 @@ export const myDSpaceGuard: CanActivateFn = (
  *
  * @param router
  *    the service router
+ * @param configurationService
+ *    the MyDSpace configuration service
  * @param configuration
  *    the configuration to validate
  * @param configurationList
  *    the list of available configuration
  *
  */
-function validateConfigurationParam(router: Router, configuration: string, configurationList: MyDSpaceConfigurationValueType[]): boolean {
+function validateConfigurationParam(router: Router, configurationService: MyDSpaceConfigurationService, configuration: string, configurationList: MyDSpaceConfigurationValueType[]): boolean {
   const configurationDefault: string = configurationList[0];
   if (isEmpty(configuration) || !configurationList.includes(configuration as MyDSpaceConfigurationValueType)) {
     // If configuration param is empty or is not included in available configurations redirect to a default configuration value
     const navigationExtras: NavigationExtras = {
-      queryParams: { configuration: configurationDefault },
+      queryParams: {
+        [configurationService.getCurrentSearchInstanceParam('configuration')]: configurationDefault,
+      },
     };
 
     router.navigate([MYDSPACE_ROUTE], navigationExtras);
