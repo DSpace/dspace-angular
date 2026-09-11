@@ -28,4 +28,14 @@ export interface HomeConfig extends Config {
   * Enable or disable the Discover filters on the homepage
   */
   showDiscoverFilters: boolean;
+
+  /**
+   * Disable if you don't want users to edit the homeNews section on your home-page.
+   */
+  editHomeNews: boolean;
+
+  /**
+   * Disable if you don't want users to edit the home header.
+   */
+  editHomeHeader: boolean;
 }

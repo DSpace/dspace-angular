@@ -6,7 +6,14 @@
  * http://www.dspace.org/license/
  */
 
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import {
@@ -28,6 +35,7 @@ import {
 export class EditCMSMetadataMenuProvider extends AbstractMenuProvider {
   constructor(
     protected authorizationService: AuthorizationDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
   }
@@ -39,7 +47,7 @@ export class EditCMSMetadataMenuProvider extends AbstractMenuProvider {
       map(([isSiteAdmin]) => {
         return [
           {
-            visible: isSiteAdmin,
+            visible: isSiteAdmin && (this.appConfig.homePage.editHomeHeader || this.appConfig.homePage.editHomeHeader || this.appConfig.homePage.showTopFooter),
             model: {
               type: MenuItemType.LINK,
               text: 'menu.section.edit-cms-metadata',
