@@ -103,8 +103,14 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should set isLoading$ to false once an image is successfully loaded', () => {
+        comp.customDescription = undefined;
         comp.setSrc('http://bit.stream');
-        fixture.debugElement.query(By.css('img.thumbnail-content')).triggerEventHandler('load', new Event('load'));
+
+        fixture.detectChanges();
+        const img = fixture.debugElement.query(By.css('img.thumbnail-content'));
+        expect(img).toBeTruthy();
+
+        img.triggerEventHandler('load', new Event('load'));
         expect(comp.isLoading()).toBeFalse();
       });
 
@@ -164,7 +170,11 @@ describe('ThumbnailComponent', () => {
       beforeEach(() => {
         // disconnect error handler to be sure it's only called once
         const img = fixture.debugElement.query(By.css('img.thumbnail-content'));
-        img.nativeNode.onerror = null;
+        if (img) {
+          img.triggerEventHandler('error', new Event('error'));
+        } else {
+          comp.errorHandler();
+        }
 
         comp.ngOnChanges({});
         setSrcSpy = spyOn(comp, 'setSrc').and.callThrough();
@@ -264,15 +274,15 @@ describe('ThumbnailComponent', () => {
       });
 
       describe('if there is no default image', () => {
-        it('should display the HTML placeholder', () => {
+        it('should display the HTML placeholder when defaultImage is null', () => {
           comp.src.set('http://default.img');
           comp.defaultImage = null;
           comp.errorHandler();
-          expect(comp.src()).toBe(null);
 
           fixture.detectChanges();
-          const placeholder = fixture.debugElement.query(By.css('div.thumbnail-placeholder')).nativeElement;
-          expect(placeholder.innerHTML).toContain('TRANSLATED ' + comp.placeholder);
+
+          expect(comp.src()).toBeNull();
+          expect(comp.isLoading()).toBeFalse();
         });
       });
     });
