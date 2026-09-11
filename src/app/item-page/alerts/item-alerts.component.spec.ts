@@ -7,6 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
@@ -45,6 +46,10 @@ describe('ItemAlertsComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
     correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      setRedirectUrl: {},
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
@@ -52,6 +57,7 @@ describe('ItemAlertsComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

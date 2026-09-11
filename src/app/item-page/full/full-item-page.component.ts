@@ -37,6 +37,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -85,6 +86,11 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
   metadata$: Observable<MetadataMap>;
 
   /**
+   * Whether the current user is logged in
+   */
+  isLoggedIn$: Observable<boolean>;
+
+  /**
    * True when the itemRD has been originated from its workspaceite/workflowitem, false otherwise.
    */
   fromSubmissionObject = false;
@@ -101,9 +107,10 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
+    protected auth: AuthService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
+    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, auth, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
@@ -118,6 +125,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
       this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
     }),
     );
+
+    this.isLoggedIn$ = this.auth.isAuthenticated();
   }
 
   /**
