@@ -5,6 +5,6 @@
     [enableDragOverDocument]="enableDragOverDocument"
     [onBeforeUpload]="onBeforeUpload"
     [uploadFilesOptions]="uploadFilesOptions"
-    (onCompleteItem)="onCompleteItem($event)"
-  (onUploadError)="onUploadError()"></ds-uploader>
+    (onCompleteItemWithFile)="onCompleteItem($event)"
+  (onUploadError)="onUploadError($event)"></ds-uploader>
 }
