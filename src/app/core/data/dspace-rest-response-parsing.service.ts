@@ -61,6 +61,11 @@ export function isRestPaginatedList(halObj: any): boolean {
 }
 
 /**
+ * The url param holding the page size
+ */
+const PAGE_SIZE_PARAM = 'size=';
+
+/**
  * Split a url into parts
  *
  * @param url the url to split
@@ -69,6 +74,64 @@ const splitUrlInParts = (url: string): string[] => {
   return url.split('?')
     .map((part) => part.split('&'))
     .reduce((combined, current) => [...combined, ...current]);
+};
+
+/**
+ * Return true if two lists of url parts don't hold the same parts, ignoring their order
+ */
+const urlPartsDiffer = (expected: string[], actual: string[]): boolean => {
+  return expected.some((part: string) => !actual.includes(part))
+    || actual.some((part: string) => !expected.includes(part));
+};
+
+/**
+ * Percent decode each url part, so `uri=http%3A%2F%2Fx` and `uri=http://x` compare equal. Decoding
+ * after the split keeps a decoded `&` from merging two params.
+ */
+const decodeUrlParts = (parts: string[]): string[] => {
+  return parts.map((part: string) => {
+    try {
+      return decodeURIComponent(part);
+    } catch (e) {
+      return part;
+    }
+  });
+};
+
+/**
+ * The page size a url asks for, or undefined when it doesn't ask for a usable one
+ */
+const getPageSize = (parts: string[]): number | undefined => {
+  return parts.filter((part: string) => part.startsWith(PAGE_SIZE_PARAM))
+    .map((part: string) => Number(part.substring(PAGE_SIZE_PARAM.length)))
+    .find((size: number) => Number.isInteger(size) && size > 0);
+};
+
+/**
+ * Return the parts without the one holding the page size
+ */
+const withoutPageSize = (parts: string[]): string[] => {
+  return parts.filter((part: string) => !part.startsWith(PAGE_SIZE_PARAM));
+};
+
+/**
+ * Return the warning to log for a self link, or undefined when it describes the same request as the
+ * url it was requested with. A reduced page size gets its own message, since the generic one blames
+ * the endpoint for something the caller did.
+ */
+const selfLinkWarning = (requestedUrl: string, requestedUrlParts: string[], selfLink: string): string | undefined => {
+  const expected = decodeUrlParts(requestedUrlParts);
+  const actual = decodeUrlParts(splitUrlInParts(getUrlWithoutEmbedParams(selfLink)));
+  if (!urlPartsDiffer(expected, actual)) {
+    return undefined;
+  }
+  const requestedSize = getPageSize(expected);
+  const servedSize = getPageSize(actual);
+  if (hasValue(requestedSize) && hasValue(servedSize) && servedSize < requestedSize
+    && !urlPartsDiffer(withoutPageSize(expected), withoutPageSize(actual))) {
+    return `The request for '${requestedUrl}' asked for a page of ${requestedSize} elements, but the REST API served ${servedSize}. Ask for at most MAX_PAGE_SIZE elements`;
+  }
+  return `The response for '${requestedUrl}' has the self link '${selfLink}'. These don't match. This could mean there's an issue with the REST endpoint`;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -175,10 +238,15 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
         });
 
       } else {
+        const selfLink = response.payload._links.self.href;
         const expected = splitUrlInParts(urlWithoutEmbedParams);
-        const actual = splitUrlInParts(response.payload._links.self.href);
-        if (expected[0] === actual[0] && (expected.some((e) => !actual.includes(e)) || actual.some((e) => !expected.includes(e)))) {
-          console.warn(`The response for '${urlWithoutEmbedParams}' has the self link '${response.payload._links.self.href}'. These don't match. This could mean there's an issue with the REST endpoint`);
+        const actual = splitUrlInParts(selfLink);
+        if (expected[0] === actual[0] && urlPartsDiffer(expected, actual)) {
+          // the self link is normalized either way, only the warning is conditional
+          const warning = selfLinkWarning(urlWithoutEmbedParams, expected, selfLink);
+          if (hasValue(warning)) {
+            console.warn(warning);
+          }
           response.payload._links = Object.assign({}, response.payload._links, {
             self: {
               href: urlWithoutEmbedParams,
