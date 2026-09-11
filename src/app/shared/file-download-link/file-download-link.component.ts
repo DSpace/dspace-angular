@@ -5,13 +5,19 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
+  Optional,
 } from '@angular/core';
 import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
@@ -79,7 +85,7 @@ export class FileDownloadLinkComponent implements OnInit {
   /**
    * A boolean representing if link is shown in same tab or in a new one.
    */
-  @Input() isBlank = false;
+  @Input() isBlank: boolean;
 
   @Input() enableRequestACopy = true;
 
@@ -113,10 +119,13 @@ export class FileDownloadLinkComponent implements OnInit {
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private modalService: NgbModal,
+    @Optional() @Inject(APP_CONFIG) private appConfig?: AppConfig,
   ) {
   }
 
   ngOnInit() {
+    this.isBlank = this.isBlank ?? this.appConfig?.item?.bitstream?.openDownloadLinksInNewTab;
+
     if (this.enableRequestACopy) {
       // Obtain item request data from the route snapshot
       this.itemRequest = this.route.snapshot.data.itemRequest;
