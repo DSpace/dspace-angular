@@ -1,0 +1,36 @@
+<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': (isSideBarHidden$ | async) !== true,
+                                                            'container': (hasSidebar$ | async) }">
+  @if ((hasSidebar$ | async) && (isSideBarHidden$ | async) !== true && showNav) {
+    <nav id="sidebar" [ngClass]="{'active': (isSideBarHidden$ | async) !== true}">
+      <div>
+        <ul class="list-unstyled components mb-5">
+          @if (!!(activeTab$ |async)) {
+            @for (tab of tabs; track tab) {
+              <ds-dynamic-layout-sidebar-item [itemBaseUrl]="itemBaseUrl" [tab]="tab" [layout]="'vertical'"
+                                           [activeTab]="(activeTab$ |async)" (tabSelectedChange)="setActiveTab($event)"></ds-dynamic-layout-sidebar-item>
+            }
+          }
+        </ul>
+      </div>
+    </nav>
+  }
+  <div id="content" class="position-relative w-100 pe-0 pt-3 pb-3" [ngClass]="{
+	    'p-0': (hasSidebar$ | async) !== true,
+	    'ps-3': (isSideBarHidden$ | async) !== true,
+	    'ps-0': (isSideBarHidden$ | async) === true
+	    }">
+
+    @if ((hasSidebar$ | async)) {
+      <div>
+        <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
+          <i class="fa fa-chevron-circle-{{(isSideBarHidden$ | async) ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
+        </button>
+      </div>
+    }
+    <div class="d-flex flex-column" [ngClass]="{'ps-4': (hasSidebar$ | async)}">
+      <ng-content></ng-content>
+    </div>
+
+  </div>
+
+</div>

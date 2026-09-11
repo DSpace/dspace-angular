@@ -4,6 +4,8 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DynamicLayoutBox } from '@dspace/core/layout/models/box.model';
+import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
 import { SubmissionCustomUrl } from '@dspace/core/submission/models/submission-custom-url.model';
 
 import { Audit } from './audit/model/audit.model';
@@ -232,4 +234,6 @@ export const models =
     CorrectionType,
     SupervisionOrder,
     SubmissionCustomUrl,
+    DynamicLayoutTab,
+    DynamicLayoutBox,
   ];

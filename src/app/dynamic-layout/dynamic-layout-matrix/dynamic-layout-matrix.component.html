@@ -1,0 +1,15 @@
+@if (!!tab) {
+  <div class="container">
+    @for (row of tab.rows; track row) {
+      <div [class]="row.style" [class.row]="!hasRowClass(row.style)">
+        @for (cell of row.cells; track cell) {
+          <div class="cell" [class]="cell.style" [class.col]="!hasColClass(cell.style)" [class.px-0]="!showCellPadding">
+            @for (box of cell.boxes; track box) {
+              <ds-dynamic-layout-box-container [box]="box" [item]="item" [tabName]="tab.shortname"></ds-dynamic-layout-box-container>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

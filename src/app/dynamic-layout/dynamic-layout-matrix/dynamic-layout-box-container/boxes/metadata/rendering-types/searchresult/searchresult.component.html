@@ -1,0 +1,6 @@
+@for (item of resolvedItems$ | async; track item.uuid) {
+  <ds-listable-object-component-loader
+    [object]="item"
+    [viewMode]="viewMode">
+  </ds-listable-object-component-loader>
+}

@@ -71,6 +71,7 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { AlertType } from '../alert/alert-type';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
@@ -195,6 +196,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() showSidebar = true;
 
   /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice = false;
+
+  /**
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails;
@@ -213,6 +219,16 @@ export class SearchComponent implements OnDestroy, OnInit {
    * List of available view mode
    */
   @Input() viewModeList: ViewMode[];
+
+  /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string = null;
+
+  /**
+   * The alert type to use for the notice
+   */
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
 
   /**
    * Defines whether or not to show the scope selector

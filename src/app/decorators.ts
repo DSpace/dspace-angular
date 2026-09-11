@@ -137,4 +137,17 @@ export const DECORATORS: DecoratorConfig[] = [
       { name: 'theme', default: '*' },
     ],
   },
+  {
+    name: 'MetadataBoxFieldRendering',
+    params: [
+      { name: 'renderingType' },
+      { name: 'structured', default: 'false' },
+    ],
+  },
+  {
+    name: 'RenderDynamicLayoutBoxFor',
+    params: [
+      { name: 'boxType' },
+    ],
+  },
 ];
