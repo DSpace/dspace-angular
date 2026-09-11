@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
@@ -92,6 +93,11 @@ describe('SearchFilterComponent', () => {
     expect(sequenceService.next).toHaveBeenCalled();
     expect(comp.toggleId).toContain('17');
     expect(comp.regionId).toContain('17');
+  });
+
+  it('should not expose individual facet filter as a region landmark', () => {
+    const facetFilterElement = fixture.debugElement.query(By.css('.facet-filter'));
+    expect(facetFilterElement.attributes.role).not.toBe('region');
   });
 
   describe('when the toggle method is triggered', () => {
