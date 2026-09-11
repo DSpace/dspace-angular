@@ -134,7 +134,7 @@ describe('SearchSectionComponent', () => {
 
       const isLastRow = formRows.indexOf(formRow) === 2;
       if ( isLastRow ) {
-        expect(formRow.query(By.css('#addButton'))).not.toBeNull();
+        expect(formRow.query(By.css('#addButton-publications'))).not.toBeNull();
         expect(formRow.query(By.css('[id^="operation"]'))).toBeNull();
       } else {
         const operationSelect = formRow.query(By.css('[id^="operation"]'));
@@ -142,17 +142,17 @@ describe('SearchSectionComponent', () => {
         const operationOptions = operationSelect.children;
         expect(operationOptions.length).toEqual(3);
         expect(operationOptions.map((el) => el.nativeElement.value)).toEqual(['AND','OR','NOT']);
-        expect(formRow.query(By.css('#addButton'))).toBeNull();
+        expect(formRow.query(By.css('#addButton-publications'))).toBeNull();
       }
     }
 
-    expect(fixture.debugElement.queryAll(By.css('#resetButton'))).not.toBeNull();
-    expect(fixture.debugElement.queryAll(By.css('#searchButton'))).not.toBeNull();
+    expect(fixture.debugElement.queryAll(By.css('#resetButton-publications'))).not.toBeNull();
+    expect(fixture.debugElement.queryAll(By.css('#searchButton-publications'))).not.toBeNull();
   });
 
   describe('when you click on the add button', () => {
     beforeEach(fakeAsync(() => {
-      fixture.debugElement.query(By.css('#addButton')).nativeElement.click();
+      fixture.debugElement.query(By.css('#addButton-publications')).nativeElement.click();
       tick();
       fixture.detectChanges();
     }));
@@ -175,7 +175,7 @@ describe('SearchSectionComponent', () => {
     });
 
     beforeEach(fakeAsync(() => {
-      fixture.debugElement.query(By.css('#resetButton')).nativeElement.click();
+      fixture.debugElement.query(By.css('#resetButton-publications')).nativeElement.click();
       tick();
       fixture.detectChanges();
     }));
@@ -213,7 +213,7 @@ describe('SearchSectionComponent', () => {
     });
 
     beforeEach(fakeAsync(() => {
-      fixture.debugElement.query(By.css('#searchButton')).nativeElement.click();
+      fixture.debugElement.query(By.css('#searchButton-publications')).nativeElement.click();
       tick();
       fixture.detectChanges();
     }));

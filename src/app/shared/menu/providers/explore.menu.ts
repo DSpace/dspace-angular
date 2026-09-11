@@ -64,7 +64,7 @@ export class ExploreMenuProvider extends AbstractMenuProvider {
             ...sections,
             ...this.sectionToMenuSections(section),
           ];
-        }, [] as PartialMenuSection[]);
+        }, []);
       }),
     );
   }
@@ -72,25 +72,38 @@ export class ExploreMenuProvider extends AbstractMenuProvider {
   /**
    * Convert a single visible {@link Section} into one or more {@link PartialMenuSection}s.
    * - Without nested sections: a single flat link section.
-   * - With nested sections: an expandable top section plus one child link per nested section.
+   * - With nested sections: an expandable top section plus the (recursively resolved) menu sections
+   *   of each nested section
    *
    * @param section the visible section to convert
+   * @param parentID the id of the parent menu section, or `undefined` for a top-level section
    */
-  protected sectionToMenuSections(section: Section): PartialMenuSection[] {
+  protected sectionToMenuSections(section: Section, parentID?: string): PartialMenuSection[] {
+    const id = isEmpty(parentID) ? `${this.menuProviderId}_${section.id}` : `${parentID}_${section.id}`;
+
     if (isEmpty(section.nestedSections)) {
-      return [this.exploreLinkSection(section.id)];
+      if (isEmpty(parentID)) {
+        return [this.exploreLinkSection(section.id)];
+      }
+      return [{
+        ...this.exploreLinkSection(section.id),
+        id,
+        parentID,
+        alwaysRenderExpandable: false,
+      }];
     }
 
-    const parentID = `${this.menuProviderId}_${section.id}`;
-    const childSections: PartialMenuSection[] = section.nestedSections.map((nestedSection: Section) => ({
-      ...this.exploreLinkSection(nestedSection.id),
-      id: `${parentID}_${nestedSection.id}`,
-      parentID,
-      alwaysRenderExpandable: false,
-    }));
+    const childSections: PartialMenuSection[] = section.nestedSections.reduce(
+      (acc: PartialMenuSection[], nestedSection: Section) => [
+        ...acc,
+        ...this.sectionToMenuSections(nestedSection, id),
+      ],
+      [] as PartialMenuSection[],
+    );
 
     const topSection: PartialMenuSection = {
-      id: parentID,
+      id,
+      parentID,
       visible: true,
       model: {
         type: MenuItemType.TEXT,

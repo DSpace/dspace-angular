@@ -20,6 +20,7 @@ import { ThemedMultiColumnTopSectionComponent } from '../../../../app/shared/exp
 import { ThemedSearchSectionComponent } from '../../../../app/shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../../../../app/shared/explore/section-component/top-section/themed-top-section.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 
 @Component({
@@ -40,6 +41,7 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
     ThemedCountersSectionComponent,
     ThemedFacetSectionComponent,
     ThemedHomeNewsComponent,
+    ThemedLoadingComponent,
     ThemedMultiColumnTopSectionComponent,
     ThemedSearchFormComponent,
     ThemedSearchSectionComponent,

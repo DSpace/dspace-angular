@@ -107,15 +107,22 @@ describe('TopSectionComponent', () => {
     expect(comp).toBeDefined();
   }));
 
-  it('should generate a unique pagination id per instance', () => {
-    const second = TestBed.createComponent(TopSectionComponent).componentInstance;
-    expect(component.paginationId).toMatch(/^search-object-pagination-/);
-    expect(second.paginationId).toMatch(/^search-object-pagination-/);
-    expect(component.paginationId).not.toEqual(second.paginationId);
+  it('should build the pagination id from the section id and sort field', () => {
+    expect(component.paginatedSearchOptions.pagination.id).toEqual('publications-top-dc.date.accessioned');
   });
 
-  it('should use its unique pagination id in the paginated search options', () => {
-    expect(component.paginatedSearchOptions.pagination.id).toEqual(component.paginationId);
+  it('should generate distinct pagination ids for sections with different ids or sort fields', () => {
+    const other = TestBed.createComponent(TopSectionComponent);
+    other.componentInstance.sectionId = 'researchers';
+    other.componentInstance.topSection = {
+      ...component.topSection,
+      sortField: 'dc.title',
+    };
+    other.detectChanges();
+
+    expect(other.componentInstance.paginatedSearchOptions.pagination.id).toEqual('researchers-top-dc.title');
+    expect(other.componentInstance.paginatedSearchOptions.pagination.id)
+      .not.toEqual(component.paginatedSearchOptions.pagination.id);
   });
 
 

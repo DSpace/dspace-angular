@@ -41,11 +41,11 @@ export class SearchSectionComponent implements OnInit {
 
   /** Unique identifier for this section instance. */
   @Input()
-    sectionId: string;
+  sectionId: string;
 
   /** Configuration object defining the search section behaviour. */
   @Input()
-    searchSection: SearchSection;
+  searchSection: SearchSection;
 
   /** Reactive form containing the array of query statements. */
   searchForm: FormGroup;

@@ -10,7 +10,7 @@
     <div>{{ textRowSection.content }}</div>
   }
   @case ('text-metadata') {
-    <div [class.text-section-home-news]="textRowSection.content === 'cris.cms.home-news'">
+    <div [class.text-section-home-news]="textRowSection.content === 'dspace.cms.home-news'">
       <ds-markdown-viewer data-test="ds-markdown-viewer"
                           [value]="metadataValue(textRowSection.content) | async"></ds-markdown-viewer>
     </div>

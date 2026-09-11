@@ -38,6 +38,7 @@ import {
 import {
   map,
   shareReplay,
+  startWith,
   take,
 } from 'rxjs/operators';
 
@@ -50,6 +51,7 @@ import { ThemedMultiColumnTopSectionComponent } from '../shared/explore/section-
 import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
@@ -83,6 +85,7 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
     ThemedCountersSectionComponent,
     ThemedFacetSectionComponent,
     ThemedHomeNewsComponent,
+    ThemedLoadingComponent,
     ThemedMultiColumnTopSectionComponent,
     ThemedSearchFormComponent,
     ThemedSearchSectionComponent,
@@ -113,11 +116,18 @@ export class HomePageComponent implements OnInit {
 
   /**
    * Emits `true` when the dynamic home page has at least one configured section
-   * component to render, `false` otherwise (no sections configured, empty rows,
-   * or the section configuration could not be retrieved). When `false`, the home
+   * component to render, `false` otherwise. When `false`, the home
    * page falls back to the default (static) layout.
    */
   hasConfiguredSections$: Observable<boolean>;
+
+  /**
+   * Emits `true` once the dynamic section configuration request has completed.
+   * Used to keep the loading indicator visible until the request resolves,
+   * preventing the static layout from flickering into view before the dynamic
+   * layout is retrieved.
+   */
+  sectionsLoaded$: Observable<boolean>;
 
   /** Whether the site has a home header metadata value in the current language. */
   hasHomeHeaderMetadata: boolean;
@@ -169,9 +179,15 @@ export class HomePageComponent implements OnInit {
       this.hasConfiguredSections$ = this.sectionComponents.pipe(
         map((rows: SectionComponent[][]) => isNotEmpty(rows) && rows.some((row: SectionComponent[]) => isNotEmpty(row))),
       );
+
+      this.sectionsLoaded$ = this.sectionComponents.pipe(
+        map(() => true),
+        startWith(false),
+      );
     } else {
       this.sectionComponents = of([]);
       this.hasConfiguredSections$ = of(false);
+      this.sectionsLoaded$ = of(true);
     }
 
     combineLatest([this.siteService.find().pipe(take(1)), this.locale.getCurrentLanguageCode()]).subscribe(

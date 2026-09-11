@@ -22,19 +22,19 @@ export class Section extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The identifier of this Section.
    */
   @autoserialize
-    id: string;
+  id: string;
 
   @autoserialize
-    componentRows: SectionComponent[][];
+  componentRows: SectionComponent[][];
 
   @autoserialize
-    nestedSections: Section[];
+  nestedSections: Section[];
 
   /**
    * The {@link HALLink}s for this section
@@ -157,5 +157,5 @@ export interface TopSectionColumn {
  * Represents the type of template to use for the section
  */
 export enum TopSectionTemplateType {
-  DEFAULT = 'default', // CRIS default template
+  DEFAULT = 'default',
 }

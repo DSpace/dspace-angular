@@ -1,5 +1,7 @@
 @if (!isDynamicHomePageEnabled) {
   <ng-container *ngTemplateOutlet="staticHomePage"></ng-container>
+} @else if ((sectionsLoaded$ | async) !== true) {
+  <ds-loading [showMessage]="false"></ds-loading>
 } @else if (hasConfiguredSections$ | async) {
   @if ((site$.value && hasHomeHeaderMetadata)) {
     <div id="home-header-wrapper">
