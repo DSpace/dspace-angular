@@ -1,18 +1,25 @@
 import {
+  ChangeDetectorRef,
   Inject,
   Injectable,
   Injector,
   Optional,
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import {
+  FormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import {
   hasNoValue,
   hasValue,
+  isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import {
   AND_OPERATOR,
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_MATCHERS,
   DynamicFormControlCondition,
   DynamicFormControlMatcher,
@@ -22,7 +29,11 @@ import {
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  startWith,
+} from 'rxjs/operators';
 
 import { FormBuilderService } from '../form-builder.service';
 
@@ -32,6 +43,7 @@ import { FormBuilderService } from '../form-builder.service';
  */
 @Injectable({ providedIn: 'root' })
 export class DsDynamicTypeBindRelationService {
+  activatedSubscriptionsByMetadataKey = new Set<string>();
 
   constructor(@Optional() @Inject(DYNAMIC_MATCHERS) private dynamicMatchers: DynamicFormControlMatcher[],
               protected dynamicFormRelationService: DynamicFormRelationService,
@@ -60,12 +72,15 @@ export class DsDynamicTypeBindRelationService {
 
 
   /**
-   * Get models for this bind type
+   * Get models or (parent array-)controls for a model with type bind
+   *
    * @param model
+   * @param formGroup
    */
-  public getRelatedFormModel(model: DynamicFormControlModel): DynamicFormControlModel[] {
+  public getRelatedFormModel(model: DynamicFormControlModel, formGroup: UntypedFormGroup): Array<DynamicFormControlModel | FormArray> {
 
-    const models: DynamicFormControlModel[] = [];
+    const models: Array<DynamicFormControlModel | FormArray> = [];
+    let parentControl: any;
 
     (model as any).typeBindRelations.forEach((relGroup) => relGroup.when.forEach((rel) => {
 
@@ -73,12 +88,22 @@ export class DsDynamicTypeBindRelationService {
         throw new Error(`FormControl ${model.id} cannot depend on itself`);
       }
 
-      const bindModel: DynamicFormControlModel = this.formBuilderService.getTypeBindModel();
+      const bindModel: DynamicFormControlModel = this.formBuilderService.getTypeBindModels(rel.id);
 
-      if (model && !models.some((modelElement) => modelElement === bindModel)) {
-        models.push(bindModel);
+      if (!parentControl && formGroup && bindModel && this.isPartOfArrayWithRepeatableItems(bindModel)) {
+        parentControl = this.formBuilderService.findControlByModel((bindModel.parent as any).context, formGroup);
+      }
+
+      if (!parentControl) {
+        if (model && !models.some((modelElement) => modelElement === bindModel)) {
+          models.push(bindModel);
+        }
       }
     }));
+
+    if (parentControl && !models.some((modelElement) => modelElement === parentControl)) {
+      models.push(parentControl);
+    }
 
     return models;
   }
@@ -89,12 +114,12 @@ export class DsDynamicTypeBindRelationService {
    * component, the negation of the comparison is returned.
    * @param relation type bind relation (eg. {MATCH_VISIBLE, OR, ['book', 'book part']})
    * @param matcher contains 'match' value and an onChange() event listener
+   * @param latestChanges
    */
-  public matchesCondition(relation: DynamicFormControlRelation, matcher: DynamicFormControlMatcher): boolean {
+  public matchesCondition(relation: DynamicFormControlRelation, matcher: DynamicFormControlMatcher, latestChanges?: any): boolean {
 
     // Default to OR for operator (OR is explicitly set in field-parser.ts anyway)
     const operator = relation.operator || OR_OPERATOR;
-
 
     return relation.when.reduce((hasAlreadyMatched: boolean, condition: DynamicFormControlCondition, index: number) => {
       // Get the DynamicFormControlModel (typeBindModel) from the form builder service, set in the form builder
@@ -102,7 +127,7 @@ export class DsDynamicTypeBindRelationService {
       // like relation group component and submission section form component).
       // This model (DynamicRelationGroupModel) contains eg. mandatory field, formConfiguration, relationFields,
       // submission scope, form/section type and other high level properties
-      const bindModel: any = this.formBuilderService.getTypeBindModel();
+      const bindModel: any = this.formBuilderService.getTypeBindModels(condition.id);
 
       let values: string[];
       let bindModelValue = bindModel.value;
@@ -112,8 +137,17 @@ export class DsDynamicTypeBindRelationService {
       if (bindModel.type === DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP) {
         bindModelValue = bindModel.value.map((entry) => entry[bindModel.mandatoryField]);
       }
+
       // Support multiple bind models
-      if (Array.isArray(bindModelValue)) {
+      if (latestChanges && Array.isArray(latestChanges)) {
+        values = latestChanges.map((entry) => {
+          if (entry[condition.id]) {
+            return this.getTypeBindValue(entry[condition.id]);
+          } else {
+            return this.getTypeBindValue(entry);
+          }
+        });
+      } else if (Array.isArray(bindModelValue)) {
         values = [...bindModelValue.map((entry) => this.getTypeBindValue(entry))];
       } else {
         values = [this.getTypeBindValue(bindModelValue)];
@@ -177,42 +211,68 @@ export class DsDynamicTypeBindRelationService {
    * Return an array of subscriptions to a calling component
    * @param model
    * @param control
+   * @param formGroup
+   * @param compRef
    */
-  subscribeRelations(model: DynamicFormControlModel, control: UntypedFormControl): Subscription[] {
+  subscribeRelations(model: DynamicFormControlModel, control: UntypedFormControl, formGroup: UntypedFormGroup, compRef: ChangeDetectorRef): Subscription[] {
+    const relatedControlsOrModels: Array<DynamicFormControlModel | FormArray> = this.getRelatedFormModel(model, formGroup);
 
-    const relatedModels = this.getRelatedFormModel(model);
-    const subscriptions: Subscription[] = [];
+    return Object.values(relatedControlsOrModels).filter((relatedModel) => hasValue(relatedModel)).map((relatedModel) => {
+      const isFormArray = relatedModel instanceof FormArray;
 
-    Object.values(relatedModels).forEach((relatedModel: any) => {
+      const initialValue = this.getInitialRelatedModelValue(relatedModel);
+      let valueUpdates$;
 
-      if (hasValue(relatedModel)) {
-        const initValue = (hasNoValue(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
-          (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
-
-        const updateSubject = (relatedModel.type === 'CHECKBOX_GROUP' ? relatedModel.valueUpdates : relatedModel.valueChanges);
-        const valueChanges = updateSubject.pipe(
-          startWith(initValue),
-        );
-
-        // Build up the subscriptions to watch for changes;
-        subscriptions.push(valueChanges.subscribe(() => {
-          // Iterate each matcher
-          if (hasValue(this.dynamicMatchers)) {
-            this.dynamicMatchers.forEach((matcher) => {
-              // Find the relation
-              const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
-              // If the relation is defined, get matchesCondition result and pass it to the onChange event listener
-              if (relation !== undefined) {
-                const hasMatch = this.matchesCondition(relation, matcher);
-                matcher.onChange(hasMatch, model, control, this.injector);
-              }
-            });
-          }
-        }));
+      if (isFormArray) {
+        valueUpdates$ = relatedModel.valueChanges;
+      } else if ((relatedModel as any).type === 'CHECKBOX_GROUP') {
+        valueUpdates$ = (relatedModel as any).valueUpdates;
+      } else {
+        valueUpdates$ = (relatedModel as any).valueChanges;
       }
-    });
 
-    return subscriptions;
+      return valueUpdates$.pipe(
+        startWith(initialValue),
+        distinctUntilChanged(),
+        debounceTime(150),
+      ).subscribe((changedValues: any) => {
+        this.applyMatcher(model, control, compRef, isFormArray ? changedValues : undefined);
+      });
+    });
   }
 
+  private getInitialRelatedModelValue(relatedModel: DynamicFormControlModel | FormArray) {
+    const value = (relatedModel as any).value;
+
+    if (hasNoValue(value) || typeof value === 'string' || Array.isArray(value)) {
+      return value;
+    }
+
+    return value.value;
+  }
+
+  private applyMatcher(model: DynamicFormControlModel, control: UntypedFormControl, compRef: ChangeDetectorRef, latestChanges: any) {
+    if (!hasValue(this.dynamicMatchers)) {
+      return;
+    }
+
+    this.dynamicMatchers.forEach((matcher) => {
+      const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
+
+      if (relation === undefined) {
+        return;
+      }
+
+      const hasMatch = this.matchesCondition(relation, matcher, latestChanges);
+      matcher.onChange(hasMatch, model, control, this.injector);
+      compRef.markForCheck();
+    });
+  }
+
+  private isPartOfArrayWithRepeatableItems(model: DynamicFormControlModel): boolean {
+    return (isNotNull(model.parent) &&
+      (model.parent as any).context &&
+      (model.parent as any).context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY &&
+      (model.parent as any).context.notRepeatable === false);
+  }
 }

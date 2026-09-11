@@ -184,6 +184,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   listId: string;
   searchConfig: string;
   value: MetadataValue;
+
   /**
    * List of subscriptions to unsubscribe from
    */
@@ -355,8 +356,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
       }
+
+      // Handle typeBind relations
       if (this.model.typeBindRelations && this.model.typeBindRelations.length > 0) {
-        this.subscriptions.push(...this.typeBindRelationService.subscribeRelations(this.model, this.control));
+        const fieldKey = this.model.metadataKey ?? this.model.name;
+        if (!this.typeBindRelationService.activatedSubscriptionsByMetadataKey.has(fieldKey)) {
+          this.subscriptions.push(...this.typeBindRelationService.subscribeRelations(
+            this.model,
+            this.control,
+            this.formGroup ? this.formGroup : this.group,
+            this.ref,
+          ));
+          this.typeBindRelationService.activatedSubscriptionsByMetadataKey.add(fieldKey);
+        }
+
       }
     }
   }
@@ -519,6 +532,16 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+
+    this.clearListOfTypeBindRelationSubscriptions();
+  }
+
+  private clearListOfTypeBindRelationSubscriptions() {
+    const fieldKey = this.model.metadataKey ?? this.model.name;
+
+    if (this.typeBindRelationService.activatedSubscriptionsByMetadataKey.has(fieldKey)) {
+      this.typeBindRelationService.activatedSubscriptionsByMetadataKey.delete(fieldKey);
+    }
   }
 
   get hasHint(): boolean {

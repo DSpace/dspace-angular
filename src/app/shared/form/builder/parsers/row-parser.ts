@@ -61,16 +61,20 @@ export class RowParser {
     const layoutDefaultGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length);
     const layoutClass = ' d-flex flex-column justify-content-start';
 
-    const parserOptions: ParserOptions = {
-      readOnly: readOnly,
-      submissionScope: submissionScope,
-      collectionUUID: scopeUUID,
-      typeField: typeField,
-      isInnerForm: isInnerForm,
-    };
-
     // Iterate over row's fields
     scopedFields.forEach((fieldData: FormFieldModel) => {
+      let parserOptionsTypeField = typeField;
+      if (fieldData.typeBindToField) {
+        parserOptionsTypeField = fieldData.typeBindToField.replace(/\./g, '_');
+      }
+
+      const parserOptions: ParserOptions = {
+        readOnly: readOnly,
+        submissionScope: submissionScope,
+        collectionUUID: scopeUUID,
+        typeField: parserOptionsTypeField,
+        isInnerForm: isInnerForm,
+      };
 
       const layoutFieldClass = (fieldData.style || layoutDefaultGridClass) + layoutClass;
       const parserProvider = ParserFactory.getProvider(fieldData.input.type as ParserType);
