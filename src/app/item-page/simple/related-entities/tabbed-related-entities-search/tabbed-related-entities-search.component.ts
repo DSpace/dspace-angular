@@ -72,6 +72,11 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
   @Input() sideBarWidth = 4;
 
   /**
+   * Defines whether or not to show the scope selector
+   */
+  @Input() showScopeSelector = true;
+
+  /**
    * The active tab
    */
   activeTab$: Observable<string>;
