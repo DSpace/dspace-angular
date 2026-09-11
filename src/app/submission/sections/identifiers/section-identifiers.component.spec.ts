@@ -88,12 +88,14 @@ const mockItem = Object.assign(new Item(), {
 // Mock identifier data to use with tests
 const identifierData: WorkspaceitemSectionIdentifiersObject = {
   identifiers: [{
+    id: 'https://doi.org/10.33515/dspace-61',
     value: 'https://doi.org/10.33515/dspace-61',
     identifierType: 'doi',
     identifierStatus: 'TO_BE_REGISTERED',
     type: 'identifier',
   },
   {
+    id: '123456789/418',
     value: '123456789/418',
     identifierType: 'handle',
     identifierStatus: null,
