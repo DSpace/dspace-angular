@@ -35,6 +35,9 @@
                   <th scope="col" class="name-header">{{'process.overview.table.name' | translate}}</th>
                   <th scope="col" class="user-header">{{'process.overview.table.user' | translate}}</th>
                   <th scope="col" class="info-header">{{'process.overview.table.' + processStatus.toLowerCase() + '.info' | translate}}</th>
+                  @if (processStatus === ProcessStatus.RUNNING) {
+                    <th scope="col" class="heartbeat-header">{{'process.overview.table.heartbeat' | translate}}</th>
+                  }
                   <th scope="col" class="actions-header">{{'process.overview.table.actions' | translate}}</th>
                 </tr>
               </thead>
@@ -46,6 +49,9 @@
                     <td><a [routerLink]="['/processes/', tableEntry.process.processId]">{{tableEntry.process.scriptName}}</a></td>
                     <td>{{tableEntry.user}}</td>
                     <td>{{tableEntry.info}}</td>
+                    @if (processStatus === ProcessStatus.RUNNING) {
+                      <td>{{tableEntry.process.heartbeat ? (tableEntry.process.heartbeat | date:dateFormat:'UTC') : 'N/A'}}</td>
+                    }
                     <td>
                       <button [attr.aria-label]="'process.overview.delete-process' | translate"
                         (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)"

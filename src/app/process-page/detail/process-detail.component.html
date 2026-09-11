@@ -44,6 +44,10 @@
         <div>{{ process.startTime | date:dateFormat:'UTC' }}</div>
       </ds-process-detail-field>
     }
+      <ds-process-detail-field id="process-heartbeat"
+                              [title]="'process.detail.heartbeat' | translate">
+          <div>{{ process.heartbeat ? (process.heartbeat | date:dateFormat:'UTC') : 'N/A' }}</div>
+      </ds-process-detail-field>
     @if (process && process.endTime) {
       <ds-process-detail-field id="process-end-time"
         [title]="'process.detail.end-time' | translate">
