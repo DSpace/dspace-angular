@@ -3,6 +3,16 @@
     position: relative; // align dropdown menu with respect to this element
   }
 
+  // The toggler is a <button> so user agents do not apply native button chrome
+  button.ds-menu-toggler-wrapper {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
   .dropdown-menu {
     overflow: hidden;
     min-width: 100%;
