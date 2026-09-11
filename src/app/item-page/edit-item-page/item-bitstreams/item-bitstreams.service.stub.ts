@@ -64,6 +64,9 @@ export class ItemBitstreamsServiceStub {
   removeMarkedBitstreams = jasmine.createSpy('removeMarkedBitstreams').and
     .returnValue(createSuccessfulRemoteDataObject$({}));
 
+  removeMarkedBundlesAndBitstreams = jasmine.createSpy('removeMarkedBundlesAndBitstreams').and
+    .returnValue(of({ responses: [], deletingBundles: false, deletingBitstreams: false }));
+
   mapBitstreamsToTableEntries = jasmine.createSpy('mapBitstreamsToTableEntries').and
     .returnValue([]);
 

@@ -1,5 +1,7 @@
 import {
   ChangeDetectorRef,
+  Component,
+  Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -7,6 +9,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
@@ -28,21 +31,26 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import { BitstreamDataServiceStub } from '@dspace/core/testing/bitstream-data-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import {
@@ -102,6 +110,21 @@ let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
 let itemBitstreamsService: ItemBitstreamsServiceStub;
+let bundlesRD$: BehaviorSubject<any>;
+let bundleFieldUpdates$: BehaviorSubject<any>;
+
+@Component({
+  selector: 'ds-item-edit-bitstream-bundle',
+  template: '',
+})
+class ItemEditBitstreamBundleTestComponent {
+  @Input() bundle: Bundle;
+  @Input() item: Item;
+  @Input() columnSizes;
+  @Input() isFirstTable: boolean;
+  @Input() bundleUpdate;
+  @Input() bundleUpdatesUrl: string;
+}
 
 describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -128,6 +151,18 @@ describe('ItemBitstreamsComponent', () => {
         getMoveOperations: of(moveOperations),
       },
     );
+    bundleFieldUpdates$ = new BehaviorSubject({
+      [bundle.uuid]: { field: bundle, changeType: undefined },
+    });
+    (objectUpdatesService.getFieldUpdatesExclusive as jasmine.Spy).and.callFake((bundleListUrl: string) => {
+      if (hasValue(bundleListUrl) && bundleListUrl.endsWith('/bundles')) {
+        return bundleFieldUpdates$.asObservable();
+      }
+      return of({
+        [bitstream1.uuid]: fieldUpdate1,
+        [bitstream2.uuid]: fieldUpdate2,
+      });
+    });
     router = Object.assign(new RouterStub(), {
       url: url,
     });
@@ -152,6 +187,7 @@ describe('ItemBitstreamsComponent', () => {
       id: 'item',
       _links: {
         self: { href: 'item-selflink' },
+        bundles: { href: 'https://rest/api/core/items/item/bundles' },
       },
       bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
       lastModified: date,
@@ -160,7 +196,6 @@ describe('ItemBitstreamsComponent', () => {
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
       findByHref: () => createSuccessfulRemoteDataObject$(item),
       findById: () => createSuccessfulRemoteDataObject$(item),
-      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
     });
     route = Object.assign({
       parent: {
@@ -169,8 +204,11 @@ describe('ItemBitstreamsComponent', () => {
       data: of({}),
       url: url,
     });
+    bundlesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(createPaginatedList([bundle])));
     bundleService = jasmine.createSpyObj('bundleService', {
       patch: createSuccessfulRemoteDataObject$({}),
+      removeMultiple: createSuccessfulRemoteDataObject$({} as NoContent),
+      findAllByItem: bundlesRD$.asObservable(),
     });
 
     itemBitstreamsService = getItemBitstreamsServiceStub();
@@ -180,7 +218,6 @@ describe('ItemBitstreamsComponent', () => {
         TranslateModule.forRoot(),
         ItemBitstreamsComponent,
         ObjectValuesPipe,
-        VarDirective,
         BrowserAnimationsModule,
       ],
       providers: [
@@ -205,6 +242,9 @@ describe('ItemBitstreamsComponent', () => {
           imports: [ItemEditBitstreamBundleComponent,
             ThemedLoadingComponent],
         },
+        add: {
+          imports: [ItemEditBitstreamBundleTestComponent],
+        },
       })
       .compileComponents();
   }));
@@ -216,28 +256,96 @@ describe('ItemBitstreamsComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should preserve bundle components and staged updates when bundle observables emit again', () => {
+    const bundleDebugElement = fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent));
+    const bundleComponent = bundleDebugElement.componentInstance as ItemEditBitstreamBundleTestComponent;
+
+    bundleFieldUpdates$.next({
+      [bundle.uuid]: { field: bundle, changeType: FieldChangeType.REMOVE },
+    });
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent)).componentInstance)
+      .toBe(bundleComponent);
+    expect(bundleComponent.bundleUpdate.changeType).toBe(FieldChangeType.REMOVE);
+
+    bundlesRD$.next(createSuccessfulRemoteDataObject(createPaginatedList([bundle])));
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent)).componentInstance)
+      .toBe(bundleComponent);
+    expect(objectUpdatesService.initialize).toHaveBeenCalledTimes(1);
+  });
+
   describe('when submit is called', () => {
     beforeEach(() => {
       spyOn(bitstreamService, 'removeMultiple').and.callThrough();
       comp.submit();
     });
 
-    it('should call removeMarkedBitstreams on the itemBitstreamsService', () => {
-      expect(itemBitstreamsService.removeMarkedBitstreams).toHaveBeenCalled();
+    it('should call removeMarkedBundlesAndBitstreams on the itemBitstreamsService', () => {
+      expect(itemBitstreamsService.removeMarkedBundlesAndBitstreams).toHaveBeenCalled();
     });
   });
 
   describe('discard', () => {
-    it('should discard ALL field updates', () => {
+    it('should discard item, bundle-list, and per-bundle field updates', () => {
       comp.discard();
       expect(objectUpdatesService.discardAllFieldUpdates).toHaveBeenCalled();
+      expect(objectUpdatesService.discardFieldUpdates).toHaveBeenCalled();
     });
   });
 
   describe('reinstate', () => {
-    it('should reinstate field updates on the bundle', () => {
+    it('should reinstate bundle-list and per-bundle field updates', () => {
       comp.reinstate();
+      expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(`${item.self}/bundles`);
       expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(bundle.self);
+    });
+  });
+
+  describe('displayRemovalNotifications', () => {
+    beforeEach(() => {
+      notificationsService.error = jasmine.createSpy('error');
+      notificationsService.success = jasmine.createSpy('success');
+    });
+
+    it('should not show any notification when responses array is empty', () => {
+      comp.displayRemovalNotifications([], false, false);
+      expect(notificationsService.success).not.toHaveBeenCalled();
+      expect(notificationsService.error).not.toHaveBeenCalled();
+    });
+
+    it('should show bitstreams notification when only deleting bitstreams', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], false, true);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('bitstreams');
+    });
+
+    it('should show bundles notification when only deleting bundles', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], true, false);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('bundles');
+    });
+
+    it('should show both notification when deleting both bundles and bitstreams', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], true, true);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('both');
+    });
+
+    it('should show error notification for failed responses', (done) => {
+      createFailedRemoteDataObject$('Test error').subscribe((failedResponse) => {
+        comp.displayRemovalNotifications([failedResponse], true, false);
+        expect(notificationsService.error).toHaveBeenCalled();
+        done();
+      });
     });
   });
 
