@@ -35,8 +35,10 @@ describe('SearchFormComponent', () => {
   const searchService = new SearchServiceStub();
   let searchFilterService: SearchFilterServiceStub;
   const paginationService = new PaginationServiceStub();
-  const searchConfigService = { paginationID: 'test-id' };
-  const firstPage = { 'spc.page': 1 };
+  const searchConfigService = {
+    searchInstanceId: 'test-id',
+    getCurrentSearchInstanceParam: (param: string) => `test-id.${param}`,
+  };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
   };
@@ -111,11 +113,17 @@ describe('SearchFormComponent', () => {
     const scope = 'MCU';
     let searchQuery = {};
 
-    it('should navigate to the search first page even when no parameters are provided', () => {
+    beforeEach(() => {
+      searchQuery = {};
+      router.navigate.calls.reset();
+    });
+
+    it('should navigate to the search page even when no parameters are provided', () => {
+      const expectedQueryParams = { 'test-id.page': 1 };
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
+        queryParams: expectedQueryParams,
         queryParamsHandling: 'merge',
       });
     });
@@ -124,11 +132,15 @@ describe('SearchFormComponent', () => {
       searchQuery = {
         query: query,
       };
+      const expectedQueryParams = {
+        'test-id.page': 1,
+        'test-id.query': query,
+      };
 
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
+        queryParams: expectedQueryParams,
         queryParamsHandling: 'merge',
       });
     });
@@ -137,11 +149,15 @@ describe('SearchFormComponent', () => {
       searchQuery = {
         scope: scope,
       };
+      const expectedQueryParams = {
+        'test-id.page': 1,
+        'test-id.scope': scope,
+      };
 
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
+        queryParams: expectedQueryParams,
         queryParamsHandling: 'merge',
       });
     });
