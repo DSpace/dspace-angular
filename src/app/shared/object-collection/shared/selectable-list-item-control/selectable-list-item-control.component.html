@@ -1,4 +1,4 @@
-<ng-container *ngVar="selectionService?.isObjectSelected(selectionConfig?.listId, object) | async as checked">
+<ng-container *ngVar="selected$ | async as checked">
   <span class="form-check">
     @if (selectionConfig.repeatable) {
       <input #selectListItemCheckbox class="form-check-input" type="checkbox"

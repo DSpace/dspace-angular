@@ -148,14 +148,16 @@ describe('QualityAssuranceSourceComponent test suite', () => {
       expect(compAsAny.getQualityAssuranceSource).toHaveBeenCalled();
     });
 
-    it(('isSourceLoading should return FALSE'), () => {
-      expect(comp.isSourceLoading()).toBeObservable(cold('(a|)', {
+    it(('isSourceLoading$ should return FALSE'), () => {
+      comp.ngOnInit();
+      expect(comp.isSourceLoading$).toBeObservable(cold('(a|)', {
         a: false,
       }));
     });
 
-    it(('isSourceProcessing should return FALSE'), () => {
-      expect(comp.isSourceProcessing()).toBeObservable(cold('(a|)', {
+    it(('isSourceProcessing$ should return FALSE'), () => {
+      comp.ngOnInit();
+      expect(comp.isSourceProcessing$).toBeObservable(cold('(a|)', {
         a: false,
       }));
     });

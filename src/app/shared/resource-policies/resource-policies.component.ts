@@ -22,7 +22,6 @@ import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
 import {
   hasValue,
   isEmpty,
-  isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
@@ -39,7 +38,6 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  reduce,
   scan,
   take,
 } from 'rxjs/operators';
@@ -104,6 +102,27 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     new BehaviorSubject<ResourcePolicyCheckboxEntry[]>([]);
 
   /**
+   * Whether there are any selected resource's policies to be deleted
+   * @type {Observable<boolean>}
+   */
+  public canDelete$: Observable<boolean> = this.resourcePoliciesEntries$.pipe(
+    map((entries: ResourcePolicyCheckboxEntry[]) => entries.some((entry) => entry.checked)),
+    distinctUntilChanged(),
+  );
+
+  /**
+   * Whether a delete operation is pending
+   * @type {Observable<boolean>}
+   */
+  public isProcessingDelete$: Observable<boolean> = this.processingDelete$.asObservable();
+
+  /**
+   * All resource's policies
+   * @type {Observable<ResourcePolicyCheckboxEntry[]>}
+   */
+  public resourcePolicies$: Observable<ResourcePolicyCheckboxEntry[]> = this.resourcePoliciesEntries$.asObservable();
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -146,20 +165,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check if there are any selected resource's policies to be deleted
-   *
-   * @return {Observable<boolean>}
-   */
-  canDelete(): Observable<boolean> {
-    return observableFrom(this.resourcePoliciesEntries$.value).pipe(
-      filter((entry: ResourcePolicyCheckboxEntry) => entry.checked),
-      reduce((acc: any, value: any) => [...acc, value], []),
-      map((entries: ResourcePolicyCheckboxEntry[]) => isNotEmpty(entries)),
-      distinctUntilChanged(),
-    );
-  }
-
-  /**
    * Delete the selected resource's policies
    */
   deleteSelectedResourcePolicies(): void {
@@ -185,15 +190,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Return all resource's policies
-   *
-   * @return an observable that emits all resource's policies
-   */
-  getResourcePolicies(): Observable<ResourcePolicyCheckboxEntry[]> {
-    return this.resourcePoliciesEntries$.asObservable();
-  }
-
-  /**
    * Initialize the resource's policies list
    */
   initResourcePolicyList() {
@@ -216,15 +212,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Return a boolean representing if a delete operation is pending
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingDelete(): Observable<boolean> {
-    return this.processingDelete$.asObservable();
-  }
-
-  /**
    * Redirect to resource policy creation page
    */
   redirectToResourcePolicyCreatePage(): void {
@@ -242,7 +229,9 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   selectAllCheckbox(event: any): void {
     const checked = event.target.checked;
-    this.resourcePoliciesEntries$.value.forEach((entry: ResourcePolicyCheckboxEntry) => entry.checked = checked);
+    const entries = this.resourcePoliciesEntries$.value;
+    entries.forEach((entry: ResourcePolicyCheckboxEntry) => entry.checked = checked);
+    this.resourcePoliciesEntries$.next(entries);
   }
 
   /**
@@ -250,6 +239,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   selectCheckbox(policyEntry: ResourcePolicyCheckboxEntry, checked: boolean) {
     policyEntry.checked = checked;
+    this.resourcePoliciesEntries$.next(this.resourcePoliciesEntries$.value);
   }
 
   /**

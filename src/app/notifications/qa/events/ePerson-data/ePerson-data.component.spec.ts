@@ -1,4 +1,5 @@
 /* tslint:disable:no-unused-variable */
+import { SimpleChange } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -55,7 +56,9 @@ describe('EPersonDataComponent', () => {
     const ePersonDataRD$ = createSuccessfulRemoteDataObject$(ePersonData);
     ePersonDataService.findById.and.returnValue(ePersonDataRD$);
     component.ePersonId = ePersonId;
-    component.getEPersonData$();
+    component.ngOnChanges({
+      ePersonId: new SimpleChange(null, ePersonId, true),
+    });
     fixture.detectChanges();
     expect(ePersonDataService.findById).toHaveBeenCalledWith(ePersonId, true);
   });

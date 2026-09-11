@@ -13,15 +13,15 @@
             </span>
             <div class="space-children-mr flex-shrink-0">
               <button class="btn btn-danger p-1"
-                [dsBtnDisabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
+                [dsBtnDisabled]="((canDelete$ | async) !== true) || (isProcessingDelete$ | async)"
                 [title]="'resource-policies.delete.btn.title' | translate"
                 (click)="deleteSelectedResourcePolicies()">
-                @if ((isProcessingDelete() | async)) {
+                @if ((isProcessingDelete$ | async)) {
                   <span>
                     <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
                   </span>
                 }
-                @if ((isProcessingDelete() | async) !== true) {
+                @if ((isProcessingDelete$ | async) !== true) {
                   <span>
                     <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
                     {{'resource-policies.delete.btn' | translate}}
@@ -29,7 +29,7 @@
                 }
               </button>
               <button class="btn btn-success p-1"
-                [dsBtnDisabled]="(isProcessingDelete() | async)"
+                [dsBtnDisabled]="(isProcessingDelete$ | async)"
                 [title]="'resource-policies.add.for.' + resourceType | translate"
                 (click)="redirectToResourcePolicyCreatePage()">
                 <i class='fas fa-plus' aria-hidden="true"></i>
@@ -39,7 +39,7 @@
           </div>
         </th>
       </tr>
-      @if ((getResourcePolicies() | async)?.length > 0) {
+      @if ((resourcePolicies$ | async)?.length > 0) {
         <tr class="text-center">
           <th>
             <div>
@@ -64,9 +64,9 @@
         </tr>
       }
     </thead>
-    @if ((getResourcePolicies() | async)?.length > 0) {
+    @if ((resourcePolicies$ | async)?.length > 0) {
       <tbody>
-        @for (entry of (getResourcePolicies() | async); track entry) {
+        @for (entry of (resourcePolicies$ | async); track entry) {
           <tr ds-resource-policy-entry
             [entry]="entry"
             (toggleCheckbox)="selectCheckbox(entry, $event)"

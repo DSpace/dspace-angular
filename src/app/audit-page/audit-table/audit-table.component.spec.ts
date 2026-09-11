@@ -1,4 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -53,6 +56,9 @@ describe('AuditTableComponent', () => {
     component = fixture.componentInstance;
     component.audits = audits;
     component.isOverviewPage = true;
+    component.ngOnChanges({
+      audits: new SimpleChange(null, audits, true),
+    });
     fixture.detectChanges();
   });
 

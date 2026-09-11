@@ -32,7 +32,7 @@
                     <span [innerHTML]="dsoNameService.getName(file)"></span>
                   </div>
                   <div class="col-3">
-                    <span>{{ (bitstreamFormatDataService.findByBitstream(file) | async).payload?.shortDescription }}</span>
+                    <span>{{ (file.format | async)?.payload?.shortDescription }}</span>
                   </div>
                    <div class="col-2">
                     <span> {{ (file?.sizeBytes) | dsFileSize }}</span>

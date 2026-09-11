@@ -5,7 +5,7 @@
       <ds-alert [type]="'alert-info'" [content]="'quality-assurance.source.description'"></ds-alert>
     </div>
   </div>
-  <ds-source-list [loading]="(isSourceLoading() | async) === true || (isSourceProcessing() | async) === true"
+  <ds-source-list [loading]="(isSourceLoading$ | async) === true || (isSourceProcessing$ | async) === true"
                   [paginationConfig]="paginationConfig"
                   [showLastEvent]="true"
                   [sources]="sources$ | async"
