@@ -43,6 +43,12 @@
         }
       }
       ul {
+        flex-direction: column;
+
+        @media screen and (min-width: map-get($grid-breakpoints, md))  {
+          flex-direction: row;
+        }
+
         li {
           display: inline-flex;
 
@@ -50,6 +56,7 @@
             padding: 0 calc(var(--bs-spacer) / 2);
             color: inherit;
             font-size: .875em;
+            margin: 0 auto;
 
             &:focus {
               box-shadow: none;
