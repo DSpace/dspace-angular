@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   ViewChild,
@@ -42,8 +43,15 @@ export class SearchNavbarComponent {
 
   // Search input field
   @ViewChild('searchInput') searchField: ElementRef;
+  // Whether the collapse animation is still running, keeps the dropdown visible until it finishes
+  collapsing = false;
 
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private searchService: SearchService) {
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private router: Router,
+    private searchService: SearchService,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
@@ -62,9 +70,28 @@ export class SearchNavbarComponent {
    * Collapses & blurs search bar by angular animation, see expandSearchInput
    */
   collapse() {
+    if (!this.searchExpanded) {
+      return;
+    }
     this.searchField.nativeElement.blur();
     this.searchExpanded = false;
     this.isExpanded = 'collapsed';
+    this.collapsing = true;
+  }
+
+  /**
+   * Called when the expand/collapse animation finishes
+   */
+  onAnimationDone(): void {
+    // The animation's "done" event can fire synchronously while Angular is still
+    // running change detection (e.g. in tests). Deferring the state change avoids
+    // ExpressionChangedAfterItHasBeenCheckedError. The component's OnPush ancestors
+    // are not notified when the flag is reset outside an event handler, so the view
+    // has to be marked for check explicitly.
+    setTimeout(() => {
+      this.collapsing = false;
+      this.cdr.markForCheck();
+    });
   }
 
   /**
