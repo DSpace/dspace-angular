@@ -148,8 +148,11 @@ describe('SearchRangeFilterComponent', () => {
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: {
-          [mockFilterConfig.paramName + minSuffix]: [1900],
-          [mockFilterConfig.paramName + maxSuffix]: [1950],
+          [`test-id.${mockFilterConfig.paramName}${minSuffix}`]: [1900],
+          [`test-id.${mockFilterConfig.paramName}${maxSuffix}`]: [1950],
+          [mockFilterConfig.paramName + minSuffix]: null,
+          [mockFilterConfig.paramName + maxSuffix]: null,
+          'test-id.page': 1,
         },
         queryParamsHandling: 'merge',
       });
