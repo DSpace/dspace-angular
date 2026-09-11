@@ -3,15 +3,15 @@
     [ngbTooltip]="itemModel.text | translate">
     @if (!section.model.disabled) {
       <a class="btn btn-dark btn-sm"
-        [routerLink]="itemModel.link">
+        [routerLink]="itemModel.link" [queryParams]="itemModel.queryParams">
         <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
-        <span class="sr-only">{{itemModel.text | translate}}</span>
+        <span [class.sr-only]="(isMobile$ | async) || section.renderIconOnly" >{{itemModel.text | translate}}</span>
       </a>
     }
     @if (section.model.disabled) {
       <button class="btn btn-dark btn-sm" [dsBtnDisabled]="true">
         <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
-        <span class="sr-only">{{itemModel.text | translate}}</span>
+        <span [class.sr-only]="(isMobile$ | async) || section.renderIconOnly">{{itemModel.text | translate}}</span>
       </button>
     }
   </div>
@@ -23,7 +23,7 @@
     <button class="btn btn-dark btn-sm" [dsBtnDisabled]="section.model.disabled"
       (click)="activate($event)">
       <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
-      <span class="sr-only">{{itemModel.text | translate}}</span>
+      <span [class.sr-only]="(isMobile$ | async) || section.renderIconOnly">{{itemModel.text | translate}}</span>
     </button>
   </div>
 }

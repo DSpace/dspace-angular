@@ -9,13 +9,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
+import { HostWindowService } from '../../../host-window.service';
 import { MenuService } from '../../../menu/menu.service';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
 import { MenuServiceStub } from '../../../menu/menu-service.stub';
@@ -38,6 +41,7 @@ function initAsync(menuService: MenuServiceStub) {
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(WidthCategory.MD) },
       ],
     }).compileComponents();
   }));
