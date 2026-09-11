@@ -77,6 +77,9 @@ interface AppConfig extends Config {
   searchResult: SearchResultConfig;
   addToAnyPlugin: AddToAnyPluginConfig;
   cms: CmsMetadata;
+  systemWideAlert?: {
+    refreshIntervalMs: number;
+  };
 }
 
 /**
