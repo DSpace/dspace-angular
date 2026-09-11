@@ -214,6 +214,25 @@ export class PaginationService {
     return `${paginationId}.page`;
   }
 
+  /**
+   * Centralized fallback logic for pagination. Returns the correct page to use and updates the route if needed.
+   * @param paginationId - The pagination id
+   * @param currentPage - The current page number
+   * @param totalPages - The total number of pages
+   * @returns {number} - The corrected page number to use for the next data fetch
+   */
+  public handlePaginationFallback(paginationId: string, currentPage: number, totalPages: number): number {
+    if (totalPages === 0 && currentPage !== 1) {
+      this.resetPage(paginationId);
+      return 1;
+    } else if (totalPages > 0 && currentPage > totalPages) {
+      this.updateRoute(paginationId, { page: totalPages });
+      return totalPages;
+    }
+    return currentPage;
+  }
+
+
   private getCurrentRouting(paginationId: string) {
     return this.getFindListOptions(paginationId, {}, true).pipe(
       take(1),
