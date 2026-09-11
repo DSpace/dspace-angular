@@ -26,6 +26,7 @@ import { SearchManager } from '@dspace/core/browse/search-manager';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import {
   COLLECTION_MODULE_PATH,
   COMMUNITY_MODULE_PATH,
@@ -356,6 +357,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(PLATFORM_ID) public platformId: string,
               protected searchManager: SearchManager,
+              protected paginationService: PaginationService,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -555,6 +557,15 @@ export class SearchComponent implements OnDestroy, OnInit {
       ...followLinks,
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
+        // Fallback logic: if no results and requested page > 1, navigate to the last available page
+        if (results.hasSucceeded && results.payload?.page?.length === 0 && searchOptionsWithHidden.pagination.currentPage > 1) {
+          const totalPages = results.payload?.pageInfo?.totalPages;
+          if (totalPages && totalPages > 0 && searchOptionsWithHidden.pagination.currentPage > totalPages) {
+            // Update the route to the last available page
+            this.paginationService.updateRoute(this.paginationId, { page: totalPages });
+            return;
+          }
+        }
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
             this.service.trackSearch(searchOptionsWithHidden, results.payload);
