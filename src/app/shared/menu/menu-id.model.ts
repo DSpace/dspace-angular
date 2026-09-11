@@ -4,5 +4,6 @@
 export enum MenuID {
   ADMIN = 'admin-sidebar',
   PUBLIC = 'public',
-  DSO_EDIT = 'dso-edit'
+  DSO_EDIT = 'dso-edit',
+  DSO_PUBLIC = 'dso-public',
 }
