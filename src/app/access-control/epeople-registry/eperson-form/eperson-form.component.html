@@ -74,6 +74,7 @@
                       <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
                       <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
                       <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.remove' | translate}}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -88,6 +89,14 @@
                         </td>
                         <td class="align-middle">
                           {{ dsoNameService.getName((group.object | async)?.payload) }}
+                        </td>
+                        <td class="align-middle">
+                          <button (click)="deleteGroupFromMember(group)"
+                            [dsBtnDisabled]="false"
+                            class="btn btn-sm btn-outline-danger"
+                            title="{{messagePrefix + '.table.edit.buttons.removegroup' | translate: { name: dsoNameService.getName(group) } }}">
+                            <i class="fas fa-trash-alt fa-fw"></i>
+                          </button>
                         </td>
                       </tr>
                     }
