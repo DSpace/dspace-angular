@@ -1,5 +1,8 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
-import { AdvancedAttachmentElementType } from '@dspace/config/advanced-attachment-rendering.config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentVisibility,
+} from '@dspace/config/advanced-attachment-rendering.config';
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
@@ -600,6 +603,7 @@ export const environment: BuildConfig = {
         {
           name: 'checksum',
           type: AdvancedAttachmentElementType.Attribute,
+          visibility: AdvancedAttachmentVisibility.Admin,
         },
       ],
     },

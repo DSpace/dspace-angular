@@ -12,6 +12,12 @@ export interface AttachmentMetadataConfig {
   name: string;
   type: AdvancedAttachmentElementType;
   truncatable?: boolean;
+  /**
+   * Controls who can see this attachment element.
+   * When omitted, the element is treated as {@link AdvancedAttachmentVisibility.Public}.
+   * To hide an element from everyone, remove it from the metadata list entirely.
+   */
+  visibility?: AdvancedAttachmentVisibility;
 }
 
 /**
@@ -20,5 +26,19 @@ export interface AttachmentMetadataConfig {
 export enum AdvancedAttachmentElementType {
   Metadata = 'metadata',
   Attribute = 'attribute'
+}
+
+/**
+ * Controls the audience that can see an advanced attachment element.
+ */
+export enum AdvancedAttachmentVisibility {
+  /**
+   * Visible to everyone, including anonymous users (default when no visibility is configured).
+   */
+  Public = 'public',
+  /**
+   * Visible only to site administrators.
+   */
+  Admin = 'admin'
 }
 

@@ -19,7 +19,7 @@
     </div>
 
     <div class="order-lg-2 w-100 mb-3">
-      @for (attachmentConf of metadataConfig;  track $index) {
+      @for (attachmentConf of (visibleMetadataConfig$ | async);  track $index) {
         @if (attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type === AdvancedAttachmentElementType.Attribute) {
           <div class="content" [attr.data-test]="attachmentConf.name">
             <strong>{{ 'layout.advanced-attachment.' + attachmentConf.name | translate }}</strong>
