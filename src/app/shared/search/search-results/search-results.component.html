@@ -18,6 +18,20 @@
     <ds-search-export-csv [searchConfig]="searchConfig" [total]="searchResults?.payload?.totalElements"></ds-search-export-csv>
   }
 </div>
+@if (spellCheckSuggestions?.length > 0) {
+  <div class="spellcheck-suggestion mb-2 h3 mt-3">
+    {{ 'search.results.did-you-mean' | translate }}
+    @for (suggestion of spellCheckSuggestions; track suggestion; let last = $last) {
+      <a [routerLink]="['/search']"
+         [queryParams]="{ query: suggestion }"
+         queryParamsHandling="merge"
+         role="link"
+         tabindex="0">
+        {{ suggestion }}
+      </a>{{ last ? '' : ', ' }}
+    }
+  </div>
+}
 @if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
   <div @fadeIn>
     <ds-viewable-collection
