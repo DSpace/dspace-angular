@@ -86,6 +86,16 @@
           <ds-alert [type]="AlertType.Info">{{ getOrcidNotLinkedMessage() }}</ds-alert>
         </div>
       </div>
+       <div class="row mb-3">
+        <div class="col">
+          <p data-test="orcid-benefits-description">{{ 'person.page.orcid.benefits.description' | translate }}</p>
+          <p>
+            <a data-test="orcid-benefits-learn-more" href="https://info.orcid.org/researchers/#why" target="_blank" rel="noopener noreferrer">
+              {{ 'person.page.orcid.benefits.learn-more' | translate }}
+            </a>
+          </p>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <button class="btn btn-primary float-end" (click)="linkOrcid()">
