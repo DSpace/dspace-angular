@@ -143,4 +143,11 @@
   .browser-firefox-windows {
     --ds-dark-scrollbar-width: 20px;
   }
+  .browser-firefox-macOS {
+    --ds-dark-scrollbar-width: 15px;
+  }
+  // Set default for firefox browser on all OSs
+  .browser-firefox {
+    --ds-dark-scrollbar-width: 15px;
+  }
 }
