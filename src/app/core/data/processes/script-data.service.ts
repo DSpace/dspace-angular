@@ -1,3 +1,6 @@
+import {
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Script } from '@dspace/core/shared/scripts/script.model';
 import { SCRIPT } from '@dspace/core/shared/scripts/script.resource-type';
@@ -25,7 +28,11 @@ import { IdentifiableDataService } from '../base/identifiable-data.service';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
-import { MultipartPostRequest } from '../request.models';
+import { HttpOptions } from '../../dspace-rest/dspace-rest.service';
+import {
+  MultipartPostRequest,
+  PostRequest,
+} from '../request.models';
 import { RequestService } from '../request.service';
 import { RestRequest } from '../rest-request.model';
 
@@ -62,6 +69,27 @@ export class ScriptDataService extends IdentifiableDataService<Script> implement
       }),
     ).subscribe((request: RestRequest) => this.requestService.send(request));
 
+    return this.rdbService.buildFromRequestUUID<Process>(requestId);
+  }
+
+  /**
+   * Start a script with previously staged uploads as its input files, without a multipart request.
+   * The REST API returns the same process for a repeated request once the uploads were consumed.
+   * @param scriptName the script to start
+   * @param parameters the script parameters
+   * @param uploadIds identifiers of complete staged uploads owned by the current user, in order
+   */
+  public invokeWithUploads(scriptName: string, parameters: ProcessParameter[], uploadIds: string[]): Observable<RemoteData<Process>> {
+    const requestId = this.requestService.generateRequestId();
+    this.getBrowseEndpoint().pipe(
+      take(1),
+      map((endpoint: string) => new URLCombiner(endpoint, scriptName, 'processes').toString()),
+      map((endpoint: string) => {
+        const options: HttpOptions = Object.create({});
+        options.headers = new HttpHeaders().append('Content-Type', 'application/json');
+        return new PostRequest(requestId, endpoint, JSON.stringify({ properties: parameters, uploads: uploadIds }), options);
+      }),
+    ).subscribe((request: RestRequest) => this.requestService.send(request));
     return this.rdbService.buildFromRequestUUID<Process>(requestId);
   }
 
