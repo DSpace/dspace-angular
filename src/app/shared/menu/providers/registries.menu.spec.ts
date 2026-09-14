@@ -82,4 +82,29 @@ describe('RegistriesMenuProvider', () => {
       done();
     });
   });
+
+  describe('when user has no permissions', () => {
+    let noPermsProvider: RegistriesMenuProvider;
+    let noPermsAuthStub = new AuthorizationDataServiceStub();
+
+    beforeEach(() => {
+      spyOn(noPermsAuthStub, 'isAuthorized').and.returnValue(of(false));
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          RegistriesMenuProvider,
+          { provide: AuthorizationDataService, useValue: noPermsAuthStub },
+          { provide: ScriptDataService, useClass: ScriptServiceStub },
+        ],
+      });
+      noPermsProvider = TestBed.inject(RegistriesMenuProvider);
+    });
+
+    it('getTopSection should return visible false', (done) => {
+      noPermsProvider.getTopSection().subscribe((section) => {
+        expect(section.visible).toBeFalse();
+        done();
+      });
+    });
+  });
 });
