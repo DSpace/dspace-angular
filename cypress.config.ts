@@ -43,6 +43,16 @@ export default defineConfig({
       DSPACE_TEST_SUBMIT_PERSON_COLLECTION_NAME: 'People',
       DSPACE_TEST_SUBMIT_USER_UUID: '914955b1-cf2e-4884-8af7-a166aa24cf73',
       DSPACE_TEST_ADMIN_USER_UUID: '335647b6-8a52-4ecb-a8c1-7ebabb199bda',
+      //Collection to send a test people
+      DSPACE_TEST_PEOPLE_COLLECTION_NAME: 'People',
+      //Collection to send a test Org Unit
+      DSPACE_TEST_ORG_UNIT_COLLECTION_NAME: 'OrgUnits',
+      //Collection to send a test Journal
+      DSPACE_TEST_JOURNAL_COLLECTION_NAME: 'Journals',
+      //Collection to send a test Journal Volumes
+      DSPACE_TEST_JOURNAL_VOLUME_COLLECTION_NAME: 'Journal Volumes',
+      //Collection to send a test Journal Issues
+      DSPACE_TEST_JOURNAL_ISSUE_COLLECTION_NAME: 'Journal Issues',
     },
     // Setup our plugins for e2e tests
     setupNodeEvents(on, config) {
