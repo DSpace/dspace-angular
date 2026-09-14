@@ -1,0 +1,29 @@
+.thumbnail-placeholder {
+  border: var(--ds-thumbnail-placeholder-border);
+  color: var(--ds-thumbnail-placeholder-color);
+  font-weight: var(--ds-advanced-attachment-thumbnail-placeholder-font-weight);
+}
+
+.divider {
+  border-left: 1px solid var(--bs-gray-200);
+}
+
+.card-container {
+  background-color: var(--bs-gray-100);
+  background-clip: border-box;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+i.custom-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.thumbnail-wrapper {
+  min-width: 120px;
+}

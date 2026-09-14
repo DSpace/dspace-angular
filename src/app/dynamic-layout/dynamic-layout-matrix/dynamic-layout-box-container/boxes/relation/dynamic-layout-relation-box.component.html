@@ -1,0 +1,11 @@
+@if (configuration) {
+  <ds-configuration-search-page class="w-100"
+    [fixedFilterQuery]="searchFilter"
+    [configuration]="configuration"
+    [renderOnServerSide]="false"
+    [searchEnabled]="searchEnabled"
+    [showScopeSelector]="false"
+    [showSearchResultNotice]="showSearchResultNotice$ | async"
+    [searchResultNotice]="searchResultNotice">
+  </ds-configuration-search-page>
+}
