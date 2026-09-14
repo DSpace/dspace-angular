@@ -8524,7 +8524,9 @@
   // "search.results.head": "Search Results",
   "search.results.head": "Risultati della ricerca",
 
-  // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
+  // "search.results.did-you-mean": "Did you mean?",
+  "search.results.did-you-mean": "Intendevi?",
+
   "search.results.no-results": "La ricerca non ha prodotto alcun risultato. Hai problemi a trovare quello che cerchi? Prova a inserire",
 
   // "search.results.no-results-link": "quotes around it",
