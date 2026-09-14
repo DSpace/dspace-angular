@@ -9168,6 +9168,10 @@
   // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   "submission.sections.jisc.publisher.policy.refresh": "Aktualizovat",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "Dodatečný poplatek za otevřený přístup",
+
   // "submission.sections.jisc.record.information": "Record Information",
   "submission.sections.jisc.record.information": "Informace o záznamu",
 
