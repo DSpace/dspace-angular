@@ -35,6 +35,7 @@ import {
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
 import { SearchConfig } from './search-page-config.interface';
+import { SeoConfig } from './seo-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
@@ -869,5 +870,13 @@ export class DefaultAppConfig implements AppConfig {
       'dspace.cms.home-news',
       'dspace.cms.footer',
     ],
+  };
+
+  // SEO settings
+  seo: SeoConfig = {
+    canonical: {
+      items: true,
+      bitstreams: true,
+    },
   };
 }
