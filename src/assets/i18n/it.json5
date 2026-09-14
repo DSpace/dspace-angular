@@ -8315,6 +8315,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Progetti",
 
@@ -8506,10 +8510,14 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Risultati della ricerca",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \\\"{{ value }}\\\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Desideri salvare \"{{ value }}\" come variante del nome per questa persona in modo che tu e altri possiate riutilizzarlo per immissioni future? Se non lo fai, puoi comunque usarlo per questa immissione.",
 

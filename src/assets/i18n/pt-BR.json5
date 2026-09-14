@@ -7808,6 +7808,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit do Projeto",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projeto",
 
@@ -7993,10 +7997,15 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Resultados da Pesquisa",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da Pesquisa",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \\\"{{ value }}\\\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Você gostaria de salvar \"{{ value }}\" como uma variante de nome para esta pessoa para que você e outros possam reutilizá-lo para futuras submissões? Se você não fizer isso, ainda poderá usá-lo para esta submissão.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",

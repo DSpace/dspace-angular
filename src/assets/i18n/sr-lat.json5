@@ -8312,6 +8312,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekat",
 
@@ -8503,10 +8507,15 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Rezultati pretrage",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \\\"{{ value }}\\\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Da li želite da sačuvate \"{{ value }}\" kao varijantu imena za ovu osobu da biste vi i drugi mogli da ga ponovo koristite za buduće slanje? Ako to ne uradite, i dalje možete da ga koristite za ovaj podnesak.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
