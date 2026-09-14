@@ -48,6 +48,11 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
 @Injectable({ providedIn: 'root' })
 export class MyDSpaceConfigurationService extends SearchConfigurationService {
   /**
+   * Search instance id used for the MyDSpace search component.
+   */
+  public searchInstanceId = 'mydspace-page';
+
+  /**
    * Default pagination settings
    */
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {

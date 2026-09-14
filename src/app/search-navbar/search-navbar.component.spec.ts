@@ -21,7 +21,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { PaginationService } from '../core/pagination/pagination.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { SearchNavbarComponent } from './search-navbar.component';
 
@@ -54,6 +56,14 @@ describe('SearchNavbarComponent', () => {
       ],
       providers: [
         { provide: SearchService, useValue: mockSearchService },
+        { provide: PaginationService, useValue: { getPageParam: (id: string) => `${id}.page` } },
+        {
+          provide: SearchConfigurationService,
+          useValue: {
+            searchInstanceId: 'spc',
+            getCurrentSearchInstanceParam: (param: string) => `spc.${param}`,
+          },
+        },
       ],
     })
       .compileComponents();
@@ -100,7 +110,7 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with empty query', () => {
-          const extras: NavigationExtras = { queryParams: { query: '' } };
+          const extras: NavigationExtras = { queryParams: { 'spc.query': '', 'spc.page': 1 } };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: '' });
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);
         });
@@ -125,7 +135,7 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with query', async () => {
-          const extras: NavigationExtras = { queryParams: { query: 'test' } };
+          const extras: NavigationExtras = { queryParams: { 'spc.query': 'test', 'spc.page': 1 } };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
 
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);

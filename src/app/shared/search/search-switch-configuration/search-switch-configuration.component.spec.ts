@@ -111,7 +111,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     spyOn((comp as any).changeConfiguration, 'emit');
     comp.selectedOption = configurationList[1];
     const navigationExtras: NavigationExtras = {
-      queryParams: { configuration: MyDSpaceConfigurationValueType.Workflow },
+      queryParams: { 'test-id.configuration': MyDSpaceConfigurationValueType.Workflow },
     };
 
     fixture.detectChanges();
