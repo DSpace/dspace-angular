@@ -28,19 +28,16 @@ import {
 } from '@dspace/core/shared/bitstream.model';
 import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import {
-  BehaviorSubject,
   map,
   Observable,
   take,
 } from 'rxjs';
 
-import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { TruncatableComponent } from '../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../utils/file-size-pipe';
@@ -55,7 +52,6 @@ import { FileDownloadButtonComponent } from './attachment-render/types/file-down
     AsyncPipe,
     FileDownloadButtonComponent,
     FileSizePipe,
-    ThemedThumbnailComponent,
     TitleCasePipe,
     TranslateModule,
     TruncatableComponent,
@@ -108,8 +104,6 @@ export class BitstreamAttachmentComponent implements OnInit {
    */
   checksumInfo: ChecksumInfo;
 
-  thumbnail$: BehaviorSubject<RemoteData<Bitstream>> = new BehaviorSubject<RemoteData<Bitstream>>(null);
-
   /**
    * Configuration type enum
    */
@@ -126,11 +120,6 @@ export class BitstreamAttachmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.attachment.thumbnail.pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((thumbnail: RemoteData<Bitstream>) => {
-      this.thumbnail$.next(thumbnail);
-    });
     this.allAttachmentProviders = this.attachment?.allMetadataValues('bitstream.viewer.provider');
     this.bitstreamFormat$ = this.getFormat(this.attachment);
     this.bitstreamSize = this.getSize(this.attachment);
