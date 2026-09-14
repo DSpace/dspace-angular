@@ -60,7 +60,7 @@
                     <h2 class="mt-4">{{ 'profile.groups.head' | translate }}</h2>
                     <ul class="list-group list-group-flush">
                       @for (group of groups; track group) {
-                        <li class="list-group-item">{{ dsoNameService.getName(group) }}</li>
+                        <li class="list-group-item text-break">{{ dsoNameService.getName(group) }}</li>
                       }
                     </ul>
                   </div>

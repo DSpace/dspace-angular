@@ -5,6 +5,8 @@
     color: white;
     position: relative;
     font-weight: 600;
+    overflow: clip;
+    word-break: break-word;
 
     .background-image > img {
       background-color: var(--bs-info);
