@@ -425,6 +425,20 @@ describe('AuthService test', () => {
       expect(result).toBe(true);
     });
 
+    it('should return false when getToken() returns null (example: cleared storage)', () => {
+      spyOn(authService, 'getToken').and.returnValue(null);
+      const result = authService.isTokenExpired();
+      expect(result).toBe(false);
+      expect(typeof result).toBe('boolean');
+    });
+
+    it('should return false when getToken() returns undefined (example: uninitialized store)', () => {
+      spyOn(authService, 'getToken').and.returnValue(undefined);
+      const result = authService.isTokenExpired();
+      expect(result).toBe(false);
+      expect(typeof result).toBe('boolean');
+    });
+
     it('should save token into storage', () => {
       authService.storeToken(token);
       expect(storage.set).toHaveBeenCalled();
