@@ -206,6 +206,44 @@ describe('DsDatePickerComponent test suite', () => {
       });
     });
 
+    describe('when init model value is a Date object', () => {
+      beforeEach(() => {
+        dateFixture = TestBed.createComponent(DsDatePickerComponent);
+        dateComp = dateFixture.componentInstance;
+        dateComp.group = DATE_TEST_GROUP;
+        dateComp.model = new DynamicDsDatePickerModel(DATE_TEST_MODEL_CONFIG);
+        dateComp.model.value = new Date(Date.UTC(1983, 10, 18));
+        dateFixture.detectChanges();
+      });
+
+      it('should init component properly from a Date object', () => {
+        expect(dateComp.year).toBe(1983);
+        expect(dateComp.month).toBe(11);
+        expect(dateComp.day).toBe(18);
+        expect(dateComp.disabledMonth).toBeFalsy();
+        expect(dateComp.disabledDay).toBeFalsy();
+      });
+    });
+
+    describe('when init model value is a NgbDateStruct-like object', () => {
+      beforeEach(() => {
+        dateFixture = TestBed.createComponent(DsDatePickerComponent);
+        dateComp = dateFixture.componentInstance;
+        dateComp.group = DATE_TEST_GROUP;
+        dateComp.model = new DynamicDsDatePickerModel(DATE_TEST_MODEL_CONFIG);
+        dateComp.model.value = { year: 1983, month: 11, day: 18 };
+        dateFixture.detectChanges();
+      });
+
+      it('should init component properly from a NgbDateStruct-like object', () => {
+        expect(dateComp.year).toBe(1983);
+        expect(dateComp.month).toBe(11);
+        expect(dateComp.day).toBe(18);
+        expect(dateComp.disabledMonth).toBeFalsy();
+        expect(dateComp.disabledDay).toBeFalsy();
+      });
+    });
+
     describe('when init model value is not empty', () => {
       beforeEach(() => {
 

@@ -22,6 +22,8 @@ import {
   MenuSection,
 } from '../../shared/menu/menu-section.model';
 import { MenuServiceStub } from '../../shared/menu/menu-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 
@@ -40,10 +42,9 @@ describe('ExpandableNavbarSectionComponent', () => {
           TestComponent,
         ],
         providers: [
-          { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-          TestComponent,
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -53,7 +54,8 @@ describe('ExpandableNavbarSectionComponent', () => {
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = {} as MenuSection;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -318,9 +320,9 @@ describe('ExpandableNavbarSectionComponent', () => {
           TestComponent,
         ],
         providers: [
-          { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(300) },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -330,7 +332,8 @@ describe('ExpandableNavbarSectionComponent', () => {
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = {} as MenuSection;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 

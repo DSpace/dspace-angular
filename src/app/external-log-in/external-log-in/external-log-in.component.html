@@ -2,8 +2,10 @@
   <h4>{{ 'external-login.confirmation.header' | translate }}</h4>
 </div>
 <div class="row justify-content-center">
-  <ng-container *ngComponentOutlet="getExternalLoginConfirmationType(); injector: objectInjector;">
-  </ng-container>
+  @if (externalLoginConfirmationComponent$ | async; as externalLoginConfirmationComponent) {
+    <ng-container *ngComponentOutlet="externalLoginConfirmationComponent; injector: objectInjector;">
+    </ng-container>
+  }
 </div>
 <ds-alert class="container mt-2" [type]="AlertTypeEnum.Info" [attr.data-test]="'info-text'">
   {{ informationText }}
@@ -17,7 +19,7 @@
       <ds-provide-email [registrationId]="registrationData.id" [token]="token"></ds-provide-email>
     }
     </div>
-    @if (hasAuthMethodTypes | async) {
+    @if (hasAuthMethodTypes$ | async) {
       <div class="col-1 d-flex justify-content-center align-items-center">
         <h4 class="mt-2">{{ 'external-login.component.or' | translate }}</h4>
       </div>

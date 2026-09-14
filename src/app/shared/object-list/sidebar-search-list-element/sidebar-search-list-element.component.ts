@@ -31,6 +31,7 @@ import {
   shareReplay,
 } from 'rxjs/operators';
 
+import { MetadataDirective } from '../../metadata.directive';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
@@ -43,6 +44,7 @@ export const BREADCRUMB_SEPARATOR = ' / ';
   templateUrl: './sidebar-search-list-element.component.html',
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     TranslateModule,
     TruncatablePartComponent,

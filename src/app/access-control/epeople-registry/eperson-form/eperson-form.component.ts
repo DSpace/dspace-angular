@@ -309,12 +309,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       name: 'email',
       validators: {
         required: null,
-        pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
+        email: null,
       },
       required: true,
       errorMessages: {
         emailTaken: 'error.validation.emailTaken',
-        pattern: 'error.validation.NotValidEmail',
+        email: 'error.validation.NotValidEmail',
       },
       hint: this.translateService.instant(`${this.messagePrefix}.emailHint`),
     });

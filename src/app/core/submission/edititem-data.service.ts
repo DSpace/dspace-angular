@@ -6,6 +6,8 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { EDIT_ITEM } from '@dspace/core/submission/models/edit-item.resource-type';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -32,6 +34,7 @@ import { EditItemMode } from './models/edititem-mode.model';
  * A service that provides methods to make REST requests with edititems endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(EDIT_ITEM)
 export class EditItemDataService extends IdentifiableDataService<EditItem> {
   protected linkPath = 'edititems';
   protected searchById = 'findModesById';

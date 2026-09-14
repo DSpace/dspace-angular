@@ -87,6 +87,11 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: DragEvent) {
+    // Only show drop area when dragging files or event is manually triggered
+    const hasFiles = event.dataTransfer?.types ? Array.from(event.dataTransfer.types).includes('Files') : true;
+    if (!hasFiles) {
+      return;
+    }
     // Show drop area on the page
     event.preventDefault();
     event.stopPropagation();

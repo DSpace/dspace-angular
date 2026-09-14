@@ -110,6 +110,38 @@ describe(`DSONameService`, () => {
     });
   });
 
+  describe(`getNameLanguage`, () => {
+    it(`should use the OrgUnit language factory for OrgUnit entities`, () => {
+      const orgUnit = Object.assign(new DSpaceObject(), {
+        firstMetadata(keyOrKeys: string | string[]): { language: string } {
+          return { language: 'it' };
+        },
+        getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+          return ['OrgUnit', Item, DSpaceObject];
+        },
+      });
+
+      const result = service.getNameLanguage(orgUnit);
+
+      expect(result).toBe('it');
+    });
+
+    it(`should use the Default language factory for regular DSpaceObjects`, () => {
+      const dso = Object.assign(new DSpaceObject(), {
+        firstMetadata(keyOrKeys: string | string[]): { language: string } {
+          return { language: 'en' };
+        },
+        getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+          return [DSpaceObject];
+        },
+      });
+
+      const result = service.getNameLanguage(dso);
+
+      expect(result).toBe('en');
+    });
+  });
+
   describe(`factories.Person`, () => {
     describe(`with person.familyName and  person.givenName`, () => {
       beforeEach(() => {

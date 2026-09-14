@@ -72,6 +72,11 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
   @Input() incrementBy = 10;
 
   /**
+   * The separator used to split the metadata values (can contain HTML)
+   */
+  @Input() separator = '<br>';
+
+  /**
    * The total amount of metadata values available
    */
   total: number;

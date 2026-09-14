@@ -14,8 +14,13 @@ import { SearchResult } from '@dspace/core/shared/search/models/search-result.mo
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import {
+  allMetadataWithHitHighlights,
+  firstMetadataWithHitHighlights,
+} from '../../utils/highlighted-metadata.util';
 
 @Component({
   selector: 'ds-search-result-list-element',
@@ -26,7 +31,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * The DSpaceObject of the search result
    */
   dso: K;
-  dsoTitle: string;
+  dsoTitle: MetadataValue;
 
   /**
    * Limit of additional metadata values to show
@@ -51,6 +56,16 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   }
 
   /**
+   * Gets all matching metadata values from hitHighlights or dso metadata.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {MetadataValue[]} the matching values or an empty array.
+   */
+  allMetadata(keyOrKeys: string | string[]): MetadataValue[] {
+    return allMetadataWithHitHighlights(this.dso.metadata, this.object.hitHighlights, keyOrKeys);
+  }
+
+  /**
    * Gets all matching metadata string values from hitHighlights or dso metadata.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
@@ -69,6 +84,16 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
       }
     }
     return dsoMetadata;
+  }
+
+  /**
+   * Gets the first matching metadata value from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {MetadataValue} the first matching value, or `undefined`.
+   */
+  firstMetadata(keyOrKeys: string | string[]): MetadataValue {
+    return firstMetadataWithHitHighlights(this.dso.metadata, this.object.hitHighlights, keyOrKeys);
   }
 
   /**

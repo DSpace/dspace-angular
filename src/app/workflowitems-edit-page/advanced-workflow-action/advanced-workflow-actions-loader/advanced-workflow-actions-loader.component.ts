@@ -9,8 +9,10 @@ import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { AbstractComponentLoaderComponent } from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
 
+import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 
 /**
  * Component for loading a {@link AdvancedWorkflowActionComponent} depending on the "{@link type}" input
@@ -18,6 +20,9 @@ import { ThemeService } from '../../../shared/theme-support/theme.service';
 @Component({
   selector: 'ds-advanced-workflow-actions-loader',
   templateUrl: '../../../shared/abstract-component-loader/abstract-component-loader.component.html',
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoaderComponent<Component> implements OnInit {
 
@@ -25,7 +30,7 @@ export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoa
    * The name of the type to render
    * Passed on to the decorator to fetch the relevant component for this option
    */
-  @Input() type: string;
+  @Input() type: AdvancedWorkflowActionType;
 
   protected inputNames: (keyof this & string)[] = [
     ...this.inputNames,
@@ -47,8 +52,8 @@ export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoa
     }
   }
 
-  public getComponent(): GenericConstructor<Component> {
-    return getAdvancedComponentByWorkflowTaskOption(this.type) as GenericConstructor<Component>;
+  public getComponent(): Promise<GenericConstructor<Component>> {
+    return getAdvancedComponentByWorkflowTaskOption(this.type, this.themeService.getThemeName());
   }
 
 }

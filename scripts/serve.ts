@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn } from 'node:child_process';
 
 import { AppConfig } from '../src/config/app-config.interface';
 import { buildAppConfig } from '../src/config/config.server';
@@ -11,5 +11,5 @@ const appConfig: AppConfig = buildAppConfig();
  */
 spawn(
   `ng serve --host ${appConfig.ui.host} --port ${appConfig.ui.port} --serve-path ${appConfig.ui.nameSpace} --ssl ${appConfig.ui.ssl} ${process.argv.slice(2).join(' ')} --configuration development`,
-  { stdio: 'inherit', shell: true }
+  { stdio: 'inherit', shell: true },
 );

@@ -9,6 +9,7 @@ import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-sea
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { MetadataDirective } from '../../../../metadata.directive';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../../sidebar-search-list-element.component';
@@ -22,6 +23,7 @@ import { SidebarSearchListElementComponent } from '../../sidebar-search-list-ele
   templateUrl: '../../sidebar-search-list-element.component.html',
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     TranslateModule,
     TruncatablePartComponent,

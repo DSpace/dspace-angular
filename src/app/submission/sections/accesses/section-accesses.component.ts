@@ -10,6 +10,7 @@ import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import { WorkspaceitemSectionAccessesObject } from '@dspace/core/submission/models/workspaceitem-section-accesses.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
@@ -53,6 +54,7 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,
   ACCESS_CONDITION_GROUP_LAYOUT,
@@ -80,6 +82,7 @@ import { SectionAccessesService } from './section-accesses.service';
     FormComponent,
   ],
 })
+@renderSectionFor(SectionsType.AccessesCondition)
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
   /**
