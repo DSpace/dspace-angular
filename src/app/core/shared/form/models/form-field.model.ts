@@ -121,6 +121,12 @@ export class FormFieldModel {
   typeBind: string[];
 
   /**
+   * Contains field name to type-bind to
+   */
+  @autoserialize
+  typeBindToField: string;
+
+  /**
    * Containing the value for this metadata field
    */
   @autoserialize
