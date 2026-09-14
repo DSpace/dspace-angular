@@ -312,10 +312,10 @@
   <ng-template #confirmModal>
     <div class="modal-header">
       @if (!isNewService) {
-        <h4>{{'service.overview.edit.modal' | translate }}</h4>
+        <h4 id="modal-title" class="modal-title">{{'service.overview.edit.modal' | translate }}</h4>
       }
       @if (isNewService) {
-        <h4>{{'service.overview.create.modal' | translate }}</h4>
+        <h4 id="modal-title" class="modal-title">{{'service.overview.create.modal' | translate }}</h4>
       }
       <button (click)="closeModal()" aria-label="Close" class="btn-close" type="button">
       </button>

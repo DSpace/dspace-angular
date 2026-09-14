@@ -134,6 +134,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       return true;
     };
 
+    this.modalConfig.ariaLabelledBy = 'modal-title';
+
     this.isAuthBlocking$ = this.store.pipe(
       select(isAuthenticationBlocking),
       distinctUntilChanged(),
