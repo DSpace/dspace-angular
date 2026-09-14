@@ -2,7 +2,7 @@
   class="mb-2"
   [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }" [mandatory]="sectionData.mandatory"
   [submissionId]="submissionId" [sectionType]="sectionData.sectionType" [sectionId]="sectionData.id">
-  @if ((sectionRef.isEnabled() | async)) {
+  @if ((sectionRef.enabled | async)) {
     <ngb-accordion #acc="ngbAccordion"
       (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
       <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
@@ -11,7 +11,7 @@
             'submission.sections.'+sectionData.header | translate
           }}</span>
           <div class="d-inline-block">
-            @if ((sectionRef.isValid() | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
+            @if ((sectionRef.valid | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
               <i
                 class="fas fa-exclamation-circle text-warning me-3"
                 title="{{'submission.sections.status.warnings.title' | translate}}" role="img"
@@ -23,7 +23,7 @@
                 title="{{'submission.sections.status.errors.title' | translate}}" role="img"
               [attr.aria-label]="'submission.sections.status.errors.aria' | translate"></i>
             }
-            @if ((sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
+            @if ((sectionRef.valid | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
               <i
                 class="fas fa-check-circle text-success me-3"
                 title="{{'submission.sections.status.valid.title' | translate}}" role="img"

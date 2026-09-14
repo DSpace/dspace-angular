@@ -190,6 +190,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   isAdmin$: Observable<boolean>;
 
   /**
+   * The title of the target item, when a targetId is present.
+   */
+  public targetItemTitle$: Observable<string>;
+
+  /**
    * Initialize the component variables.
    * @param {ActivatedRoute} activatedRoute
    * @param {NgbModal} modalService
@@ -233,6 +238,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         this.targetId = splitList.length > 2 ? splitList.pop() : null;
         this.selectedTopicName = splitList[1];
         this.sourceId = splitList[0];
+        if (this.targetId) {
+          this.targetItemTitle$ = this.getTargetItemTitle();
+        }
         return this.getQualityAssuranceEvents();
       }),
     ).subscribe(

@@ -30,7 +30,7 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
     class="example-tree-node expandable-node">
     <div class="btn-group">
-      @if (hasChild(null, node) | async) {
+      @if (node.isExpandable$ | async) {
         <button type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
           [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
           (click)="toggleExpanded(node)"
@@ -45,7 +45,7 @@
         </button>
       }
       <!--Don't render the button when non-expandable otherwise it's still accessible, instead render this placeholder-->
-      @if ((hasChild(null, node) | async) !== true) {
+      @if ((node.isExpandable$ | async) !== true) {
         <span aria-hidden="true" class="btn btn-default invisible">
           <span class="fa fa-chevron-right"></span>
         </span>

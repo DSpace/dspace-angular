@@ -349,7 +349,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       });
 
       it('should return false when no row is selected', () => {
-        expect(comp.canDelete()).toBeObservable(cold('(a|)', {
+        expect(comp.canDelete$).toBeObservable(cold('a', {
           a: false,
         }));
       });
@@ -358,7 +358,7 @@ describe('ResourcePoliciesComponent test suite', () => {
         const checkbox = fixture.debugElement.query(By.css('table > tbody > tr:nth-child(1) input'));
         const event = { target: { checked: true } };
         checkbox.triggerEventHandler('change', event);
-        expect(comp.canDelete()).toBeObservable(cold('(a|)', {
+        expect(comp.canDelete$).toBeObservable(cold('a', {
           a: true,
         }));
       });
@@ -410,7 +410,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
     it('should get the resource\'s policy list', () => {
       const initResourcePolicyEntries = getInitEntries();
-      expect(comp.getResourcePolicies()).toBeObservable(cold('a', {
+      expect(comp.resourcePolicies$).toBeObservable(cold('a', {
         a: initResourcePolicyEntries,
       }));
 
