@@ -14,6 +14,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
@@ -125,6 +126,11 @@ describe('ItemPageComponent', () => {
       getCurrentRoute: {},
     });
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      setRedirectUrl: {},
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -143,6 +149,7 @@ describe('ItemPageComponent', () => {
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {
