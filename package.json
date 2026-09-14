@@ -81,6 +81,9 @@
     "react-dom": "16.14.0",
     "mirador-share-plugin": {
       "notistack": "1.0.10"
+    },
+    "mirador": {
+      "dompurify": "^3.4.15"
     }
   },
   "dependencies": {
