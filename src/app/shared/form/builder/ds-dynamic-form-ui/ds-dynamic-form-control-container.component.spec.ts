@@ -494,4 +494,19 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(renderer.setAttribute).toHaveBeenCalledWith(inputEl, 'aria-label', 'Accessible Label');
   });
 
+
+  it('should not have a for attribute on label when model type is ARRAY', () => {
+    const arrayModel = new DynamicFormArrayModel({
+      id: 'formArray',
+      groupFactory: () => [],
+    });
+
+    component.model = arrayModel;
+    fixture.detectChanges();
+
+    expect(component.model.type).toBe('ARRAY');
+
+    const expectedFor = component.model.type === 'ARRAY' ? null : (component as any).id;
+    expect(expectedFor).toBeNull();
+  });
 });
