@@ -28,7 +28,7 @@ import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
@@ -66,14 +66,14 @@ function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
       expect(pages[i].classList.contains('disabled')).toBeTruthy();
       expect(normalizeText(pages[i].textContent)).toEqual(normalizeText(pageDef));
       if (normalizeText(pages[i].textContent) !== '...') {
-        expect(pages[i].querySelector('a').getAttribute('tabindex')).toEqual('-1');
+        expect((pages[i].querySelector('a') || pages[i].querySelector('button')).getAttribute('tabindex')).toEqual('-1');
       }
     } else {
       expect(pages[i].classList.contains('active')).toBeFalsy();
       expect(pages[i].classList.contains('disabled')).toBeFalsy();
       expect(normalizeText(pages[i].textContent)).toEqual(normalizeText(pageDef));
       if (normalizeText(pages[i].textContent) !== '...') {
-        expect(pages[i].querySelector('a').hasAttribute('tabindex')).toBeFalsy();
+        expect((pages[i].querySelector('a') || pages[i].querySelector('button')).hasAttribute('tabindex')).toBeFalsy();
       }
     }
   }
@@ -100,7 +100,10 @@ function changePage(fixture: ComponentFixture<any>, idx: number): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
   const buttons = de.nativeElement.querySelectorAll('li');
 
-  buttons[idx].querySelector('a').click();
+  const clickableElement = buttons[idx].querySelector('a') || buttons[idx].querySelector('button');
+  if (clickableElement) {
+    clickableElement.click();
+  }
   fixture.detectChanges();
 }
 
@@ -115,7 +118,7 @@ describe('Pagination component', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
   let html;
-  let hostWindowServiceStub: HostWindowServiceMock;
+  let hostWindowServiceStub: HostWindowServiceStub;
 
   let activatedRouteStub: MockActivatedRoute;
   let routerStub: RouterMock;
@@ -128,6 +131,7 @@ describe('Pagination component', () => {
   const pagination = new PaginationComponentOptions();
   pagination.currentPage = 1;
   pagination.pageSize = 10;
+  pagination.maxSize = 10;
 
   const sort = new SortOptions('score', SortDirection.DESC);
   const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 10 });
@@ -139,7 +143,7 @@ describe('Pagination component', () => {
   beforeEach(waitForAsync(() => {
     activatedRouteStub = new MockActivatedRoute();
     routerStub = new RouterMock();
-    hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
+    hostWindowServiceStub = new HostWindowServiceStub(_initialState.width);
 
     currentPagination = new BehaviorSubject<PaginationComponentOptions>(pagination);
     currentSort = new BehaviorSubject<SortOptions>(sort);
@@ -209,6 +213,10 @@ describe('Pagination component', () => {
       </ds-pagination>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+      testComp.paginationOptions.enablePaginationInput = false;
+      testComp.paginationOptions.maxSize = 10;
+
+      testFixture.detectChanges();
     });
 
     it('should create Pagination Component', inject([PaginationComponent], (app: PaginationComponent) => {
@@ -283,10 +291,14 @@ describe('Pagination component', () => {
 
     it('should call the updateRoute method on the paginationService with the correct params', fakeAsync(() => {
       testComp.collectionSize = 60;
+      testFixture.detectChanges();
 
       changePage(testFixture, 3);
       tick();
       expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: 3 }), {},  false);
+
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 3 }));
+      testFixture.detectChanges();
 
       changePage(testFixture, 0);
       tick();
@@ -412,6 +424,118 @@ describe('Pagination component', () => {
         const next = testFixture.debugElement.query(By.css('#nav-next'));
         testFixture.detectChanges();
         expect(next).toBeTruthy();
+      });
+    });
+  });
+
+  describe('Pagination input field', () => {
+    let fixture: ComponentFixture<PaginationComponent>;
+    let component: PaginationComponent;
+
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          NgbModule,
+          PaginationComponent,
+          EnumKeysPipe,
+          RouterTestingModule,
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: TranslateLoaderMock },
+          }),
+          StoreModule.forRoot({}, {}),
+        ],
+        providers: [
+          { provide: HostWindowService, useValue: hostWindowServiceStub },
+          { provide: PaginationService, useValue: {
+            getCurrentPagination: () => new BehaviorSubject({ currentPage: 5, pageSize: 10 }),
+            getCurrentSort: () => new BehaviorSubject({ direction: SortDirection.ASC, field: 'name' }),
+            updateRoute: () => {
+              //
+            },
+          } },
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(PaginationComponent);
+      component = fixture.componentInstance;
+      component.collectionSize = 200;
+      component.paginationOptions = {
+        id: 'test',
+        currentPage: 5,
+        pageSize: 10,
+        pageSizeOptions: [10, 20, 50],
+        directionLinks: true,
+        boundaryLinks: true,
+        ellipses: true,
+        maxSize: 10,
+        rotate: false,
+        size: 'lg',
+        disabled: false,
+        enablePaginationInput: true,
+      };
+      fixture.detectChanges();
+    });
+
+    it('should enable click on "..." button', () => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('[data-test="page-input-button"]'));
+      expect(input).toBeDefined();
+      expect(input.nativeElement.disabled).toBeFalse();
+    });
+
+    describe('selectPage', () => {
+      // collectionSize (200) / pageSize (10) => 20 pages
+      let paginationServiceStub: any;
+
+      beforeEach(() => {
+        paginationServiceStub = TestBed.inject(PaginationService);
+        spyOn(paginationServiceStub, 'updateRoute').and.callThrough();
+        spyOn(component.pageChange, 'emit');
+        spyOn(component.paginationChange, 'emit');
+      });
+
+      it('should navigate to the requested page when it is within range', () => {
+        component.selectPage('7');
+        expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith('test', { page: 7 }, {}, false);
+        expect(component.pageChange.emit).toHaveBeenCalledWith(7);
+      });
+
+      it('should clamp a page number that is too high to the last page', () => {
+        component.selectPage('999');
+        expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith('test', { page: 20 }, {}, false);
+        expect(component.pageChange.emit).toHaveBeenCalledWith(20);
+      });
+
+      it('should clamp a page number below 1 to the first page', () => {
+        component.selectPage('0');
+        expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith('test', { page: 1 }, {}, false);
+        expect(component.pageChange.emit).toHaveBeenCalledWith(1);
+      });
+
+      it('should ignore non-numeric input', () => {
+        component.selectPage('abc');
+        expect(paginationServiceStub.updateRoute).not.toHaveBeenCalled();
+        expect(component.pageChange.emit).not.toHaveBeenCalled();
+      });
+
+      it('should emit a paginationChange event so the results are reloaded', () => {
+        component.selectPage('3');
+        expect(component.paginationChange.emit).toHaveBeenCalled();
+      });
+
+      it('should not emit a paginationChange event for invalid input', () => {
+        component.selectPage('abc');
+        expect(component.paginationChange.emit).not.toHaveBeenCalled();
+      });
+
+      it('should close the popover when one is provided', () => {
+        const popover = jasmine.createSpyObj('NgbPopover', ['close']);
+        component.selectPage('3', popover);
+        expect(popover.close).toHaveBeenCalled();
       });
     });
   });
