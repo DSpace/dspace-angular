@@ -15,7 +15,9 @@
                 @if (logoRD$) {
                   <ds-comcol-page-logo
                     [logo]="(logoRD$ | async)?.payload"
-                    [alternateText]="'collection.logo' | translate">
+                    [alternateText]="collection.descriptionThumbnail ?
+                      collection.descriptionThumbnail :
+                      'collection.logo' | translate">
                   </ds-comcol-page-logo>
                 }
                 <!-- Handle -->
