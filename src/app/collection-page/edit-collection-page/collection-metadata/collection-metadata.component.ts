@@ -17,12 +17,12 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
-import { Item } from '@dspace/core/shared/item.model';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { TemplateItem } from '@dspace/core/shared/template-item.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
@@ -63,7 +63,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   /**
    * The collection's item template
    */
-  itemTemplateRD$: Observable<RemoteData<Item>>;
+  itemTemplateRD$: Observable<RemoteData<TemplateItem>>;
 
   public constructor(
     protected collectionDataService: CollectionDataService,
@@ -114,7 +114,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
       getFirstSucceededRemoteDataPayload(),
     );
     const template$ = collection$.pipe(
-      switchMap((collection: Collection) => this.itemTemplateService.createByCollectionID(new Item(), collection.uuid).pipe(
+      switchMap((collection: Collection) => this.itemTemplateService.createByCollectionID(new TemplateItem(), collection.uuid).pipe(
         getFirstSucceededRemoteDataPayload(),
       )),
     );
