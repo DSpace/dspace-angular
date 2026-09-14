@@ -210,6 +210,7 @@ export class MenuProviderService {
       active: section.active ?? false,
       shouldPersistOnRouteChange: section.shouldPersistOnRouteChange ?? provider.shouldPersistOnRouteChange,
       alwaysRenderExpandable: section.alwaysRenderExpandable ?? provider.alwaysRenderExpandable,
+      renderIconOnly: section.renderIconOnly ?? false,
     });
   }
 

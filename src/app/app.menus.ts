@@ -9,6 +9,7 @@ import { buildMenuStructure } from './shared/menu/menu.structure';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuRoute } from './shared/menu/menu-route.model';
 import { AccessControlMenuProvider } from './shared/menu/providers/access-control.menu';
+import { AddSubComColMenuProvider } from './shared/menu/providers/add-sub-com-col.menu';
 import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.menu';
 import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { AuditOverviewMenuProvider } from './shared/menu/providers/audit-overview.menu';
@@ -36,6 +37,7 @@ import { NotificationsMenuProvider } from './shared/menu/providers/notifications
 import { ProcessesMenuProvider } from './shared/menu/providers/processes.menu';
 import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu';
 import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
+import { SubmitNewItemMenuProvider } from './shared/menu/providers/submit-new-item.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
@@ -83,6 +85,9 @@ export const MENUS = buildMenuStructure({
     EditUserAgreementMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
+    SubmitNewItemMenuProvider.onRoute(
+      MenuRoute.COLLECTION_PAGE,
+    ),
     DsoOptionMenuProvider.withSubs([
       EditItemMenuProvider.onRoute(
         MenuRoute.ITEM_PAGE,
@@ -95,6 +100,9 @@ export const MENUS = buildMenuStructure({
         MenuRoute.COMMUNITY_PAGE,
         MenuRoute.COLLECTION_PAGE,
         MenuRoute.ITEM_PAGE,
+      ),
+      AddSubComColMenuProvider.onRoute(
+        MenuRoute.COMMUNITY_PAGE,
       ),
       WithdrawnReinstateItemMenuProvider.onRoute(
         MenuRoute.ITEM_PAGE,
