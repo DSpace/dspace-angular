@@ -9,6 +9,9 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
 import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
@@ -186,7 +189,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     private halService: HALEndpointService,
     private submissionService: SubmissionService,
     private sectionsService: SectionsService,
-    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService) {
+    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService,
+    private uploadsConfigService: SubmissionUploadsConfigDataService) {
     this.isActive = true;
   }
 
@@ -226,6 +230,18 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         map((submission: SubmissionObjectEntry) => submission.isLoading),
         map((isLoading: boolean) => isLoading),
         distinctUntilChanged());
+
+      // Let the uploader reject files above the upload section's limit before any data is sent
+      this.subs.push(
+        this.submissionService.getSubmissionSections(this.submissionId).pipe(
+          map((sections: SectionDataObject[]) => sections.find((section) => section.sectionType === SectionsType.Upload)),
+          filter((section: SectionDataObject) => hasValue(section) && isNotEmpty(section.config)),
+          distinctUntilChanged((previous: SectionDataObject, current: SectionDataObject) => previous.config === current.config),
+          switchMap((section: SectionDataObject) => this.uploadsConfigService.findByHref(section.config).pipe(getFirstCompletedRemoteData())),
+        ).subscribe((rd: RemoteData<SubmissionUploadsModel>) => {
+          this.uploadFilesOptions.maxFileSize = rd.hasSucceeded && rd.payload.maxSize > 0 ? rd.payload.maxSize : undefined;
+        }),
+      );
 
       // init submission state
       this.subs.push(
