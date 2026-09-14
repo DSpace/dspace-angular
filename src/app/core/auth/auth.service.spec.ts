@@ -316,6 +316,7 @@ describe('AuthService test', () => {
       mockStore = TestBed.inject(MockStore);
       authService = TestBed.inject(AuthService);
       mockStore.overrideSelector(isAuthenticated, true);
+      mockStore.overrideSelector(getAuthenticationToken, token);
       mockStore.refreshState();
       storage = (authService as any).storage;
       storage.get = jasmine.createSpy().and.returnValue(null);
