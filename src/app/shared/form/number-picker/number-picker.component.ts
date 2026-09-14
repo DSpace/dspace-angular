@@ -53,7 +53,6 @@ export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAcc
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
-  @Output() blur = new EventEmitter<any>();
   @Output() change = new EventEmitter<any>();
   @Output() focus = new EventEmitter<any>();
 
@@ -142,10 +141,6 @@ export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAcc
     } catch (e) {
       this.value = undefined;
     }
-  }
-
-  onBlur(event) {
-    this.blur.emit(event);
   }
 
   onFocus(event) {
