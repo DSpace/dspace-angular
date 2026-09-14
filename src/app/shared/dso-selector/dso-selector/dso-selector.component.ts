@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  NgClass,
+  NgClass
 } from '@angular/common';
 import {
   Component,
@@ -332,6 +332,56 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       return Context.SideBarSearchModalCurrent;
     } else {
       return Context.SideBarSearchModal;
+    }
+  }
+
+  /**
+   * Get the DSO id from the given listable object
+   * @param listableObject The {@link ListableObject} to evaluate
+   */
+  getDsoId(listableObject: ListableObject): string {
+    const searchResult = listableObject as SearchResult<DSpaceObject>;
+    return hasValue(searchResult.indexableObject) ? searchResult.indexableObject.id : null;
+  }
+
+  /**
+   * Check if the given list entry represents the currently selected DSO
+   * @param listableObject The {@link ListableObject} to evaluate
+   */
+  isCurrentDso(listableObject: ListableObject): boolean {
+    return this.getDsoId(listableObject) === this.currentDSOId;
+  }
+
+  /**
+   * Handles keyboard navigation between list entries
+   * @param event The keyboard event
+   * @param index The index of the current list entry
+   */
+  onListEntryKeydown(event: KeyboardEvent, index: number): void {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.focusListEntry(index + 1);
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.focusListEntry(index - 1);
+        break;
+    }
+  }
+
+  /**
+   * Set focus on the list entry at the given index
+   * @param index The index of the list entry to focus
+   */
+  private focusListEntry(index: number): void {
+    if (this.listElements.length > 0) {
+      const boundedIndex = Math.max(0, Math.min(index, this.listElements.length - 1));
+      const element = this.listElements.get(boundedIndex);
+
+      if (hasValue(element)) {
+        element.nativeElement.focus();
+      }
     }
   }
 
