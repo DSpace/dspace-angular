@@ -316,6 +316,7 @@ describe('AuthService test', () => {
       mockStore = TestBed.inject(MockStore);
       authService = TestBed.inject(AuthService);
       mockStore.overrideSelector(isAuthenticated, true);
+      mockStore.overrideSelector(getAuthenticationToken, token);
       mockStore.refreshState();
       storage = (authService as any).storage;
       storage.get = jasmine.createSpy().and.returnValue(null);
@@ -445,6 +446,45 @@ describe('AuthService test', () => {
       authService.navigateToRedirectUrl('/home');
       // Reload with redirect URL set to /home
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('reload/[0-9]*\\?redirect=' + encodeURIComponent('/home'))));
+    });
+
+    it('should replace a top-level external redirectUrl', () => {
+      const externalServerUrl = authService.getExternalServerRedirectUrl(
+        'https://dspace.test',
+        '/itemtemplate',
+        '/api/authn/shibboleth?redirectUrl=https://dspace.test/home',
+      );
+
+      expect(externalServerUrl).toBe('/api/authn/shibboleth?redirectUrl=https%3A%2F%2Fdspace.test%2Fitemtemplate');
+    });
+
+    it('should inject redirectUrl into a nested redirect_uri for OIDC providers', () => {
+      const externalServerUrl = authService.getExternalServerRedirectUrl(
+        'https://dspace.test',
+        '/itemtemplate',
+        'https://provider.example/authorize?client_id=test-client&response_type=code&scope=openid%20email&redirect_uri=' +
+        encodeURIComponent('https://rest.test/api/authn/oidc'),
+      );
+
+      const providerUrl = new URL(externalServerUrl);
+      const redirectUri = new URL(providerUrl.searchParams.get('redirect_uri'));
+
+      expect(redirectUri.toString()).toBe('https://rest.test/api/authn/oidc?redirectUrl=https%3A%2F%2Fdspace.test%2Fitemtemplate');
+    });
+
+    it('should preserve existing redirect_uri query params when injecting redirectUrl', () => {
+      const externalServerUrl = authService.getExternalServerRedirectUrl(
+        'https://dspace.test',
+        '/itemtemplate',
+        'https://provider.example/authorize?client_id=test-client&response_type=code&scope=openid%20email&redirect_uri=' +
+        encodeURIComponent('https://rest.test/api/authn/orcid?foo=bar'),
+      );
+
+      const providerUrl = new URL(externalServerUrl);
+      const redirectUri = new URL(providerUrl.searchParams.get('redirect_uri'));
+
+      expect(redirectUri.searchParams.get('foo')).toBe('bar');
+      expect(redirectUri.searchParams.get('redirectUrl')).toBe('https://dspace.test/itemtemplate');
     });
 
     it('should redirect to regular reload and not to /login', () => {
