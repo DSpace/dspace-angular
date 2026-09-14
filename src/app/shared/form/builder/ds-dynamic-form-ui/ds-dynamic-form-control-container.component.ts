@@ -19,6 +19,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   PLATFORM_ID,
   QueryList,
@@ -124,6 +125,7 @@ import {
 import { AppState } from '../../../../app.reducer';
 import { EditMetadataSecurityComponent } from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
+import { SectionDataObject } from '../../../../submission/sections/models/section-data.model';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { LiveRegionService } from '../../../live-region/live-region.service';
@@ -174,6 +176,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+  @Input() arrayIndex: number;
   securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
@@ -235,6 +238,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private actions$: Actions,
     protected renderer: Renderer2,
     @Inject(PLATFORM_ID) protected platformId: string,
+    @Optional() @Inject('sectionDataProvider') public sectionData: SectionDataObject,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -484,6 +488,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         modalComp.query = this.model.value;
       } else if (typeof this.model.value.value === 'string') {
         modalComp.query = this.model.value.value;
+      }
+
+      // If the existing value is not virtual, store properties on the modal required to perform a replace operation
+      if (hasValue(this.sectionData) && !this.model.value.isVirtual) {
+        modalComp.replaceValuePlace = this.arrayIndex || 0;
+        modalComp.replaceValueMetadataField = this.model.name;
+        modalComp.replaceValueSection = this.sectionData?.id;
       }
     }
 
