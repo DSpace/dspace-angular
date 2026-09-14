@@ -1,57 +1,100 @@
 <div class="container">
   <h1 id="header">{{'admin.batch-import.page.header' | translate}}</h1>
-  <p>{{'admin.batch-import.page.help' | translate}}</p>
-  @if (dso) {
-    <p>
-      selected collection: <b>{{getDspaceObjectName()}}</b>&nbsp;
-      <a href="javascript:void(0)" (click)="removeDspaceObject()">{{'admin.batch-import.page.remove' | translate}}</a>
-    </p>
-  }
-  <p>
-    <button class="btn btn-primary" (click)="this.selectCollection();">{{'admin.metadata-import.page.button.select-collection' | translate}}</button>
-  </p>
-  <div class="mb-3">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="validateOnly" [(ngModel)]="validateOnly">
-      <label class="form-check-label" for="validateOnly">
-        {{'admin.metadata-import.page.validateOnly' | translate}}
-      </label>
+  @if (stagedUploads.progress$ | async; as progress) {
+    @if (stagedUploads.retained?.file) {
+      <p data-test="upload-file">{{ 'admin.batch-import.upload.file' | translate: { name: stagedUploads.retained?.file.name } }}</p>
+      <p data-test="upload-collection">
+        @if (collectionName) {
+          {{ 'admin.batch-import.upload.collection' | translate: { collection: collectionName } }}
+        } @else {
+          {{ 'admin.batch-import.upload.collection.none' | translate }}
+        }
+      </p>
+      @if (!uploading) {
+        <p role="status">{{ 'admin.batch-import.upload.resume' | translate }}</p>
+      }
+    } @else {
+      <p>{{'admin.batch-import.page.help' | translate}}</p>
+      <fieldset [disabled]="uploading">
+        @if (dso) {
+          <p>
+            selected collection: <b>{{getDspaceObjectName()}}</b>&nbsp;
+            <a href="javascript:void(0)" (click)="removeDspaceObject()">{{'admin.batch-import.page.remove' | translate}}</a>
+          </p>
+        }
+        <p>
+          <button class="btn btn-primary" (click)="this.selectCollection();">{{'admin.metadata-import.page.button.select-collection' | translate}}</button>
+        </p>
+        <div class="mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="validateOnly" [(ngModel)]="validateOnly">
+            <label class="form-check-label" for="validateOnly">
+              {{'admin.metadata-import.page.validateOnly' | translate}}
+            </label>
+          </div>
+          <small id="validateOnlyHelpBlock" class="form-text text-muted">
+            {{'admin.batch-import.page.validateOnly.hint' | translate}}
+          </small>
+        </div>
+
+        <ui-switch color="#ebebeb"
+          [checkedLabel]="'admin.metadata-import.page.toggle.upload' | translate"
+          [uncheckedLabel]="'admin.metadata-import.page.toggle.url' | translate"
+          [checked]="isUpload"
+        (change)="toggleUpload()" ></ui-switch>
+        <small class="form-text text-muted d-block">
+          {{'admin.batch-import.page.toggle.help' | translate}}
+        </small>
+
+
+        @if (isUpload) {
+          <ds-file-dropzone-no-uploader
+            data-test="file-dropzone"
+            (onFileAdded)="setFile($event)"
+            [dropMessageLabel]="'admin.batch-import.page.dropMsg'"
+            [dropMessageLabelReplacement]="'admin.batch-import.page.dropMsgReplace'">
+          </ds-file-dropzone-no-uploader>
+        }
+
+        @if (!isUpload) {
+          <div class="mb-3 mt-2">
+            <input class="form-control" type="text" placeholder="{{'admin.metadata-import.page.urlMsg' | translate}}"
+              data-test="file-url-input" [(ngModel)]="fileURL">
+          </div>
+        }
+      </fieldset>
+    }
+
+    @if (isUpload && (uploading || stagedUploads.retained?.file)) {
+      <div class="my-3" [attr.aria-busy]="uploading">
+        <p id="saf-upload-label" role="status">
+          {{ (progress.phase === 'starting' ? 'admin.batch-import.upload.starting' : 'admin.batch-import.upload.progress') | translate }}
+        </p>
+        <progress class="w-100" aria-labelledby="saf-upload-label" [value]="progress.loaded" [max]="progress.total || 1"></progress>
+        <p aria-hidden="true">{{ uploadPercentage(progress.loaded, progress.total) }}%</p>
+        @if (uploading && progress.phase === 'uploading' && progress.bytesPerSecond !== null) {
+          <p data-test="upload-speed">
+            {{ 'admin.batch-import.upload.speed' | translate: { speed: (progress.bytesPerSecond | dsFileSize:1) } }}
+          </p>
+        }
+      </div>
+    }
+
+    <div class="space-children-mr">
+      @if (uploading) {
+        <button type="button" class="btn btn-danger" id="cancelUploadButton"
+          [dsBtnDisabled]="progress.phase === 'starting'"
+          (click)="cancelUpload()">{{ 'admin.batch-import.upload.cancel' | translate }}</button>
+      } @else {
+        <button class="btn btn-secondary" id="backButton"
+          (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
+        @if (stagedUploads.retained?.file) {
+          <button type="button" class="btn btn-danger" id="cancelUploadButton"
+            (click)="cancelUpload()">{{ 'admin.batch-import.upload.cancel' | translate }}</button>
+        }
+        <button class="btn btn-primary" id="proceedButton"
+          (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
+      }
     </div>
-    <small id="validateOnlyHelpBlock" class="form-text text-muted">
-      {{'admin.batch-import.page.validateOnly.hint' | translate}}
-    </small>
-  </div>
-
-  <ui-switch color="#ebebeb"
-    [checkedLabel]="'admin.metadata-import.page.toggle.upload' | translate"
-    [uncheckedLabel]="'admin.metadata-import.page.toggle.url' | translate"
-    [checked]="isUpload"
-  (change)="toggleUpload()" ></ui-switch>
-  <small class="form-text text-muted d-block">
-    {{'admin.batch-import.page.toggle.help' | translate}}
-  </small>
-
-
-  @if (isUpload) {
-    <ds-file-dropzone-no-uploader
-      data-test="file-dropzone"
-      (onFileAdded)="setFile($event)"
-      [dropMessageLabel]="'admin.batch-import.page.dropMsg'"
-      [dropMessageLabelReplacement]="'admin.batch-import.page.dropMsgReplace'">
-    </ds-file-dropzone-no-uploader>
   }
-
-  @if (!isUpload) {
-    <div class="mb-3 mt-2">
-      <input class="form-control" type="text" placeholder="{{'admin.metadata-import.page.urlMsg' | translate}}"
-        data-test="file-url-input" [(ngModel)]="fileURL">
-    </div>
-  }
-
-  <div class="space-children-mr">
-    <button class="btn btn-secondary" id="backButton"
-    (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
-    <button class="btn btn-primary" id="proceedButton"
-    (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
-  </div>
 </div>
