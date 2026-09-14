@@ -14,6 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
+import { ExternalLinkMenuItemModel } from '../../../shared/menu/menu-item/models/external-link.model';
+import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { MenuItemType } from '../../../shared/menu/menu-item-type.model';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { AbstractMenuSectionComponent } from '../../../shared/menu/menu-section/abstract-menu-section.component';
@@ -48,6 +51,11 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
    */
   isDisabled: boolean;
 
+  /**
+   * Whether this section links to an external URL
+   */
+  isExternalLink: boolean;
+
   constructor(
     protected menuService: MenuService,
     protected injector: Injector,
@@ -62,15 +70,24 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
   }
 
   ngOnInit(): void {
-    // todo: should support all menu entries?
-    this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
+    this.isExternalLink = this.section.model.type === MenuItemType.EXTERNAL;
+    if (this.isExternalLink) {
+      this.itemModel = this.section.model as ExternalLinkMenuItemModel;
+    } else {
+      this.itemModel = this.section.model as LinkMenuItemModel;
+    }
+    this.isDisabled = this.itemModel?.disabled || isEmpty(this.isExternalLink ? (this.itemModel as ExternalLinkMenuItemModel)?.href : this.itemModel?.link);
     super.ngOnInit();
   }
 
   navigate(event: any): void {
     event.preventDefault();
     if (!this.isDisabled) {
-      this.router.navigate(this.itemModel.link);
+      if (this.isExternalLink) {
+        window.open((this.itemModel as ExternalLinkMenuItemModel).href, '_blank');
+      } else {
+        this.router.navigate(this.itemModel.link);
+      }
     }
   }
 
