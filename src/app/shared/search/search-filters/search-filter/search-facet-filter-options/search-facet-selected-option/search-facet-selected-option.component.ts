@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -16,6 +17,7 @@ import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-fil
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../../../search.service';
 import { SearchConfigurationService } from '../../../../search-configuration.service';
 import { SearchFilterService } from '../../../search-filter.service';
@@ -65,7 +67,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit {
     protected router: Router,
     protected searchFilterService: SearchFilterService,
     protected searchService: SearchService,
-    protected searchConfigService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
   ) {
   }
 
