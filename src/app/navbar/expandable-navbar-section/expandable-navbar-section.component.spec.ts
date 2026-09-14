@@ -11,12 +11,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
+import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model';
 import {
   MenuItemModels,
   MenuSection,
@@ -40,6 +43,8 @@ describe('ExpandableNavbarSectionComponent', () => {
           HoverOutsideDirective,
           NoopAnimationsModule,
           TestComponent,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
         ],
         providers: [
           { provide: MenuService, useValue: menuService },
@@ -50,7 +55,11 @@ describe('ExpandableNavbarSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{ id: 'test', visible: true, model: {} as MenuItemModels }]));
+      // Only the (top) section itself has a child; the child 'test' is a leaf. This keeps the
+      // recursive sub-section template from recursing infinitely in the test.
+      spyOn(menuService, 'getSubSectionsByParentID').and.callFake(((...args: any[]) =>
+        args[1] === component.section.id ? of([{ id: 'test', visible: true, model: {} as MenuItemModels }]) : of([])
+      ) as any);
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
@@ -262,24 +271,31 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('navigateDropdown', () => {
       beforeEach(fakeAsync(() => {
         jasmine.getEnv().allowRespy(true);
-        spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([
-          {
-            id: 'subSection1',
-            model: Object.assign(new LinkMenuItemModel(), {
-              type: 'TEST_LINK',
-            }),
-            visible: true,
-            parentID: component.section.id,
-          },
-          {
-            id: 'subSection2',
-            model: Object.assign(new LinkMenuItemModel(), {
-              type: 'TEST_LINK',
-            }),
-            visible: true,
-            parentID: component.section.id,
-          },
-        ] as MenuSection[]));
+        spyOn(menuService, 'getSubSectionsByParentID').and.callFake(((...args: any[]) => {
+          if (args[1] === component.section.id) {
+            return of([
+              {
+                id: 'subSection1',
+                model: Object.assign(new LinkMenuItemModel(), {
+                  type: 'TEST_LINK',
+                  link: '/sub-section-1',
+                }),
+                visible: true,
+                parentID: component.section.id,
+              },
+              {
+                id: 'subSection2',
+                model: Object.assign(new LinkMenuItemModel(), {
+                  type: 'TEST_LINK',
+                  link: '/sub-section-2',
+                }),
+                visible: true,
+                parentID: component.section.id,
+              },
+            ] as MenuSection[]);
+          }
+          return of([] as MenuSection[]);
+        }) as any);
         component.ngOnInit();
         flush();
         fixture.detectChanges();
@@ -310,6 +326,88 @@ describe('ExpandableNavbarSectionComponent', () => {
     });
   });
 
+  describe('recursive rendering of nested sub sections', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          NoopAnimationsModule,
+          TestComponent,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+        ],
+        providers: [
+          { provide: MenuService, useValue: menuService },
+          { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+          { provide: ThemeService, useValue: getMockThemeService() },
+        ],
+      }).compileComponents();
+    }));
+
+    beforeEach(fakeAsync(() => {
+      jasmine.getEnv().allowRespy(true);
+
+      spyOn(menuService, 'getSubSectionsByParentID').and.callFake(((...args: any[]) => {
+        const parentID = args[1];
+        if (parentID === 'parent') {
+          return of([
+            { id: 'branch', visible: true, parentID: 'parent', model: Object.assign(new TextMenuItemModel(), { text: 'menu.branch' }) },
+          ] as MenuSection[]);
+        }
+        if (parentID === 'branch') {
+          return of([
+            { id: 'leaf', visible: true, parentID: 'branch', model: Object.assign(new LinkMenuItemModel(), { text: 'menu.leaf', link: '/explore/leaf' }) },
+          ] as MenuSection[]);
+        }
+        return of([] as MenuSection[]);
+      }) as any);
+
+      fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
+      component = fixture.componentInstance;
+      component.section = { id: 'parent', model: {} as MenuItemModels } as MenuSection;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
+      spyOn(menuService, 'isSectionActive').and.returnValue(of(true));
+
+      component.ngOnInit();
+      flush();
+      fixture.detectChanges();
+      component.active$.next(true);
+      fixture.detectChanges();
+    }));
+
+    it('should render both the first level and the deeper nested section', () => {
+      const dropdown: HTMLElement = fixture.nativeElement.querySelector('.dropdown-menu');
+      expect(dropdown).toBeTruthy();
+      // 'branch' is a direct child (level 0), 'leaf' is nested one level deeper (level 1).
+      expect(dropdown.textContent).toContain('menu.branch');
+      expect(dropdown.textContent).toContain('menu.leaf');
+    });
+
+    it('should render the deepest section as a link menu item', () => {
+      const leaf: DebugElement = fixture.debugElement.queryAll(By.css('.dropdown-menu a[role="menuitem"]'))
+        .find((el) => el.nativeElement.textContent.trim() === 'menu.leaf');
+      expect(leaf).toBeDefined();
+    });
+
+    it('should indent each nesting level (increasing depth)', () => {
+      const wrappers: HTMLElement[] = Array.from(
+        (fixture.nativeElement as HTMLElement).querySelectorAll('.dropdown-menu .ds-menu-sub-section'),
+      );
+      expect(wrappers.length).toBeGreaterThanOrEqual(2);
+
+      const depths: string[] = wrappers.map((el) => el.getAttribute('data-menu-depth'));
+      expect(depths).toContain('0');
+      expect(depths).toContain('1');
+    });
+
+    it('should request the sub sections of the deeper level as well (recursion)', () => {
+      const spy = menuService.getSubSectionsByParentID as jasmine.Spy;
+      expect(spy).toHaveBeenCalledWith(component.menuID, 'parent');
+      expect(spy).toHaveBeenCalledWith(component.menuID, 'branch');
+    });
+  });
+
   describe('on smaller, mobile screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
@@ -318,6 +416,8 @@ describe('ExpandableNavbarSectionComponent', () => {
           HoverOutsideDirective,
           NoopAnimationsModule,
           TestComponent,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
         ],
         providers: [
           { provide: MenuService, useValue: menuService },
@@ -328,7 +428,9 @@ describe('ExpandableNavbarSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{ id: 'test', visible: true, model: {} as MenuItemModels }]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.callFake(((...args: any[]) =>
+        args[1] === component.section.id ? of([{ id: 'test', visible: true, model: {} as MenuItemModels }]) : of([])
+      ) as any);
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;

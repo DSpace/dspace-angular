@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgComponentOutlet,
+  NgTemplateOutlet,
 } from '@angular/common';
 import {
   AfterViewChecked,
@@ -10,8 +11,12 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { RouterLinkActive } from '@angular/router';
+import {
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   first,
@@ -39,7 +44,10 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
     AsyncPipe,
     HoverOutsideDirective,
     NgComponentOutlet,
+    NgTemplateOutlet,
+    RouterLink,
     RouterLinkActive,
+    TranslateModule,
   ],
 })
 @rendersSectionForMenu(MenuID.PUBLIC, true)

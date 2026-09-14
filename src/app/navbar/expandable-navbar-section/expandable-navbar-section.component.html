@@ -31,15 +31,35 @@
         role="menu"
         class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0">
         <div @slide role="presentation">
-          @for (subSection of (subSections$ | async); track subSection) {
-            <div class="text-nowrap" role="presentation">
-              @if (sectionMap().get(subSection.id); as subSectionDTO) {
-                <ng-container *ngComponentOutlet="subSectionDTO.component; injector: subSectionDTO.injector;"></ng-container>
-              }
-            </div>
-          }
+          <ng-container *ngTemplateOutlet="subSectionTree; context: { $implicit: (subSections$ | async), level: 0 }"></ng-container>
         </div>
       </div>
     }
   </div>
 }
+
+<ng-template #subSectionTree let-sections let-level="level">
+  @for (subSection of sections; track subSection.id) {
+    <div class="text-nowrap ds-menu-sub-section" role="presentation"
+         [attr.data-menu-depth]="level"
+         [style.padding-left]="'calc(' + level + ' * 1rem)'">
+      @if ($any(subSection.model)?.link) {
+        <a class="ds-menu-item" role="menuitem"
+           [attr.data-test]="'link-menu-item.' + subSection.model?.text"
+           [class.disabled]="subSection.model?.disabled"
+           [routerLink]="$any(subSection.model)?.link"
+           [queryParams]="$any(subSection.model)?.queryParams"
+           tabindex="0">{{ subSection.model?.text | translate }}</a>
+      } @else {
+        <span class="ds-menu-item" role="button"
+              [class.disabled]="subSection.model?.disabled"
+              tabindex="0">{{ subSection.model?.text | translate }}</span>
+      }
+      @if (menuService.getSubSectionsByParentID(menuID, subSection.id) | async; as nestedSections) {
+        @if (nestedSections.length > 0) {
+          <ng-container *ngTemplateOutlet="subSectionTree; context: { $implicit: nestedSections, level: level + 1 }"></ng-container>
+        }
+      }
+    </div>
+  }
+</ng-template>
