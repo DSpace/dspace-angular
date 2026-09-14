@@ -83,7 +83,13 @@ describe('AbstractSimpleItemActionComponent', () => {
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
       url: `${itemPageUrl}/edit`,
+      lastSuccessfulNavigation: {
+        previousNavigation: {
+          finalUrl: { toString: () => '/admin/search' },
+        },
+      },
     });
+    routerStub.navigateByUrl = jasmine.createSpy('navigateByUrl');
 
     mockItemDataService = jasmine.createSpyObj({
       findById: createSuccessfulRemoteDataObject$(mockItem),
@@ -148,18 +154,28 @@ describe('AbstractSimpleItemActionComponent', () => {
     expect(comp.performAction).toHaveBeenCalled();
   });
 
-  it('should process a RemoteData to navigate and display success notification', () => {
+  it('should navigate to previous URL and show success notification on success', () => {
     comp.processRestResponse(successfulRemoteData);
 
     expect(notificationsServiceStub.success).toHaveBeenCalled();
-    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+    expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/admin/search');
   });
 
-  it('should process a RemoteData to navigate and display success notification', () => {
+  it('should navigate to previous URL and show error notification on failure', () => {
     comp.processRestResponse(failedRemoteData);
 
     expect(notificationsServiceStub.error).toHaveBeenCalled();
-    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+    expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/admin/search');
+  });
+
+  it('should navigate to item edit route when no previous URL exists', () => {
+    routerStub.lastSuccessfulNavigation = null;
+    comp.ngOnInit();
+    fixture.detectChanges();
+
+    comp.processRestResponse(failedRemoteData);
+
+    expect(routerStub.navigateByUrl).toHaveBeenCalledWith(getItemEditRoute(mockItem));
   });
 
 });
