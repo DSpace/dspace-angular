@@ -12,6 +12,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { DragService } from '@dspace/core/drag.service';
 import {
@@ -156,6 +157,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
     private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService,
     private liveRegionService: LiveRegionService,
+    private authService: AuthService,
   ) {
   }
 
@@ -187,6 +189,9 @@ export class UploaderComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Configure upload callbacks, refreshing authentication headers before each file is sent.
+   */
   ngAfterViewInit(): void {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
@@ -195,6 +200,8 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       this.onBeforeUpload = () => {return;};
     }
     this.uploader.onBeforeUploadItem = (item) => {
+      // ng2-file-upload caches authToken and bypasses the Angular authentication interceptor.
+      this.uploader.authToken = this.authService.buildAuthHeader();
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }
