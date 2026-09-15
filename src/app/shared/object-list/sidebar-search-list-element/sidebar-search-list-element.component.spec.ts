@@ -115,7 +115,7 @@ export function createSidebarSearchListElementTests(
     }
 
     it('should contain the correct title', () => {
-      expect(component.dsoTitle).toEqual(expectedTitle);
+      expect(component.dsoTitle.value).toEqual(expectedTitle);
     });
 
     it('should contain the correct description', () => {

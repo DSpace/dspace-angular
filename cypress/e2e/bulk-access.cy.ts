@@ -5,7 +5,9 @@ describe('Bulk Access', () => {
   beforeEach(() => {
     // Must login as an Admin to see the page
     cy.visit('/access-control/bulk-access');
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
   });
 
   it('should pass accessibility tests', () => {

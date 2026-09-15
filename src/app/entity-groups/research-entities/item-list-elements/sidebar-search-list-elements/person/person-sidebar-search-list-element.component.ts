@@ -16,6 +16,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { MetadataDirective } from '../../../../../shared/metadata.directive';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
@@ -30,6 +31,7 @@ import { TruncatablePartComponent } from '../../../../../shared/truncatable/trun
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     TranslateModule,
     TruncatablePartComponent,

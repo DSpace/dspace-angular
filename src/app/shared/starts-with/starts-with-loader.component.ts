@@ -5,7 +5,7 @@ import {
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 
 import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
-import { StartsWithAbstractComponent } from './starts-with-abstract.component';
+import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
 import { getStartsWithComponent } from './starts-with-decorator';
 import { StartsWithType } from './starts-with-type';
 
@@ -15,8 +15,11 @@ import { StartsWithType } from './starts-with-type';
 @Component({
   selector: 'ds-starts-with-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
-export class StartsWithLoaderComponent extends AbstractComponentLoaderComponent<StartsWithAbstractComponent> {
+export class StartsWithLoaderComponent extends AbstractComponentLoaderComponent<Component> {
 
   @Input() paginationId: string;
 
@@ -31,8 +34,8 @@ export class StartsWithLoaderComponent extends AbstractComponentLoaderComponent<
     'type',
   ];
 
-  public getComponent(): GenericConstructor<StartsWithAbstractComponent> {
-    return getStartsWithComponent(this.type);
+  public getComponent(): Promise<GenericConstructor<Component>> {
+    return getStartsWithComponent(this.type, this.themeService.getThemeName());
   }
 
 }

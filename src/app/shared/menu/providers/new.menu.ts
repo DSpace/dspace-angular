@@ -54,12 +54,11 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
 
   public getSubSections(): Observable<PartialMenuSection[]> {
     return combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled),
-    ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, isCoarNotifyEnabled]: [boolean, boolean, boolean, boolean, boolean]) => {
+    ]).pipe(map(([isCommunityAdmin, isSiteAdmin, canSubmit, isCoarNotifyEnabled]: [boolean, boolean, boolean, boolean]) => {
 
       return [
         {
@@ -73,7 +72,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
           },
         },
         {
-          visible: isCollectionAdmin,
+          visible: isCommunityAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',

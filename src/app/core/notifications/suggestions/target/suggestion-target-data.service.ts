@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
@@ -25,8 +26,10 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../notification-system/notifications.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
+import { SUGGESTION_TARGET } from '../models/suggestion-target-object.resource-type';
 
 @Injectable({ providedIn: 'root' })
+@dataService(SUGGESTION_TARGET)
 export class SuggestionTargetDataService extends IdentifiableDataService<SuggestionTarget> {
 
   protected linkPath = 'suggestiontargets';

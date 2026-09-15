@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
@@ -23,6 +24,7 @@ import { NoContent } from '@dspace/core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { sendRequest } from '@dspace/core/shared/request.operators';
 import { Subscription } from '@dspace/core/shared/subscription.model';
+import { SUBSCRIPTION } from '@dspace/core/shared/subscription.resource-type';
 import {
   isNotEmpty,
   isNotEmptyOperator,
@@ -46,6 +48,7 @@ import { followLink } from '../shared/follow-link-config.model';
 @Injectable({
   providedIn: 'root',
 })
+@dataService(SUBSCRIPTION)
 export class SubscriptionsDataService extends IdentifiableDataService<Subscription> {
   protected findByEpersonLinkPath = 'findByEPerson';
 

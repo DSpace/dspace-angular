@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { SYSTEMWIDEALERT } from '@dspace/core/shared/system-wide-alert.resource-type';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -34,6 +36,7 @@ import { RequestService } from './request.service';
  * Dataservice representing a system-wide alert
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SYSTEMWIDEALERT)
 export class SystemWideAlertDataService extends IdentifiableDataService<SystemWideAlert> implements FindAllData<SystemWideAlert>, CreateData<SystemWideAlert>, PutData<SystemWideAlert>, SearchData<SystemWideAlert> {
   private findAllData: FindAllDataImpl<SystemWideAlert>;
   private createData: CreateDataImpl<SystemWideAlert>;

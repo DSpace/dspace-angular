@@ -188,6 +188,8 @@ describe('CommunityPageSubCommunityListComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
     const subComList: DebugElement[] = fixture.debugElement.queryAll(By.css('ul[data-test="objects"] li'));
     expect(subComList.length).toEqual(5);

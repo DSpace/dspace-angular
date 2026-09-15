@@ -46,6 +46,9 @@ import {
   DynamicFormLayout,
   DynamicFormService,
   DynamicInputModel,
+  DynamicSelectModel,
+  MATCH_VISIBLE,
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import {
   TranslateModule,
@@ -338,11 +341,92 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     },
   });
 
+
+  /**
+   * The Dynamic Select Model for the media type
+   */
+  mediaTypeModel = new DynamicSelectModel({
+    id: 'mediaType',
+    name: 'mediaType',
+    options: [
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.neither'),
+        value: 'neither',
+      },
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.audio'),
+        value: 'audio',
+      },
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.video'),
+        value: 'video',
+      },
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.audio-video'),
+        value: 'audio+video',
+      },
+    ],
+    value: 'neither',
+  });
+
+  /**
+   * The Dynamic TextArea Model for the audio transcript
+   */
+  audioTranscriptModel = new DsDynamicTextAreaModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
+    id: 'audioTranscript',
+    name: 'audioTranscript',
+    rows: 10,
+    relations: [
+      {
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: [
+          {
+            id: 'mediaType',
+            value: 'audio',
+          },
+          {
+            id: 'mediaType',
+            value: 'audio+video',
+          },
+        ],
+      },
+    ],
+  });
+
+  /**
+   * The Dynamic TextArea Model for the video description
+   */
+  videoDescriptionModel = new DsDynamicTextAreaModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
+    id: 'videoDescription',
+    name: 'videoDescription',
+    rows: 10,
+    relations: [
+      {
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: [
+          {
+            id: 'mediaType',
+            value: 'video',
+          },
+          {
+            id: 'mediaType',
+            value: 'audio+video',
+          },
+        ],
+      },
+    ],
+  });
+
+
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.selectedFormatModel,
-    this.newFormatModel];
+  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.mediaTypeModel,
+    this.audioTranscriptModel, this.videoDescriptionModel, this.selectedFormatModel, this.newFormatModel];
 
   /**
    * The dynamic form fields used for editing the information of a bitstream
@@ -365,6 +449,18 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       group: [
         this.descriptionModel,
       ],
+    }),
+    new DynamicFormGroupModel({
+      id: 'mediaInfoContainer',
+      group: [
+        this.mediaTypeModel,
+        this.audioTranscriptModel,
+        this.videoDescriptionModel,
+      ],
+    }, {
+      grid: {
+        host: 'row',
+      },
     }),
     new DynamicFormGroupModel({
       id: 'formatContainer',
@@ -417,12 +513,32 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: this.newFormatBaseLayout + ' invisible',
       },
     },
+    mediaType: {
+      grid: {
+        host: 'col-12 d-inline-block',
+      },
+    },
+    audioTranscript: {
+      grid: {
+        host: 'col-12 d-inline-block',
+      },
+    },
+    videoDescription: {
+      grid: {
+        host: 'col-12 d-inline-block',
+      },
+    },
     fileNamePrimaryContainer: {
       grid: {
         host: 'row position-relative',
       },
     },
     descriptionContainer: {
+      grid: {
+        host: 'row',
+      },
+    },
+    mediaInfoContainer: {
       grid: {
         host: 'row',
       },
@@ -622,6 +738,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       descriptionContainer: {
         description: bitstream.firstMetadataValue('dc.description'),
       },
+      mediaInfoContainer: {
+        mediaType: bitstream.firstMetadataValue('dc.type') ?? 'neither',
+        audioTranscript: bitstream.firstMetadataValue('dspace.bitstream.transcript'),
+        videoDescription: bitstream.firstMetadataValue('dspace.bitstream.textalternative'),
+      },
       formatContainer: {
         selectedFormat: this.selectedFormat.shortDescription,
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined,
@@ -799,6 +920,22 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       delete newMetadata['dc.description'];
     } else {
       Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    }
+    const mediaType = rawForm.mediaInfoContainer?.mediaType;
+    if (isEmpty(mediaType) || mediaType === 'neither') {
+      delete newMetadata['dc.type'];
+    } else {
+      Metadata.setFirstValue(newMetadata, 'dc.type', mediaType);
+    }
+    if (isEmpty(rawForm.mediaInfoContainer?.audioTranscript)) {
+      delete newMetadata['dspace.bitstream.transcript'];
+    } else {
+      Metadata.setFirstValue(newMetadata, 'dspace.bitstream.transcript', rawForm.mediaInfoContainer.audioTranscript);
+    }
+    if (isEmpty(rawForm.mediaInfoContainer?.videoDescription)) {
+      delete newMetadata['dspace.bitstream.textalternative'];
+    } else {
+      Metadata.setFirstValue(newMetadata, 'dspace.bitstream.textalternative', rawForm.mediaInfoContainer.videoDescription);
     }
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.

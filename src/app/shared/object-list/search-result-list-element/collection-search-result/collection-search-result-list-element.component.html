@@ -4,13 +4,13 @@
       <ds-badges [object]="dso" [context]="context"></ds-badges>
     }
     @if (linkType !== linkTypes.None) {
-      <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + dso.id]" class="lead" [innerHTML]="dsoTitle"></a>
+      <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + dso.id]" class="lead" [dsMetadata]="dsoTitle"></a>
     }
     @if (linkType === linkTypes.None) {
-      <span class="lead" [innerHTML]="dsoTitle"></span>
+      <span class="lead" [dsMetadata]="dsoTitle"></span>
     }
     @if (dso.shortDescription) {
-      <div class="text-muted abstract-text" [innerHTML]="firstMetadataValue('dc.description.abstract')"></div>
+      <div class="text-muted abstract-text" [dsMetadata]="firstMetadata('dc.description.abstract')"></div>
     }
   </div>
 </div>

@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   TranslateModule,
   TranslateService,
@@ -19,6 +20,7 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -36,7 +38,7 @@ import { SectionsService } from '../sections.service';
     TranslateModule,
   ],
 })
-
+@renderSectionFor(SectionsType.Identifiers)
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {
 
   /**

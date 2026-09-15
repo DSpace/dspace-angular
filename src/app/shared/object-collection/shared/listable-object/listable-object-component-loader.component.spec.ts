@@ -28,7 +28,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment.test';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { ListableModule } from '../../../listable.module';
 import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
@@ -75,7 +74,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         ListableObjectComponentLoaderComponent,
-        ListableModule,
         ItemListElementComponent,
         DynamicComponentLoaderDirective,
       ],

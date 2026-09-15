@@ -1,9 +1,11 @@
-const ADD_TEMPLATE_ITEM_PAGE = '/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION')).concat('/itemtemplate');
+const ADD_TEMPLATE_ITEM_PAGE = '/collections/'.concat(Cypress.expose('DSPACE_TEST_COLLECTION')).concat('/itemtemplate');
 
 describe('Item Template', () => {
   beforeEach(() => {
     cy.visit(ADD_TEMPLATE_ITEM_PAGE);
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
   });
 
   it('should load properly', () => {

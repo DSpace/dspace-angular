@@ -7,6 +7,8 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
+import { renderStartsWithFor } from '../starts-with-decorator';
+import { StartsWithType } from '../starts-with-type';
 
 /**
  * A switchable component rendering StartsWith options for the type "Text".
@@ -21,6 +23,7 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
     TranslateModule,
   ],
 })
+@renderStartsWithFor(StartsWithType.text)
 export class StartsWithTextComponent extends StartsWithAbstractComponent {
 
   /**

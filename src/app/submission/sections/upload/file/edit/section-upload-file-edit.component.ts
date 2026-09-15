@@ -36,7 +36,10 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
   filter,
@@ -68,6 +71,7 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
+
 
 /**
  * This component represents the edit form for bitstream
@@ -204,6 +208,7 @@ implements OnInit, OnDestroy {
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -412,6 +417,7 @@ implements OnInit, OnDestroy {
       );
 
     }
+
     this.initModelData(formModel);
     return formModel;
   }
@@ -433,6 +439,27 @@ implements OnInit, OnDestroy {
       take(1),
       mergeMap((formData: any) => {
         this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
+        const mediaTypeValue = this.retrieveValueFromField(formData.mediaType) ?? formData.mediaType;
+        if (isNotEmpty(mediaTypeValue) && mediaTypeValue !== 'neither') {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']), [{ value: mediaTypeValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']));
+        }
+
+        const audioTranscriptValue = this.retrieveValueFromField(formData.audioTranscript) ?? formData.audioTranscript;
+        if (isNotEmpty(audioTranscriptValue)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.transcript']), [{ value: audioTranscriptValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.transcript']));
+        }
+
+        const videoDescriptionValue = this.retrieveValueFromField(formData.videoDescription) ?? formData.videoDescription;
+        if (isNotEmpty(videoDescriptionValue)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.textalternative']), [{ value: videoDescriptionValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.textalternative']));
+        }
 
         // collect bitstream metadata
         Object.keys((formData.metadata))

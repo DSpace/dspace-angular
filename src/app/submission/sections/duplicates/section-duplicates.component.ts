@@ -8,6 +8,7 @@ import {
 import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   TranslateModule,
@@ -25,6 +26,7 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 
 /**
  * Detect duplicates step
@@ -41,7 +43,7 @@ import { SectionsService } from '../sections.service';
     VarDirective,
   ],
 })
-
+@renderSectionFor(SectionsType.Duplicates)
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {
   protected readonly Metadata = Metadata;
   /**

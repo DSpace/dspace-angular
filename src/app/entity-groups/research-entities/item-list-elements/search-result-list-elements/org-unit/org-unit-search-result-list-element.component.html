@@ -32,19 +32,19 @@
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
           [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
           [routerLink]="[itemPageRoute]" class="lead"
-        [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)" role="link" tabindex="0"></a>
+        [dsMetadata]="dsoTitle" role="link" tabindex="0"></a>
       }
       @if (linkType === linkTypes.None) {
         <span
           class="lead"
-        [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)"></span>
+          [dsMetadata]="dsoTitle"></span>
       }
       <span class="text-muted">
         @if (dso.allMetadata(['dc.description']).length > 0) {
           <span
             class="item-list-org-unit-description">
             <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-            [innerHTML]="firstMetadataValue('dc.description')"></span>
+              [dsMetadata]="firstMetadata('dc.description')"></span>
           </ds-truncatable-part>
         </span>
       }
