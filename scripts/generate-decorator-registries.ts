@@ -127,9 +127,13 @@ const parseKey = (
  *
  * While the imports in the component metadata are stored as { object: path }, this method flips that.
  * So objects originating from the same path, can be stored together under that same path key.
+ *
+ * When {@link DecoratorConfig#synchronous} is true, also statically import the decorated classes
+ * themselves so the registry can store direct references instead of lazy factories.
  */
 const generateImportStatements = (
   components: Array<{ name: string, filePath: string, args: any[], imports: Map<string, string> }>,
+  decoratorConfig: DecoratorConfig,
 ): string => {
   let result = '';
   const imports: Map<string, Set<string>> = new Map();
@@ -140,6 +144,13 @@ const generateImportStatements = (
         imports.set(importPath, new Set());
       }
       imports.get(importPath).add(componentImport);
+    }
+
+    if (decoratorConfig.synchronous) {
+      if (!imports.get(component.filePath)) {
+        imports.set(component.filePath, new Set());
+      }
+      imports.get(component.filePath).add(component.name);
     }
   });
 
@@ -181,11 +192,13 @@ const generateMapCreationStatements = (
       currentPathKey = newPath;
     }
 
-    // Handle the lowest level of the map by generating a lazy import to the component.
+    // Handle the lowest level of the map: either a direct class ref (sync) or a lazy import (async).
     const finalKey = argsArray[argsArray.length - 1];
     const finalKeyString = parseKey(finalKey, decoratorConfig, argsArray);
-    const lazyImport = `() => import('${component.filePath}').then(c => c.${component.name})`;
-    result += `  ${currentMapPath}.set(${finalKeyString}, ${lazyImport});\n`;
+    const mapValue = decoratorConfig.synchronous
+      ? component.name
+      : `() => import('${component.filePath}').then(c => c.${component.name})`;
+    result += `  ${currentMapPath}.set(${finalKeyString}, ${mapValue});\n`;
   }
 
   return result;
@@ -208,7 +221,7 @@ const writeRegistryFile = (
   let content: string;
 
   // Start the registry file with the import statements, if any.
-  content = generateImportStatements(components);
+  content = generateImportStatements(components, decoratorConfig);
 
   // Open the map creation function and initialize the decorator map within the function.
   content += `function ${functionName}(): Map<any, any> {\n`;

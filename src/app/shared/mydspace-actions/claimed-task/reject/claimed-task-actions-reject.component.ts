@@ -117,10 +117,9 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
     return of(this.object);
   }
 
-  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
-    const reloadedObject = Object.assign(new ClaimedDeclinedTaskSearchResult(), dso, {
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+    return Object.assign(new ClaimedDeclinedTaskSearchResult(), dso, {
       indexableObject: dso,
     });
-    return reloadedObject;
   }
 }

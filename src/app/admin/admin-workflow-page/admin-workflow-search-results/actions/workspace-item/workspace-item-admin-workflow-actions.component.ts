@@ -36,7 +36,7 @@ import {
 
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
+import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator-sync';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import {
@@ -184,9 +184,9 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
           );
         }
       }),
-    ).subscribe(async (result: boolean) => {
+    ).subscribe((result: boolean) => {
       if (result) {
-        this.delete.emit(await this.convertReloadedObject());
+        this.delete.emit(this.convertReloadedObject());
       }
     });
   }
@@ -200,16 +200,16 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
       backdrop: 'static',
     });
     supervisionModal.componentInstance.itemUUID = this.item.uuid;
-    supervisionModal.componentInstance.create.subscribe(async () => {
-      this.create.emit(await this.convertReloadedObject());
+    supervisionModal.componentInstance.create.subscribe(() => {
+      this.create.emit(this.convertReloadedObject());
     });
   }
 
   /**
    * Convert the reloadedObject to the Type required by this dso.
    */
-  private async convertReloadedObject(): Promise<DSpaceObject> {
-    const constructor = await getSearchResultFor((this.wsi as any).constructor);
+  private convertReloadedObject(): DSpaceObject {
+    const constructor = getSearchResultFor((this.wsi as any).constructor);
     return Object.assign(new constructor(), this.wsi, {
       indexableObject: this.wsi,
     });
