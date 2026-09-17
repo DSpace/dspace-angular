@@ -1,4 +1,5 @@
-import { Group } from '../../core/eperson/models/group.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+
 import {
   GroupRegistryAction,
   GroupRegistryActionTypes,

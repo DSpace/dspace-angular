@@ -21,10 +21,25 @@ import { COLLECTION } from './collection.resource-type';
 import { Community } from './community.model';
 import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { HALLink } from './hal-link.model';
 import { HandleObject } from './handle-object.model';
 import { License } from './license.model';
 import { LICENSE } from './license.resource-type';
+
+/**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
+  followLink('parentCommunity', {},
+    followLink('parentCommunity'),
+  ),
+  followLink('logo'),
+];
 
 @typedObject
 @inheritSerialization(DSpaceObject)

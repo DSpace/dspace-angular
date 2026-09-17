@@ -13,11 +13,25 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  NgbModal,
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
@@ -37,20 +51,10 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../empty.util';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
+import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 
@@ -66,7 +70,6 @@ import { DynamicTagModel } from './dynamic-tag.model';
     FormsModule,
     NgbTypeaheadModule,
   ],
-  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -77,6 +80,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   @ViewChild('instance') instance: NgbTypeahead;
 
@@ -93,8 +97,11 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected formBuilderService: FormBuilderService,
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService,
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**
@@ -219,13 +226,15 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   }
 
   /**
-   * Add a new tag with typed text when typing 'Enter' or ',' or ';'
+   * Add a new tag with typed text when typing 'Enter' or ','
+   * Tests the key rather than keyCode as keyCodes can vary
+   * based on keyboard layout (and do not consider Shift mod)
    * @param event the keyUp event
    */
   onKeyUp(event) {
-    if (event.keyCode === 13 || event.keyCode === 188) {
+    if (event.key === 'Enter' || event.key === ',') {
       event.preventDefault();
-      // Key: 'Enter' or ',' or ';'
+      // Key: 'Enter' or ','
       this.addTagsToChips();
       event.stopPropagation();
     }

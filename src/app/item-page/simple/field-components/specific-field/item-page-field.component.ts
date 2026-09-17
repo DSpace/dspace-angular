@@ -3,6 +3,15 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import intersectionWith from 'lodash/intersectionWith';
 import { Observable } from 'rxjs';
 import {
@@ -11,15 +20,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
-import { Item } from '../../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from './image-field';
 
@@ -35,7 +35,6 @@ import { ImageField } from './image-field';
     AsyncPipe,
     MetadataValuesComponent,
   ],
-  standalone: true,
 })
 export class ItemPageFieldComponent {
 
@@ -56,7 +55,7 @@ export class ItemPageFieldComponent {
     /**
      * Fields (schema.element.qualifier) used to render their values.
      */
-    fields: string[];
+    @Input() fields: string[];
 
     /**
      * Label i18n key for the rendered metadata
@@ -78,6 +77,13 @@ export class ItemPageFieldComponent {
      * Image Configuration
      */
     img: ImageField;
+
+    /**
+     * Search filter used when rendering subject metadata as search links.
+     */
+    get searchFilter(): string | undefined {
+      return this.fields?.includes('dc.subject') ? 'subject' : undefined;
+    }
 
     /**
      * Return browse definition that matches any field used in this component if it is configured as a browse

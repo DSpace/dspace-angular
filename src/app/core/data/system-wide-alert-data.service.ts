@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { SYSTEMWIDEALERT } from '@dspace/core/shared/system-wide-alert.resource-type';
 import { Observable } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
-import { SYSTEMWIDEALERT } from '../../system-wide-alert/system-wide-alert.resource-type';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { SystemWideAlert } from '../shared/system-wide-alert.model';
 import {
   CreateData,
   CreateDataImpl,

@@ -25,7 +25,6 @@ import { ViewModeSwitchComponent } from '../../../../../app/shared/view-mode-swi
   templateUrl: '../../../../../app/shared/search/search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgTemplateOutlet,

@@ -3,16 +3,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFilterByRelation } from '@dspace/core/utilities/relation-query.utils';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
-import { Item } from '../../../../core/shared/item.model';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
-import { isNotEmpty } from '../../../../shared/empty.util';
-import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-related-entities-search',
   templateUrl: './related-entities-search.component.html',
-  standalone: true,
   imports: [
     ThemedConfigurationSearchPageComponent,
   ],

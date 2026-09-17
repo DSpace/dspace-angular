@@ -1,13 +1,13 @@
 import { Store } from '@ngrx/store';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { testCreateDataImplementation } from '../data/base/create-data.spec';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRequestService } from '../testing/request.service.mock';
 import { FeedbackDataService } from './feedback-data.service';
 import { Feedback } from './models/feedback.model';
 

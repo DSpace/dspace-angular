@@ -4,6 +4,18 @@ import {
   Injectable,
   runInInjectionContext,
 } from '@angular/core';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  MATOMO_ENABLED,
+  MATOMO_SITE_ID,
+  MATOMO_TRACKER_URL,
+} from '@dspace/core/statistics/models/matomo-type';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   MatomoInitializerService,
   MatomoTracker,
@@ -13,6 +25,7 @@ import {
   from as fromPromise,
   Observable,
   of,
+  ReplaySubject,
 } from 'rxjs';
 import {
   map,
@@ -20,18 +33,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { NativeWindowService } from '../core/services/window.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { OrejimeService } from '../shared/cookies/orejime.service';
-import { isNotEmpty } from '../shared/empty.util';
-
-export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
-export const MATOMO_SITE_ID = 'matomo.request.siteid';
-
-export const MATOMO_ENABLED = 'matomo.enabled';
 
 /**
  * Service to manage Matomo analytics integration.
@@ -45,7 +46,6 @@ export const MATOMO_ENABLED = 'matomo.enabled';
  * Provides methods for initializing tracking, managing consent, and appending visitor identifiers.
  */
 export class MatomoService {
-
   /** Injects the MatomoInitializerService to initialize the Matomo tracker. */
   matomoInitializer: MatomoInitializerService;
 
@@ -61,8 +61,25 @@ export class MatomoService {
   /** Injects the ConfigurationService. */
   configService = inject(ConfigurationDataService);
 
-  constructor(private injector: EnvironmentInjector) {
+  private statusSubject = new ReplaySubject<'loading' | 'loaded' | 'error'>(1);
+  private status$ = this.statusSubject.asObservable();
 
+  constructor(private injector: EnvironmentInjector) {
+    this.statusSubject.next('loading');
+  }
+
+  /**
+   * This method indicates that the Matomo script loaded successfully thus we set state to loaded
+   */
+  markAsLoaded() {
+    this.statusSubject.next('loaded');
+  }
+
+  /**
+   * This method indicates that the Matomo script failed to download or execute and sets state to error
+   */
+  markAsError() {
+    this.statusSubject.next('error');
   }
 
   /**
@@ -163,6 +180,16 @@ export class MatomoService {
             res.payload.values[0]?.toLowerCase() === 'true';
         }),
       );
+  }
+
+  /**
+   * Checks if Matomo script loaded correctly
+   * @returns An Observable that emits a boolean indicating whether Matomo script loaded correctly.
+   */
+  isMatomoScriptLoaded$(): Observable<boolean> {
+    return this.status$.pipe(
+      map(status => status === 'loaded'),
+    );
   }
 
   /**

@@ -4,3 +4,9 @@
     max-width: none;
   }
 }
+
+.home-header {
+  // Using double of --ds-content-spacing because home-news, which is right below the header,
+  // is using margin-top: var(--ds-content-spacing) * -1
+  margin-bottom: calc(var(--ds-content-spacing) * 2);
+}

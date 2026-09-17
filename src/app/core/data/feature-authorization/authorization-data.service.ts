@@ -1,4 +1,11 @@
 import { Injectable } from '@angular/core';
+import { AUTHORIZATION } from '@dspace/core/shared/authorization.resource-type';
+import { FEATURE } from '@dspace/core/shared/feature.resource-type';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,
@@ -9,22 +16,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Authorization } from '../../shared/authorization.model';
-import { AUTHORIZATION } from '../../shared/authorization.resource-type';
-import { FEATURE } from '../../shared/feature.resource-type';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { BaseDataService } from '../base/base-data.service';

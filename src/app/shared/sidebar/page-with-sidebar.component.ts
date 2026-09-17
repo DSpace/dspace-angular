@@ -20,7 +20,6 @@ import { SidebarService } from './sidebar.service';
   styleUrls: ['./page-with-sidebar.component.scss'],
   templateUrl: './page-with-sidebar.component.html',
   animations: [pushInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgTemplateOutlet,

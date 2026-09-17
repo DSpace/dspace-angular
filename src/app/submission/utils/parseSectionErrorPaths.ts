@@ -1,4 +1,4 @@
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 /**
  * An interface to represent the path of a section error

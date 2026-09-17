@@ -11,19 +11,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '../../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {
@@ -195,7 +195,6 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

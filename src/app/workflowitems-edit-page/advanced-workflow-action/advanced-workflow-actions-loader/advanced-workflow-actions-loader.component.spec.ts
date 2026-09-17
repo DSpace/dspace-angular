@@ -12,13 +12,13 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
 import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
@@ -96,7 +96,6 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="AdvancedWorkflowActionsLoaderComponent"></span>',
-  standalone: true,
 })
 // @rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_TEST)
 class AdvancedWorkflowActionTestComponent {

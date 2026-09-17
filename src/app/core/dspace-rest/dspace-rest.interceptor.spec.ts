@@ -8,11 +8,11 @@ import {
 } from '@angular/common/http/testing';
 import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '@dspace/config/app-config.interface';
+
 import { DspaceRestInterceptor } from './dspace-rest.interceptor';
 import { DspaceRestService } from './dspace-rest.service';
 

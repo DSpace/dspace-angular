@@ -8,13 +8,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
   from,
   Observable,
 } from 'rxjs';
 
-import { AuthMethod } from '../../../core/auth/models/auth.method';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ThemeService } from '../../theme-support/theme.service';
 import { getAuthMethodFor } from '../methods/log-in.methods-decorator';
 
@@ -25,7 +25,6 @@ import { getAuthMethodFor } from '../methods/log-in.methods-decorator';
   selector: 'ds-log-in-container',
   templateUrl: './log-in-container.component.html',
   styleUrls: ['./log-in-container.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgComponentOutlet,

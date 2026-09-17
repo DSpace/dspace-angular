@@ -15,6 +15,18 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
   NgbActiveModal,
   NgbModal,
@@ -27,27 +39,17 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { dateToISOFormat } from '../../../../../shared/date.util';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../../shared/form/testing/form-service.mock';
+import { SubmissionService } from '../../../../submission.service';
 import {
   mockFileFormData,
   mockSubmissionCollectionId,
@@ -56,11 +58,7 @@ import {
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
-} from '../../../../../shared/mocks/submission.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../shared/testing/utils.test';
-import { SubmissionService } from '../../../../submission.service';
+} from '../../../../utils/submission.mock';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
@@ -138,9 +136,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
@@ -232,7 +230,11 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       comp.formModel = compAsAny.buildFileEditForm();
 
-      const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
+      const models = [
+        DynamicCustomSwitchModel,
+        DynamicFormGroupModel,
+        DynamicFormArrayModel,
+      ];
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(models.length);
@@ -307,7 +309,11 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.isPrimary = null;
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(true));
-      formService.getFormData.and.returnValue(of(mockFileFormData));
+      formService.getFormData.and.returnValue(of({
+        ...mockFileFormData,
+        audioTranscript: 'Audio transcript',
+        videoDescription: 'Video description',
+      }));
 
       const response = [
         Object.assign(mockSubmissionObject, {
@@ -345,6 +351,20 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath([...pathFragment, path]),
         mockFileFormData.metadata['dc.description'],
+        true,
+      );
+
+      path = 'metadata/dspace.bitstream.transcript';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath([...pathFragment, path]),
+        [{ value: 'Audio transcript' }],
+        true,
+      );
+
+      path = 'metadata/dspace.bitstream.textalternative';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath([...pathFragment, path]),
+        [{ value: 'Video description' }],
         true,
       );
 
@@ -393,6 +413,40 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
     }));
 
+    it('should remove audio transcript and video description when empty', fakeAsync(() => {
+      compAsAny.formRef = { formGroup: null };
+      compAsAny.fileData = fileData;
+      compAsAny.pathCombiner = pathCombiner;
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of({
+        ...mockFileFormData,
+        audioTranscript: '',
+        videoDescription: null,
+      }));
+
+      const response = [
+        Object.assign(mockSubmissionObject, {
+          sections: {
+            upload: {
+              primary: true,
+              files: mockUploadFiles,
+            },
+          },
+        }),
+      ];
+      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+
+      comp.saveBitstreamData();
+      tick();
+
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(
+        pathCombiner.getPath(['files', fileIndex, 'metadata/dspace.bitstream.transcript']),
+      );
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(
+        pathCombiner.getPath(['files', fileIndex, 'metadata/dspace.bitstream.textalternative']),
+      );
+    }));
   });
 });
 
@@ -400,12 +454,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    FormComponent,
     FormsModule,
     ReactiveFormsModule,
-    SubmissionSectionUploadFileEditComponent,
   ],
 })
 class TestComponent {

@@ -5,16 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
-import { AuthService } from '../core/auth/auth.service';
-import { XSRFService } from '../core/xsrf/xsrf.service';
-import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {
@@ -42,6 +43,7 @@ describe('LoginPageComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache : { msToLive: { default: 15 * 60 * 1000 } } } },
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],

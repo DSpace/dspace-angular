@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { EAGER_THEME_COMPONENTS } from '../themes/eager-themes-components';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { AdminSidebarSectionComponent } from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
@@ -17,6 +18,8 @@ import { HeaderComponent } from './header/header.component';
 import { ThemedHeaderComponent } from './header/themed-header.component';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { NotificationComponent } from './notification-system/notification/notification.component';
+import { NotificationsBoardComponent } from './notification-system/notifications-board/notifications-board.component';
 import { PageErrorComponent } from './page-error/page-error.component';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
@@ -26,8 +29,6 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { RootComponent } from './root/root.component';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
-import { NotificationComponent } from './shared/notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 
 const IMPORTS = [
   CommonModule,
@@ -38,6 +39,7 @@ const PROVIDERS = [
 ];
 
 const DECLARATIONS = [
+  ...EAGER_THEME_COMPONENTS,
   RootComponent,
   ThemedRootComponent,
   HeaderComponent,

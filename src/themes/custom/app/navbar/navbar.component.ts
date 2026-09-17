@@ -18,7 +18,6 @@ import { MenuComponentLoaderComponent } from '../../../../app/shared/menu/menu-c
   // templateUrl: './navbar.component.html',
   templateUrl: '../../../../app/navbar/navbar.component.html',
   animations: [slideMobileNav],
-  standalone: true,
   imports: [
     AsyncPipe,
     MenuComponentLoaderComponent,

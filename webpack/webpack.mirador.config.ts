@@ -1,28 +1,29 @@
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('path');
-// @ts-ignore
-const fs = require('fs');
 
 module.exports = {
   mode: 'production',
   entry: {
-    mirador: fs.existsSync('./src/mirador-viewer/config.local.js')? './src/mirador-viewer/config.local.js' :
-      './src/mirador-viewer/config.default.js'
+    mirador: existsSync('./src/mirador-viewer/config.local.js') ? './src/mirador-viewer/config.local.js' :
+      './src/mirador-viewer/config.default.js',
   },
   output: {
-    path: path.resolve(__dirname, '..' , 'dist/iiif/mirador'),
-    filename: '[name].js'
+    path: resolve(__dirname, '..' , 'dist/iiif/mirador'),
+    filename: '[name].js',
   },
   devServer: {
     contentBase: '../dist/iiif/mirador',
   },
   resolve: {
     fallback: {
-      url: false
-    }},
+      url: false,
+    } },
   plugins: [new CopyWebpackPlugin({
     patterns: [
-      {from: './src/mirador-viewer/mirador.html', to: './index.html'}
-    ]
-  })]
+      { from: './src/mirador-viewer/mirador.html', to: './index.html' },
+    ],
+  })],
 };

@@ -1,4 +1,5 @@
-import { KeyValuePair } from '../key-value-pair.model';
+import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
+
 import {
   CSSVariableAction,
   CSSVariableActionTypes,

@@ -5,17 +5,19 @@
  *
  * http://www.dspace.org/license/
  */
+import { readFileSync } from 'node:fs';
+import { basename } from 'node:path';
 
 import { TSESTree } from '@typescript-eslint/utils';
 import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
-import { readFileSync } from 'fs';
-import { basename } from 'path';
+import { globSync } from 'glob';
 import ts, { Identifier } from 'typescript';
 
 import {
   getComponentClassName,
   isPartOfViewChild,
 } from './angular';
+import { toUnixStylePath } from './misc';
 import {
   isPartOfClassDeclaration,
   isPartOfTypeExpression,
@@ -126,7 +128,7 @@ class ThemeableComponentRegistry {
                   continue;
                 }
 
-                const basePath = resolveLocalPath((importDeclaration.moduleSpecifier as ts.StringLiteral).text, path);
+                const basePath = resolveLocalPath((importDeclaration.moduleSpecifier as ts.StringLiteral).text, toUnixStylePath(path));
 
                 themeableComponents.add({
                   baseClass,
@@ -149,10 +151,8 @@ class ThemeableComponentRegistry {
       traverse(source);
     }
 
-    const glob = require('glob');
-
     // note: this outputs Unix-style paths on Windows
-    const wrappers: string[] = glob.GlobSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' }).found;
+    const wrappers: string[] = globSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' });
 
     for (const wrapper of wrappers) {
       registerWrapper(wrapper);

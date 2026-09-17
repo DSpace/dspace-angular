@@ -1,3 +1,4 @@
+import { LanguageCode } from '@dspace/core/shared/form/models/form-field-language-value.model';
 import {
   DynamicFormControlLayout,
   DynamicFormGroupModel,
@@ -6,7 +7,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { LanguageCode } from '../../models/form-field-language-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const QUALDROP_GROUP_SUFFIX = '_QUALDROP_GROUP';
@@ -29,6 +29,7 @@ export class DynamicQualdropModel extends DynamicFormGroupModel {
   @serializable() readOnly: boolean;
   @serializable() hint: string;
   @serializable() required: boolean;
+  @serializable() toggleSecurityVisibility?: boolean;
   isCustomGroup = true;
 
   constructor(config: DsDynamicQualdropModelConfig, layout?: DynamicFormControlLayout) {
@@ -45,12 +46,15 @@ export class DynamicQualdropModel extends DynamicFormGroupModel {
     });
 
     this.hint = config.hint;
+    this.toggleSecurityVisibility = false;
   }
 
   get value() {
     return (this.get(1) as DsDynamicInputModel).value;
   }
-
+  get securityLevel() {
+    return (this.get(1) as any).securityLevel;
+  }
   get qualdropId(): string {
     return (this.get(0) as DsDynamicInputModel).value.toString();
   }

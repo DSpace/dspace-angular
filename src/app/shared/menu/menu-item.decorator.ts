@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDERS_MENU_ITEM_FOR_TYPE_MAP } from '../../../decorator-registries/renders-menu-item-for-type-registry';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue } from '../empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

@@ -1,30 +1,18 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
   find,
   map,
   take,
+  tap,
 } from 'rxjs/operators';
 
-import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
-import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction,
-} from '../../access-control/epeople-registry/epeople-registry.actions';
-import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
-import { AppState } from '../../app.reducer';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -58,7 +46,8 @@ import {
   PostRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
@@ -69,8 +58,6 @@ import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
 
-const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
-export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
@@ -93,7 +80,6 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     protected halService: HALEndpointService,
     protected comparator: DSOChangeAnalyzer<EPerson>,
     protected notificationsService: NotificationsService,
-    protected store: Store<any>,
   ) {
     super('epersons', requestService, rdbService, objectCache, halService);
 
@@ -293,10 +279,10 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   /**
    * Method that clears a cached EPerson request
    */
-  public clearEPersonRequests(): void {
-    this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
-      this.requestService.removeByHrefSubstring(link);
-    });
+  public clearEPersonRequests(): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      tap((href: string) => this.requestService.setStaleByHrefSubstring(href)),
+    );
   }
 
   /**
@@ -307,48 +293,11 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   }
 
   /**
-   * Method to retrieve the eperson that is currently being edited
-   */
-  public getActiveEPerson(): Observable<EPerson> {
-    return this.store.pipe(select(editEPersonSelector));
-  }
-
-  /**
-   * Method to cancel editing an EPerson, dispatches a cancel EPerson action
-   */
-  public cancelEditEPerson() {
-    this.store.dispatch(new EPeopleRegistryCancelEPersonAction());
-  }
-
-  /**
-   * Method to set the EPerson being edited, dispatches an edit EPerson action
-   * @param ePerson The EPerson to edit
-   */
-  public editEPerson(ePerson: EPerson) {
-    this.store.dispatch(new EPeopleRegistryEditEPersonAction(ePerson));
-  }
-
-  /**
    * Method to delete an EPerson
    * @param ePerson The EPerson to delete
    */
   public deleteEPerson(ePerson: EPerson): Observable<RemoteData<NoContent>> {
     return this.delete(ePerson.id);
-  }
-
-  /**
-   * Change which ePerson is being edited and return the link for EPeople edit page
-   * @param ePerson New EPerson to edit
-   */
-  public startEditingNewEPerson(ePerson: EPerson): string {
-    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
-      if (ePerson === activeEPerson) {
-        this.cancelEditEPerson();
-      } else {
-        this.editEPerson(ePerson);
-      }
-    });
-    return getEPersonEditRoute(ePerson.id);
   }
 
   /**

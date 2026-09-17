@@ -4,21 +4,20 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { ListableObject } from '../listable-object.model';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
 
 @Component({
   selector: 'ds-tabulatable-objects-loader',
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],

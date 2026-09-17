@@ -7,14 +7,14 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { MenuServiceStub } from '../../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';
 
@@ -113,7 +113,6 @@ describe('AdminSidebarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     RouterModule,
   ],

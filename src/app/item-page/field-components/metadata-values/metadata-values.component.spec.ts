@@ -8,47 +8,72 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataValuesComponent } from './metadata-values.component';
 
 let comp: MetadataValuesComponent;
 let fixture: ComponentFixture<MetadataValuesComponent>;
 
 const mockMetadata = [
-  {
-    language: 'en_US',
-    value: '1234',
-  },
-  {
-    language: 'en_US',
-    value: 'a publisher',
-  },
-  {
-    language: 'en_US',
-    value: 'desc',
-  }] as MetadataValue[];
+  { language: 'en_US', value: '1234' },
+  { language: 'en_US', value: 'a publisher' },
+  { language: 'en_US', value: 'desc' },
+] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
+const vocabularyServiceMock = {
+  getPublicVocabularyEntryByID: jasmine.createSpy('getPublicVocabularyEntryByID'),
+};
+
+const controlledMetadata = {
+  value: 'Original Value',
+  authority: 'srsc:1234',
+  uuid: 'metadata-uuid-1',
+  language: 'en_US',
+  place: null,
+  confidence: 600,
+} as MetadataValue;
 
 describe('MetadataValuesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      }), MetadataValuesComponent],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        MetadataValuesComponent,
+      ],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
+        { provide: VocabularyService, useValue: vocabularyServiceMock },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {},
+            params: of({}),
+            queryParams: of({}),
+            data: of({}),
+          },
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
@@ -85,18 +110,48 @@ describe('MetadataValuesComponent', () => {
 
   it('should return correct target and rel for internal links', () => {
     spyOn(comp, 'hasInternalLink').and.returnValue(true);
-    const urlValue = '/internal-link';
-    const result = comp.getLinkAttributes(urlValue);
+    const result = comp.getLinkAttributes('/internal-link');
     expect(result.target).toBe('_self');
     expect(result.rel).toBe('');
   });
 
   it('should return correct target and rel for external links', () => {
     spyOn(comp, 'hasInternalLink').and.returnValue(false);
-    const urlValue = 'https://www.dspace.org';
-    const result = comp.getLinkAttributes(urlValue);
+    const result = comp.getLinkAttributes('https://www.dspace.org');
     expect(result.target).toBe('_blank');
     expect(result.rel).toBe('noopener noreferrer');
+  });
+
+  it('should detect controlled vocabulary metadata', () => {
+    expect(comp.isControlledVocabulary(controlledMetadata)).toBeTrue();
+  });
+
+  it('should return translated vocabulary value when available', (done) => {
+    vocabularyServiceMock.getPublicVocabularyEntryByID.and.returnValue(
+      of(createSuccessfulRemoteDataObject(
+        buildPaginatedList(new PageInfo(), [{ display: 'Translated Value' }]),
+      )),
+    );
+    comp.getVocabularyValue(controlledMetadata).subscribe((value) => {
+      expect(value).toBe('Translated Value');
+      done();
+    });
+  });
+
+  it('should render search link when searchFilter is present', () => {
+    comp.searchFilter = 'subject';
+    expect(comp.hasSearchFilter()).toBeTrue();
+    expect(comp.getSearchQueryParams('test')).toEqual({ 'f.subject': 'test,equals' });
+  });
+
+  it('should render browse link when browseDefinition is provided', () => {
+    comp.browseDefinition = {
+      id: 'subject',
+      metadataKeys: [],
+      order: 0,
+      getRenderType: () => 'metadata',
+    } as any;
+    expect(comp.hasBrowseDefinition()).toBeTrue();
   });
 
 });

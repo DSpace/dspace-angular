@@ -4,28 +4,46 @@
 # Test build:
 # docker build -f Dockerfile.dist -t dspace/dspace-angular:latest-dist .
 
-FROM docker.io/node:18-alpine AS build
+# Step 1 - Build code for production
+FROM docker.io/node:22-alpine AS build
 
 # Ensure Python and other build tools are available
 # These are needed to install some node modules, especially on linux/arm64
-RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+RUN apk --no-cache add python3 make g++
 
 WORKDIR /app
+# Copy over package files first, so this layer will only be rebuilt if those files change.
 COPY package.json package-lock.json ./
-RUN npm install
+# NOTE: "ci" = clean install from package files
+RUN npm ci
 
-ADD . /app/
+# Around 4GB of memory is required to build the app for production.
+# This default setting can be overridden as needed in your shell, via an env file or in docker-compose.
+# See Docker environment var precedence: https://docs.docker.com/compose/environment-variables/envvars-precedence/
+ENV NODE_OPTIONS="--max_old_space_size=4096"
+
+COPY . /app/
 RUN npm run build:prod
 
-FROM node:18-alpine
+# Step 2 - Start up UI via PM2
+FROM docker.io/node:22-alpine
+
+# Install PM2
 RUN npm install --global pm2
 
+# Copy pre-built code from build image
 COPY --chown=node:node --from=build /app/dist /app/dist
+# Copy configs and PM2 startup script from local machine
 COPY --chown=node:node config /app/config
 COPY --chown=node:node docker/dspace-ui.json /app/dspace-ui.json
 
+# Start up UI in PM2 in production mode
 WORKDIR /app
 USER node
 ENV NODE_ENV=production
 EXPOSE 4000
-CMD pm2-runtime start dspace-ui.json --json
+
+# On startup, run start the DSpace UI in PM2
+ENTRYPOINT [ "pm2-runtime", "start", "dspace-ui.json" ]
+# By default, pass param that specifies to use JSON format logs.
+CMD ["--json"]

@@ -23,7 +23,6 @@ import {
  */
 @Pipe({
   name: 'dsBrowserOnly',
-  standalone: true,
 })
 export class BrowserOnlyPipe implements PipeTransform {
   constructor(

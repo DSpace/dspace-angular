@@ -5,11 +5,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { StatisticsTableComponent } from './statistics-table.component';
 
 describe('StatisticsTableComponent', () => {

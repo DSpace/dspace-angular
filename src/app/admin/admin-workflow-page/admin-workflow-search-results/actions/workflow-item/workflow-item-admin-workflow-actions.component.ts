@@ -4,9 +4,9 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,
@@ -16,7 +16,6 @@ import {
   selector: 'ds-workflow-item-admin-workflow-actions-element',
   styleUrls: ['./workflow-item-admin-workflow-actions.component.scss'],
   templateUrl: './workflow-item-admin-workflow-actions.component.html',
-  standalone: true,
   imports: [
     NgClass,
     RouterLink,

@@ -12,19 +12,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../shared/testing/utils.test';
+} from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {
@@ -190,7 +190,6 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="d-flex">
+    <h1 class="flex-grow-1">{{'audit.object.overview.title' | translate}}</h1>
+  </div>
+
+  @if (objectId$ | async) {
+    <div class="h4 my-4">
+      <span>
+        {{ 'audit.object.logs.label' | translate}}
+        <a [routerLink]="objectRoute">{{objectName}}</a>
+      </span>
+    </div>
+    @if ((auditsRD$ | async)?.payload; as audits) {
+      <ds-audit-table
+        [audits]="audits"
+        [pageConfig]="pageConfig"
+        [object]="object"
+      ></ds-audit-table>
+    } @else {
+      <div class="h5">{{ 'audit.data.not-found' | translate }}</div>
+    }
+    <button class="btn btn-outline-secondary mt-3" (click)="goBack()">
+      <i class="fas fa-arrow-left me-1"></i>{{ 'audit.object.back' | translate }}
+    </button>
+    @if ((auditsRD$ | async)?.statusCode === 404) {
+      <h2 class="h4 mt-4 mb-4">{{'audit.object.overview.disabled.message' | translate}}</h2>
+    }
+  }
+
+</div>

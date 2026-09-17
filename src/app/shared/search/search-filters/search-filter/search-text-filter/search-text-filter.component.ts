@@ -4,10 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { FilterType } from '../../../models/filter-type.model';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import {
   facetLoad,
@@ -28,7 +28,6 @@ import { renderFacetFor } from '../search-filter-type-decorator';
   styleUrls: ['./search-text-filter.component.scss'],
   templateUrl: './search-text-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
   imports: [
     AsyncPipe,
     FilterInputSuggestionsComponent,

@@ -22,10 +22,13 @@ import { ValueInputComponent } from '../value-input.component';
   imports: [
     TranslateModule,
   ],
-  viewProviders: [{ provide: ControlContainer,
-    useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] }],
-  standalone: true,
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: controlContainerFactory,
+      deps: [[new Optional(), NgForm]],
+    },
+  ],
 })
 export class BooleanValueInputComponent extends ValueInputComponent<boolean> implements OnInit {
   ngOnInit() {

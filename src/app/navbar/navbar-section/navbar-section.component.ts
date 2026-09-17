@@ -18,7 +18,6 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
   selector: 'ds-navbar-section',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
-  standalone: true,
   imports: [
     NgComponentOutlet,
   ],

@@ -1,4 +1,11 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {
@@ -20,8 +27,10 @@ export class FilteredDiscoveryPageResponseParsingService extends BaseResponsePar
   toCache = false;
   constructor(
     protected objectCache: ObjectCacheService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
+    this.defaultResponseMsToLive = this.appConfig?.cache.msToLive.default;
   }
 
   /**

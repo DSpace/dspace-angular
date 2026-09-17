@@ -3,17 +3,17 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 
-import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 
 describe('bitstreamPageAuthorizationsGuard', () => {

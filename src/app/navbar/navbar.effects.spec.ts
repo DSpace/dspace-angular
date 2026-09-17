@@ -11,7 +11,7 @@ import { HostWindowResizeAction } from '../shared/host-window.actions';
 import { CollapseMenuAction } from '../shared/menu/menu.actions';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { MenuServiceStub } from '../shared/menu/menu-service.stub';
 import { NavbarEffects } from './navbar.effects';
 
 describe('NavbarEffects', () => {

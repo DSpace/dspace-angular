@@ -1,7 +1,7 @@
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
-import { hasValue } from '../empty.util';
 import {
   FormAction,
   FormActionTypes,

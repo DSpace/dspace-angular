@@ -13,25 +13,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
+import { SearchService } from '../../../search/search.service';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ClaimedTaskType } from '../claimed-task-type';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';

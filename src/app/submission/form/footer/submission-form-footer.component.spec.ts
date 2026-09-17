@@ -11,6 +11,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,
@@ -24,13 +28,9 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
+import { mockSubmissionId } from '../../utils/submission.mock';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
@@ -268,7 +268,6 @@ describe('SubmissionFormFooterComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

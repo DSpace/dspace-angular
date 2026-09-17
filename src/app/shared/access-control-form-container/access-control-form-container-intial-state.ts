@@ -1,4 +1,4 @@
-import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 
 export const createAccessControlInitialFormState = (): AccessControlFormState => ({
   item: {

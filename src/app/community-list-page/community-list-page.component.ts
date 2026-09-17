@@ -10,7 +10,6 @@ import { ThemedCommunityListComponent } from './community-list/themed-community-
 @Component({
   selector: 'ds-base-community-list-page',
   templateUrl: './community-list-page.component.html',
-  standalone: true,
   imports: [
     ThemedCommunityListComponent,
     TranslateModule,

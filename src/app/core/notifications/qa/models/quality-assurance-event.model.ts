@@ -1,4 +1,14 @@
-/* eslint-disable max-classes-per-file */
+import {
+  link,
+  typedObject,
+} from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   autoserializeAs,
@@ -6,26 +16,7 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import {
-  link,
-  typedObject,
-} from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { RemoteData } from '../../../data/remote-data';
-import { HALLink } from '../../../shared/hal-link.model';
-import { Item } from '../../../shared/item.model';
-import { ITEM } from '../../../shared/item.resource-type';
-import { ResourceType } from '../../../shared/resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
-
-/**
- * The interface representing the Quality Assurance event message
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface QualityAssuranceEventMessageObject {
-
-}
 
 /**
  * The interface representing the Quality Assurance event message

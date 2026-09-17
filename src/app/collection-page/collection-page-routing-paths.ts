@@ -1,16 +1,8 @@
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { getCollectionModuleRoute } from '@dspace/core/router/core-routing-paths';
+import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
-
-export const COLLECTION_MODULE_PATH = 'collections';
-
-export function getCollectionModuleRoute() {
-  return `/${COLLECTION_MODULE_PATH}`;
-}
-
-export function getCollectionPageRoute(collectionId: string) {
-  return new URLCombiner(getCollectionModuleRoute(), collectionId).toString();
-}
 
 export function getCollectionEditRoute(id: string) {
   return new URLCombiner(getCollectionModuleRoute(), id, COLLECTION_EDIT_PATH).toString();
@@ -32,3 +24,8 @@ export const COLLECTION_CREATE_PATH = 'create';
 export const COLLECTION_EDIT_PATH = 'edit';
 export const COLLECTION_EDIT_ROLES_PATH = 'roles';
 export const ITEMTEMPLATE_PATH = 'itemtemplate';
+export const BULK_IMPORT_PATH = 'bulk-import';
+
+export function getBulkImportRoute(id: string): string {
+  return new URLCombiner(getCollectionPageRoute(id), BULK_IMPORT_PATH).toString();
+}

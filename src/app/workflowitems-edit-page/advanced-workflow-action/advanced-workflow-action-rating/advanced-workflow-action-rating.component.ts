@@ -12,11 +12,11 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { RatingAdvancedWorkflowInfo } from '@dspace/core/tasks/models/rating-advanced-workflow-info.model';
+import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
@@ -41,7 +41,6 @@ import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 @rendersAdvancedWorkflowTaskOption(AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING)
 export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActionComponent implements OnInit {

@@ -1,4 +1,5 @@
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+
 import { BrowseDefinition } from '../../browse-definition.model';
 import { MetadataValue } from '../../metadata.models';
 import {
@@ -45,6 +46,13 @@ export class MetadatumRepresentation extends MetadataValue implements MetadataRe
    */
   getValue(): string {
     return this.value;
+  }
+
+  /**
+   * Get the value language
+   */
+  getLanguage(): string {
+    return this.language || null;
   }
 
 }

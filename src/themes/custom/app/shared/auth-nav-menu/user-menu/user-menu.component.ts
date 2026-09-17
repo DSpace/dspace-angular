@@ -19,7 +19,6 @@ import { UserMenuComponent as BaseComponent } from '../../../../../../app/shared
   templateUrl: '../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component.html',
   // styleUrls: ['user-menu.component.scss'],
   styleUrls: ['../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     LogOutComponent,

@@ -7,17 +7,17 @@
  */
 
 import { Injectable } from '@angular/core';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   combineLatest,
   map,
   Observable,
 } from 'rxjs';
 
-import { getDSORoute } from '../../../app-routing-paths';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { hasValue } from '../../empty.util';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';

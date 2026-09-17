@@ -11,6 +11,17 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { createFailedRemoteDataObjectFromError$ } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -29,19 +40,8 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-sync-setting',
@@ -52,7 +52,6 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
   protected readonly AlertType = AlertType;

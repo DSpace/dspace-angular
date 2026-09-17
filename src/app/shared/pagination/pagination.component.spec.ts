@@ -20,6 +20,18 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -30,22 +42,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { HostWindowService } from '../host-window.service';
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RSSComponent } from '../rss-feed/rss.component';
-import { createTestComponent } from '../testing/utils.test';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
-import { PaginationComponentOptions } from './pagination-component-options.model';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -317,6 +317,31 @@ describe('Pagination component', () => {
         expect(de.nativeElement.classList.contains('pagination-sm')).toBeTruthy();
       });
     });
+
+    it('should show surrounding pages when navigating to a later page', () => {
+      testComp.collectionSize = 200;
+      testComp.paginationOptions.maxSize = 5;
+      testFixture.detectChanges();
+
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 10 }));
+      testFixture.detectChanges();
+
+      const paginationDe = testFixture.debugElement.query(By.css('.pagination'));
+      const activePage = paginationDe.nativeElement.querySelector('li.active');
+      expect(activePage).toBeTruthy();
+      expect(activePage.textContent.trim()).toContain('10');
+
+      const allPages = paginationDe.nativeElement.querySelectorAll('li');
+      const pageNumbers = Array.from(allPages).map((li: any) =>
+        li.textContent.trim().replace(/\s+/g, ''),
+      ).filter(t => /^\d+$/.test(t));
+
+      expect(pageNumbers).toContain('8');
+      expect(pageNumbers).toContain('9');
+      expect(pageNumbers).toContain('10');
+      expect(pageNumbers).toContain('11');
+      expect(pageNumbers).toContain('12');
+    });
   });
 
   describe('when showPaginator is true', () => {
@@ -395,8 +420,8 @@ describe('Pagination component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp', template: '',
-  standalone: true,
+  selector: 'ds-test-cmp',
+  template: '<ds-pagination></ds-pagination>',
   imports: [
     NgbModule,
     NgxPaginationModule,

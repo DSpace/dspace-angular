@@ -12,18 +12,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { Script } from '../../scripts/script.model';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {
@@ -108,5 +108,87 @@ describe('ScriptsSelectComponent', () => {
 
     const validationError = fixture.debugElement.query(By.css('.validation-error'));
     expect(validationError).toBeFalsy();
+  }));
+
+  it('should load more scripts when scrolled to the bottom', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    const event = {
+      target: {
+        scrollTop: 100,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).toHaveBeenCalled();
+  }));
+
+  it('should load more scripts when scrolled almost to the bottom', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    const event = {
+      target: {
+        scrollTop: 99,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).toHaveBeenCalled();
+  }));
+
+  it('should not load more scripts if already loading', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    component.isLoading$.next(true);
+    const event = {
+      target: {
+        scrollTop: 100,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).not.toHaveBeenCalled();
+  }));
+
+  it('should not load more scripts if it is the last page', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    (component as any)._isLastPage = true;
+    const event = {
+      target: {
+        scrollTop: 100,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).not.toHaveBeenCalled();
+  }));
+
+  it('should not load more scripts if not scrolled to the bottom', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    const event = {
+      target: {
+        scrollTop: 50,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).not.toHaveBeenCalled();
   }));
 });

@@ -1,5 +1,6 @@
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 /**
  * Used to map Search Result classes to their matching DSpaceObject

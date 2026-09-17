@@ -1,10 +1,10 @@
-/* eslint-disable max-classes-per-file */
+// eslint-disable-next-line max-classes-per-file
 import { Component } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { environment } from '../../../../../environments/environment';
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,

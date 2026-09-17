@@ -16,7 +16,7 @@
   <!-- Display access periods if more than one was bound to input. The parent component (grant-request-copy)
        sends an empty list if the feature is not enabled or applicable to this request. -->
   @if (hasValue(validAccessPeriods$ | async) && (validAccessPeriods$ | async).length > 0) {
-    <div class="form-group">
+    <div class="mb-3">
       <label for="accessPeriod">{{ 'grant-request-copy.access-period.header' | translate }}</label>
       <div ngbDropdown class="d-block">
         <!-- Show current selected access period (defaults to first in array) -->

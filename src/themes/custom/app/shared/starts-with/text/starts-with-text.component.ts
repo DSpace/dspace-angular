@@ -13,7 +13,6 @@ import { StartsWithTextComponent as BaseComponent } from '../../../../../../app/
   styleUrls: ['../../../../../../app/shared/starts-with/text/starts-with-text.component.scss'],
   // templateUrl: './starts-with-text.component.html',
   templateUrl: '../../../../../../app/shared/starts-with/text/starts-with-text.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

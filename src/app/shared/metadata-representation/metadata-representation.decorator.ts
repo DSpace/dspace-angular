@@ -1,10 +1,10 @@
 import { InjectionToken } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { METADATA_REPRESENTATION_COMPONENT_MAP } from '../../../decorator-registries/metadata-representation-component-registry';
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { hasValue } from '../empty.util';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,

@@ -8,12 +8,7 @@ import { GrantRequestCopyComponent } from './grant-request-copy.component';
  */
 @Component({
   selector: 'ds-grant-request-copy',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    GrantRequestCopyComponent,
-  ],
 })
 
 export class ThemedGrantRequestCopyComponent extends ThemedComponent<GrantRequestCopyComponent> {

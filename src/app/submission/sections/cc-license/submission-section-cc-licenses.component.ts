@@ -8,6 +8,29 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  Field,
+  Option,
+  SubmissionCcLicence,
+} from '@dspace/core/submission/models/submission-cc-license.model';
+import { WorkspaceitemSectionCcLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-cc-license.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionCcLicenseDataService } from '@dspace/core/submission/submission-cc-license-data.service';
+import { SubmissionCcLicenseUrlDataService } from '@dspace/core/submission/submission-cc-license-url-data.service';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -16,6 +39,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
+  BehaviorSubject,
   Observable,
   of,
   Subscription,
@@ -28,36 +52,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import {
-  Field,
-  Option,
-  SubmissionCcLicence,
-} from '../../../core/submission/models/submission-cc-license.model';
-import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -76,7 +77,6 @@ import { SectionsType } from '../sections-type';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 @renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
@@ -157,6 +157,11 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
 
   ccLicenseLink$: Observable<string>;
 
+  /**
+   * Is the section required
+   */
+  public required$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
@@ -181,6 +186,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (hasNoValue(this.ccLicenseLink$)) {
       this.ccLicenseLink$ = this.getCcLicenseLink$();
     }
+    this.required$.next(this.sectionData.mandatory);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -313,7 +319,10 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    *     the section status
    */
   getSectionStatus(): Observable<boolean> {
-    return of(this.accepted);
+    return this.required$.pipe(
+      map((required) => !required || this.accepted),
+      distinctUntilChanged(),
+    );
   }
 
   /**

@@ -5,14 +5,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { ReferrerService } from '@dspace/core/services/referrer.service';
 import { Angulartics2 } from 'angulartics2';
 import { switchMap } from 'rxjs';
 import {
   filter,
   take,
 } from 'rxjs/operators';
-
-import { ReferrerService } from '../../../core/services/referrer.service';
 
 /**
  * This component triggers a page view statistic

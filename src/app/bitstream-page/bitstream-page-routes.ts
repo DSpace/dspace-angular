@@ -1,21 +1,25 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { bitstreamBreadcrumbResolver } from '@dspace/core/breadcrumbs/bitstream-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { bitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
 import { resourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { bitstreamDownloadRedirectGuard } from './bitstream-download-redirect.guard';
 import { bitstreamPageResolver } from './bitstream-page.resolver';
 import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
+import { ReplaceBitstreamPageComponent } from './replace-bitstream-page/replace-bitstream-page.component';
+import { replaceBitstreamPageGuard } from './replace-bitstream-page/replace-bitstream-page.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
+const REPLACE_BITSTREAM_PATH = ':id/replace';
 
 /**
  * Routing module to help navigate Bitstream pages
@@ -40,6 +44,7 @@ export const ROUTES: Route[] = [
     resolve: {
       bitstream: bitstreamPageResolver,
     },
+    canActivate: [bitstreamDownloadRedirectGuard],
   },
   {
     path: EDIT_BITSTREAM_PATH,
@@ -49,6 +54,20 @@ export const ROUTES: Route[] = [
       breadcrumb: bitstreamBreadcrumbResolver,
     },
     canActivate: [authenticatedGuard],
+  },
+  {
+    path: REPLACE_BITSTREAM_PATH,
+    component: ReplaceBitstreamPageComponent,
+    resolve: {
+      bitstream: bitstreamPageResolver,
+      breadcrumb: i18nBreadcrumbResolver,
+    },
+    canActivate: [authenticatedGuard, replaceBitstreamPageGuard],
+    data: {
+      title: 'bitstream.replace.page.title',
+      breadcrumbKey: 'bitstream.replace.page',
+      showBreadcrumbs: true,
+    },
   },
   {
     path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,

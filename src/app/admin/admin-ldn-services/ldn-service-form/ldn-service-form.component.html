@@ -6,7 +6,7 @@
     <!-- In the toggle section -->
     @if (!isNewService) {
       <div class="toggle-switch-container">
-        <label class="status-label font-weight-bold" for="enabled">{{ 'ldn-service-status' | translate }}</label>
+        <label class="status-label fw-bold" for="enabled">{{ 'ldn-service-status' | translate }}</label>
         <div>
           <input formControlName="enabled" hidden id="enabled" name="enabled" type="checkbox">
           <div (click)="toggleEnabled()" [class.checked]="formModel.get('enabled').value" class="toggle-switch">
@@ -17,7 +17,7 @@
     }
     <!-- In the Name section -->
     <div class="mb-5">
-      <label for="name" class="font-weight-bold">{{ 'ldn-new-service.form.label.name' | translate }}</label>
+      <label for="name" class="fw-bold">{{ 'ldn-new-service.form.label.name' | translate }}</label>
       <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
         [placeholder]="'ldn-new-service.form.placeholder.name' | translate" class="form-control"
         formControlName="name"
@@ -33,7 +33,7 @@
 
     <!-- In the description section -->
     <div class="mb-5 mt-5 d-flex flex-column">
-      <label for="description" class="font-weight-bold">{{ 'ldn-new-service.form.label.description' | translate }}</label>
+      <label for="description" class="fw-bold">{{ 'ldn-new-service.form.label.description' | translate }}</label>
       <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
       class="form-control" formControlName="description" id="description" name="description"></textarea>
     </div>
@@ -42,7 +42,7 @@
       <!-- In the url section -->
       <div class="d-flex align-items-center">
         <div class="d-flex flex-column w-50 me-2">
-          <label for="url" class="font-weight-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
+          <label for="url" class="fw-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
           <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
             [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
             formControlName="url"
@@ -57,7 +57,7 @@
         </div>
 
         <div class="d-flex flex-column w-50">
-          <label for="score" class="font-weight-bold">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+          <label for="score" class="fw-bold">{{ 'ldn-new-service.form.label.score' | translate }}</label>
           <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
             [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
             id="score"
@@ -78,7 +78,7 @@
 
     <!-- In the IP range section -->
     <div class="mb-5 mt-5">
-      <label for="lowerIp" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
+      <label for="lowerIp" class="fw-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
       <div class="d-flex">
         <input [class.invalid-field]="formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched"
           [placeholder]="'ldn-new-service.form.placeholder.lowerIp' | translate" class="form-control me-2"
@@ -105,7 +105,7 @@
 
     <!-- In the ldnUrl section -->
     <div class="mb-5 mt-5">
-      <label for="ldnUrl" class="font-weight-bold">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
+      <label for="ldnUrl" class="fw-bold">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
       <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
         [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" class="form-control"
         formControlName="ldnUrl"
@@ -130,7 +130,7 @@
 
     <!-- In the usesActorEmailId section -->
     <div class="mb-5 mt-5">
-      <label class="status-label font-weight-bold" for="usesActorEmailId">{{ 'ldn-service-usesActorEmailId' | translate }}</label>
+      <label class="status-label fw-bold" for="usesActorEmailId">{{ 'ldn-service-usesActorEmailId' | translate }}</label>
       <div>
         <input formControlName="usesActorEmailId" hidden id="usesActorEmailId"
                name="usesActorEmailId" type="checkbox">
@@ -149,14 +149,14 @@
     @if (areControlsInitialized) {
       <div class="row mb-1 mt-5">
         <div class="col">
-          <label class="font-weight-bold">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
+          <label class="fw-bold">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
         </div>
         @if (formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern) {
           <div class="col">
-            <label class="font-weight-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+            <label class="fw-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
           </div>
           <div class="col-sm-1">
-            <label class="font-weight-bold">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+            <label class="fw-bold">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
           </div>
         }
         <div class="col-sm-2">
@@ -295,8 +295,8 @@
     <span (click)="addInboundPattern()"
     class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
     <hr>
-      <div class="form-group row">
-        <div class="col text-right space-children-mr">
+      <div class="mb-3 row">
+        <div class="col text-end space-children-mr">
           <ng-content select="[before]"></ng-content>
           <button (click)="resetFormAndLeave()" class="btn btn-outline-secondary" type="button">
             <span>&nbsp;{{ 'submission.general.back.submit' | translate }}</span>
@@ -317,9 +317,7 @@
       @if (isNewService) {
         <h4>{{'service.overview.create.modal' | translate }}</h4>
       }
-      <button (click)="closeModal()" aria-label="Close"
-        class="close" type="button">
-        <span aria-hidden="true">×</span>
+      <button (click)="closeModal()" aria-label="Close" class="btn-close" type="button">
       </button>
     </div>
 

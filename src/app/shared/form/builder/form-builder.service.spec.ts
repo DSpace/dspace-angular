@@ -10,6 +10,15 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -33,13 +42,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { getMockTranslateService } from '../../mocks/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -55,8 +57,6 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { FormFieldModel } from './models/form-field.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 
 describe('FormBuilderService test suite', () => {
 
@@ -102,6 +102,8 @@ describe('FormBuilderService test suite', () => {
 
     const vocabularyOptions: VocabularyOptions = {
       name: 'type_programme',
+      metadata: null,
+      scope: null,
       closed: false,
     };
 
@@ -288,6 +290,7 @@ describe('FormBuilderService test suite', () => {
             }],
           } as FormFieldModel],
         } as FormRowModel],
+        isInlineGroup: false,
         mandatoryField: '',
         name: 'testRelationGroup',
         relationFields: [],
@@ -520,19 +523,22 @@ describe('FormBuilderService test suite', () => {
 
   it('should return form\'s fields value from form model', () => {
     const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
-    let value = {} as any;
-
+    let value: any = {
+      name: [new FormFieldMetadataValueObject()],
+    };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
     ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).value = 'test';
 
     value = {
+      name: [new FormFieldMetadataValueObject()],
       issue: [new FormFieldMetadataValueObject('test')],
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
     ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value = 'test one';
     value = {
+      name: [new FormFieldMetadataValueObject()],
       issue: [new FormFieldMetadataValueObject('test')],
       conference: [new FormFieldMetadataValueObject('test one')],
     };
@@ -838,6 +844,16 @@ describe('FormBuilderService test suite', () => {
     const formArray = service.createFormArray(model);
 
     service.insertFormArrayGroup(0, formArray, model);
+
+    expect(formArray.length).toBe(model.initialCount + 1);
+  });
+
+  it('should copy a form array group', () => {
+
+    const model = service.findById('testFormArray', testModel) as DynamicFormArrayModel;
+    const formArray = service.createFormArray(model);
+
+    service.copyFormArrayGroup(0, formArray, model);
 
     expect(formArray.length).toBe(model.initialCount + 1);
   });

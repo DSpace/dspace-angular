@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { browseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data/browse-by-geospatial-data.component';
 import { browseByGuard } from './browse-by-guard';

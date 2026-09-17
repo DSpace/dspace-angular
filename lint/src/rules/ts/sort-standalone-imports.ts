@@ -97,7 +97,8 @@ export const info: DSpaceESLintRuleInfo<[UniqueDecoratorsOptions], [UniqueDecora
 };
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
-  ...info,
+  meta: info.meta,
+  defaultOptions: info.defaultOptions,
   create(context: TSESLint.RuleContext<Message, unknown[]>, [{ locale, maxItems, indent, trailingComma }]: any) {
     return {
       ['ClassDeclaration > Decorator > CallExpression[callee.name="Component"] > ObjectExpression > Property[key.name="imports"] > ArrayExpression']: (node: TSESTree.ArrayExpression) => {
@@ -147,7 +148,6 @@ export const tests: NamedTests = {
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RootComponent,
@@ -162,7 +162,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
   ],
@@ -177,7 +176,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RootComponent],
 })
 export class AppComponent {}`,
@@ -191,7 +189,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
     AsyncPipe,
@@ -208,7 +205,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RootComponent,
@@ -223,7 +219,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RootComponent],
 })
 export class AppComponent {}`,
@@ -237,7 +232,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
   ],
@@ -252,7 +246,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
   ],
@@ -268,7 +261,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RootComponent],
 })
 export class AppComponent {}`,
@@ -280,7 +272,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [AsyncPipe, RootComponent],
 })
 export class AppComponent {}`,
@@ -294,7 +285,6 @@ export class AppComponent {}`,
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RootComponent,

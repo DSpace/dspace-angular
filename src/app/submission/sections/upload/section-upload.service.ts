@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import { JsonPatchOperationPathObject } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
+import { isUndefined } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -6,12 +11,7 @@ import {
   filter,
   map,
 } from 'rxjs/operators';
-import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { isUndefined } from '../../../shared/empty.util';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,

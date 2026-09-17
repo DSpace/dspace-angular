@@ -9,6 +9,11 @@ import {
   SimpleChanges,
   WritableSignal,
 } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   from,
@@ -22,11 +27,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../empty.util';
 import { ThemeService } from '../../theme-support/theme.service';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
@@ -36,7 +36,7 @@ import { MenuItemModel } from '../menu-item/models/menu-item.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { MenuSection } from '../menu-section.model';
 
-export interface MenuSectionDTO {
+export interface MenuSectionComponentDTO {
   injector: Injector;
   component: GenericConstructor<Component>;
 }
@@ -47,7 +47,6 @@ export interface MenuSectionDTO {
 @Component({
   selector: 'ds-menu-section',
   template: '',
-  standalone: true,
 })
 export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -81,7 +80,7 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges,
   /**
    * Map of components and injectors for each dynamically rendered menu section
    */
-  sectionMap: WritableSignal<Map<string, MenuSectionDTO>> = signal(new Map<string, MenuSectionDTO>());
+  sectionMap: WritableSignal<Map<string, MenuSectionComponentDTO>> = signal(new Map<string, MenuSectionComponentDTO>());
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -188,7 +187,7 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges,
    * Update the sectionMap
    */
   private updateSectionMap(id: string, injector: Injector, component: GenericConstructor<Component>) {
-    this.sectionMap.update((sectionMap: Map<string, MenuSectionDTO>) => new Map(sectionMap.set(id, {
+    this.sectionMap.update((sectionMap: Map<string, MenuSectionComponentDTO>) => new Map(sectionMap.set(id, {
       injector,
       component,
     })));

@@ -3,8 +3,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
 import { typedObject } from '../../cache/builders/build-decorators';
+import { FormFieldModel } from '../../shared/form/models/form-field.model';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_FORM_TYPE } from './config-type';
 

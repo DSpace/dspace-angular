@@ -8,12 +8,7 @@ import { EditItemSelectorComponent } from './edit-item-selector.component';
  */
 @Component({
   selector: 'ds-edit-item-selector',
-  styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    EditItemSelectorComponent,
-  ],
 })
 export class ThemedEditItemSelectorComponent
   extends ThemedComponent<EditItemSelectorComponent> {

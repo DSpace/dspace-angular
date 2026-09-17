@@ -1,15 +1,35 @@
 import {
+  DynamicCheckboxModelConfig,
   DynamicFormControlModel,
   DynamicInputModel,
+  DynamicSelectModelConfig,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 import { environment } from '../../../environments/environment';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
   name: 'dspace.entity.type',
+  disabled: false,
+  errorMessages: {
+    required: 'collection.form.errors.entityType.required',
+  },
+};
+
+export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
+  id: 'submissionDefinition',
+  name: 'dspace.submission.definition',
+  disabled: false,
+  errorMessages: {
+    required: 'collection.form.errors.submissionDefinition.required',
+  },
+};
+
+
+export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {
+  id: 'sharedWorkspace',
+  name: 'dspace.workspace.shared',
   disabled: false,
 };
 

@@ -20,7 +20,6 @@ import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-act
     AdvancedWorkflowActionsLoaderComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class AdvancedWorkflowActionPageComponent implements OnInit {
 

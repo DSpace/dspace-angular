@@ -2,19 +2,19 @@ import {
   Component,
   InjectionToken,
 } from '@angular/core';
-
-import { ThemeConfig } from '../../../../../config/theme.config';
-import { LISTABLE_OBJECT_COMPONENT_MAP } from '../../../../../decorator-registries/listable-object-component-registry';
-import { environment } from '../../../../../environments/environment';
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { ThemeConfig } from '@dspace/config/theme.config';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
-import { ListableObject } from '../listable-object.model';
+} from '@dspace/shared/utils/empty.util';
+
+import { LISTABLE_OBJECT_COMPONENT_MAP } from '../../../../../decorator-registries/listable-object-component-registry';
+import { environment } from '../../../../../environments/environment';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const DEFAULT_CONTEXT = Context.Any;

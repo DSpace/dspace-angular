@@ -1,4 +1,14 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { getDefaultThemeConfig } from '@dspace/config/config.util';
+import { BASE_THEME_NAME } from '@dspace/config/theme.config';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -7,10 +17,7 @@ import {
 } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
-import { getDefaultThemeConfig } from '../../../config/config.util';
-import { hasValue } from '../empty.util';
 import { SetThemeAction } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 
 @Injectable()
 export class ThemeEffects {
@@ -21,7 +28,7 @@ export class ThemeEffects {
     this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
       map(() => {
-        const defaultThemeConfig = getDefaultThemeConfig();
+        const defaultThemeConfig = getDefaultThemeConfig(this.appConfig);
         if (hasValue(defaultThemeConfig)) {
           return new SetThemeAction(defaultThemeConfig.name);
         } else {
@@ -32,7 +39,8 @@ export class ThemeEffects {
   );
 
   constructor(
-    private actions$: Actions,
+    protected actions$: Actions,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
 }

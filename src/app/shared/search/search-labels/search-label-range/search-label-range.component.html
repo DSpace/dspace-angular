@@ -6,7 +6,7 @@
     (click)="searchFilterService.minimizeAll()"
     class="badge bg-primary">
     <span class="d-flex">
-      <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate}}: {{ min }}</span>
+      <span class="flex-grow-1 text-start">{{('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate}}: {{ min }}</span>
       <span class="ps-1" aria-hidden="true">×</span>
     </span>
   </a>
@@ -19,7 +19,7 @@
     (click)="searchFilterService.minimizeAll()"
     class="badge bg-primary">
     <span class="d-flex">
-      <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate}}: {{ max }}</span>
+      <span class="flex-grow-1 text-start">{{('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate}}: {{ max }}</span>
       <span class="ps-1" aria-hidden="true">×</span>
     </span>
   </a>

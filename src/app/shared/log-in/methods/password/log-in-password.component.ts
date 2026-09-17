@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -12,6 +15,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
@@ -31,24 +50,8 @@ import {
   getForgotPasswordRoute,
   getRegisterRoute,
 } from '../../../../app-routing-paths';
-import {
-  AuthenticateAction,
-  ResetAuthenticationMessagesAction,
-} from '../../../../core/auth/auth.actions';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import {
-  getAuthenticationError,
-  getAuthenticationInfo,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { isNotEmpty } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
@@ -61,12 +64,12 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,
     BtnDisabledDirective,
     FormsModule,
+    NgClass,
     ReactiveFormsModule,
     RouterLink,
     TranslateModule,
@@ -126,6 +129,11 @@ export class LogInPasswordComponent implements OnInit {
    */
   canShowDivider$: Observable<boolean>;
 
+  /**
+   * Has password visibility.
+   * @type {boolean}
+   */
+  public showPassword = false;
 
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
@@ -144,7 +152,6 @@ export class LogInPasswordComponent implements OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -190,6 +197,11 @@ export class LogInPasswordComponent implements OnInit {
   getForgotRoute() {
     return getForgotPasswordRoute();
   }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 
   /**
    * Reset error or message.

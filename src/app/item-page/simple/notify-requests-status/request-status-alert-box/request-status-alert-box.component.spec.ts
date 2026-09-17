@@ -4,11 +4,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { RequestStatusEnum } from '@dspace/core/coar-notify/notify-info/models/notify-status.enum';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { RequestStatusEnum } from '../notify-status.enum';
 import { RequestStatusAlertBoxComponent } from './request-status-alert-box.component';
 
 describe('RequestStatusAlertBoxComponent', () => {

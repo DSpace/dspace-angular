@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ProcessDetailComponent } from './detail/process-detail.component';
 import { NewProcessComponent } from './new/new-process.component';
 import { ProcessOverviewComponent } from './overview/process-overview.component';

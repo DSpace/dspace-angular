@@ -13,7 +13,6 @@ import { StartsWithDateComponent as BaseComponent } from '../../../../../../app/
   styleUrls: ['../../../../../../app/shared/starts-with/date/starts-with-date.component.scss'],
   // templateUrl: './starts-with-date.component.html',
   templateUrl: '../../../../../../app/shared/starts-with/date/starts-with-date.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

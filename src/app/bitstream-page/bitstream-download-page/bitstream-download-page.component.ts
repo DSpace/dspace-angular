@@ -15,6 +15,25 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { getRemoteDataPayload } from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -28,25 +47,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { FileService } from '../../core/shared/file.service';
-import { getRemoteDataPayload } from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { MatomoService } from '../../statistics/matomo.service';
 
 @Component({
@@ -56,7 +56,6 @@ import { MatomoService } from '../../statistics/matomo.service';
     AsyncPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Page component for downloading a bitstream
@@ -108,26 +107,27 @@ export class BitstreamDownloadPageComponent implements OnInit {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
         const isMatomoEnabled$ = this.matomoService.isMatomoEnabled$();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, accessToken$, of(bitstream)]);
+        const isMatomoScriptLoaded$ = this.matomoService.isMatomoScriptLoaded$();
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, isMatomoScriptLoaded$, accessToken$, of(bitstream)]);
       }),
-      filter(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
+      filter(([isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, accessToken, bitstream]: [boolean, boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
       take(1),
-      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => {
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, accessToken, bitstream]: [boolean, boolean, boolean, boolean, string, Bitstream]) => {
         if (isAuthorized && isLoggedIn) {
           return this.fileService.retrieveFileDownloadLink(bitstream._links.content.href).pipe(
             filter((fileLink) => hasValue(fileLink)),
             take(1),
             map((fileLink) => {
-              return [isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink];
+              return [isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, fileLink];
             }));
         } else if (hasValue(accessToken)) {
-          return [[isAuthorized, !isLoggedIn, isMatomoEnabled, bitstream, '', accessToken]];
+          return [[isAuthorized, !isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, '', accessToken]];
         } else {
-          return [[isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, bitstream._links.content.href]];
+          return [[isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, bitstream._links.content.href]];
         }
       }),
-      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink, accessToken]: [boolean, boolean, boolean, Bitstream, string, string]) => {
-        if (isMatomoEnabled) {
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, fileLink, accessToken]: [boolean, boolean, boolean, boolean, Bitstream, string, string]) => {
+        if (isMatomoEnabled && isMatomoScriptLoaded) {
           return this.matomoService.appendVisitorId(fileLink).pipe(
             map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId, accessToken]),
           );

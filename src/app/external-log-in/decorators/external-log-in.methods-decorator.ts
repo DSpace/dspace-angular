@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDER_EXTERNAL_LOGIN_CONFIRMATION_FOR_MAP } from '../../../decorator-registries/render-external-login-confirmation-for-registry';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue } from '../../shared/empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

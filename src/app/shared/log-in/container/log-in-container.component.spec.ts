@@ -13,19 +13,19 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { authReducer } from '../../../core/auth/auth.reducer';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthMethod } from '../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
-import { AuthServiceStub } from '../../testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { LogInContainerComponent } from './log-in-container.component';
 
@@ -124,7 +124,6 @@ describe('LogInContainerComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
     RouterTestingModule],

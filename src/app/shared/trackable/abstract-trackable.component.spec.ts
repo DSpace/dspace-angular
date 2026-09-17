@@ -5,19 +5,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import {
+  INotification,
+  Notification,
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import {
-  INotification,
-  Notification,
-} from '../notifications/models/notification.model';
-import { NotificationType } from '../notifications/models/notification-type';
-import { NotificationsService } from '../notifications/notifications.service';
-import { RouterStub } from '../testing/router.stub';
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {

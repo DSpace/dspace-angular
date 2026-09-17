@@ -5,6 +5,14 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,
@@ -13,15 +21,6 @@ import {
   map,
   tap,
 } from 'rxjs/operators';
-
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../shared/empty.util';
 
 /**
  * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community

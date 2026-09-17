@@ -1,4 +1,16 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -10,11 +22,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { EndpointMap } from '../cache/response.models';
@@ -26,6 +33,7 @@ import { getFirstCompletedRemoteData } from './operators';
 
 @Injectable({ providedIn: 'root' })
 export class HALEndpointService {
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   constructor(
     private requestService: RequestService,
@@ -34,7 +42,7 @@ export class HALEndpointService {
   }
 
   public getRootHref(): string {
-    return new RESTURLCombiner().toString();
+    return new RESTURLCombiner(this.appConfig.rest.baseUrl).toString();
   }
 
   protected getRootEndpointMap(): Observable<EndpointMap> {

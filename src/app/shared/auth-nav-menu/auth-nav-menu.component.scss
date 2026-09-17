@@ -7,6 +7,10 @@
   min-height: 75px;
 }
 
+#logoutDropdownMenu {
+  background-color: var(--ds-user-menu-bg);
+}
+
 .dropdown-item.active, .dropdown-item:active,
 .dropdown-item:hover, .dropdown-item:focus {
   background-color: transparent !important;

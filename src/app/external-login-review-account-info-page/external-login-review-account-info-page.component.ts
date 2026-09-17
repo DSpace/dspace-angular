@@ -4,6 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import {
   first,
   map,
@@ -11,11 +14,8 @@ import {
   tap,
 } from 'rxjs';
 
-import { RemoteData } from '../core/data/remote-data';
-import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasNoValue } from '../shared/empty.util';
 import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 
 @Component({
@@ -26,7 +26,6 @@ import { ReviewAccountInfoComponent } from './review-account-info/review-account
     AsyncPipe,
     ReviewAccountInfoComponent,
   ],
-  standalone: true,
 })
 /**
  * This component is a wrapper for review-account-info component responsible to provide RegistrationData.

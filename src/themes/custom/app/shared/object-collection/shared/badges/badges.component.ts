@@ -12,7 +12,6 @@ import { ThemedTypeBadgeComponent } from '../../../../../../../app/shared/object
   styleUrls: ['../../../../../../../app/shared/object-collection/shared/badges/badges.component.scss'],
   // templateUrl: './badges.component.html',
   templateUrl: '../../../../../../../app/shared/object-collection/shared/badges/badges.component.html',
-  standalone: true,
   imports: [
     ThemedAccessStatusBadgeComponent,
     ThemedMyDSpaceStatusBadgeComponent,

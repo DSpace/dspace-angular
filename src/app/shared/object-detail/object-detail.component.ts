@@ -7,24 +7,24 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Context } from '../../core/shared/context.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 /**
  * This component renders a paginated set of results in the detail view.
@@ -36,7 +36,6 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   styleUrls: ['./object-detail.component.scss'],
   templateUrl: './object-detail.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     ErrorComponent,
     ListableObjectComponentLoaderComponent,

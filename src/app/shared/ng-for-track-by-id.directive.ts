@@ -3,13 +3,11 @@ import {
   Directive,
   Host,
 } from '@angular/core';
-
-import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[ngForTrackById]',
-  standalone: true,
 })
 export class NgForTrackByIdDirective<T extends DSpaceObject> {
 

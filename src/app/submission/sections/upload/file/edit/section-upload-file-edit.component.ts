@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -7,11 +6,29 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { AccessConditionOption } from '@dspace/core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { dateToISOFormat } from '@dspace/shared/utils/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
+  DynamicDateControlValue,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
+  DynamicFormControlCondition,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -19,35 +36,20 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
   filter,
   mergeMap,
   take,
 } from 'rxjs/operators';
-import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
-import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
-import { dateToISOFormat } from '../../../../../shared/date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
@@ -70,6 +72,7 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
 
+
 /**
  * This component represents the edit form for bitstream
  */
@@ -82,7 +85,6 @@ import {
     FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileEditComponent
 implements OnInit, OnDestroy {
@@ -206,6 +208,7 @@ implements OnInit, OnDestroy {
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -414,6 +417,7 @@ implements OnInit, OnDestroy {
       );
 
     }
+
     this.initModelData(formModel);
     return formModel;
   }
@@ -435,6 +439,27 @@ implements OnInit, OnDestroy {
       take(1),
       mergeMap((formData: any) => {
         this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
+        const mediaTypeValue = this.retrieveValueFromField(formData.mediaType) ?? formData.mediaType;
+        if (isNotEmpty(mediaTypeValue) && mediaTypeValue !== 'neither') {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']), [{ value: mediaTypeValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']));
+        }
+
+        const audioTranscriptValue = this.retrieveValueFromField(formData.audioTranscript) ?? formData.audioTranscript;
+        if (isNotEmpty(audioTranscriptValue)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.transcript']), [{ value: audioTranscriptValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.transcript']));
+        }
+
+        const videoDescriptionValue = this.retrieveValueFromField(formData.videoDescription) ?? formData.videoDescription;
+        if (isNotEmpty(videoDescriptionValue)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.textalternative']), [{ value: videoDescriptionValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.textalternative']));
+        }
 
         // collect bitstream metadata
         Object.keys((formData.metadata))

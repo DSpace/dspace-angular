@@ -4,14 +4,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
+import { IdentifierData } from '@dspace/core/shared/identifiers-data/identifier-data.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Item } from 'src/app/core/shared/item.model';
-
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { hasValue } from '../../empty.util';
-import { IdentifierData } from './identifier-data.model';
 
 @Component({
   selector: 'ds-identifier-data',
@@ -20,7 +19,6 @@ import { IdentifierData } from './identifier-data.model';
     AsyncPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component rendering an identifier, eg. DOI or handle

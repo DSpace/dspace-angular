@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { SCRIPT } from '@dspace/core/shared/scripts/script.resource-type';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,
   take,
 } from 'rxjs/operators';
 
-import { Process } from '../../../process-page/processes/process.model';
-import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { Script } from '../../../process-page/scripts/script.model';
-import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
-import { hasValue } from '../../../shared/empty.util';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { Process } from '../../processes/process.model';
+import { ProcessParameter } from '../../processes/process-parameter.model';
+import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
@@ -33,6 +33,7 @@ export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 export const BATCH_IMPORT_SCRIPT_NAME = 'import';
 export const BATCH_EXPORT_SCRIPT_NAME = 'export';
+export const DSPACE_OBJECT_DELETION_SCRIPT_NAME = 'object-deletion';
 
 @Injectable({ providedIn: 'root' })
 @dataService(SCRIPT)

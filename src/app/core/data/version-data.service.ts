@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { Item } from '@dspace/core/shared/item.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   EMPTY,
@@ -9,11 +12,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';
@@ -27,7 +29,6 @@ import {
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * Service responsible for handling requests related to the Version object
@@ -107,6 +108,16 @@ export class VersionDataService extends IdentifiableDataService<Version> impleme
    */
   public createPatchFromCache(object: Version): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
+  }
+
+
+  /**
+   * Invalidates the cache of the version link for this item.
+   *
+   * @param item
+   */
+  invalidateVersionHrefCache(item: Item): void {
+    this.requestService.setStaleByHrefSubstring(item._links.version.href);
   }
 
 }

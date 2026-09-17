@@ -1,6 +1,21 @@
 /* eslint-disable max-classes-per-file */
 import { Injector } from '@angular/core';
 import {
+  HandleThemeConfig,
+  NamedThemeConfig,
+  RegExThemeConfig,
+  ThemeConfig,
+  UUIDThemeConfig,
+} from '@dspace/config/theme.config';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HandleObject } from '@dspace/core/shared/handle-object.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   combineLatest,
   Observable,
   of,
@@ -10,21 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  HandleThemeConfig,
-  NamedThemeConfig,
-  RegExThemeConfig,
-  ThemeConfig,
-  UUIDThemeConfig,
-} from '../../../config/theme.config';
-import { getDSORoute } from '../../app-routing-paths';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { HandleObject } from '../../core/shared/handle-object.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { HandleService } from '../handle.service';
 
 export class Theme {

@@ -5,12 +5,7 @@ import { SearchNavbarComponent } from './search-navbar.component';
 
 @Component({
   selector: 'ds-search-navbar',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SearchNavbarComponent,
-  ],
 })
 export class ThemedSearchNavbarComponent extends ThemedComponent<SearchNavbarComponent> {
 

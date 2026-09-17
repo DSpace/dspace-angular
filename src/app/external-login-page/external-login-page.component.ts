@@ -4,6 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   first,
@@ -12,12 +15,9 @@ import {
   tap,
 } from 'rxjs';
 
-import { RemoteData } from '../core/data/remote-data';
-import { Registration } from '../core/shared/registration.model';
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasNoValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-base-external-login-page',
@@ -29,7 +29,6 @@ import { hasNoValue } from '../shared/empty.util';
     ExternalLogInComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component is a wrapper of the external-login component that loads up the RegistrationData.

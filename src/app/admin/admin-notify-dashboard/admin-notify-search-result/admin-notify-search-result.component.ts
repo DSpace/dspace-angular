@@ -9,6 +9,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AdminNotifyMessagesDataService } from '@dspace/core/coar-notify/notify-info/admin-notify-messages-data.service';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -16,19 +22,13 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Context } from '../../../core/shared/context.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { tabulatableObjectsComponent } from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 
 @Component({
   selector: 'ds-admin-notify-search-result',
@@ -40,7 +40,6 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePipe,
@@ -104,10 +103,10 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    * The format for the date values
    * @private
    */
-  private dateFormat = 'YYYY/MM/d hh:mm:ss';
+  private dateFormat = 'yyyy/MM/d hh:mm:ss';
 
   constructor(private modalService: NgbModal,
-                private adminNotifyMessagesService: AdminNotifyMessagesService,
+                private adminNotifyMessagesService: AdminNotifyMessagesDataService,
                 private datePipe: DatePipe,
                 @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
     super();

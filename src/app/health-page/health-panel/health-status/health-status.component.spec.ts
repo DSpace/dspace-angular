@@ -3,14 +3,14 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { HealthStatus } from '@dspace/core/shared/health-component.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { HealthStatus } from '../../models/health-component.model';
 import { HealthStatusComponent } from './health-status.component';
 
 describe('HealthStatusComponent', () => {
@@ -20,7 +20,7 @@ describe('HealthStatusComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        NgbTooltipModule,
+        NgbTooltip,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

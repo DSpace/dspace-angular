@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDER_FACET_FOR_MAP } from '../../../../../decorator-registries/render-facet-for-registry';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { hasValue } from '../../../empty.util';
 import {
   DEFAULT_THEME,
   getMatch,
 } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { FilterType } from '../../models/filter-type.model';
+
+/**
+ * Contains the mapping between a facet component and a FilterType
+ */
+const filterTypeMap = new Map();
 
 export const DEFAULT_FILTER_TYPE = FilterType.text;
 

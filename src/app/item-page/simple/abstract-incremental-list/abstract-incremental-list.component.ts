@@ -3,17 +3,15 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-abstract-incremental-list',
   template: ``,
-  standalone: true,
 })
 /**
  * An abstract component for displaying an incremental list of objects

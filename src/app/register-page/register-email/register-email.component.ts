@@ -10,7 +10,6 @@ import { TYPE_REQUEST_REGISTER } from '../../register-email-form/register-email-
   imports: [
     ThemedRegisterEmailFormComponent,
   ],
-  standalone: true,
 })
 /**
  * Component responsible the email registration step when registering as a new user

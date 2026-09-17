@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDER_STARTS_WITH_FOR_MAP } from '../../../decorator-registries/render-starts-with-for-registry';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue } from '../empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

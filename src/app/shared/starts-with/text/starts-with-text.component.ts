@@ -3,9 +3,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../empty.util';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { renderStartsWithFor } from '../starts-with-decorator';
 import { StartsWithType } from '../starts-with-type';
@@ -17,7 +17,6 @@ import { StartsWithType } from '../starts-with-type';
   selector: 'ds-starts-with-text',
   styleUrls: ['./starts-with-text.component.scss'],
   templateUrl: './starts-with-text.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

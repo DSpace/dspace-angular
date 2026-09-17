@@ -1,5 +1,6 @@
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+
 import { DEFAULT_THEME } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { BrowseByDataType } from './browse-by-data-type';
 import {
   DEFAULT_BROWSE_BY_CONTEXT,
   getComponentByBrowseByType,

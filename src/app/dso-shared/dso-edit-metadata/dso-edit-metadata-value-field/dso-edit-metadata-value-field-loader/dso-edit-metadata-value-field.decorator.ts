@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { EDIT_METADATA_VALUE_FIELD_COMPONENT_MAP } from '../../../../../decorator-registries/edit-metadata-value-field-component-registry';
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { hasValue } from '../../../../shared/empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

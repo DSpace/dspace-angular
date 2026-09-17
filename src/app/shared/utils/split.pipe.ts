@@ -11,7 +11,6 @@ import {
  */
 @Pipe({
   name: 'dsSplit',
-  standalone: true,
 })
 export class SplitPipe implements PipeTransform {
   transform(value: string, separator: string): string[] {

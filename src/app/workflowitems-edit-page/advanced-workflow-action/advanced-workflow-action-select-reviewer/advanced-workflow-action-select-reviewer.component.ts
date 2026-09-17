@@ -1,6 +1,7 @@
 import {
-  CommonModule,
+  AsyncPipe,
   Location,
+  NgClass,
 } from '@angular/common';
 import {
   Component,
@@ -12,6 +13,16 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { SelectReviewerAdvancedWorkflowInfo } from '@dspace/core/tasks/models/select-reviewer-advanced-workflow-info.model';
+import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -19,19 +30,9 @@ import {
 import { Subscription } from 'rxjs';
 
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { RouteService } from '../../../core/services/route.service';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { SelectReviewerAdvancedWorkflowInfo } from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { hasValue } from '../../../shared/empty.util';
 import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
@@ -44,12 +45,12 @@ import { ReviewersListComponent } from './reviewers-list/reviewers-list.componen
   templateUrl: './advanced-workflow-action-select-reviewer.component.html',
   styleUrls: ['./advanced-workflow-action-select-reviewer.component.scss'],
   imports: [
-    CommonModule,
+    AsyncPipe,
     ModifyItemOverviewComponent,
+    NgClass,
     ReviewersListComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 @rendersAdvancedWorkflowTaskOption(AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER)
 export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {

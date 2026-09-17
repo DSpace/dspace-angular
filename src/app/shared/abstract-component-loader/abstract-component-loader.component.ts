@@ -8,13 +8,13 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Subscription } from 'rxjs';
+
 import { ThemeService } from '../theme-support/theme.service';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 
@@ -23,16 +23,17 @@ import { DynamicComponentLoaderDirective } from './dynamic-component-loader.dire
  * <ul>
  *   <li>Create a new LoaderComponent component extending this component</li>
  *   <li>Point the templateUrl to this component's templateUrl</li>
- *   <li>Add all the @Input()/@Output() names that the dynamically generated components should inherit from the loader to the inputNames/outputNames lists</li>
- *   <li>Create a decorator file containing the new decorator function, a map containing all the collected {@link Component}s and a function to retrieve the {@link Component}</li>
- *   <li>Call the function to retrieve the correct {@link Component} in getComponent()</li>
- *   <li>Add all the @Input()s you had to used in getComponent() in the inputNamesDependentForComponent array</li>
+ *   <li>Add all the `@Input()`/`@Output()` names that the dynamically generated components should inherit from the loader to the `inputNames`/`outputNames` lists</li>
+ *   <li>Create a decorator file containing the new decorator function and the function to retrieve the {@link Component}</li>
+ *   <li>Declare the new decorator you want to use in `src/app/decorators.ts` as well, and make sure to define the decorator parameters (and their fallback values)</li>
+ *   <li>Rebuild the decorator registries (using `npm run generate:decorator:registries`) and use the generated map in the decorator file you created earlier</li>
+ *   <li>In the new LoaderComponent, call the decorator function to retrieve the correct {@link Component} in `getComponent()`</li>
+ *   <li>Add all the `@Input()`s used in `getComponent()` to the `inputNamesDependentForComponent` array</li>
  * </ul>
  */
 @Component({
   selector: 'ds-abstract-component-loader',
   templateUrl: './abstract-component-loader.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],
@@ -109,7 +110,13 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Creates the component and connects the @Input() & @Output() from the ThemedComponent to its child Component.
    */
   public async instantiateComponent(): Promise<void> {
-    const component: GenericConstructor<T> = await this.getComponent();
+    let component: GenericConstructor<T>;
+    try {
+      component = await this.getComponent();
+    } catch (error) {
+      console.error('Failed to retrieve the component', error);
+      return;
+    }
 
     const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();

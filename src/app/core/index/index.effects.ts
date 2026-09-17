@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -15,8 +17,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,
@@ -28,7 +28,7 @@ import {
   RequestConfigureAction,
   RequestStaleAction,
 } from '../data/request.actions';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { NoOpAction } from '../ngrx/no-op.action';
 import {
   AddToIndexAction,
   RemoveFromIndexByValueAction,

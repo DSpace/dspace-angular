@@ -7,6 +7,8 @@ export interface CacheConfig extends Config {
   };
   // Cache-Control HTTP Header
   control: string;
+  // These static files should not be cached (paths relative to dist/browser, including the leading slash)
+  noCacheFiles: string[]
   autoSync: AutoSyncConfig;
   // In-memory caches of server-side rendered (SSR) content. These caches can be used to limit the frequency
   // of re-generating SSR pages to improve performance.

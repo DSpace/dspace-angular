@@ -13,7 +13,6 @@ import { MenuSection } from '../menu-section.model';
 @Component({
   selector: 'ds-menu-component-loader',
   templateUrl: '../../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],

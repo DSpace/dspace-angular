@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDER_SEARCH_LABEL_FOR_MAP } from '../../../../../decorator-registries/render-search-label-for-registry';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { hasValue } from '../../../empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

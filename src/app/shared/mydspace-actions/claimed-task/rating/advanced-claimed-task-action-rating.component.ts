@@ -6,16 +6,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
-import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchService } from '../../../search/search.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 import { ClaimedTaskType } from '../claimed-task-type';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
@@ -27,9 +27,8 @@ import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-deco
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
-  standalone: true,
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

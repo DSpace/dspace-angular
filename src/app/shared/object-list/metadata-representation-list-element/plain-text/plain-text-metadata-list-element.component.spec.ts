@@ -9,10 +9,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { mockData } from '@dspace/core/testing/browse-definition-data-service.stub';
 
-import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { mockData } from '../../../testing/browse-definition-data-service.stub';
 import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
 
 // Render the mock representation with the default mock author browse definition so it is also rendered as a link
@@ -49,6 +49,22 @@ describe('PlainTextMetadataListElementComponent', () => {
 
   it('should contain the browse link as plain text', () => {
     expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockMetadataRepresentation.value);
+  });
+
+  it('should set lang attribute when language is provided', () => {
+    (comp.mdRepresentation as any).language = 'en';
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.debugElement.nativeElement.querySelector('.dont-break-out');
+    expect(el.getAttribute('lang')).toBe('en');
+  });
+
+  it('should remove lang attribute when language becomes undefined', () => {
+    (comp.mdRepresentation as any).language = 'fr';
+    fixture.detectChanges();
+    (comp.mdRepresentation as any).language = undefined;
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.debugElement.nativeElement.querySelector('.dont-break-out');
+    expect(el.getAttribute('lang')).toBeNull();
   });
 
 });

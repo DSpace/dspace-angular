@@ -10,20 +10,20 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { Registration } from '../../core/shared/registration.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ReviewAccountGuard } from './review-account.guard';
 
 describe('ReviewAccountGuard', () => {

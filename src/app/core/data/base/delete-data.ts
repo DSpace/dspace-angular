@@ -5,17 +5,17 @@
  *
  * http://www.dspace.org/license/
  */
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+} from '@dspace/shared/utils/empty.util';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { NotificationsService } from '../../notification-system/notifications.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
 import { RemoteData } from '../remote-data';

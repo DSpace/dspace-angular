@@ -2,11 +2,10 @@ import {
   Injectable,
   OnDestroy,
 } from '@angular/core';
+import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
+import { DUPLICATE } from '@dspace/core/shared/duplicate-data/duplicate.resource-type';
 import { Observable } from 'rxjs';
 
-import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
-import { DUPLICATE } from '../../shared/object-list/duplicate-data/duplicate.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -24,6 +23,7 @@ import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequest } from '../data/rest-request.model';
 import { SearchResponseParsingService } from '../data/search-response-parsing.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 

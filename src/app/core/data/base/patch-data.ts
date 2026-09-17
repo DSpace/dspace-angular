@@ -5,6 +5,12 @@
  *
  * http://www.dspace.org/license/
  */
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -13,11 +19,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -30,7 +31,6 @@ import { ChangeAnalyzer } from '../change-analyzer';
 import { RemoteData } from '../remote-data';
 import { PatchRequest } from '../request.models';
 import { RequestService } from '../request.service';
-import { RestRequestMethod } from '../rest-request-method';
 import {
   ConstructIdEndpoint,
   IdentifiableDataService,

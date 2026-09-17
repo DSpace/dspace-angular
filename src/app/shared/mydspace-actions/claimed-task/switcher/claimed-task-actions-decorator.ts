@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDERS_ADVANCED_WORKFLOW_TASK_OPTION_MAP } from '../../../../../decorator-registries/renders-advanced-workflow-task-option-registry';
 import { RENDERS_WORKFLOW_TASK_OPTION_MAP } from '../../../../../decorator-registries/renders-workflow-task-option-registry';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
-import { hasValue } from '../../../empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

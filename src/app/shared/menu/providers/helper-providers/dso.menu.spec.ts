@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 
-import { Collection } from '../../../../core/shared/collection.model';
-import { COLLECTION } from '../../../../core/shared/collection.resource-type';
-import { Item } from '../../../../core/shared/item.model';
-import { ITEM } from '../../../../core/shared/item.resource-type';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { DSpaceObjectPageMenuProvider } from './dso.menu';
 
 describe('DSpaceObjectPageMenuProvider', () => {

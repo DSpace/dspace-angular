@@ -8,18 +8,17 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ThemeConfig } from '@dspace/config/theme.config';
 
-import { ThemeConfig } from '../../../config/theme.config';
-import { getMockThemeService } from '../mocks/theme-service.mock';
 import { VarDirective } from '../utils/var.directive';
 import { TestComponent } from './test/test.component.spec';
+import { getMockThemeService } from './test/theme-service.mock';
 import { ThemeService } from './theme.service';
 import { ThemedComponent } from './themed.component';
 
 @Component({
   selector: 'ds-test-themed-component',
   templateUrl: './themed.component.html',
-  standalone: true,
 })
 class TestThemedComponent extends ThemedComponent<TestComponent> {
   protected inAndOutputNames: (keyof TestComponent & keyof this)[] = ['testInput'];

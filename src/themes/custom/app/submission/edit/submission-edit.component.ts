@@ -9,7 +9,6 @@ import { ThemedSubmissionFormComponent } from '../../../../../app/submission/for
   styleUrls: ['../../../../../app/submission/edit/submission-edit.component.scss'],
   // templateUrl: './submission-edit.component.html'
   templateUrl: '../../../../../app/submission/edit/submission-edit.component.html',
-  standalone: true,
   imports: [
     ThemedSubmissionFormComponent,
   ],

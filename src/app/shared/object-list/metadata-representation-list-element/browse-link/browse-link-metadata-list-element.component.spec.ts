@@ -8,11 +8,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ValueListBrowseDefinition } from '../../../../core/shared/value-list-browse-definition.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { BrowseLinkMetadataListElementComponent } from './browse-link-metadata-list-element.component';
 
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type'), {
@@ -65,6 +65,22 @@ describe('BrowseLinkMetadataListElementComponent', () => {
 
     it('should NOT match isLink', () => {
       expect(comp.isLink()).toBe(false);
+    });
+
+    it('should set lang attribute when language is provided', () => {
+      (comp.mdRepresentation as any).language = 'en';
+      fixture.detectChanges();
+      const anchor: HTMLAnchorElement = fixture.debugElement.nativeElement.querySelector('a');
+      expect(anchor.getAttribute('lang')).toBe('en');
+    });
+
+    it('should remove lang attribute when language becomes undefined', () => {
+      (comp.mdRepresentation as any).language = 'fr';
+      fixture.detectChanges();
+      (comp.mdRepresentation as any).language = undefined;
+      fixture.detectChanges();
+      const anchor: HTMLAnchorElement = fixture.debugElement.nativeElement.querySelector('a');
+      expect(anchor.getAttribute('lang')).toBeNull();
     });
   });
 

@@ -12,11 +12,11 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';

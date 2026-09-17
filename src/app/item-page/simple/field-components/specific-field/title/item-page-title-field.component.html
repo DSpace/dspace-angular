@@ -4,5 +4,5 @@
       {{ type.toLowerCase() + '.page.titleprefix' | translate }}
     </div>
   }
-  <span class="dont-break-out">{{ dsoNameService.getName(item) }}</span>
+  <span class="dont-break-out" [dsMetadata]="nameMetadata"></span>
 </h1>

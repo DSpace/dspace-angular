@@ -14,7 +14,6 @@ import { editMetadataValueFieldComponent } from '../dso-edit-metadata-value-fiel
   selector: 'ds-dso-edit-metadata-text-field',
   templateUrl: './dso-edit-metadata-text-field.component.html',
   styleUrls: ['./dso-edit-metadata-text-field.component.scss'],
-  standalone: true,
   imports: [
     DebounceDirective,
     FormsModule,

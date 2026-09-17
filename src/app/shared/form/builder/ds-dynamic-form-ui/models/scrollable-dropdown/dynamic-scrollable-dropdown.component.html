@@ -14,7 +14,7 @@
     }
     <input class="form-control"
       [attr.aria-controls]="'combobox_' + id + '_listbox'"
-      [attr.aria-label]="model.placeholder"
+      [attr.aria-label]="model.label"
       [attr.autoComplete]="model.autoComplete"
       [class.is-invalid]="showErrorMessages"
       [class.scrollable-dropdown-input]="!model.readOnly"
@@ -32,11 +32,11 @@
 
   <div #dropdownMenu ngbDropdownMenu
     class="dropdown-menu scrollable-dropdown-menu w-100"
-    [attr.aria-label]="model.placeholder | translate">
+    [attr.aria-label]="model.label | translate">
     <div class="scrollable-menu"
       role="listbox"
       [id]="'combobox_' + id + '_listbox'"
-      [attr.aria-label]="model.placeholder | translate"
+      [attr.aria-label]="model.label | translate"
       infiniteScroll
       [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="50"
@@ -49,6 +49,7 @@
         </button>
       }
       <button class="dropdown-item collection-item text-truncate"
+        [class.active]="selectedIndex === 0"
         (click)="onSelect(undefined); sdRef.close()" (mousedown)="onSelect(undefined); sdRef.close()"
         title="{{ 'dropdown.clear.tooltip' | translate }}" role="option"
         type="button">
@@ -56,7 +57,7 @@
       </button>
       @for (listEntry of optionsList; track listEntry; let i = $index) {
         <button class="dropdown-item collection-item text-truncate"
-          [class.active]="i === selectedIndex"
+          [class.active]="selectedIndex === (i + 1)"
           (keydown.enter)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
           title="{{ inputFormatter(listEntry) }}" role="option" type="button"
           [attr.id]="inputFormatter(listEntry) === (currentValue|async) ? ('combobox_' + id + '_selected') : null">

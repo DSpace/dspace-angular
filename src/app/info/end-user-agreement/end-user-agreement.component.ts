@@ -7,6 +7,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { LogOutAction } from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -20,19 +27,13 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { AuthService } from '../../core/auth/auth.service';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { isNotEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
   selector: 'ds-base-end-user-agreement',
   templateUrl: './end-user-agreement.component.html',
   styleUrls: ['./end-user-agreement.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     EndUserAgreementContentComponent,
@@ -56,7 +57,8 @@ export class EndUserAgreementComponent implements OnInit {
               protected authService: AuthService,
               protected store: Store<AppState>,
               protected router: Router,
-              protected route: ActivatedRoute) {
+              protected route: ActivatedRoute,
+              protected hardRedirectService: HardRedirectService) {
   }
 
   /**
@@ -93,7 +95,8 @@ export class EndUserAgreementComponent implements OnInit {
       take(1),
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
-        this.router.navigateByUrl(decodeURIComponent(redirectUrl));
+        const fullRedirectUrl = new URLCombiner(this.hardRedirectService.getBaseUrl(), decodeURIComponent(redirectUrl));
+        this.hardRedirectService.redirect(fullRedirectUrl.toString());
       }
     });
   }

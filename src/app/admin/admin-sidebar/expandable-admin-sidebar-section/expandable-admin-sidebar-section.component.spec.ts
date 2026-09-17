@@ -7,6 +7,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -15,11 +17,9 @@ import {
   MenuItemModels,
   MenuSection,
 } from '../../../shared/menu/menu-section.model';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { MenuServiceStub } from '../../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';
 
@@ -121,7 +121,6 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 }

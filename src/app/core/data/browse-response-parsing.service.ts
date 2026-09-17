@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { hasValue } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Serializer } from '../serializer';
 import { BrowseDefinition } from '../shared/browse-definition.model';

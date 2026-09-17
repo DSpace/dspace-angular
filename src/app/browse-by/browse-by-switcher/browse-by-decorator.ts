@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDERS_BROWSE_BY_MAP } from '../../../decorator-registries/renders-browse-by-registry';
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue } from '../../shared/empty.util';
 import {
   DEFAULT_THEME,
   getMatch,
 } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;

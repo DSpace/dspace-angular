@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NoOpAction } from '@dspace/core/ngrx/no-op.action';
 import {
   Actions,
   createEffect,
@@ -20,7 +21,6 @@ import {
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { MenuState } from '../shared/menu/menu-state.model';
-import { NoOpAction } from '../shared/ngrx/no-op.action';
 
 @Injectable()
 export class NavbarEffects {

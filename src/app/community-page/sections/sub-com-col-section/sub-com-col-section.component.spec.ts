@@ -3,8 +3,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { SubComColSectionComponent } from './sub-com-col-section.component';
 
 describe('SubComColSectionComponent', () => {

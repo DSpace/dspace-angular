@@ -5,6 +5,11 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   TranslateModule,
   TranslateService,
@@ -15,10 +20,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { WorkspaceitemSectionDuplicatesObject } from '../../../core/submission/models/workspaceitem-section-duplicates.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
@@ -26,7 +27,6 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 
 /**
  * Detect duplicates step
@@ -42,7 +42,6 @@ import { SectionsType } from '../sections-type';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 @renderSectionFor(SectionsType.Duplicates)
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {

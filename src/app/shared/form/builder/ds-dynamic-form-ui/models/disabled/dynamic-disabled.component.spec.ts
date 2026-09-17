@@ -14,15 +14,15 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
 import { DsDynamicDisabledComponent } from './dynamic-disabled.component';
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 

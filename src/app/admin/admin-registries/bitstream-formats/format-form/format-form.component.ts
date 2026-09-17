@@ -7,6 +7,12 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
@@ -18,12 +24,6 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../shared/empty.util';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
@@ -36,7 +36,6 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 export class FormatFormComponent implements OnInit {
 

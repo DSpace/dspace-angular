@@ -18,7 +18,6 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
   styleUrls: ['../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component.scss'],
   // templateUrl: './dso-edit-metadata.component.html',
   templateUrl: '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

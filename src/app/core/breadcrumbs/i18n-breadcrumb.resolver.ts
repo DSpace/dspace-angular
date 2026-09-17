@@ -4,11 +4,11 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { hasNoValue } from '../../shared/empty.util';
-import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
+import { currentPathFromSnapshot } from '../router/utils/route.utils';
 import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
+import { BreadcrumbConfig } from './models/breadcrumb-config.model';
 
 /**
  * Method for resolving an I18n breadcrumb configuration object

@@ -7,11 +7,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../core/shared/item.model';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalVolumeSearchResultListElementComponent } from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';

@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { Component } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import { v4 as uuidv4 } from 'uuid';
 
 import { environment } from '../../../environments/environment';
-import { Context } from '../../core/shared/context.model';
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,

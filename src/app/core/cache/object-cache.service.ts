@@ -1,4 +1,11 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -23,15 +30,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import {
   selfLinkFromAlternativeLinkSelector,

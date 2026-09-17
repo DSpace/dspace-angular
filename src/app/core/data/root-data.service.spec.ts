@@ -1,11 +1,11 @@
 import { cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../utilities/remote-data.utils';
 import { RemoteData } from './remote-data';
 import { Root } from './root.model';
 import { RootDataService } from './root-data.service';

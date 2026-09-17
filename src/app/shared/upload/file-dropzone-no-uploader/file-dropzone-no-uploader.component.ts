@@ -19,7 +19,6 @@ import {
   of,
 } from 'rxjs';
 
-import { FileValidator } from '../../utils/require-file.validator';
 import { UploaderOptions } from '../uploader/uploader-options.model';
 
 /**
@@ -36,11 +35,9 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
   imports: [
     CommonModule,
     FileUploadModule,
-    FileValidator,
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 
@@ -90,6 +87,11 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: DragEvent) {
+    // Only show drop area when dragging files or event is manually triggered
+    const hasFiles = event.dataTransfer?.types ? Array.from(event.dataTransfer.types).includes('Files') : true;
+    if (!hasFiles) {
+      return;
+    }
     // Show drop area on the page
     event.preventDefault();
     event.stopPropagation();

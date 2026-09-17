@@ -4,12 +4,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { Community } from '../../../core/shared/community.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({
@@ -20,7 +20,6 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
     AccessControlFormContainerComponent,
     AsyncPipe,
   ],
-  standalone: true,
 })
 export class CommunityAccessControlComponent implements OnInit {
   itemRD$: Observable<RemoteData<Community>>;

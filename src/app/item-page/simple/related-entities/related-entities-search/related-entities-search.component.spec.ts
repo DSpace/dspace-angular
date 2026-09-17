@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../core/shared/item.model';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 import { RelatedEntitiesSearchComponent } from './related-entities-search.component';
 

@@ -10,6 +10,18 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
@@ -17,20 +29,9 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { AppliedFilter } from '../../../models/applied-filter.model';
-import { FacetValues } from '../../../models/facet-values.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchService } from '../../../search.service';
+import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {
@@ -41,6 +42,8 @@ describe('SearchFacetFilterComponent', () => {
   const value2 = 'test2';
   const value3 = 'another value3';
   const value4 = '52d629dc-7d2f-47b9-aa2d-258b92e45ae1';
+  const value5 = 'test authority';
+  const authority = '52d629dc-7d2f-47b9-aa2d-258b92e45ae1';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
     filterType: FilterType.text,
@@ -72,11 +75,39 @@ describe('SearchFacetFilterComponent', () => {
     label: value4,
     value: value4,
   });
+  const appliedFilter5: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'authority',
+    label: authority,
+    value: authority,
+  });
+  const facetValue1: FacetValue = Object.assign(new FacetValue(), {
+    label: value1,
+    value: value1,
+  });
+  const facetValue2: FacetValue = Object.assign(new FacetValue(), {
+    label: value2,
+    value: value2,
+  });
+  const facetValue3: FacetValue = Object.assign(new FacetValue(), {
+    label: value3,
+    value: value3,
+  });
+  const facetValue4: FacetValue = Object.assign(new FacetValue(), {
+    label: value5,
+    value: authority,
+  });
   const values: Partial<FacetValues> = {
     appliedFilters: [
       appliedFilter1,
       appliedFilter2,
       appliedFilter3,
+    ],
+    page: [
+      facetValue1,
+      facetValue2,
+      facetValue3,
+      facetValue4,
     ],
     pageInfo: Object.assign(new PageInfo(), {
       currentPage: 0,
@@ -243,6 +274,25 @@ describe('SearchFacetFilterComponent', () => {
 
       expect(comp.selectedAppliedFilters$).toBeObservable(cold('a', {
         a: [appliedFilter1, appliedFilter2, appliedFilter3],
+      }));
+    });
+  });
+
+  describe('when selected value has an authority', () => {
+    let selectedValues$: BehaviorSubject<AppliedFilter[]>;
+
+    beforeEach(() => {
+      selectedValues$ = new BehaviorSubject([appliedFilter5]);
+      spyOn(searchService, 'getSelectedValuesForFilter').and.returnValue(selectedValues$);
+      comp.ngOnInit();
+    });
+
+    it('should updated the label with the one of the related FacetValue', () => {
+      const expectedValue = Object.assign(appliedFilter5, {
+        label: facetValue4.label,
+      });
+      expect(comp.selectedAppliedFilters$).toBeObservable(cold('a', {
+        a: [expectedValue],
       }));
     });
   });

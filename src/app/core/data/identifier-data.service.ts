@@ -4,6 +4,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IDENTIFIERS } from '@dspace/core/shared/identifiers-data/identifier-data.resource-type';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -11,16 +12,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { IdentifierData } from '../shared/identifiers-data/identifier-data.model';
 import { Item } from '../shared/item.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';

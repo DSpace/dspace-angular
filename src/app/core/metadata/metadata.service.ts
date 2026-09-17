@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { hasValue } from '../../shared/empty.util';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,

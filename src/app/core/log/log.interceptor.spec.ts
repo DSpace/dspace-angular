@@ -9,27 +9,23 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 
-import {
-  appReducers,
-  storeModuleConfig,
-} from '../../app.reducer';
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
+import { CookieService } from '../cookies/cookie.service';
+import { OrejimeService } from '../cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
   CORRELATION_ID_OREJIME_KEY,
-} from '../../shared/cookies/orejime-configuration';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { RestRequestMethod } from '../data/rest-request-method';
+} from '../cookies/orejime-configuration';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { CookieService } from '../services/cookie.service';
 import { UUIDService } from '../shared/uuid.service';
+import { CookieServiceMock } from '../testing/cookie.service.mock';
+import { RouterStub } from '../testing/router.stub';
 import { LogInterceptor } from './log.interceptor';
-
 
 describe('LogInterceptor', () => {
   let service: DspaceRestService;
@@ -48,13 +44,20 @@ describe('LogInterceptor', () => {
 
   const mockOrejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
 
-
+  const mockStoreModuleConfig: any = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(appReducers, storeModuleConfig)],
+      imports: [
+        StoreModule.forRoot(),
+        StoreModule.forFeature('core', coreReducers, mockStoreModuleConfig),
+      ],
       providers: [
         DspaceRestService,
-        // LogInterceptor,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: LogInterceptor,

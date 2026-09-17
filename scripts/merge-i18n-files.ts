@@ -1,11 +1,24 @@
-import { projectRoot} from '../webpack/helpers';
-const commander = require('commander');
-const fs = require('fs');
-const JSON5 = require('json5');
-const _cliProgress = require('cli-progress');
-const _ = require('lodash');
+import {
+  existsSync,
+  lstatSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
 
-const program = new commander.Command();
+import {
+  Presets,
+  SingleBar,
+} from 'cli-progress';
+import { Command } from 'commander';
+import {
+  parse,
+  stringify,
+} from 'json5';
+
+import { projectRoot } from '../webpack/helpers';
+
+const program = new Command();
 program.version('1.0.0', '-v, --version');
 
 const LANGUAGE_FILES_LOCATION = 'src/assets/i18n';
@@ -19,9 +32,9 @@ parseCliInput();
  * This script uses the i18n files found in a source directory to override settings in files with the same
  * name in a destination directory. Only the i18n labels to be overridden need be in the source files.
  *
- * Execution (using custom theme):
+ * Example execution (using custom theme):
  * ```
- *   yarn merge-i18n -s src/themes/custom/assets/i18n
+ *   npm run merge-i18n -- -s src/themes/custom/assets/i18n
  * ```
  *
  * Input parameters:
@@ -42,26 +55,30 @@ function parseCliInput() {
     .usage('(-s <source-dir> [-d <output-dir>])')
     .parse(process.argv);
 
-  if (program.outputDir && program.sourceDir) {
-    if (!fs.existsSync(program.outputDir) && !fs.lstatSync(program.outputDir).isDirectory() ) {
+  const source = program.opts().sourceDir;
+  const destination = program.opts().outputDir;
+
+  if (destination && source) {
+    if (!existsSync(destination) || !lstatSync(destination).isDirectory() ) {
       console.error('Output does not exist or is not a directory.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
-    if (!fs.existsSync(program.sourceDir) && !fs.lstatSync(program.sourceDir).isDirectory() ) {
+    if (!existsSync(source) || !lstatSync(source).isDirectory() ) {
       console.error('Source does not exist or is not a directory.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
-    fs.readdirSync(projectRoot(program.sourceDir)).forEach(file => {
-      if (fs.existsSync(program.outputDir + '/' + file) ) {
-        console.log('Merging: ' + program.outputDir + '/' + file + ' with ' + program.sourceDir + '/' + file);
-        mergeFileWithSource(program.sourceDir + '/' + file, program.outputDir + '/' + file);
+
+    readdirSync(projectRoot(source)).forEach(file => {
+      if (existsSync(destination + '/' + file) ) {
+        console.info('Merging: ' + destination + '/' + file + ' with ' + source + '/' + file);
+        mergeFileWithSource(source + '/' + file, destination + '/' + file);
       }
     });
   } else {
     console.error('Source or Output parameter is missing.');
-    console.log(program.outputHelp());
+    console.info(program.outputHelp());
     process.exit(1);
   }
 }
@@ -75,24 +92,24 @@ function parseCliInput() {
  * @param pathToOutputFile Valid path to merge and write output
  */
 function mergeFileWithSource(pathToSourceFile, pathToOutputFile) {
-  const progressBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
+  const progressBar = new SingleBar({}, Presets.shades_classic);
   progressBar.start(100, 0);
 
-  const sourceFile = fs.readFileSync(pathToSourceFile, 'utf8');
+  const sourceFile = readFileSync(pathToSourceFile, 'utf8');
   progressBar.update(10);
-  const outputFile = fs.readFileSync(pathToOutputFile, 'utf8');
+  const outputFile = readFileSync(pathToOutputFile, 'utf8');
   progressBar.update(20);
 
-  const parsedSource = JSON5.parse(sourceFile);
+  const parsedSource = parse(sourceFile);
   progressBar.update(30);
-  const parsedOutput = JSON5.parse(outputFile);
+  const parsedOutput = parse(outputFile);
   progressBar.update(40);
 
   for (const key of Object.keys(parsedSource)) {
     parsedOutput[key] = parsedSource[key];
   }
   progressBar.update(80);
-  fs.writeFileSync(pathToOutputFile,JSON5.stringify(parsedOutput,{ space:'\n  ', quote: '"' }), { encoding:'utf8' });
+  writeFileSync(pathToOutputFile,stringify(parsedOutput,{ space:'\n  ', quote: '"' }), { encoding:'utf8' });
 
   progressBar.update(100);
   progressBar.stop();

@@ -1,10 +1,12 @@
-import { join } from 'path';
+import { join } from 'node:path';
+import zlib from 'node:zlib';
 
-import { buildAppConfig } from '../src/config/config.server';
+import { buildAppConfig } from '@dspace/config/config.server';
+
 import { commonExports } from './webpack.common';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CompressionPlugin = require('compression-webpack-plugin');
-const zlib = require('zlib');
 
 module.exports = Object.assign({}, commonExports, {
   target: 'web',
@@ -34,13 +36,13 @@ module.exports = Object.assign({}, commonExports, {
     setupMiddlewares(middlewares, server) {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
       return middlewares;
-    }
+    },
   },
   watchOptions: {
     // Ignore directories that should not be watched for recompiling angular
     ignored: [
       '**/node_modules', '**/_build', '**/.git', '**/docker',
-      '**/.angular', '**/.idea', '**/.vscode', '**/.history', '**/.vsix'
-    ]
+      '**/.angular', '**/.idea', '**/.vscode', '**/.history', '**/.vsix',
+    ],
   },
 });

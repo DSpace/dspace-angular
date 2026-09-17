@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-confirmation-modal',
   templateUrl: 'confirmation-modal.component.html',
-  standalone: true,
+  styleUrls: ['confirmation-modal.component.scss'],
   imports: [
     TranslateModule,
   ],

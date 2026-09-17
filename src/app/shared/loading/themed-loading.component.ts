@@ -13,12 +13,7 @@ import { LoadingComponent } from './loading.component';
  */
 @Component({
   selector: 'ds-loading',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    LoadingComponent,
-  ],
 })
 export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
 

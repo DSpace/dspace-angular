@@ -20,6 +20,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '@dspace/core/eperson/models/eperson-dto.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -33,19 +44,9 @@ import {
   EPersonListActionConfig,
   MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { GroupRegistryService } from '../../../../access-control/group-registry/group-registry.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { hasValue } from '../../../../shared/empty.util';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
@@ -64,7 +65,6 @@ enum SubKey {
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
   templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
@@ -94,6 +94,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
 
   constructor(
     protected groupService: GroupDataService,
+    protected groupRegistryService: GroupRegistryService,
     public ePersonDataService: EPersonDataService,
     protected translateService: TranslateService,
     protected notificationsService: NotificationsService,
@@ -102,7 +103,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     protected router: Router,
     public dsoNameService: DSONameService,
   ) {
-    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, dsoNameService);
+    super(groupService, groupRegistryService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, dsoNameService);
   }
 
   override ngOnInit(): void {
@@ -123,7 +124,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
           getFirstSucceededRemoteDataPayload(),
         ).subscribe((activeGroup: Group) => {
           if (activeGroup != null) {
-            this.groupDataService.editGroup(activeGroup);
+            this.groupRegistryService.editGroup(activeGroup);
             this.groupBeingEdited = activeGroup;
             this.retrieveMembers(this.config.currentPage);
           }

@@ -1,7 +1,7 @@
 import { SEARCH_RESULT_FOR_MAP } from '../../../decorator-registries/search-result-for-registry';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasNoValue } from '../empty.util';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ListableObject } from '../../core/shared/object-collection/listable-object.model';
+import { hasNoValue } from '../../utils/empty.util';
 
 /**
  * Requests the matching search-result class based on a given DSpaceObject's constructor.

@@ -3,9 +3,9 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { FilterType } from '../../../models/filter-type.model';
 import {
   facetLoad,
   SearchFacetFilterComponent,
@@ -19,7 +19,6 @@ import { renderFacetFor } from '../search-filter-type-decorator';
   styleUrls: ['./search-boolean-filter.component.scss'],
   templateUrl: './search-boolean-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
   imports: [
     AsyncPipe,
     SearchFacetOptionComponent,

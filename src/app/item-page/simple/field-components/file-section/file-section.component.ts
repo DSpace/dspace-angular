@@ -6,29 +6,33 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '@dspace/core/shared/follow-link-config.model';
+import { HALResource } from '@dspace/core/shared/hal-resource.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
@@ -47,7 +51,6 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class FileSectionComponent implements OnInit {
 
@@ -69,6 +72,8 @@ export class FileSectionComponent implements OnInit {
 
   primaryBitstreamId: string;
 
+  showDownloadLinkAsAttachment: boolean;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
@@ -77,6 +82,7 @@ export class FileSectionComponent implements OnInit {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.pageSize = this.appConfig.item.bitstream.pageSize;
+    this.showDownloadLinkAsAttachment = this.appConfig.layout.showDownloadLinkAsAttachment;
   }
 
   ngOnInit(): void {
@@ -107,10 +113,20 @@ export class FileSectionComponent implements OnInit {
     } else {
       this.currentPage++;
     }
+    const followLinks: FollowLinkConfig<HALResource>[] = [
+      followLink('accessStatus'),
+    ];
+
+    if (this.showDownloadLinkAsAttachment) {
+      followLinks.push(
+        ...[followLink('thumbnail'), followLink('format')],
+      );
+    }
+
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
       elementsPerPage: this.pageSize,
-    }, true, true, followLink('accessStatus')).pipe(
+    }, true, true, ...followLinks).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       if (bitstreamsRD.errorMessage) {

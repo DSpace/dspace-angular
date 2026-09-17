@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -6,24 +9,26 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {
@@ -61,6 +66,11 @@ describe('SubmissionSectionContainerComponent', () => {
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
+  const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
+    add: jasmine.createSpy('add'),
+    replace: jasmine.createSpy('replace'),
+    remove: jasmine.createSpy('remove'),
+  });
 
   function init() {
     sectionsServiceStub.isSectionValid.and.returnValue(of(true));
@@ -81,11 +91,21 @@ describe('SubmissionSectionContainerComponent', () => {
         TestComponent,
       ],
       providers: [
+        { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionSectionContainerComponent,
       ],
+    }).overrideComponent(SubmissionSectionContainerComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          AlertComponent,
+        ],
+      } ,
     }).compileComponents();
 
   }));
@@ -227,7 +247,6 @@ describe('SubmissionSectionContainerComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

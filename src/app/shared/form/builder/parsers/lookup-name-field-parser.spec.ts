@@ -1,8 +1,8 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { ParserOptions } from './parser-options';
 
@@ -17,6 +17,7 @@ describe('LookupNameFieldParser test suite', () => {
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
     typeField: 'dc_type',
+    isInnerForm: false,
   };
 
   beforeEach(() => {
@@ -41,13 +42,13 @@ describe('LookupNameFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof LookupNameFieldParser).toBe(true);
   });
 
   it('should return a DynamicLookupNameModel object when repeatable option is false', () => {
-    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -60,7 +61,7 @@ describe('LookupNameFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test author');
 
-    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 

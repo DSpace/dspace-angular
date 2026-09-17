@@ -10,6 +10,15 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Registration } from '@dspace/core/shared/registration.model';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -21,21 +30,13 @@ import {
 import {
   from,
   Observable,
+  Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethodsService } from '../../core/auth/auth-methods.service';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { Registration } from '../../core/shared/registration.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
+import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
@@ -56,7 +57,6 @@ import { ProvideEmailComponent } from '../email-confirmation/provide-email/provi
     ThemedLogInComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component is responsible to handle the external-login depending on the RegistrationData details provided
@@ -112,6 +112,8 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    */
   externalLoginConfirmationComponent$: Observable<GenericConstructor<Component>>;
 
+  sub: Subscription;
+
   constructor(
     protected injector: Injector,
     protected translate: TranslateService,
@@ -162,9 +164,12 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    * @param content - The content to be displayed in the modal.
    */
   openLoginModal(content: any) {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
     this.modalRef = this.modalService.open(content);
     this.authService.setRedirectUrl(`/review-account/${this.token}`);
-    this.modalRef.dismissed.subscribe(() => {
+    this.sub = this.modalRef.dismissed.subscribe(() => {
       this.clearRedirectUrl();
     });
   }
@@ -177,6 +182,7 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.sub?.unsubscribe();
     this.modalRef?.close();
   }
 

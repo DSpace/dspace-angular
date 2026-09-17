@@ -6,10 +6,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Item } from '@dspace/core/shared/item.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../core/shared/item.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import {
   ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_MOVE_PATH,

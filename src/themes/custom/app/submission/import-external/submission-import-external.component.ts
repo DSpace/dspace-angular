@@ -18,7 +18,6 @@ import { SubmissionImportExternalComponent as BaseComponent } from '../../../../
   // templateUrl: './submission-import-external.component.html',
   templateUrl: '../../../../../app/submission/import-external/submission-import-external.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

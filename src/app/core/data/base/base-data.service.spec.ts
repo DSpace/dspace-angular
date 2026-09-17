@@ -17,16 +17,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   link,
   typedObject,
@@ -36,9 +26,19 @@ import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { BITSTREAM } from '../../shared/bitstream.resource-type';
 import { COLLECTION } from '../../shared/collection.resource-type';
+import { followLink } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
+import { HALEndpointServiceStub } from '../../testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../../testing/object-cache-service.stub';
+import { getMockRemoteDataBuildService } from '../../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
+import { createPaginatedList } from '../../testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities/remote-data.utils';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';

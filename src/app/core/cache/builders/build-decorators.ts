@@ -1,10 +1,10 @@
 import { InjectionToken } from '@angular/core';
-
-import { DATA_SERVICE_MAP } from '../../../../decorator-registries/data-service-registry';
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+
+import { DATA_SERVICE_MAP } from '../../../../decorator-registries/data-service-registry';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';

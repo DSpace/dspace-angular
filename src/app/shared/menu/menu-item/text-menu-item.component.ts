@@ -15,7 +15,6 @@ import { TextMenuItemModel } from './models/text.model';
   selector: 'ds-text-menu-item',
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './text-menu-item.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

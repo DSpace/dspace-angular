@@ -16,13 +16,13 @@ import { ReducerManager } from '@ngrx/store';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { Process } from '../../../process-page/processes/process.model';
-import { ProcessStatus } from '../../../process-page/processes/process-status.model';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { NotificationsService } from '../../notification-system/notifications.service';
+import { Process } from '../../processes/process.model';
+import { ProcessStatus } from '../../processes/process-status.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { getMockRequestService } from '../../testing/request.service.mock';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { testSearchDataImplementation } from '../base/search-data.spec';

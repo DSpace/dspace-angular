@@ -4,25 +4,14 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-
-import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import {
-  followLink,
-  FollowLinkConfig,
-} from '../shared/utils/follow-link-config.model';
-
-/**
- * The self links defined in this list are expected to be requested somewhere in the near future
- * Requesting them as embeds will limit the number of requests
- */
-export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
-  followLink('bundle', {}, followLink('primaryBitstream'), followLink('item')),
-  followLink('format'),
-];
+  Bitstream,
+  BITSTREAM_PAGE_LINKS_TO_FOLLOW,
+} from '@dspace/core/shared/bitstream.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { Observable } from 'rxjs';
 
 /**
  * Method for resolving a bitstream based on the parameters in the current route

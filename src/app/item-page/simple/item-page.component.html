@@ -18,7 +18,11 @@
     </div>
   }
   @if (itemRD?.hasFailed) {
-    <ds-error message="{{'error.item' | translate}}"></ds-error>
+    @if ((customUrlConflict$ | async); as conflictUrl) {
+      <ds-custom-url-conflict-error [customUrl]="conflictUrl"></ds-custom-url-conflict-error>
+    } @else {
+      <ds-error message="{{'error.item' | translate}}"></ds-error>
+    }
   }
   @if (itemRD?.isLoading) {
     <ds-loading message="{{'loading.item' | translate}}"></ds-loading>

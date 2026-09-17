@@ -1,8 +1,8 @@
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
+} from '../shared/follow-link-config.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { BaseDataService } from './base/base-data.service';
 import { FindListOptions } from './find-list-options.model';
 import { HrefOnlyDataService } from './href-only-data.service';

@@ -6,6 +6,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbCollapse,
   NgbModal,
@@ -17,22 +30,9 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { ProcessDataService } from '../../../core/data/processes/process-data.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RouteService } from '../../../core/services/route.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { Process } from '../../processes/process.model';
-import { ProcessStatus } from '../../processes/process-status.model';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { ProcessOverviewService } from '../process-overview.service';
 import { ProcessOverviewTableComponent } from './process-overview-table.component';
@@ -146,8 +146,7 @@ describe('ProcessOverviewTableComponent', () => {
     translateServiceSpy = jasmine.createSpyObj('TranslateService', ['get']);
 
     void TestBed.configureTestingModule({
-      declarations: [NgbCollapse],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent, NgbCollapse],
       providers: [
         { provide: ProcessOverviewService, useValue: processOverviewService },
         { provide: ProcessDataService, useValue: processService },

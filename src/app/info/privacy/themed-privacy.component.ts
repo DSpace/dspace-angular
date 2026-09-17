@@ -8,12 +8,7 @@ import { PrivacyComponent } from './privacy.component';
  */
 @Component({
   selector: 'ds-privacy',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    PrivacyComponent,
-  ],
 })
 export class ThemedPrivacyComponent extends ThemedComponent<PrivacyComponent> {
   protected getComponentName(): string {

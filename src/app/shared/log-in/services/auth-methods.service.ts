@@ -1,0 +1,50 @@
+import { Injectable } from '@angular/core';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { getAuthenticationMethods } from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import uniqBy from 'lodash/uniqBy';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { ThemeService } from '../../theme-support/theme.service';
+import { getAuthMethodFor } from '../methods/log-in.methods-decorator';
+
+@Injectable({
+  providedIn: 'root',
+})
+/**
+ * Service responsible for managing and filtering authentication methods.
+ * Provides methods to retrieve and process authentication methods from the application store.
+ */
+export class AuthMethodsService {
+  constructor(
+    protected store: Store<CoreState>,
+    protected themeService: ThemeService,
+  ) {
+  }
+
+  /**
+   * Retrieves and processes authentication methods from the store.
+   *
+   * @param excludedAuthMethod Optional authentication method type to exclude from the results
+   * @returns An Observable of filtered and sorted authentication methods
+   */
+  public getAuthMethods(excludedAuthMethod?: AuthMethodType): Observable<AuthMethod[]> {
+    return this.store.pipe(
+      select(getAuthenticationMethods),
+      map((methods: AuthMethod[]) => methods
+        // ignore the given auth method if it should be excluded
+        .filter((authMethod: AuthMethod) => excludedAuthMethod == null || authMethod.authMethodType !== excludedAuthMethod)
+        .filter((authMethod: AuthMethod) => getAuthMethodFor(authMethod.authMethodType, this.themeService.getThemeName()) !== undefined)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
+      ),
+      // ignore the ip authentication method when it's returned by the backend
+      map((methods: AuthMethod[]) => uniqBy(methods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType')),
+    );
+  }
+}

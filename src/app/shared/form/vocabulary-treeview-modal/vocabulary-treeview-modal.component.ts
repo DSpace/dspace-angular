@@ -5,14 +5,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 
 @Component({
@@ -23,7 +23,6 @@ import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-t
     TranslateModule,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent

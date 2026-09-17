@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { RENDER_AUTH_METHOD_FOR_MAP } from '../../../../decorator-registries/render-auth-method-for-registry';
-import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { hasValue } from '../../empty.util';
 import {
   DEFAULT_THEME,
   getMatch,

@@ -6,18 +6,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { Community } from '../../../../../core/shared/community.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';

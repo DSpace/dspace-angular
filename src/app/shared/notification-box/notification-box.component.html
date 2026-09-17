@@ -7,8 +7,8 @@
     [title]="boxConfig.description | translate"
     >
     <div [ngStyle]="{'color': boxConfig.textColor}" class="d-flex flex-column justify-content-center align-items-center">
-      <div class="mb-3 font-weight-bold box-counter">{{ boxConfig.count ?? 0 }}</div>
-      <div class="font-weight-bold d-flex justify-content-center w-100">{{ boxConfig.title | translate }}</div>
+      <div class="mb-3 fw-bold box-counter">{{ boxConfig.count ?? 0 }}</div>
+      <div class="fw-bold d-flex justify-content-center w-100">{{ boxConfig.title | translate }}</div>
     </div>
   </div>
 }

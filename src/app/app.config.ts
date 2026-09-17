@@ -1,10 +1,8 @@
-import {
-  APP_BASE_HREF,
-  DOCUMENT,
-} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   ApplicationConfig,
+  DOCUMENT,
   importProvidersFrom,
 } from '@angular/core';
 import {
@@ -16,6 +14,22 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { StoreDevModules } from '@dspace/config/store/devtools';
+import { AuthInterceptor } from '@dspace/core/auth/auth.interceptor';
+import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';
+import { DspaceRestInterceptor } from '@dspace/core/dspace-rest/dspace-rest.interceptor';
+import { LocaleInterceptor } from '@dspace/core/locale/locale.interceptor';
+import { LogInterceptor } from '@dspace/core/log/log.interceptor';
+import { DSpaceRouterStateSerializer } from '@dspace/core/ngrx/dspace-router-state-serializer';
+import {
+  models,
+  provideCore,
+} from '@dspace/core/provide-core';
+import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
@@ -29,15 +43,11 @@ import {
   USER_PROVIDED_META_REDUCERS,
 } from '@ngrx/store';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../config/app-config.interface';
-import { StoreDevModules } from '../config/store/devtools';
 import { environment } from '../environments/environment';
-import { EagerThemesModule } from '../themes/eager-themes.module';
+import { HashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping';
+import { BrowserHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.browser';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
 import {
@@ -54,18 +64,7 @@ import {
   APP_ROUTING_CONF,
   APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
-import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { DspaceRestInterceptor } from './core/dspace-rest/dspace-rest.interceptor';
-import { LocaleInterceptor } from './core/locale/locale.interceptor';
-import { LogInterceptor } from './core/log/log.interceptor';
-import {
-  models,
-  provideCore,
-} from './core/provide-core';
-import { ClientCookieService } from './core/services/client-cookie.service';
-import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { RootModule } from './root.module';
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
 export function getConfig() {
   return environment;
@@ -91,9 +90,7 @@ export const commonAppConfig: ApplicationConfig = {
       StoreModule.forRoot(appReducers, storeModuleConfig),
       StoreRouterConnectingModule.forRoot(),
       StoreDevModules,
-      EagerThemesModule,
       RootModule,
-      NgxMaskModule.forRoot(),
     ),
     provideRouter(
       APP_ROUTES,
@@ -147,12 +144,16 @@ export const commonAppConfig: ApplicationConfig = {
       useClass: DspaceRestInterceptor,
       multi: true,
     },
+    {
+      provide: HashedFileMapping,
+      useClass: BrowserHashedFileMapping,
+    },
     // register the dynamic matcher used by form. MUST be provided by the app module
     ...DYNAMIC_MATCHER_PROVIDERS,
 
     // DI-composable menus
     ...MENUS,
-
+    provideEnvironmentNgxMask(),
     provideCore(),
   ],
 };

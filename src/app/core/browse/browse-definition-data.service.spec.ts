@@ -1,11 +1,11 @@
 import { EMPTY } from 'rxjs';
 
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { RequestService } from '../data/request.service';
+import { followLink } from '../shared/follow-link-config.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 
 describe(`BrowseDefinitionDataService`, () => {

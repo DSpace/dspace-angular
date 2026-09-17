@@ -1,10 +1,11 @@
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   DynamicSelectModel,
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
-import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -20,7 +21,6 @@ import {
   DsDynamicOneboxModelConfig,
   DynamicOneboxModel,
 } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class OneboxFieldParser extends FieldParser {
@@ -78,14 +78,14 @@ export class OneboxFieldParser extends FieldParser {
       }
       selectModelConfig.disabled = inputModelConfig.readOnly;
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
-
+      inputSelectGroup.language = inputModelConfig.language;
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
       return new DynamicQualdropModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].controlledVocabulary) {
       const oneboxModelConfig: DsDynamicOneboxModelConfig = this.initModel(null, label);
-      this.setVocabularyOptions(oneboxModelConfig);
+      this.setVocabularyOptions(oneboxModelConfig, this.parserOptions.collectionUUID);
       this.setValues(oneboxModelConfig, fieldValue, true);
 
       return new DynamicOneboxModel(oneboxModelConfig);

@@ -7,7 +7,7 @@
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-md-4">
+  <div class="col-12 col-md-4">
     <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
       <ds-thumbnail [thumbnail]="object?.thumbnail | async"
         [defaultImage]="'assets/images/orgunit-placeholder.svg'"
@@ -33,7 +33,7 @@
       [label]="'orgunit.page.id'">
     </ds-generic-item-page-field>
   </div>
-  <div class="col-xs-12 col-md-7">
+  <div class="col-12 col-md-7">
     <ds-item-page-img-field
       [fields]="['organization.identifier.ror']"
       [img]="{
@@ -62,8 +62,19 @@
     </div>
   </div>
   <div class="mt-5 w-100 px-0">
-    <ds-tabbed-related-entities-search  [item]="object"
-                                        [relationTypes]="[{
+    @if (areAuthorityRelationsEnabled) {
+      <ds-authority-related-entities-search
+        [item]="object"
+        [configurations]="[
+          'RELATION.OrgUnit.rpprojects',
+          'RELATION.OrgUnit.rppublications',
+          'RELATION.OrgUnit.people',
+          'RELATION.OrgUnit.projects',
+        ]"
+      ></ds-authority-related-entities-search>
+    } @else {
+      <ds-tabbed-related-entities-search  [item]="object"
+                                          [relationTypes]="[{
                                           label: 'isOrgUnitOfPerson',
                                           filter: 'isOrgUnitOfPerson',
                                           configuration: 'person-relationships'
@@ -73,6 +84,7 @@
                                           filter: 'isOrgUnitOfProject',
                                           configuration: 'project-relationships'
                                         }]">
-    </ds-tabbed-related-entities-search>
+      </ds-tabbed-related-entities-search>
+    }
   </div>
 </div>
