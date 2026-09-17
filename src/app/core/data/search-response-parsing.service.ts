@@ -6,7 +6,7 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 
-import { getSearchResultFor } from '../../shared/search/search-result-element-decorator';
+import { getSearchResultFor } from '../../shared/search/search-result-element-decorator-sync';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
