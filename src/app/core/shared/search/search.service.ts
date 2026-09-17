@@ -4,7 +4,6 @@ import { Angulartics2 } from 'angulartics2';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
-  from,
   Observable,
 } from 'rxjs';
 import {
@@ -29,7 +28,7 @@ import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
-import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
+import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator-sync';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
@@ -235,19 +234,16 @@ export class SearchService {
               getFirstCompletedRemoteData(),
               getRemoteDataPayload(),
               hasValueOperator(),
-              switchMap((indexableObject: DSpaceObject) => {
+              map((indexableObject: DSpaceObject) => {
                 // determine the constructor of the search result (ItemSearchResult,
                 // CollectionSearchResult, etc) based on the kind of the indeaxbleObject it
                 // contains. Recreate the result with that constructor
                 const constructor: GenericConstructor<ListableObject> = indexableObject.constructor as GenericConstructor<ListableObject>;
-                return from(getSearchResultFor(constructor)).pipe(
-                  map((resultConstructor: GenericConstructor<ListableObject>) => {
-                    // Attach the payload directly to the indexableObject property on the result
-                    return Object.assign(new resultConstructor(), result, {
-                      indexableObject,
-                    }) as SearchResult<T>;
-                  }),
-                );
+                const resultConstructor: GenericConstructor<ListableObject> = getSearchResultFor(constructor);
+                // Attach the payload directly to the indexableObject property on the result
+                return Object.assign(new resultConstructor(), result, {
+                  indexableObject,
+                }) as SearchResult<T>;
               }),
             ),
           );

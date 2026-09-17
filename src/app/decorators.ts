@@ -8,6 +8,10 @@ import { DecoratorConfig } from '../../scripts/config/decorator-config.interface
  * registry file will be generated inside the `src/decorator-registries` directory. A registry file exports a Map
  * that you can use inside your decorator file to dynamically retrieve the desired component.
  *
+ * Set `synchronous: true` on a decorator config to generate static imports and direct class references instead of
+ * lazy import factories, enabling synchronous lookups. When doing so, keep the decorator marker and the getter in
+ * separate modules so the registry's static imports do not create a circular dependency.
+ *
  * Fore more info on the configuration, check the `scripts/config` directory.
  */
 export const DECORATORS: DecoratorConfig[] = [
@@ -97,6 +101,7 @@ export const DECORATORS: DecoratorConfig[] = [
   },
   {
     name: 'searchResultFor',
+    synchronous: true,
     params: [
       { name: 'domainConstructor' },
     ],

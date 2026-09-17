@@ -56,7 +56,7 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
     return of(this.object);
   }
 
-  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     return Object.assign(new ClaimedDeclinedTaskTaskSearchResult(), dso, {
       indexableObject: dso,
     });

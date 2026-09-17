@@ -60,11 +60,10 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     return of(this.object);
   }
 
-  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
-    const reloadedObject = Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+    return Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
       indexableObject: dso,
     });
-    return reloadedObject;
   }
 
   public handleReloadableActionResponse(result: boolean, dso: DSpaceObject): void {

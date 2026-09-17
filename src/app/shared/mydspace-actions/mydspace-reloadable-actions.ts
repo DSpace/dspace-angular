@@ -6,7 +6,6 @@ import {
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  from,
   Observable,
   of,
 } from 'rxjs';
@@ -27,7 +26,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
-import { getSearchResultFor } from '../search/search-result-element-decorator';
+import { getSearchResultFor } from '../search/search-result-element-decorator-sync';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
 /**
@@ -132,12 +131,11 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
    * Convert the reloadedObject to the Type required by this action.
    * @param dso
    */
-  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
-    const constructor = await getSearchResultFor((dso as any).constructor);
-    const reloadedObject = Object.assign(new constructor(), dso, {
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+    const constructor = getSearchResultFor((dso as any).constructor);
+    return Object.assign(new constructor(), dso, {
       indexableObject: dso,
     });
-    return reloadedObject;
   }
 
   /**
@@ -153,8 +151,8 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
           return of(res);
         }
       })).pipe(
-      switchMap((dso) => {
-        return dso ? from(this.convertReloadedObject(dso)) : of(dso);
+      map((dso) => {
+        return dso ? this.convertReloadedObject(dso) : dso;
       }),
     );
   }
