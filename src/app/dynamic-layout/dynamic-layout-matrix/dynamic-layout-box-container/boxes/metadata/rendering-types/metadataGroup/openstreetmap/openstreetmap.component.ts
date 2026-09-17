@@ -6,7 +6,7 @@ import {
 
 import { GeospatialMapComponent } from '../../../../../../../../shared/geospatial-map/geospatial-map.component';
 import { FieldRenderingType } from '../../field-rendering-type';
-import { MetadataBoxFieldRendering } from '../../metadata-box.decorator';
+import { metadataBoxFieldRendering } from '../../metadata-box.decorator';
 import { MetadataGroupComponent } from '../metadata-group.component';
 
 /**
@@ -17,7 +17,7 @@ import { MetadataGroupComponent } from '../metadata-group.component';
  * coordinates and bounding boxes. All metadata values across all group elements
  * are collected and passed to the map component.
  */
-@MetadataBoxFieldRendering(FieldRenderingType.OPENSTREETMAP, true)
+@metadataBoxFieldRendering(FieldRenderingType.OSMAP, true)
 @Component({
   selector: 'ds-openstreetmap',
   templateUrl: './openstreetmap.component.html',

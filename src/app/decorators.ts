@@ -156,4 +156,10 @@ export const DECORATORS: DecoratorConfig[] = [
       { name: 'orientation' },
     ],
   },
+  {
+    name: 'attachmentTypeRendering',
+    params: [
+      { name: 'objectType' },
+    ],
+  },
 ];

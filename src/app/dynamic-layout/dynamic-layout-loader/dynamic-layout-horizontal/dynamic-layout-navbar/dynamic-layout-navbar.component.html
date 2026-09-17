@@ -8,7 +8,7 @@
 @if (showNav) {
   <nav [ngClass]="{'open': !menuCollapsed}" class="navbar navbar-light navbar-expand-md p-0 navbar-container dynamic-layout-navbar {{menuCollapsed ? 'collapsed' : 'expanded'}}"
     role="navigation" [attr.aria-label]="'dynamic.nav.main.description' | translate">
-    <div class="reset-padding-md w-100">
+    <div class="w-100">
       <div id="collapsingNav">
         <span class="navbar-nav align-items-start me-auto shadow-none">
           @if (!!(activeTab$ |async)) {

@@ -22,7 +22,7 @@ nav.navbar {
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
     .navbar {
-        width: 100vw;
+        width: 100%;
         background-color: var(--bs-white);
         overflow: hidden;
         height: 0;
@@ -53,12 +53,5 @@ nav.navbar {
     line-height: 1.5;
     color: var(--bs-link-color);
   }
-}
-
-@media screen and (min-width: map-get($grid-breakpoints, md)) {
-    .reset-padding-md {
-        margin-left: calc(var(--bs-spacer) / -2);
-        margin-right: calc(var(--bs-spacer) / -2);
-    }
 }
 

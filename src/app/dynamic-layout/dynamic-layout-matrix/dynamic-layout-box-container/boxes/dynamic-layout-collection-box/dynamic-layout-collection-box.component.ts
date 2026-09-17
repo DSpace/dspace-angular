@@ -12,6 +12,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
@@ -83,18 +84,19 @@ export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxDirecti
   /**
    * This includes the owning collection
    */
-  owningCollection$: Observable<Collection>;
+  owningCollection$: Observable<{ collection: Collection, name: string }>;
 
   /**
     * This includes the mapped collection
     */
-  mappedCollections$: Observable<Collection[]> = of([]);
+  mappedCollections$: Observable<{ collection: Collection, name: string }[]> = of([]);
 
   constructor(
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: DynamicLayoutBox,
     @Inject('itemProvider') public itemProvider: Item,
     private cds: CollectionDataService,
+    private dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(translateService, boxProvider, itemProvider);
@@ -105,6 +107,10 @@ export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxDirecti
 
     this.owningCollection$ = this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload(),
+      map((collection: Collection) => ({
+        collection,
+        name: this.dsoNameService.getName(collection),
+      })),
       shareReplay({ refCount: false, bufferSize: 1 }),
     );
 
@@ -115,8 +121,16 @@ export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxDirecti
     this.isLoading$.next(true);
     const newMappedCollections$ = this.loadMappedCollectionPage();
     this.mappedCollections$ = combineLatest([this.mappedCollections$, newMappedCollections$]).pipe(
-      map(([mappedCollections, newMappedCollections]: [Collection[], Collection[]]) => {
-        return [...mappedCollections, ...newMappedCollections].filter(collection => hasValue(collection));
+      map(([mappedCollections, newMappedCollections]: [{ collection: Collection, name: string }[], Collection[]]) => {
+        return [
+          ...mappedCollections,
+          ...newMappedCollections
+            .filter((collection: Collection) => hasValue(collection))
+            .map((collection: Collection) => ({
+              collection,
+              name: this.dsoNameService.getName(collection),
+            })),
+        ];
       }),
     );
   }

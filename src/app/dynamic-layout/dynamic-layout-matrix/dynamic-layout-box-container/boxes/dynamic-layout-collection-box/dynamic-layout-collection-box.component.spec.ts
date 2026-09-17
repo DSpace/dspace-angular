@@ -131,7 +131,7 @@ describe('DynamicLayoutCollectionBoxComponent', () => {
 
   describe('with owning collections', () => {
     beforeEach(() => {
-      component.owningCollection$ = of(mockCollection1);
+      component.owningCollection$ = of({ collection: mockCollection1, name: mockCollection1.name });
       fixture.detectChanges();
     });
 
@@ -153,7 +153,7 @@ describe('DynamicLayoutCollectionBoxComponent', () => {
 
   describe('with mapped collections', () => {
     beforeEach(() => {
-      component.mappedCollections$ = of([mockCollection1]);
+      component.mappedCollections$ = of([{ collection: mockCollection1, name: mockCollection1.name }]);
       fixture.detectChanges();
     });
 
