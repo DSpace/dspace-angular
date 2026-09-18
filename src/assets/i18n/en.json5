@@ -1093,6 +1093,16 @@
 
   "browse.comcol.by.dateissued": "By Issue Date",
 
+  "browse.comcol.by.pjtitle": "By Title",
+
+  "browse.comcol.by.rodept": "By Department",
+
+  "browse.comcol.by.rpdept": "By Department",
+
+  "browse.comcol.by.rpname": "By Name",
+
+  "browse.comcol.by.rsoTitle": "By Title",
+
   "browse.comcol.by.subject": "By Subject",
 
   "browse.comcol.by.srsc": "By Subject Category",
@@ -1109,15 +1119,37 @@
 
   "browse.metadata.dateissued": "Issue Date",
 
+  "browse.metadata.pjtitle": "Title",
+
+  "browse.metadata.rodept": "Department",
+
+  "browse.metadata.rpdept": "Department",
+
+  "browse.metadata.rpname": "Name",
+
   "browse.metadata.subject": "Subject",
+
+  "browse.metadata.type": "Type",
 
   "browse.metadata.title": "Title",
 
   "browse.metadata.srsc": "Subject Category",
 
+  "browse.metadata.rsoTitle": "Research Outputs Title",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+
+  "browse.metadata.pjtitle.breadcrumbs": "Browse by Title",
+
+  "browse.metadata.rodept.breadcrumbs": "Browse by Department",
+
+  "browse.metadata.rpdept.breadcrumbs": "Browse by Department",
+
+  "browse.metadata.rpname.breadcrumbs": "Browse by Name",
+
+  "browse.metadata.rsoTitle.breadcrumbs": "Browse by Title",
 
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
@@ -1128,6 +1160,8 @@
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
   "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+
+  "browse.metadata.type.breadcrumbs": "Browse by Type",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -3803,6 +3837,18 @@
   "menu.section.browse_global_by_dateissued": "By Issue Date",
 
   "menu.section.browse_global_by_subject": "By Subject",
+
+  "menu.section.browse_global_by_rpname": "By Person Name",
+
+  "menu.section.browse_global_by_rpdept": "By Affiliation Name",
+
+  "menu.section.browse_global_by_rodept": "By Department Name",
+
+  "menu.section.browse_global_by_rsoTitle": "By Research Outputs Name",
+
+  "menu.section.browse_global_by_pjtitle": "By Project Name",
+
+  "menu.section.browse_global_by_type": "By Type",
 
   "menu.section.explore_infrastructure": "Infrastructure",
 
