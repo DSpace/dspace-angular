@@ -12,8 +12,10 @@ import {
 } from 'rxjs';
 import {
   catchError,
+  filter,
   map,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
 import { dataService } from '../../cache/builders/build-decorators';
@@ -37,6 +39,7 @@ import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { SiteDataService } from '../site-data.service';
+import { AuthService } from '../../auth/auth.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
@@ -53,12 +56,35 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
 
   private searchData: SearchDataImpl<Authorization>;
 
+  /**
+   * Features that can only ever be granted to an authenticated user. For an anonymous visitor
+   * these are always false, so they are answered locally without a REST call (avoiding a backend
+   * lookup that re-resolves the user's groups and resource policies). Kept deliberately
+   * conservative: the features an unauthenticated visitor can legitimately be granted - canDownload,
+   * canRequestACopy, epersonRegistration, epersonForgotPassword, canSendFeedback and
+   * canViewUsageStatistics - are intentionally NOT listed here and are always checked normally.
+   */
+  private static readonly AUTHENTICATED_ONLY_FEATURES: Set<FeatureID> = new Set<FeatureID>([
+    FeatureID.LoginOnBehalfOf, FeatureID.AdministratorOf, FeatureID.CanDelete,
+    FeatureID.CanEditMetadata, FeatureID.WithdrawItem, FeatureID.ReinstateItem,
+    FeatureID.CanManageGroups, FeatureID.CanManageGroup, FeatureID.IsCollectionAdmin,
+    FeatureID.IsCommunityAdmin, FeatureID.CanChangePassword, FeatureID.CanManageVersions,
+    FeatureID.CanManageBitstreamBundles, FeatureID.CanManageRelationships,
+    FeatureID.CanManageMappings, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate,
+    FeatureID.CanMove, FeatureID.CanEditVersion, FeatureID.CanDeleteVersion,
+    FeatureID.CanCreateVersion, FeatureID.CanClaimItem, FeatureID.CanSynchronizeWithORCID,
+    FeatureID.CanSubmit, FeatureID.CanEditItem, FeatureID.CanRegisterDOI,
+    FeatureID.CanSubscribe, FeatureID.CanSeeQA, FeatureID.CoarNotifyEnabled,
+    FeatureID.CanReplaceBitstreamSubmitter, FeatureID.CanReplaceBitstreamAdmin,
+  ]);
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected siteService: SiteDataService,
+    protected authService: AuthService,
   ) {
     super('authorizations', requestService, rdbService, objectCache, halService);
 
@@ -85,6 +111,34 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    *                                    requested after the response becomes stale
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<boolean> {
+    // Access load is dominated by unauthenticated traffic (crawlers and browser-impersonating
+    // scrapers). For those visitors an admin/edit/manage feature can never be granted, yet each
+    // check would otherwise trigger a REST call that re-resolves the user's groups and resource
+    // policies in the backend - a well-known source of excessive DB queries per page. So when we
+    // are checking the *current* user for a feature that only makes sense once logged in, answer
+    // "false" locally without any request whenever nobody is authenticated.
+    if (hasValue(featureId) && hasNoValue(ePersonUuid) && AuthorizationDataService.AUTHENTICATED_ONLY_FEATURES.has(featureId)) {
+      // Wait until authentication has finished loading before deciding. The auth store starts in an
+      // un-loaded state where "authenticated" reads false, so reading it too early could momentarily
+      // treat a genuinely logged-in user as anonymous and hide these controls from them. Only once
+      // authentication is loaded do we read the settled value: if still not authenticated, the answer
+      // is "false" locally with no REST call; otherwise we perform the normal check.
+      return this.authService.isAuthenticationLoaded().pipe(
+        filter((loaded: boolean) => loaded),
+        take(1),
+        switchMap(() => this.authService.isAuthenticated().pipe(take(1))),
+        switchMap((authenticated: boolean) => authenticated
+          ? this.checkAuthorization(featureId, objectUrl, ePersonUuid, useCachedVersionIfAvailable, reRequestOnStale)
+          : of(false)),
+      );
+    }
+    return this.checkAuthorization(featureId, objectUrl, ePersonUuid, useCachedVersionIfAvailable, reRequestOnStale);
+  }
+
+  /**
+   * Perform the actual authorization lookup for a single feature against the REST API.
+   */
+  private checkAuthorization(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<boolean> {
     return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {

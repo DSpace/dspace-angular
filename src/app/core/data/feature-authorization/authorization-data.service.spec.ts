@@ -26,6 +26,7 @@ describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
   let siteService: SiteDataService;
   let objectCache;
+  let authService;
 
   let site: Site;
   let ePerson: EPerson;
@@ -48,8 +49,12 @@ describe('AuthorizationDataService', () => {
     siteService = jasmine.createSpyObj('siteService', {
       find: of(site),
     });
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      isAuthenticationLoaded: of(true),
+    });
     objectCache = getMockObjectCacheService();
-    service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService);
+    service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService, authService);
   }
 
   beforeEach(() => {
@@ -58,7 +63,7 @@ describe('AuthorizationDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new AuthorizationDataService(null, null, null, null, null);
+    const initService = () => new AuthorizationDataService(null, null, null, null, null, null);
     testSearchDataImplementation(initService);
   });
 
@@ -237,6 +242,75 @@ describe('AuthorizationDataService', () => {
           expect(result).toEqual(true);
           done();
         });
+      });
+    });
+
+    describe('for an authenticated-only feature when the current user is anonymous', () => {
+      // canEditItem is in AUTHENTICATED_ONLY_FEATURES; an anonymous user can never have it.
+      beforeEach(() => {
+        authService.isAuthenticationLoaded.and.returnValue(of(true));
+        authService.isAuthenticated.and.returnValue(of(false));
+        spyOn(service, 'searchByObject');
+      });
+
+      it('should short-circuit to false without any REST call', (done) => {
+        service.isAuthorized(FeatureID.CanEditItem).subscribe((result) => {
+          expect(result).toEqual(false);
+          expect(service.searchByObject).not.toHaveBeenCalled();
+          done();
+        });
+      });
+    });
+
+    describe('for an authenticated-only feature when the current user IS authenticated', () => {
+      beforeEach(() => {
+        authService.isAuthenticationLoaded.and.returnValue(of(true));
+        authService.isAuthenticated.and.returnValue(of(true));
+        spyOn(service, 'searchByObject').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(validPayload)));
+      });
+
+      it('should perform the normal check', (done) => {
+        service.isAuthorized(FeatureID.AdministratorOf).subscribe((result) => {
+          expect(service.searchByObject).toHaveBeenCalled();
+          expect(result).toEqual(true);
+          done();
+        });
+      });
+    });
+
+    describe('for a feature an anonymous user can legitimately have (e.g. canDownload)', () => {
+      beforeEach(() => {
+        authService.isAuthenticated.and.returnValue(of(false));
+        authService.isAuthenticationLoaded.and.returnValue(of(true));
+        spyOn(service, 'searchByObject').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(emptyPayload)));
+      });
+
+      it('should still be checked normally, not skipped', (done) => {
+        service.isAuthorized(FeatureID.CanDownload).subscribe(() => {
+          expect(service.searchByObject).toHaveBeenCalled();
+          done();
+        });
+      });
+    });
+
+    describe('for an authenticated-only feature before authentication has finished loading', () => {
+      beforeEach(() => {
+        // not loaded yet -> must wait, never decide off the transient "false"
+        authService.isAuthenticationLoaded.and.returnValue(of(false));
+        authService.isAuthenticated.and.returnValue(of(false));
+        spyOn(service, 'searchByObject');
+      });
+
+      it('should not emit or call searchByObject until authentication is loaded', (done) => {
+        let emitted = false;
+        service.isAuthorized(FeatureID.CanEditItem).subscribe(() => {
+          emitted = true;
+        });
+        setTimeout(() => {
+          expect(emitted).toEqual(false);
+          expect(service.searchByObject).not.toHaveBeenCalled();
+          done();
+        }, 50);
       });
     });
   });
