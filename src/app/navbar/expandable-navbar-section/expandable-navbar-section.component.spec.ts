@@ -296,11 +296,16 @@ describe('ExpandableNavbarSectionComponent', () => {
           }
           return of([] as MenuSection[]);
         }) as any);
+        fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
+        component = fixture.componentInstance;
+        component.section = {} as MenuSection;
+        spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
         component.ngOnInit();
         flush();
         fixture.detectChanges();
         component.focusOnFirstChildSection = true;
         component.active$.next(true);
+        flush();
         fixture.detectChanges();
       }));
 
@@ -370,24 +375,30 @@ describe('ExpandableNavbarSectionComponent', () => {
       spyOn(menuService, 'isSectionActive').and.returnValue(of(true));
 
       component.ngOnInit();
-      flush();
-      fixture.detectChanges();
       component.active$.next(true);
-      fixture.detectChanges();
+      for (let i = 0; i < 5; i++) {
+        flush();
+        fixture.detectChanges();
+      }
     }));
 
-    it('should render both the first level and the deeper nested section', () => {
+    it('should render every level through the menu item component (ngComponentOutlet), not inlined markup', () => {
       const dropdown: HTMLElement = fixture.nativeElement.querySelector('.dropdown-menu');
       expect(dropdown).toBeTruthy();
-      // 'branch' is a direct child (level 0), 'leaf' is nested one level deeper (level 1).
-      expect(dropdown.textContent).toContain('menu.branch');
-      expect(dropdown.textContent).toContain('menu.leaf');
+      expect(dropdown.querySelectorAll('span[role="button"]').length).toBe(0);
     });
 
-    it('should render the deepest section as a link menu item', () => {
-      const leaf: DebugElement = fixture.debugElement.queryAll(By.css('.dropdown-menu a[role="menuitem"]'))
-        .find((el) => el.nativeElement.textContent.trim() === 'menu.leaf');
-      expect(leaf).toBeDefined();
+    it('should render both the first level and the deeper nested section', () => {
+      const wrappers: HTMLElement[] = Array.from(
+        (fixture.nativeElement as HTMLElement).querySelectorAll('.dropdown-menu .ds-menu-sub-section'),
+      );
+      // 'branch' is a direct child (level 0), 'leaf' is nested one level deeper (level 1).
+      expect(wrappers.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('should render a menu item component instance for each nested section', () => {
+      const outlets: DebugElement[] = fixture.debugElement.queryAll(By.css('.dropdown-menu a[role="menuitem"]'));
+      expect(outlets.length).toBeGreaterThanOrEqual(2);
     });
 
     it('should indent each nesting level (increasing depth)', () => {

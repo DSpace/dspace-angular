@@ -150,6 +150,113 @@ describe('ExploreMenuProvider', () => {
         done();
       });
     });
+
+    it('should build compound ids for the expandable top section and its children', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const top = sections.find((s) => s.id === 'explore_people');
+        expect(top).toBeDefined();
+        expect(top.parentID).toBeUndefined();
+
+        const children = sections.filter((s) => s.parentID === 'explore_people');
+        expect(children.map((c) => c.id)).toEqual([
+          'explore_people_researchers',
+          'explore_people_staff',
+        ]);
+        done();
+      });
+    });
+
+    it('should emit the child sections before their expandable top section', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const topIndex = sections.findIndex((s) => s.id === 'explore_people');
+        const childIndices = sections
+          .map((s, i) => ({ s, i }))
+          .filter(({ s }) => s.parentID === 'explore_people')
+          .map(({ i }) => i);
+
+        expect(childIndices.length).toEqual(2);
+        childIndices.forEach((childIndex) => {
+          expect(childIndex).toBeLessThan(topIndex);
+        });
+        done();
+      });
+    });
+  });
+
+  describe('when sections are nested multiple levels deep', () => {
+    const deeplyNestedMockSections = [
+      {
+        id: 'people',
+        componentRows: [],
+        nestedSections: [
+          {
+            id: 'researchers',
+            componentRows: [],
+            nestedSections: [
+              { id: 'senior', componentRows: [], nestedSections: [] },
+              { id: 'junior', componentRows: [], nestedSections: [] },
+            ],
+          },
+        ],
+      },
+    ];
+
+    beforeEach(() => {
+      sectionDataServiceStub = {
+        findVisibleSections: jasmine.createSpy('findVisibleSections').and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(deeplyNestedMockSections)),
+        ),
+      };
+
+      TestBed.configureTestingModule({
+        providers: [
+          ExploreMenuProvider,
+          { provide: APP_CONFIG, useValue: { layout: { enableExplorePages: true } } },
+          { provide: SectionDataService, useValue: sectionDataServiceStub },
+        ],
+      });
+      provider = TestBed.inject(ExploreMenuProvider);
+      provider.menuProviderId = 'explore';
+    });
+
+    it('should render an expandable top section at each intermediate level', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const topLevel = sections.find((s) => s.id === 'explore_people');
+        expect(topLevel).toBeDefined();
+        expect(topLevel.model.type).toEqual(MenuItemType.TEXT);
+        expect(topLevel.parentID).toBeUndefined();
+        expect(topLevel.alwaysRenderExpandable).toBeTrue();
+
+        const midLevel = sections.find((s) => s.id === 'explore_people_researchers');
+        expect(midLevel).toBeDefined();
+        expect(midLevel.model.type).toEqual(MenuItemType.TEXT);
+        expect(midLevel.parentID).toEqual('explore_people');
+        expect(midLevel.alwaysRenderExpandable).toBeTrue();
+        done();
+      });
+    });
+
+    it('should chain compound ids and parentIDs down to the leaf links', (done) => {
+      provider.getSections().subscribe((sections) => {
+        const leaves = sections.filter((s) => s.parentID === 'explore_people_researchers');
+        expect(leaves.length).toEqual(2);
+
+        leaves.forEach((leaf) => {
+          expect(leaf.model.type).toEqual(MenuItemType.LINK);
+          expect(leaf.alwaysRenderExpandable).toBeFalse();
+        });
+
+        expect(leaves.map((leaf) => leaf.id)).toEqual([
+          'explore_people_researchers_senior',
+          'explore_people_researchers_junior',
+        ]);
+        expect(leaves.map((leaf) => (leaf.model as any).link)).toEqual([
+          '/explore/senior',
+          '/explore/junior',
+        ]);
+        done();
+      });
+    });
   });
 
   describe('when enableExplorePages is false', () => {

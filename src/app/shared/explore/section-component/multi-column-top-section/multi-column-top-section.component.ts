@@ -29,7 +29,6 @@ import { SearchResult } from '@dspace/core/shared/search/models/search-result.mo
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
 
 
 /**
@@ -59,12 +58,6 @@ export class MultiColumnTopSectionComponent implements OnInit {
   /** Observable emitting the array of top DSpaceObjects fetched from the search. */
   topObjects: Observable<DSpaceObject[]>;
 
-  /**
-   * Unique pagination id for this section instance.
-   * Generated per instance so multiple top sections on the same page do not share pagination state.
-   */
-  paginationId = `search-object-pagination-${uuidv4()}`;
-
   constructor(private searchService: SearchManager) {
 
   }
@@ -73,7 +66,7 @@ export class MultiColumnTopSectionComponent implements OnInit {
     const order = this.topSection.order;
     const sortDirection = order && order.toUpperCase() === 'ASC' ? SortDirection.ASC : SortDirection.DESC;
     const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-      id: this.paginationId,
+      id: `${this.sectionId}-multi-column-top-${this.topSection.sortField}`,
       pageSize: 50,
       currentPage: 1,
     });

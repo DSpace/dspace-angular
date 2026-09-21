@@ -1,21 +1,21 @@
 @if (hasSubSections$ | async) {
   <div class="ds-menu-item-wrapper text-md-center"
-    [id]="'expandable-navbar-section-' + section.id"
-    (mouseenter)="onMouseEnter($event)"
-    (mouseleave)="onMouseLeave($event)"
-    data-test="navbar-section-wrapper">
+       [id]="'expandable-navbar-section-' + section.id"
+       (mouseenter)="onMouseEnter($event)"
+       (mouseleave)="onMouseLeave($event)"
+       data-test="navbar-section-wrapper">
     <a href="javascript:void(0);" routerLinkActive="active"
-      role="menuitem"
-      (keyup.enter)="toggleSection($event)"
-      (keyup.space)="toggleSection($event)"
-      (click)="toggleSection($event)"
-      (keydown)="keyDown($event)"
-      aria-haspopup="menu"
-      data-test="navbar-section-toggler"
-      [attr.aria-expanded]="(active$ | async).valueOf()"
-      [attr.aria-controls]="expandableNavbarSectionId()"
-      class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
-      [class.disabled]="section.model?.disabled">
+       role="menuitem"
+       (keyup.enter)="toggleSection($event)"
+       (keyup.space)="toggleSection($event)"
+       (click)="toggleSection($event)"
+       (keydown)="keyDown($event)"
+       aria-haspopup="menu"
+       data-test="navbar-section-toggler"
+       [attr.aria-expanded]="(active$ | async).valueOf()"
+       [attr.aria-controls]="expandableNavbarSectionId()"
+       class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
+       [class.disabled]="section.model?.disabled">
       <span class="flex-fill">
         @if (sectionMap().get(section.id); as sectionDTO) {
           <ng-container *ngComponentOutlet="sectionDTO.component; injector: sectionDTO.injector;"></ng-container>
@@ -25,39 +25,30 @@
     </a>
     @if ((active$ | async).valueOf() === true) {
       <div (click)="deactivateSection($event)"
-        [id]="expandableNavbarSectionId()"
-        [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
-        (dsHoverOutside)="deactivateSection($event, false)"
-        role="menu"
-        class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0">
-        <div @slide role="presentation">
-          <ng-container *ngTemplateOutlet="subSectionTree; context: { $implicit: (subSections$ | async), level: 0 }"></ng-container>
+           [id]="expandableNavbarSectionId()"
+           [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
+           (dsHoverOutside)="deactivateSection($event, false)"
+           role="menu"
+           class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0">
+        <div class="dropdown-menu-inner-wrapper" @slide role="presentation">
+          <ng-container
+            *ngTemplateOutlet="subSectionTree; context: { $implicit: (getSubSectionComponents(section.id) | async), level: 0 }"></ng-container>
         </div>
       </div>
     }
   </div>
 }
 
-<ng-template #subSectionTree let-sections let-level="level">
-  @for (subSection of sections; track subSection.id) {
+<ng-template #subSectionTree let-subSections let-level="level">
+  @for (subSection of subSections; track subSection.section.id) {
     <div class="text-nowrap ds-menu-sub-section" role="presentation"
          [attr.data-menu-depth]="level"
          [style.padding-left]="'calc(' + level + ' * 1rem)'">
-      @if ($any(subSection.model)?.link) {
-        <a class="ds-menu-item" role="menuitem"
-           [attr.data-test]="'link-menu-item.' + subSection.model?.text"
-           [class.disabled]="subSection.model?.disabled"
-           [routerLink]="$any(subSection.model)?.link"
-           [queryParams]="$any(subSection.model)?.queryParams"
-           tabindex="0">{{ subSection.model?.text | translate }}</a>
-      } @else {
-        <span class="ds-menu-item" role="button"
-              [class.disabled]="subSection.model?.disabled"
-              tabindex="0">{{ subSection.model?.text | translate }}</span>
-      }
-      @if (menuService.getSubSectionsByParentID(menuID, subSection.id) | async; as nestedSections) {
-        @if (nestedSections.length > 0) {
-          <ng-container *ngTemplateOutlet="subSectionTree; context: { $implicit: nestedSections, level: level + 1 }"></ng-container>
+      <ng-container *ngComponentOutlet="subSection.component; injector: subSection.injector;"></ng-container>
+      @if (getSubSectionComponents(subSection.section.id) | async; as nestedSubSections) {
+        @if (nestedSubSections.length > 0) {
+          <ng-container
+            *ngTemplateOutlet="subSectionTree; context: { $implicit: nestedSubSections, level: level + 1 }"></ng-container>
         }
       }
     </div>

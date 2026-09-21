@@ -43,6 +43,7 @@ describe('MultiColumnTopSectionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MultiColumnTopSectionComponent);
     component = fixture.componentInstance;
+    component.sectionId = 'section-a';
     component.topSection = topSection;
     fixture.detectChanges();
   });
@@ -51,15 +52,19 @@ describe('MultiColumnTopSectionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should generate a unique pagination id per instance', () => {
-    const second = TestBed.createComponent(MultiColumnTopSectionComponent).componentInstance;
-    expect(component.paginationId).toMatch(/^search-object-pagination-/);
-    expect(second.paginationId).toMatch(/^search-object-pagination-/);
-    expect(component.paginationId).not.toEqual(second.paginationId);
+  it('should derive the pagination id from the section id and sort field', () => {
+    const options = searchManager.search.calls.mostRecent().args[0] as PaginatedSearchOptions;
+    expect(options.pagination.id).toEqual(`${component.sectionId}-multi-column-top-${topSection.sortField}`);
   });
 
-  it('should use its unique pagination id in the search options', () => {
-    const options = searchManager.search.calls.mostRecent().args[0] as PaginatedSearchOptions;
-    expect(options.pagination.id).toEqual(component.paginationId);
+  it('should use a distinct pagination id for sections with a different section id', () => {
+    const second = TestBed.createComponent(MultiColumnTopSectionComponent);
+    second.componentInstance.sectionId = 'section-b';
+    second.componentInstance.topSection = topSection;
+    second.detectChanges();
+
+    const firstOptions = searchManager.search.calls.all()[searchManager.search.calls.count() - 2].args[0] as PaginatedSearchOptions;
+    const secondOptions = searchManager.search.calls.mostRecent().args[0] as PaginatedSearchOptions;
+    expect(firstOptions.pagination.id).not.toEqual(secondOptions.pagination.id);
   });
 });
