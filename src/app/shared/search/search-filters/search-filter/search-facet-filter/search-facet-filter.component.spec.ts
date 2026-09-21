@@ -137,7 +137,12 @@ describe('SearchFacetFilterComponent', () => {
     comp.filterConfig = mockFilterConfig;
     comp.inPlaceSearch = false;
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
-    spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
+    spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([
+      facetValue1,
+      facetValue2,
+      facetValue3,
+      facetValue4,
+    ])));
     fixture.detectChanges();
   });
 

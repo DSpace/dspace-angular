@@ -31,11 +31,11 @@
 
 
 @if (configurations.length === 1) {
-  <ds-configuration-search-page
+  <ds-search
     class="w-100"
     [fixedFilterQuery]="searchFilter"
     [configuration]="configurations[0]"
     [searchEnabled]="searchEnabled"
     [showScopeSelector]="false">
-  </ds-configuration-search-page>
+  </ds-search>
 }

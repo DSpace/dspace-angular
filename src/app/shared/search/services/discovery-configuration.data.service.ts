@@ -17,11 +17,14 @@ import { RequestService } from '../../../core/data/request.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { DiscoveryConfiguration } from '../../../core/shared/search/discovery-configuration.model';
 import { isNotEmpty } from '../../../utils/empty.util';
+import { dataService } from '../../../core/cache/builders/build-decorators';
+import { DISCOVERY_CONFIGURATION } from '../../../core/shared/search/types/discovery-configuration.resource-type';
 
 /**
  * Data service for retrieving Discovery configurations from the REST API.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(DISCOVERY_CONFIGURATION)
 export class DiscoveryConfigurationDataService extends IdentifiableDataService<DiscoveryConfiguration> {
 
   constructor(

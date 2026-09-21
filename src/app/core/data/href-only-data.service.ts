@@ -16,6 +16,8 @@ import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { SEARCH_FILTER_CONFIG } from '../shared/search/types/search-filter-config.resource-type';
+import { SEARCH_SORT_OPTION } from '../shared/search/types/search-sort-option.resource-type';
 
 /**
  * A UpdateDataServiceImpl with only findByHref methods. Its purpose is to be used for resources that don't
@@ -37,6 +39,8 @@ import { RequestService } from './request.service';
 @dataService(VOCABULARY_ENTRY)
 @dataService(ITEM_TYPE)
 @dataService(LICENSE)
+@dataService(SEARCH_FILTER_CONFIG)
+@dataService(SEARCH_SORT_OPTION)
 export class HrefOnlyDataService implements HALDataService<any> {
   /**
    * Works with a {@link BaseDataService} internally, but only exposes two of its methods

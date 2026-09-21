@@ -194,8 +194,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.selectedAppliedFilters$ = combineLatest([
       this.searchService.getSelectedValuesForFilter(this.filterConfig.name),
       this.facetValues$.asObservable().pipe(
-        mergeMap((values: FacetValues[]) => from(values).pipe(
-          reduce((acc: FacetValue[], value: FacetValues) => acc.concat(value.page), []),
+        mergeMap((values: PaginatedList<FacetValue>[]) => from(values).pipe(
+          reduce((acc: FacetValue[], value: PaginatedList<FacetValue>) => acc.concat(value.page), []),
         )),
       ),
     ]).pipe(
