@@ -11909,4 +11909,7 @@
   // "statistics.table.header.topCountries": "Countries",
   "statistics.table.header.topCountries": "Países",
 
+  // "statistics.table.header.TotalVisitsPerMonth": "Month",
+  "statistics.table.header.TotalVisitsPerMonth": "Mês",
+
 }

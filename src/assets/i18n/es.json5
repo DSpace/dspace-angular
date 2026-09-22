@@ -12279,4 +12279,7 @@
   // TODO New key - Add a translation
   "bitstream.related.deleted": "deleted",
 
+  // "statistics.table.header.TotalVisitsPerMonth": "Month",
+  "statistics.table.header.TotalVisitsPerMonth": "Mes",
+
 }
