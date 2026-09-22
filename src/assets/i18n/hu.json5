@@ -54,7 +54,11 @@
   "listelement.badge.access-status": "Hozzáférés állapota:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
   "access-status.embargo.listelement.badge": "Embargó",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
   "access-status.metadata.only.listelement.badge": "Csak metaadattal rendelkező",
@@ -11492,7 +11496,11 @@
   "search.filters.access_status.restricted": "Korlátozott hozzáférés",
 
   // "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
   "search.filters.access_status.embargo": "Embargós hozzáférés",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
 
   // "search.filters.access_status.metadata.only": "Metadata only",
   "search.filters.access_status.metadata.only": "Csak metaadatok",

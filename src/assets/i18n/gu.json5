@@ -55,7 +55,11 @@
   "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
   "access-status.embargo.listelement.badge": "એમ્બાર્ગો",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
   "access-status.metadata.only.listelement.badge": "મેટાડેટા માત્ર",
@@ -11916,7 +11920,11 @@
   "search.filters.access_status.restricted": "પ્રતિબંધિત ઍક્સેસ",
 
   // "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
   "search.filters.access_status.embargo": "એમ્બાર્ગો ઍક્સેસ",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
 
   // "search.filters.access_status.metadata.only": "Metadata only",
   "search.filters.access_status.metadata.only": "મેટાડેટા માત્ર",

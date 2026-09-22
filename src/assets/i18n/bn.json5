@@ -55,7 +55,11 @@
   "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
   "access-status.embargo.listelement.badge": "নিষেধাজ্ঞা",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
   "access-status.metadata.only.listelement.badge": "মেটাডেটা শুধুমাত্র",
@@ -11824,7 +11828,11 @@
   "search.filters.access_status.restricted": "সীমিত অ্যাক্সেস",
 
   // "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
   "search.filters.access_status.embargo": "নিষিদ্ধ অ্যাক্সেস",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
 
   // "search.filters.access_status.metadata.only": "Metadata only",
   "search.filters.access_status.metadata.only": "মেটাডেটা শুধুমাত্র",
