@@ -1,13 +1,13 @@
 import { throwError } from 'rxjs';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { isNotEmpty } from '../../utils/empty.util';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../data/paginated-list.model';
 import { RequestService } from '../data/request.service';

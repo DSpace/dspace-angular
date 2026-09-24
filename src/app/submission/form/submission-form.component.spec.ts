@@ -9,17 +9,15 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { SubmissionVisibilityValue } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -29,7 +27,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
@@ -53,18 +50,6 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../utils/submission.mock';
-} from '../../shared/mocks/submission.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../shared/testing/utils.test';
-import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
-import { SectionsService } from '../sections/sections.service';
-import { SubmissionService } from '../submission.service';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
@@ -97,7 +82,7 @@ describe('SubmissionFormComponent', () => {
       findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
     });
     submissionDefinitionsConfigService = jasmine.createSpyObj('submissionDefinitionsConfigService', {
-      findAllSections: observableOf(undefined),
+      findAllSections: of(undefined),
     });
     TestBed.configureTestingModule({
       imports: [
@@ -317,7 +302,7 @@ describe('SubmissionFormComponent', () => {
     });
 
     it('should fall back to the embedded sections when the sections link is missing (old backend)', (done) => {
-      submissionDefinitionsConfigService.findAllSections.and.returnValue(observableOf(undefined));
+      submissionDefinitionsConfigService.findAllSections.and.returnValue(of(undefined));
 
       const embeddedDefinition = arrangeSubmission(Object.assign({}, submissionDefinition));
       const embeddedSections = embeddedDefinition.sections;

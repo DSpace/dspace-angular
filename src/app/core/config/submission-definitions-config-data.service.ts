@@ -11,7 +11,7 @@ import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import {
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -22,17 +22,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
-import {
-  createFailedRemoteDataObject,
-  createFailedRemoteDataObjectFromError,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -49,6 +38,13 @@ import { ConfigDataService } from './config-data.service';
 import { ConfigObject } from './models/config.model';
 import { SubmissionDefinitionsModel } from './models/config-submission-definitions.model';
 import { SubmissionSectionModel } from './models/config-submission-section.model';
+import {hasValue, isNotEmpty} from "@dspace/shared/utils/empty.util";
+import isEmpty from "lodash/isEmpty";
+import {
+  createFailedRemoteDataObject,
+  createFailedRemoteDataObjectFromError,
+  createSuccessfulRemoteDataObject,
+} from "@dspace/core/utilities/remote-data.utils";
 
 /**
  * Number of {@link SubmissionSectionModel}s requested per page when following the `sections` HAL
@@ -113,7 +109,7 @@ export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
 
     if (isEmpty(sectionsHref)) {
       // No sections link present (e.g. an older backend). Signal the caller to fall back.
-      return observableOf(undefined);
+      return of(undefined);
     }
 
     let firstFailure: RemoteData<PaginatedList<ConfigObject>>;
@@ -149,7 +145,7 @@ export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
     const options: FindListOptions = { elementsPerPage: SUBMISSION_SECTIONS_PAGE_SIZE };
     return super.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale).pipe(
       getFirstCompletedRemoteData(),
-      catchError((error: unknown) => observableOf(createFailedRemoteDataObjectFromError<PaginatedList<ConfigObject>>(error))),
+      catchError((error: unknown) => of(createFailedRemoteDataObjectFromError<PaginatedList<ConfigObject>>(error))),
     );
   }
 }

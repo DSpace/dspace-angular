@@ -42,24 +42,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
@@ -382,7 +367,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    */
   protected resolveAllSections(): Observable<void> {
     if (!hasValue(this.submissionDefinition)) {
-      return observableOf(undefined);
+      return of(undefined);
     }
     return this.submissionDefinitionsConfigService.findAllSections(this.submissionDefinition).pipe(
       map((rd: RemoteData<PaginatedList<SubmissionSectionModel>>) => {
