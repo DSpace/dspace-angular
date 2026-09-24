@@ -13,6 +13,7 @@ import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/pagina
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
@@ -180,6 +181,53 @@ describe('SearchConfigurationService', () => {
     });
     it('should call getCurrentPagination on the paginationService with the provided id and sort options', () => {
       expect((service as any).paginationService.getCurrentPagination).toHaveBeenCalledWith(defaults.pagination.id, defaults.pagination);
+    });
+  });
+
+  describe('when setViewMode is called', () => {
+    beforeEach(() => {
+      service.searchInstanceId = 'custom-search';
+      paginationService.getCurrentPagination.and.returnValue(of(
+        Object.assign(new PaginationComponentOptions(), { pageSize: 20 }),
+      ));
+      paginationService.updateRouteWithUrl.calls.reset();
+    });
+
+    it('should update the scoped view parameter and reset the page', () => {
+      service.setViewMode(ViewMode.GridElement, ['search']);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'custom-search',
+        ['search'],
+        { page: 1 },
+        { 'custom-search.view': ViewMode.GridElement },
+      );
+    });
+
+    it('should use a page size of one for the detailed list view', () => {
+      service.setViewMode(ViewMode.DetailedListElement, []);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'custom-search',
+        [],
+        { page: 1, pageSize: 1 },
+        { 'custom-search.view': ViewMode.DetailedListElement },
+      );
+    });
+
+    it('should restore the default page size when leaving the detailed list view', () => {
+      paginationService.getCurrentPagination.and.returnValue(of(
+        Object.assign(new PaginationComponentOptions(), { pageSize: 1 }),
+      ));
+
+      service.setViewMode(ViewMode.ListElement, []);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'custom-search',
+        [],
+        { page: 1, pageSize: 10 },
+        { 'custom-search.view': ViewMode.ListElement },
+      );
     });
   });
 
