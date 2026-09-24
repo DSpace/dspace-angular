@@ -3,7 +3,8 @@
 }
 
 img {
-  max-width: 100%;
+  max-height: var(--ds-thumbnail-max-height);
+  width: 100%; // upscale small images
 }
 
 .outer {  // .outer/.inner generated ~ https://ratiobuddy.com/
@@ -12,7 +13,7 @@ img {
     display: block;
     content: "";
     width: 100%;
-    padding-top: calc((297 / 210) * 100%);  // A4 ratio
+    padding-top: calc((var(--ds-thumbnail-aspect-ratio)) * 100%);
   }
   > .inner {
     position: absolute;
