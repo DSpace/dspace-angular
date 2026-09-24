@@ -24,6 +24,7 @@ export class SearchConfigurationServiceStub {
 
   public searchOptions: BehaviorSubject<SearchOptions> = new BehaviorSubject(new SearchOptions({}));
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
+  private viewMode: BehaviorSubject<ViewMode> = new BehaviorSubject<ViewMode>(undefined);
 
   getCurrentFrontendFilters() {
     return of([]);
@@ -62,7 +63,14 @@ export class SearchConfigurationServiceStub {
   }
 
   getCurrentViewMode(defaultViewMode: ViewMode) {
-    return of(defaultViewMode);
+    if (this.viewMode.value === undefined) {
+      this.viewMode.next(defaultViewMode);
+    }
+    return this.viewMode.asObservable();
+  }
+
+  setViewMode(viewMode: ViewMode) {
+    this.viewMode.next(viewMode);
   }
 
   getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {

@@ -2,6 +2,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -23,7 +24,9 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../search/search.service';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 /**
@@ -73,7 +76,9 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    */
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
 
-  constructor(private searchService: SearchService, private router: Router) {
+  constructor(private searchService: SearchService,
+              private router: Router,
+              @Inject(SEARCH_CONFIG_SERVICE) private searchConfigurationService: SearchConfigurationService) {
   }
 
   /**
@@ -87,7 +92,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.sub = this.searchService.getViewMode().pipe(
+    this.sub = this.searchConfigurationService.getCurrentViewMode(ViewMode.ListElement).pipe(
       filter((viewMode: ViewMode) => isNotEmpty(viewMode)),
     ).subscribe((viewMode: ViewMode) => {
       this.currentMode = viewMode;
@@ -102,7 +107,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
     if (viewMode !== this.currentMode) {
       this.changeViewMode.emit(viewMode);
     }
-    this.searchService.setViewMode(viewMode, this.getSearchLinkParts());
+    this.searchConfigurationService.setViewMode(viewMode, this.getSearchLinkParts());
   }
 
   ngOnDestroy() {
