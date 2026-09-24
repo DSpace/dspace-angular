@@ -317,6 +317,25 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
+   * Changes the current view mode in the current URL
+   * @param viewMode Mode to switch to
+   * @param searchLinkParts Route segments used for the navigation
+   */
+  setViewMode(viewMode: ViewMode, searchLinkParts: string[]): void {
+    this.paginationService.getCurrentPagination(this.searchInstanceId, new PaginationComponentOptions()).pipe(take(1))
+      .subscribe((config) => {
+        let pageParams = { page: 1 };
+        const queryParams = { [this.getCurrentSearchInstanceParam('view')]: viewMode };
+        if (viewMode === ViewMode.DetailedListElement) {
+          pageParams = Object.assign(pageParams, { pageSize: 1 });
+        } else if (config.pageSize === 1) {
+          pageParams = Object.assign(pageParams, { pageSize: 10 });
+        }
+        this.paginationService.updateRouteWithUrl(this.searchInstanceId, searchLinkParts, pageParams, queryParams);
+      });
+  }
+
+  /**
    * Creates an observable of SearchConfig every time the configuration stream emits.
    * @param configuration The search configuration
    * @param scope The search scope if exists
