@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Params } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
@@ -75,7 +74,14 @@ export class SearchFilterService {
    * @param {string} filterValue The value for which to search
    * @returns {Observable<boolean>} Emit true when the filter is active with the given value
    */
-  isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
+  isFilterActiveWithValue(paramName: string, filterValue: string, searchInstanceId?: string): Observable<boolean> {
+    if (hasValue(searchInstanceId)) {
+      return observableCombineLatest(
+        this.routeService.hasQueryParamWithValue(this.getSearchInstanceParam(searchInstanceId, paramName), filterValue),
+        this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceParam(searchInstanceId, 'f.')),
+        this.routeService.hasQueryParamWithValue(paramName, filterValue),
+      ).pipe(map(([instanceActive, instanceFilters, legacyActive]) => instanceActive || (!isNotEmpty(instanceFilters) && legacyActive)));
+    }
     return this.routeService.hasQueryParamWithValue(paramName, filterValue);
   }
 
@@ -84,7 +90,14 @@ export class SearchFilterService {
    * @param {string} paramName The parameter name of the filter's configuration for which to search
    * @returns {Observable<boolean>} Emit true when the filter is active with any value
    */
-  isFilterActive(paramName: string): Observable<boolean> {
+  isFilterActive(paramName: string, searchInstanceId?: string): Observable<boolean> {
+    if (hasValue(searchInstanceId)) {
+      return observableCombineLatest(
+        this.routeService.hasQueryParam(this.getSearchInstanceParam(searchInstanceId, paramName)),
+        this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceParam(searchInstanceId, 'f.')),
+        this.routeService.hasQueryParam(paramName),
+      ).pipe(map(([instanceActive, instanceFilters, legacyActive]) => instanceActive || (!isNotEmpty(instanceFilters) && legacyActive)));
+    }
     return this.routeService.hasQueryParam(paramName);
   }
 
@@ -92,16 +105,16 @@ export class SearchFilterService {
    * Fetch the current active scope from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentScope(): Observable<string> {
-    return this.routeService.getQueryParameterValue('scope');
+  getCurrentScope(searchInstanceId?: string) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'scope');
   }
 
   /**
    * Fetch the current query from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentQuery(): Observable<string> {
-    return this.routeService.getQueryParameterValue('query');
+  getCurrentQuery(searchInstanceId?: string) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'query');
   }
 
   /**
@@ -142,7 +155,13 @@ export class SearchFilterService {
    * Fetch the current active filters from the query parameters
    * @returns {Observable<Params>}
    */
-  getCurrentFilters(): Observable<Params> {
+  getCurrentFilters(searchInstanceId?: string) {
+    if (hasValue(searchInstanceId)) {
+      return observableCombineLatest(
+        this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceParam(searchInstanceId, 'f.')),
+        this.routeService.getQueryParamsWithPrefix('f.'),
+      ).pipe(map(([instanceFilters, legacyFilters]) => isNotEmpty(instanceFilters) ? instanceFilters : legacyFilters));
+    }
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
@@ -150,8 +169,8 @@ export class SearchFilterService {
    * Fetch the current view from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentView(): Observable<string> {
-    return this.routeService.getQueryParameterValue('view');
+  getCurrentView(searchInstanceId?: string) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'view');
   }
 
   /**
@@ -188,6 +207,20 @@ export class SearchFilterService {
    */
   getDisplayValue(facet: FacetValue, query: string): string {
     return `${new EmphasizePipe().transform(facet.value, query)} (${facet.count})`;
+  }
+
+  private getSearchInstanceParam(searchInstanceId: string, parameterName: string): string {
+    return `${searchInstanceId}.${parameterName}`;
+  }
+
+  private getCurrentSearchInstanceQueryParam(searchInstanceId: string | undefined, parameterName: string): Observable<string> {
+    if (hasValue(searchInstanceId)) {
+      return observableCombineLatest(
+        this.routeService.getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, parameterName)),
+        this.routeService.getQueryParameterValue(parameterName),
+      ).pipe(map(([instanceValue, legacyValue]) => hasValue(instanceValue) ? instanceValue : legacyValue));
+    }
+    return this.routeService.getQueryParameterValue(parameterName);
   }
 
   /**

@@ -7,7 +7,10 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -146,17 +149,15 @@ export class SearchFormComponent implements OnChanges {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-    const goToFirstPage = { 'spc.page': 1 };
-
-    const queryParams = Object.assign(
-      {
-        ...goToFirstPage,
-      },
-      data,
-    );
-    if (hasValue(data.scope) && this.hideScopeInUrl) {
-      delete queryParams.scope;
-    }
+    const queryParams: Params = {
+      [this.paginationService.getPageParam(this.searchConfig.searchInstanceId)]: 1,
+    };
+    Object.keys(data).forEach((key) => {
+      if (key === 'scope' && hasValue(data.scope) && this.hideScopeInUrl) {
+        return;
+      }
+      queryParams[this.searchConfig.getCurrentSearchInstanceParam(key)] = data[key];
+    });
 
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
