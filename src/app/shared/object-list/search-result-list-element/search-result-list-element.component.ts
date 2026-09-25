@@ -38,6 +38,11 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    */
   additionalMetadataLimit: number;
 
+  /**
+   * Emits if the list element is currently collapsed or not
+   */
+  isCollapsed$: Observable<boolean>;
+
   public constructor(protected truncatableService: TruncatableService,
                      public dsoNameService: DSONameService,
                      @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
@@ -52,6 +57,9 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
       this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso, true);
+    }
+    if (hasValue(this.dso)) {
+      this.isCollapsed$ = this.truncatableService.isCollapsed(this.dso.id);
     }
   }
 
@@ -106,13 +114,6 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    */
   firstMetadataValue(keyOrKeys: string | string[], escapeHTML = true): string {
     return Metadata.firstValue(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, escapeHTML);
-  }
-
-  /**
-   * Emits if the list element is currently collapsed or not
-   */
-  isCollapsed(): Observable<boolean> {
-    return this.truncatableService.isCollapsed(this.dso.id);
   }
 
 }

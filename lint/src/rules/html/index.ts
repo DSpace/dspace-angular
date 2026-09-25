@@ -11,11 +11,13 @@ import {
   RuleExports,
 } from '../../util/structure';
 import * as noDisabledAttributeOnButton from './no-disabled-attribute-on-button';
+import * as noMethodCallWithAsyncPipe from './no-method-call-with-async-pipe';
 import * as themedComponentUsages from './themed-component-usages';
 
 const index = [
   themedComponentUsages,
   noDisabledAttributeOnButton,
+  noMethodCallWithAsyncPipe,
 
 ] as unknown as RuleExports[];
 

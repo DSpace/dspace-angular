@@ -70,6 +70,14 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
    */
   public totalElements$: Observable<number>;
   /**
+   * The loading status of the Suggestion Targets (if it's running or not).
+   */
+  public isTargetsLoading$: Observable<boolean>;
+  /**
+   * The processing status of the Suggestion Targets (if it's running or not).
+   */
+  public isTargetsProcessing$: Observable<boolean>;
+  /**
    * Array to track all the component subscriptions. Useful to unsubscribe them with 'onDestroy'.
    * @type {Array}
    */
@@ -96,6 +104,8 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
   ngOnInit(): void {
     this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets(this.sourceId());
     this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals(this.sourceId());
+    this.isTargetsLoading$ = this.suggestionTargetsStateService.isSuggestionTargetsLoading(this.sourceId());
+    this.isTargetsProcessing$ = this.suggestionTargetsStateService.isSuggestionTargetsProcessing(this.sourceId());
   }
 
   /**
@@ -109,26 +119,6 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
         this.getSuggestionTargets();
       }),
     );
-  }
-
-  /**
-   * Returns the information about the loading status of the Suggestion Targets (if it's running or not).
-   *
-   * @return Observable<boolean>
-   *    'true' if the targets are loading, 'false' otherwise.
-   */
-  public isTargetsLoading(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isSuggestionTargetsLoading(this.sourceId());
-  }
-
-  /**
-   * Returns the information about the processing status of the Suggestion Targets (if it's running or not).
-   *
-   * @return Observable<boolean>
-   *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
-   */
-  public isTargetsProcessing(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isSuggestionTargetsProcessing(this.sourceId());
   }
 
   /**
