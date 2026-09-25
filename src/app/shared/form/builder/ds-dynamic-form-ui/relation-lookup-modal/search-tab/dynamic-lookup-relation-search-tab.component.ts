@@ -31,6 +31,7 @@ import {
   Observable,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
@@ -54,6 +55,7 @@ import { LookupRelationService } from '../lookup-relation.service';
   ],
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     NgbDropdownModule,
     ThemedSearchComponent,
     TranslateModule,
@@ -208,7 +210,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage: SearchResult<DSpaceObject>[] = page.filter((pageItem: SearchResult<DSpaceObject>) => selection.findIndex((selected: SearchResult<Item>) => selected.equals(pageItem)) < 0);
-        this.selectObject.emit(...filteredPage);
+        if (filteredPage && filteredPage.length > 0) {
+          this.selectObject.emit(...filteredPage);
+        }
       });
     this.selectableListService.select(this.listId, page);
   }
@@ -223,7 +227,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0);
-        this.deselectObject.emit(...filteredPage);
+        if (filteredPage && filteredPage.length > 0) {
+          this.deselectObject.emit(...filteredPage);
+        }
       });
     this.selectableListService.deselect(this.listId, page);
   }
