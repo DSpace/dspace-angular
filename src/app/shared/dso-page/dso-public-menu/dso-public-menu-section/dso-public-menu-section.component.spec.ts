@@ -1,0 +1,186 @@
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+
+import { MenuService } from '../../../menu/menu.service';
+import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
+import { MenuServiceStub } from '../../../menu/menu-service.stub';
+import { CSSVariableService } from '../../../sass-helper/css-variable.service';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { DsoPublicMenuSectionComponent } from './dso-public-menu-section.component';
+
+function initAsync(menuService: MenuServiceStub) {
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        DsoPublicMenuSectionComponent,
+        TestComponent,
+      ],
+      providers: [
+        { provide: MenuService, useValue: menuService },
+        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+    }).compileComponents();
+  }));
+}
+
+describe('DsoPublicMenuSectionComponent', () => {
+  let component: DsoPublicMenuSectionComponent;
+  let fixture: ComponentFixture<DsoPublicMenuSectionComponent>;
+  const menuService = new MenuServiceStub();
+  const iconString = 'test';
+
+  const dummySectionText = {
+    id: 'dummy',
+    active: false,
+    visible: true,
+    model: {
+      type: MenuItemType.TEXT,
+      disabled: false,
+      text: 'text',
+    },
+    icon: iconString,
+  };
+  const dummySectionLink = {
+    id: 'dummy',
+    active: false,
+    visible: true,
+    model: {
+      type: MenuItemType.LINK,
+      disabled: false,
+      text: 'text',
+      link: 'link',
+    },
+    icon: iconString,
+  };
+  const dummySectionClick = {
+    id: 'dummy',
+    active: false,
+    visible: true,
+    model: {
+      type: MenuItemType.ONCLICK,
+      disabled: false,
+      text: 'text',
+      function: () => 'test',
+    },
+    icon: iconString,
+  };
+
+  describe('text model', () => {
+    initAsync(menuService);
+
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
+      fixture = TestBed.createComponent(DsoPublicMenuSectionComponent);
+      component = fixture.componentInstance;
+      component.section = dummySectionText;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should show a button with the icon', () => {
+      const button = fixture.debugElement.query(By.css('.btn-dark'));
+      expect(button.nativeElement.innerHTML).toContain('fa-' + iconString);
+    });
+
+    describe('when the section model in a disabled link or text', () => {
+      it('should show just the button', () => {
+        const textButton = fixture.debugElement.query(By.css('div a'));
+        expect(textButton.nativeElement.innerHTML).toContain('fa-' + iconString);
+      });
+    });
+  });
+  describe('on click model', () => {
+    initAsync(menuService);
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
+      fixture = TestBed.createComponent(DsoPublicMenuSectionComponent);
+      component = fixture.componentInstance;
+      component.section = dummySectionClick;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
+      fixture.detectChanges();
+    });
+
+    describe('when the section model in an on click menu', () => {
+      it('should call the activate method when clicking the button', () => {
+        spyOn(component, 'activate');
+
+        const button = fixture.debugElement.query(By.css('.btn-dark'));
+        button.triggerEventHandler('click', null);
+
+        expect(component.activate).toHaveBeenCalled();
+      });
+    });
+    describe('activate', () => {
+      const mockEvent = jasmine.createSpyObj('event', {
+        preventDefault: jasmine.createSpy('preventDefault'),
+        stopPropagation: jasmine.createSpy('stopPropagation'),
+      });
+      it('should call the item model function when not disabled', () => {
+        spyOn((component as any).section.model as OnClickMenuItemModel, 'function');
+        component.activate(mockEvent);
+
+        expect(((component as any).section.model as OnClickMenuItemModel).function).toHaveBeenCalled();
+      });
+      it('should call not the item model function when disabled', () => {
+        spyOn((component as any).section.model as OnClickMenuItemModel, 'function');
+        component.itemModel.disabled = true;
+        component.activate(mockEvent);
+
+        expect(((component as any).section.model as OnClickMenuItemModel).function).not.toHaveBeenCalled();
+        component.itemModel.disabled = false;
+      });
+    });
+
+  });
+
+  describe('when the section model in a non disabled link', () => {
+    initAsync(menuService);
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
+      fixture = TestBed.createComponent(DsoPublicMenuSectionComponent);
+      component = fixture.componentInstance;
+      component.section = dummySectionLink;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
+      fixture.detectChanges();
+    });
+
+    it('should show the link element', () => {
+      expect(fixture.debugElement.query(By.css('a'))).not.toBeNull();
+    });
+
+  });
+});
+
+@Component({
+  selector: 'ds-test-cmp',
+  template: ``,
+})
+class TestComponent {
+}

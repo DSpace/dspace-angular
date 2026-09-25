@@ -39,6 +39,7 @@ import {
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from '../../shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -65,6 +66,7 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     AsyncPipe,
     CollectionsComponent,
     DsoEditMenuComponent,
+    DsoPublicMenuComponent,
     ErrorComponent,
     ItemVersionsComponent,
     ItemVersionsNoticeComponent,

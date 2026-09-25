@@ -294,4 +294,12 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
       ),
     );
   }
+
+  /**
+   * Get process' details
+   * @param processId The ID of the process
+   */
+  getProcess(processId: string): Observable<RemoteData<Process>> {
+    return this.findById(processId, false);
+  }
 }
