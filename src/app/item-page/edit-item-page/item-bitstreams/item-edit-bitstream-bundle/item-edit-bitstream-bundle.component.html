@@ -97,7 +97,7 @@
                     headers="{{ entry.nameStripped }} {{ bundleName }} actions">
                     <div class="text-center w-100">
                       <div class="btn-group relationship-action-buttons">
-                        <a [href]="entry.downloadUrl"
+                        <a [routerLink]="entry.downloadUrl"
                           [attr.aria-label]="'item.edit.bitstreams.edit.buttons.download' | translate"
                           class="btn btn-outline-primary btn-sm"
                           title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
