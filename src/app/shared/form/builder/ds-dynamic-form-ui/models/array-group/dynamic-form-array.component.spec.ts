@@ -69,6 +69,7 @@ describe('DsDynamicFormArrayComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
+        { provide: 'sectionDataProvider', useValue: { id: 'mock-section-id' } },
       ],
     }).overrideComponent(DsDynamicFormArrayComponent, {
       remove: {

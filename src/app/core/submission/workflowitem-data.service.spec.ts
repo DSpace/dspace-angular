@@ -12,6 +12,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
@@ -91,6 +92,7 @@ describe('WorkflowItemDataService test', () => {
       objectCache,
       halService,
       notificationsService,
+      new DefaultChangeAnalyzer(),
     );
   }
 
