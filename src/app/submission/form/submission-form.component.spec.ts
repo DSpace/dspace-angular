@@ -10,6 +10,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
@@ -61,6 +62,7 @@ describe('SubmissionFormComponent', () => {
 
   const submissionObject: any = mockSubmissionObject;
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
+  let uploadsConfigService: any;
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const submissionObjectNew: any = mockSubmissionObjectNew;
@@ -74,6 +76,9 @@ describe('SubmissionFormComponent', () => {
     metadataSecurityConfigDataService = jasmine.createSpyObj('metadataSecurityConfigDataService', {
       findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
     });
+    uploadsConfigService = jasmine.createSpyObj('uploadsConfigService', {
+      findByHref: createSuccessfulRemoteDataObject$({ maxSize: 1234 }),
+    });
     TestBed.configureTestingModule({
       imports: [
         SubmissionFormComponent,
@@ -85,6 +90,7 @@ describe('SubmissionFormComponent', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
+        { provide: SubmissionUploadsConfigDataService, useValue: uploadsConfigService },
         { provide: SectionsService, useValue:
           {
             isSectionTypeAvailable: () => of(true),
@@ -202,6 +208,36 @@ describe('SubmissionFormComponent', () => {
         null,
         undefined);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
+      done();
+    });
+
+    it('should pass the upload section size limit to the uploader', (done) => {
+      comp.collectionId = collectionId;
+      comp.submissionId = submissionId;
+      comp.submissionDefinition = submissionDefinition;
+      comp.selfUrl = selfUrl;
+      comp.sections = sectionsData;
+      comp.submissionErrors = null;
+      comp.item = new Item();
+      comp.entityType = 'publication';
+      submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionState));
+      submissionServiceStub.getSubmissionSections.and.returnValue(of([
+        { id: 'traditionalpageone', sectionType: 'submission-form', config: 'https://rest.api/config/submissionforms/one' },
+        { id: 'upload', sectionType: 'upload', config: 'https://rest.api/config/submissionuploads/upload' },
+      ]));
+      spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
+
+      scheduler.schedule(() => {
+        comp.ngOnChanges({
+          collectionId: new SimpleChange(null, collectionId, true),
+          submissionId: new SimpleChange(null, submissionId, true),
+        });
+        fixture.detectChanges();
+      });
+      scheduler.flush();
+
+      expect(uploadsConfigService.findByHref).toHaveBeenCalledWith('https://rest.api/config/submissionuploads/upload');
+      expect(comp.uploadFilesOptions.maxFileSize).toBe(1234);
       done();
     });
 
