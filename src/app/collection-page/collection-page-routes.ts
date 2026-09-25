@@ -8,11 +8,11 @@ import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreemen
 import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
-import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   BULK_IMPORT_PATH,
@@ -20,6 +20,7 @@ import {
   COLLECTION_EDIT_PATH,
   ITEMTEMPLATE_PATH,
 } from './collection-page-routing-paths';
+import { collectionPageResolver } from './collection-page.resolver';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { createCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
@@ -138,5 +139,10 @@ export const ROUTES: Route[] = [
         },
       },
     ],
+  },
+  {
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    canActivate: [endUserAgreementCurrentUserGuard],
   },
 ];
