@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -23,6 +26,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     FileSizePipe,
     MetadataDirective,
     MetadataFieldWrapperComponent,
+    NgTemplateOutlet,
     PaginationComponent,
     ThemedFileDownloadLinkComponent,
     ThemedThumbnailComponent,
