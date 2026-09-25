@@ -144,6 +144,13 @@ export class DefaultAppConfig implements AppConfig {
     },
   };
 
+  // System-wide alert settings
+  systemWideAlert = {
+    // How often (in milliseconds) the system-wide alert is refreshed during navigation.
+    // Prevents spamming the endpoint on every route change.
+    refreshIntervalMs: 5 * 60 * 1000, // 5 minutes
+  };
+
   // Form settings
   form: FormConfig = {
     spellCheck: true,
