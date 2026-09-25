@@ -26,7 +26,7 @@
     <div class="sidebar-full-width-container" id="sidebar-top-level-items-container">
       <div class="sidebar-full-width-container" id="sidebar-top-level-items" role="menubar"
         [attr.aria-label]="'menu.header.admin.description' |translate">
-        @for (sectionDTO of (sectionDTOs$ | async); track sectionDTO) {
+        @for (sectionDTO of (sectionDTOs$ | async); track sectionDTO.menuSection.id) {
           <ds-menu-component-loader [menuID]="menuID"
                                     [expandable]="sectionDTO.hasSubSections || sectionDTO.menuSection.alwaysRenderExpandable"
                                     [section]="sectionDTO.menuSection">

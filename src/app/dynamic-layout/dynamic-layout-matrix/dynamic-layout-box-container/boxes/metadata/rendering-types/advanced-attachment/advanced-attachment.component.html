@@ -1,0 +1,12 @@
+<div class="{{valueStyle}}">
+  @for (attachment of (bitstreams$ | async); track attachment; let last = $last) {
+    <ds-bitstream-attachment data-test="attachment-info" [attachment]="attachment"></ds-bitstream-attachment>
+  }
+  @if (canViewMore) {
+    <div class="w-100 text-center my-3">
+      <button class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
+        {{'dynamic-layout.advanced-attachment.viewMore' | translate}}
+      </button>
+    </div>
+  }
+</div>
