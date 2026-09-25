@@ -1,0 +1,26 @@
+:host ::ng-deep {
+  .accordion .accordion-item {
+    border-radius: 0;
+  }
+
+  & > :not(:first-child) .accordion .accordion-item {
+    border-top: 0;
+  }
+
+  & > :first-child .accordion .accordion-item {
+    border-top-left-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
+    border-top-right-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
+  }
+
+  & > :last-child .accordion {
+    .accordion-item {
+      border-bottom-left-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
+      border-bottom-right-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
+    }
+
+    .accordion-item:last-of-type .accordion-button.collapsed {
+      border-bottom-left-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
+      border-bottom-right-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@if (hasData) {
+  <div [class]="valueStyle">
+    @defer {
+      <ds-geospatial-map
+        [coordinates]="coordinates"
+        [bbox]="bboxes"
+        [layout]="'item'">
+      </ds-geospatial-map>
+    }
+  </div>
+}

@@ -1,0 +1,11 @@
+<div [class]="field.styleValue" [attr.lang]="metadataValue.language">
+  @if (isMetadataLink !== true) {
+    <span class="text-value">
+      {{ value$ | async }}
+    </span>
+  } @else {
+    <a [href]="metadataValue.value" class="text-value">
+      {{ value$ | async }}
+    </a>
+  }
+</div>

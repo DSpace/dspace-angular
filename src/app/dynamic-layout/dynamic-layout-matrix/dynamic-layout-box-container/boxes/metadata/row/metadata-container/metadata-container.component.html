@@ -1,0 +1,31 @@
+@if (metadataFieldRenderOptions) {
+  <div class="{{containerStyle}}">
+    <div class="d-flex row" [class.flex-column]="field.labelAsHeading">
+      @if (hasLabel) {
+        <span
+          class="{{labelStyle}}" [innerHTML]="getLabel()">
+        </span>
+      }
+      @if (!isStructured) {
+        <div class="d-flex col flex-wrap" [class.flex-column]="!field.valuesInline">
+          @for (metadataValue of metadataValues ; track metadataValue; let last = $last) {
+            <ds-metadata-render [field]="field"
+              [item]="item"
+              [box]="box"
+            [metadataValue]="metadataValue"></ds-metadata-render>
+            @if (field.valuesInline && !last) {
+              <p>;&nbsp;</p>
+            }
+          }
+        </div>
+      }
+      @if (isStructured) {
+        <div class="col w-100" [class.flex-column]="!field.valuesInline">
+          <ds-metadata-render [field]="field"
+            [item]="item"
+          [box]="box"></ds-metadata-render>
+        </div>
+      }
+    </div>
+  </div>
+}
