@@ -38,7 +38,10 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
@@ -401,9 +404,21 @@ export class SearchComponent implements OnDestroy, OnInit {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
+    // A failed search-configuration request must not stall the whole component.
+    // getConfigurationSearchConfig() pipes through
+    // getAllSucceededRemoteDataPayload(), so on failure it never emits: the
+    // combineLatest below never fires, initialized$ stays false, and the entire
+    // template is skipped — leaving a blank page in which not even
+    // ds-search-results (which renders the error) is created. Treat a failed
+    // configuration as "no sort options" so the component still initializes and
+    // the search results error can surface.
     const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
-      switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
-      map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
+      switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getSearchConfigurationFor(scope, configuration).pipe(
+        getAllCompletedRemoteData(),
+        map((searchConfigRD: RemoteData<SearchConfig>) => searchConfigRD.hasSucceeded
+          ? this.searchConfigService.getConfigurationSortOptions(searchConfigRD.payload)
+          : []),
+      )),
       distinctUntilChanged(),
     );
     const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
