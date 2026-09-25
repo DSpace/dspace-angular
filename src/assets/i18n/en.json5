@@ -6006,7 +6006,11 @@
 
   "submission.sections.upload.upload-failed": "Upload failed",
 
+  "submission.sections.upload.upload-failed-file": "Upload failed for file \"{{fileName}}\"",
+
   "submission.sections.upload.upload-successful": "Upload successful",
+
+  "submission.sections.upload.upload-successful-file": "File \"{{fileName}}\" uploaded successfully",
 
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
 
