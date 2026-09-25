@@ -22,8 +22,8 @@ import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-serv
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../../../search.service';
-import { SearchConfigurationService } from '../../../../search-configuration.service';
 import { SearchFilterService } from '../../../search-filter.service';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
 
@@ -72,7 +72,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
         { provide: SearchService, useValue:searchService },
         { provide: Router, useValue: router },
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
