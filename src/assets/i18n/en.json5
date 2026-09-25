@@ -1273,6 +1273,10 @@
 
   "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
 
+  "collection.edit.tabs.template.head": "Template Item",
+
+  "collection.edit.tabs.template.title": "Collection Edit - Template Item",
+
   "collection.edit.item-mapper.cancel": "Cancel",
 
   "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",

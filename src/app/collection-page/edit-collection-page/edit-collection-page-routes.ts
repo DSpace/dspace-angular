@@ -13,6 +13,7 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
+import { CollectionTemplateItemComponent } from './collection-template-item/collection-template-item.component';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 /**
@@ -94,6 +95,11 @@ export const ROUTES: Route[] = [
         path: 'mapper',
         component: CollectionItemMapperComponent,
         data: { title: 'collection.edit.tabs.item-mapper.title', hideReturnButton: true, showBreadcrumbs: true },
+      },
+      {
+        path: 'template',
+        component: CollectionTemplateItemComponent,
+        data: { title: 'collection.edit.tabs.template.title', hideReturnButton: true, showBreadcrumbs: true },
       },
     ],
   },
