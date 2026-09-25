@@ -22,6 +22,8 @@
     }
 
     .bottom-footer {
+      flex-wrap: wrap;
+
       .notify-enabled {
         position: relative;
         margin-top: 4px;
@@ -36,7 +38,7 @@
           margin-bottom: 8.5px;
         }
 
-        @media screen and (min-width: map-get($grid-breakpoints, md))  {
+        @media screen and (min-width: map-get($grid-breakpoints, xl))  {
           position: absolute;
           bottom: 4px;
           right: 0;
@@ -67,6 +69,24 @@
               border-right: 1px var(--bs-secondary) solid;
             }
 
+          }
+        }
+      }
+
+      @include media-breakpoint-down(md) {
+        ul {
+          flex-wrap: wrap;
+          column-gap: calc(var(--bs-spacer) / 2);
+          row-gap: calc(var(--bs-spacer) / 2);
+
+          li {
+            &::after {
+              display: none;
+            }
+
+            a, .btn-link {
+              white-space: nowrap;
+            }
           }
         }
       }
