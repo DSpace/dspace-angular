@@ -110,6 +110,31 @@ describe('ProcessFormComponent', () => {
     expect(scriptService.invoke).toHaveBeenCalled();
   });
 
+  it('should mark the form as submitted when submit is attempted', () => {
+    expect(component.submitted).toBeFalse();
+    component.submitForm({ controls: {} } as any);
+    expect(component.submitted).toBeTrue();
+  });
+
+  describe('when no script is selected', () => {
+    beforeEach(() => {
+      component.selectedScript = undefined;
+    });
+
+    it('should not invoke the script on submit', () => {
+      component.submitForm({ controls: {} } as any);
+      expect(scriptService.invoke).not.toHaveBeenCalled();
+    });
+
+    it('should report that a script is not selected', () => {
+      expect(component.isScriptSelected).toBeFalse();
+    });
+  });
+
+  it('should report that a script is selected', () => {
+    expect(component.isScriptSelected).toBeTrue();
+  });
+
   describe('when undefined parameters are provided', () => {
     beforeEach(() => {
       component.parameters = undefined;
