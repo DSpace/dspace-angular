@@ -70,13 +70,24 @@ describe('SearchNavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('when you click on search icon', () => {
+  describe('when collapsed', () => {
+    it('should render only the toggle <button> with no surrounding <form>', () => {
+      const form = fixture.debugElement.query(By.css('form'));
+      const toggle = fixture.debugElement.query(By.css('button.search-toggle'));
+      expect(form).toBeNull();
+      expect(toggle).not.toBeNull();
+      expect(toggle.nativeElement.tagName).toBe('BUTTON');
+      expect(toggle.nativeElement.getAttribute('type')).toBe('button');
+    });
+  });
+
+  describe('when you click on the search toggle', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'expand').and.callThrough();
       spyOn(component, 'onSubmit').and.callThrough();
       spyOn(router, 'navigate');
-      const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
-      searchIcon.triggerEventHandler('click', {
+      const toggle = fixture.debugElement.query(By.css('button.search-toggle'));
+      toggle.triggerEventHandler('click', {
         preventDefault: () => {/**/
         },
       });
@@ -86,16 +97,22 @@ describe('SearchNavbarComponent', () => {
 
     it('input expands', () => {
       expect(component.expand).toHaveBeenCalled();
+      expect(component.searchExpanded).toBeTrue();
+    });
+
+    it('renders the form with a real submit button', () => {
+      const form = fixture.debugElement.query(By.css('form'));
+      const submit = fixture.debugElement.query(By.css('form button.submit-icon'));
+      expect(form).not.toBeNull();
+      expect(submit).not.toBeNull();
+      expect(submit.nativeElement.getAttribute('type')).toBe('submit');
     });
 
     describe('empty query', () => {
       describe('press submit button', () => {
         beforeEach(fakeAsync(() => {
-          const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
-          searchIcon.triggerEventHandler('click', {
-            preventDefault: () => {/**/
-            },
-          });
+          const form = fixture.debugElement.query(By.css('form'));
+          form.triggerEventHandler('submit', null);
           tick();
           fixture.detectChanges();
         }));
@@ -117,17 +134,16 @@ describe('SearchNavbarComponent', () => {
         searchInput.nativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
       });
-      describe('press submit button', () => {
+      describe('press Enter on the input (native submit)', () => {
         beforeEach(fakeAsync(() => {
-          const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
-          searchIcon.triggerEventHandler('click', null);
+          const form = fixture.debugElement.query(By.css('form'));
+          form.triggerEventHandler('submit', null);
           tick();
           fixture.detectChanges();
         }));
         it('to search page with query', async () => {
           const extras: NavigationExtras = { queryParams: { query: 'test' } };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
-
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);
         });
       });
