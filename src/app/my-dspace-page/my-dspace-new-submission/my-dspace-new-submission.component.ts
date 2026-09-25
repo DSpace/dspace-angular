@@ -89,6 +89,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     this.sub = this.halService.getEndpoint('workspaceitems').pipe(first()).subscribe((url) => {
       this.uploadFilesOptions.url = url;
       this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+      this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
       this.changeDetectorRef.detectChanges();
     },
     );

@@ -217,6 +217,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnDe
         distinctUntilChanged())
         .subscribe((endpointURL) => {
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+          this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
           this.uploadFilesUrlNoParam = `${endpointURL}/${this.submissionId}`;
           this.setUploadUrlParameters();
         }),
