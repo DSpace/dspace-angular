@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { RequestParam } from '@dspace/core/cache/models/request-param.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  FindListOptions,
+  MAX_PAGE_SIZE,
+} from '@dspace/core/data/find-list-options.model';
 import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
 import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
@@ -94,7 +97,7 @@ export class RegistryService {
   public getMetadataSchemaByPrefix(prefix: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
-      elementsPerPage: 10000,
+      elementsPerPage: MAX_PAGE_SIZE,
     });
     return this.getMetadataSchemas(options).pipe(
       getFirstSucceededRemoteDataPayload(),
