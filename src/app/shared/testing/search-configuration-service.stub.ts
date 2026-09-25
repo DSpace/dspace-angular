@@ -17,7 +17,7 @@ import { SearchOptions } from '../search/models/search-options.model';
  */
 export class SearchConfigurationServiceStub {
 
-  public paginationID = 'test-id';
+  public searchInstanceId = 'test-id';
 
   public searchOptions: BehaviorSubject<SearchOptions> = new BehaviorSubject(new SearchOptions({}));
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
@@ -28,6 +28,18 @@ export class SearchConfigurationServiceStub {
 
   getCurrentFilters() {
     return of([]);
+  }
+
+  getCurrentSearchInstanceParam(param: string) {
+    return `${this.searchInstanceId}.${param}`;
+  }
+
+  getCurrentSearchInstanceFilterParam(param: string) {
+    return `${this.searchInstanceId}.${param}`;
+  }
+
+  getCurrentPageParam() {
+    return `${this.searchInstanceId}.page`;
   }
 
   getCurrentScope(a) {
