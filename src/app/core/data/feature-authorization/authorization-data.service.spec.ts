@@ -1,8 +1,10 @@
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of,
+  throwError,
 } from 'rxjs';
 
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -26,6 +28,7 @@ describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
   let siteService: SiteDataService;
   let objectCache;
+  let authService;
 
   let site: Site;
   let ePerson: EPerson;
@@ -48,8 +51,12 @@ describe('AuthorizationDataService', () => {
     siteService = jasmine.createSpyObj('siteService', {
       find: of(site),
     });
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      isAuthenticationReady: of(true),
+    });
     objectCache = getMockObjectCacheService();
-    service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService);
+    service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService, authService);
   }
 
   beforeEach(() => {
@@ -58,7 +65,7 @@ describe('AuthorizationDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new AuthorizationDataService(null, null, null, null, null);
+    const initService = () => new AuthorizationDataService(null, null, null, null, null, null);
     testSearchDataImplementation(initService);
   });
 
@@ -237,6 +244,122 @@ describe('AuthorizationDataService', () => {
           expect(result).toEqual(true);
           done();
         });
+      });
+    });
+
+    describe('anonymous authorization batching', () => {
+      let search: jasmine.Spy;
+      beforeEach(() => {
+        authService.isAuthenticated.and.returnValue(of(false));
+        search = spyOn(service, 'searchByObject').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(validPayload)));
+      });
+
+      it('should use the same unfiltered object request for different anonymous features', () => {
+        const results = [];
+        service.isAuthorized(featureID, 'item-url').subscribe((value) => results.push(value));
+        service.isAuthorized(FeatureID.CanCreateVersion, 'item-url').subscribe((value) => results.push(value));
+        expect(results).toEqual([true, false]);
+        expect(search.calls.count()).toBe(2);
+        expect(search.calls.argsFor(0)).toEqual(search.calls.argsFor(1));
+        expect(search).toHaveBeenCalledWith(undefined, 'item-url', undefined, { elementsPerPage: 100 }, true, true, jasmine.anything());
+      });
+
+      it('should resolve the site URL for checks without an object', () => {
+        service.isAuthorized(featureID).subscribe((value) => expect(value).toBeTrue());
+        expect(search).toHaveBeenCalledWith(undefined, site.self, undefined, { elementsPerPage: 100 }, true, true, jasmine.anything());
+      });
+
+      [FeatureID.CanSeeQA, FeatureID.CoarNotifyEnabled, FeatureID.CanDownload, FeatureID.CanEditItem,
+        FeatureID.CanEditMetadata, FeatureID.CanManageRelationships, FeatureID.CanCreateVersion].forEach((feature) => {
+        it(`should preserve the backend result for ${feature}`, () => {
+          const grant = Object.assign(new Authorization(), {
+            feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), { id: feature })),
+          });
+          search.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([grant])));
+          service.isAuthorized(feature).subscribe((result) => expect(result).toBeTrue());
+        });
+      });
+
+      it('should follow pagination before deciding a feature is absent', () => {
+        const first = createPaginatedList(invalidPayload);
+        first._links.next = { href: 'next-page' };
+        search.and.returnValue(createSuccessfulRemoteDataObject$(first));
+        const next = spyOn(service, 'findListByHref').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(validPayload)));
+        spyOn(service as any, 'addDependency');
+        service.isAuthorized(featureID, 'item-url', undefined, false, false).subscribe((value) => expect(value).toBeTrue());
+        expect(next).toHaveBeenCalledWith('next-page', {}, false, false, jasmine.anything());
+        expect((service as any).addDependency).toHaveBeenCalled();
+      });
+
+      [401, 403, 404, 500].forEach((status) => {
+        it(`should fall back to the individual check when the batch fails (${status})`, () => {
+          search.and.callFake((feature) => feature
+            ? createSuccessfulRemoteDataObject$(createPaginatedList(validPayload))
+            : createFailedRemoteDataObject$('Batch failed', status));
+          service.isAuthorized(featureID, 'item-url', undefined, false, false).subscribe((value) => expect(value).toBeTrue());
+          expect(search).toHaveBeenCalledWith(featureID, 'item-url', undefined, {}, false, false, jasmine.anything());
+        });
+      });
+
+      it('should fall back on thrown errors', () => {
+        search.and.callFake((feature) => feature
+          ? createSuccessfulRemoteDataObject$(createPaginatedList(validPayload))
+          : throwError(() => new Error('Batch failed')));
+        service.isAuthorized(featureID).subscribe((value) => expect(value).toBeTrue());
+      });
+
+      it('should discard partial grants if a later page fails', () => {
+        const first = createPaginatedList(validPayload);
+        first._links.next = { href: 'failed-page' };
+        search.and.callFake((feature) => createSuccessfulRemoteDataObject$(feature ? createPaginatedList([]) : first));
+        spyOn(service, 'findListByHref').and.returnValue(createFailedRemoteDataObject$('Failed', 500));
+        spyOn(service as any, 'addDependency');
+        service.isAuthorized(featureID).subscribe((value) => expect(value).toBeFalse());
+        expect(search).toHaveBeenCalledTimes(2);
+      });
+
+      it('should retain individual checks for authenticated visitors', () => {
+        authService.isAuthenticated.and.returnValue(of(true));
+        service.isAuthorized(featureID).subscribe((result) => expect(result).toBeTrue());
+        expect(search).toHaveBeenCalledOnceWith(featureID, undefined, undefined, {}, true, true, jasmine.anything());
+      });
+
+      it('should retain explicit EPerson requests and request cache options', () => {
+        service.isAuthorized(featureID, 'object-url', 'eperson-uuid', false, false).subscribe();
+        expect(search).toHaveBeenCalledOnceWith(featureID, 'object-url', 'eperson-uuid', {}, false, false, jasmine.anything());
+      });
+
+      it('should leave requests without a specific feature unchanged', () => {
+        search.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
+        service.isAuthorized().subscribe();
+        expect(search).toHaveBeenCalledOnceWith(undefined, undefined, undefined, {}, true, true, jasmine.anything());
+      });
+
+      [true, false].forEach((authenticated) => {
+        it(`should wait until authentication is ready (authenticated: ${authenticated})`, () => {
+          const ready$ = new BehaviorSubject(false);
+          const authenticated$ = new BehaviorSubject(false);
+          authService.isAuthenticationReady.and.returnValue(ready$);
+          authService.isAuthenticated.and.returnValue(authenticated$);
+          const result = jasmine.createSpy('result');
+          service.isAuthorized(featureID, 'item-url').subscribe(result);
+          expect(result).not.toHaveBeenCalled();
+          expect(search).not.toHaveBeenCalled();
+          authenticated$.next(authenticated);
+          ready$.next(true);
+          expect(result).toHaveBeenCalledOnceWith(true);
+          expect(search.calls.mostRecent().args[0]).toEqual(authenticated ? featureID : undefined);
+        });
+      });
+
+      it('should reconsider authentication on subsequent calls after login', () => {
+        service.isAuthorized(featureID, 'item-url').subscribe();
+        authService.isAuthenticated.and.returnValue(of(true));
+        service.invalidateAuthorizationsRequestCache();
+        service.isAuthorized(featureID, 'item-url').subscribe();
+        expect(search.calls.argsFor(0)[0]).toBeUndefined();
+        expect(search.calls.argsFor(1)[0]).toBe(featureID);
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('authorizations');
       });
     });
   });

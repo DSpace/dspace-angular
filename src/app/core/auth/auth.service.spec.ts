@@ -52,6 +52,8 @@ import {
 import { getMockTranslateService } from '../testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
+  CheckAuthenticationTokenAction,
+  RetrieveAuthMethodsSuccessAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,
 } from './auth.actions';
@@ -193,6 +195,19 @@ describe('AuthService test', () => {
       authService = TestBed.inject(AuthService);
       mockStore = TestBed.inject(Store) as MockStore<CoreState>;
       mockStore.setState(initialState);
+    });
+
+    it('should become ready after anonymous authentication initialization without a loaded flag', () => {
+      const pending = authReducer(undefined, new CheckAuthenticationTokenAction());
+      mockStore.setState({ core: { auth: pending } } as any);
+      const results: boolean[] = [];
+      const subscription = authService.isAuthenticationReady().subscribe((ready) => results.push(ready));
+      const anonymous = authReducer(pending, new RetrieveAuthMethodsSuccessAction([]));
+      expect(anonymous.loaded).toBeFalse();
+      expect(anonymous.authenticated).toBeFalse();
+      mockStore.setState({ core: { auth: anonymous } } as any);
+      expect(results).toEqual([false, true]);
+      subscription.unsubscribe();
     });
 
     it('should return the authentication status object when user credentials are correct', () => {
