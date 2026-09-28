@@ -98,7 +98,7 @@
     "@angular/localize": "^20.3.30",
     "@angular/platform-browser": "^20.3.30",
     "@angular/platform-browser-dynamic": "^20.3.30",
-    "@angular/platform-server": "^20.3.30",
+    "@angular/platform-server": "^20.3.31",
     "@angular/router": "^20.3.30",
     "@angular/ssr": "^20.3.36",
     "@kolkov/ngx-gallery": "^2.0.1",
