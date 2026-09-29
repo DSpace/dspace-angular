@@ -14,7 +14,7 @@ export const environment: BuildConfig = {
     inlineCriticalCss: false,
     transferState: true,
     replaceRestUrl: false,
-  excludePathPatterns: [
+    excludePathPatterns: [
       { pattern: '^/communities' },
       { pattern: '^/collections' },
       { pattern: '^/browse' },
