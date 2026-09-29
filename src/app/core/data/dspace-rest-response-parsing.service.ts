@@ -22,6 +22,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PageInfo } from '../shared/page-info.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { MAX_PAGE_SIZE } from './find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -57,7 +58,7 @@ export function isRestPaginatedList(halObj: any): boolean {
 /**
  * The url param holding the page size
  */
-const PAGE_SIZE_PARAM = 'size=';
+const PAGE_SIZE_PARAM = 'size';
 
 /**
  * Split a url into parts
@@ -96,8 +97,8 @@ const decodeUrlParts = (parts: string[]): string[] => {
  * The page size a url asks for, or undefined when it doesn't ask for a usable one
  */
 const getPageSize = (parts: string[]): number | undefined => {
-  return parts.filter((part: string) => part.startsWith(PAGE_SIZE_PARAM))
-    .map((part: string) => Number(part.substring(PAGE_SIZE_PARAM.length)))
+  return parts.filter((part: string) => part.startsWith(`${PAGE_SIZE_PARAM}=`))
+    .map((part: string) => Number(part.substring(PAGE_SIZE_PARAM.length + 1)))
     .find((size: number) => Number.isInteger(size) && size > 0);
 };
 
@@ -105,7 +106,7 @@ const getPageSize = (parts: string[]): number | undefined => {
  * Return the parts without the one holding the page size
  */
 const withoutPageSize = (parts: string[]): string[] => {
-  return parts.filter((part: string) => !part.startsWith(PAGE_SIZE_PARAM));
+  return parts.filter((part: string) => !part.startsWith(`${PAGE_SIZE_PARAM}=`));
 };
 
 /**
@@ -123,7 +124,7 @@ const selfLinkWarning = (requestedUrl: string, requestedUrlParts: string[], self
   const servedSize = getPageSize(actual);
   if (hasValue(requestedSize) && hasValue(servedSize) && servedSize < requestedSize
     && !urlPartsDiffer(withoutPageSize(expected), withoutPageSize(actual))) {
-    return `The request for '${requestedUrl}' asked for a page of ${requestedSize} elements, but the REST API served ${servedSize}. Ask for at most MAX_PAGE_SIZE elements`;
+    return `The request for '${requestedUrl}' asked for a page of ${requestedSize} elements, but the REST API served ${servedSize}. Ask for at most ${MAX_PAGE_SIZE} elements`;
   }
   return `The response for '${requestedUrl}' has the self link '${selfLink}'. These don't match. This could mean there's an issue with the REST endpoint`;
 };
