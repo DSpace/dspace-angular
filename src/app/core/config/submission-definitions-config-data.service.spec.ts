@@ -1,17 +1,17 @@
 import { throwError } from 'rxjs';
 
 import { isNotEmpty } from '../../utils/empty.util';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { RequestService } from '../data/request.service';
+import { PageInfo } from '../shared/page-info.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
 import { getMockRequestService } from '../testing/request.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '../data/paginated-list.model';
-import { RequestService } from '../data/request.service';
-import { PageInfo } from '../shared/page-info.model';
 import { ConfigDataService } from './config-data.service';
 import { SubmissionDefinitionsModel } from './models/config-submission-definitions.model';
 import { SubmissionSectionModel } from './models/config-submission-section.model';

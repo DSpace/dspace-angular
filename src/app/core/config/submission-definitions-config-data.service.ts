@@ -9,6 +9,16 @@
 import { Injectable } from '@angular/core';
 import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import {
+  createFailedRemoteDataObject,
+  createFailedRemoteDataObjectFromError,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import isEmpty from 'lodash/isEmpty';
+import {
   EMPTY,
   Observable,
   of,
@@ -38,13 +48,6 @@ import { ConfigDataService } from './config-data.service';
 import { ConfigObject } from './models/config.model';
 import { SubmissionDefinitionsModel } from './models/config-submission-definitions.model';
 import { SubmissionSectionModel } from './models/config-submission-section.model';
-import {hasValue, isNotEmpty} from "@dspace/shared/utils/empty.util";
-import isEmpty from "lodash/isEmpty";
-import {
-  createFailedRemoteDataObject,
-  createFailedRemoteDataObjectFromError,
-  createSuccessfulRemoteDataObject,
-} from "@dspace/core/utilities/remote-data.utils";
 
 /**
  * Number of {@link SubmissionSectionModel}s requested per page when following the `sections` HAL
