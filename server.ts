@@ -87,6 +87,12 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 
+// Compile SSR exclude patterns only once at startup, as they do not change at runtime
+// stateful 'g' and 'y' flags are removed, since they would make repeated test() calls on the same RegExp unreliable
+const SSR_EXCLUDE_PATTERNS: RegExp[] = environment.ssr.excludePathPatterns.map((p: SsrExcludePatterns) =>
+  new RegExp(p.pattern, (p.flag || '').replace(/[gy]/g, '')),
+);
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
@@ -228,7 +234,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -663,15 +669,9 @@ function start() {
  * Check if SSR should be skipped for path
  *
  * @param path
- * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
-  const patterns = excludePathPattern.map(p =>
-    new RegExp(p.pattern, p.flag || '')
-  );
-  return patterns.some((regex) => {
-    return regex.test(path)
-  });
+function isExcludedFromSsr(path: string): boolean {
+  return SSR_EXCLUDE_PATTERNS.some((regex) => regex.test(path));
 }
 
 /*
