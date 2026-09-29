@@ -27,7 +27,7 @@ describe('DspaceRestResponseParsingService', () => {
   let service: TestService;
 
   const MISMATCH = jasmine.stringMatching(/These don't match/);
-  const REDUCED_PAGE = jasmine.stringMatching(/asked for a page of 9999 elements, but the REST API served 1000/);
+  const REDUCED_PAGE = jasmine.stringMatching(/asked for a page of 9999 elements, but the REST API served 1000\. Ask for at most 1000 elements$/);
   const NO_SELF_LINK = jasmine.stringMatching(/doesn't have a self link/);
 
   const requestFor = (href: string): RestRequest =>
