@@ -25,7 +25,7 @@ export const environment: BuildConfig = {
       { pattern: '^/processes' },
       { pattern: '^/notifications' },
       { pattern: '^/access-control' },
-      { pattern: '^/health' },      
+      { pattern: '^/health' },
     ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
