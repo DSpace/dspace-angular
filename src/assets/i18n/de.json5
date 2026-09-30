@@ -471,7 +471,7 @@
   "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Löschen",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  "admin.access-control.epeople.no-items": "Keine Personen dazu.",
+  "admin.access-control.epeople.no-items": "Es wurden keine passenden Personen gefunden.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
   "admin.access-control.epeople.form.create": "Person erstellen",
@@ -10266,7 +10266,7 @@
   "ldn-service-status": "Status",
 
   // "service.confirm.create": "Create",
-  "service.confirm.create": "Erstellen.",
+  "service.confirm.create": "Erstellen",
 
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Abbrechen",

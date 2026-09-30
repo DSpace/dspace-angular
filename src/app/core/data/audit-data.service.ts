@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AUDIT } from '@dspace/core/audit/model/audit.resource-type';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import {
   followLink,
@@ -36,6 +38,7 @@ export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 export const AUDIT_FIND_BY_OBJECT_SEARCH_METHOD = 'findByObject';
 
 @Injectable({ providedIn: 'root' })
+@dataService(AUDIT)
 export class AuditDataService extends IdentifiableDataService<Audit>{
 
   private searchData: SearchDataImpl<Audit>;

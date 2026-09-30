@@ -1,7 +1,6 @@
 <div class="container">
   @if (registrationData$ | async; as registrationData) {
     <ds-external-log-in
-      [authMethods]="authMethods"
       [registrationData]="registrationData"
       [token]="token"
     ></ds-external-log-in>

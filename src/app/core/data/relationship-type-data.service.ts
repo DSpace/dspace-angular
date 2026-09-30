@@ -11,6 +11,7 @@ import {
   toArray,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -21,6 +22,7 @@ import {
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
@@ -29,6 +31,7 @@ import {
 import { BaseDataService } from './base/base-data.service';
 import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';
+import { MAX_PAGE_SIZE } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
@@ -46,6 +49,7 @@ const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
  * The service handling all relationship type requests
  */
 @Injectable({ providedIn: 'root' })
+@dataService(RELATIONSHIP_TYPE)
 export class RelationshipTypeDataService extends BaseDataService<RelationshipType> {
   private searchData: SearchDataImpl<RelationshipType>;
   private findAllData: FindAllDataImpl<RelationshipType>;
@@ -75,7 +79,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
    */
   getRelationshipTypeByLabelAndTypes(relationshipTypeLabel: string, firstItemType: string, secondItemType: string): Observable<RelationshipType> {
     // Retrieve all relationship types from the server in a single page
-    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
+    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: MAX_PAGE_SIZE }, true, true, followLink('leftType'), followLink('rightType'))
       .pipe(
         getFirstSucceededRemoteData(),
         // Emit each type in the page array separately

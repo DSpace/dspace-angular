@@ -4,6 +4,7 @@ import {
   InjectionToken,
   NgZone,
 } from '@angular/core';
+import { PROCESS } from '@dspace/core/shared/process.resource-type';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
@@ -16,6 +17,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../notification-system/notifications.service';
@@ -55,6 +57,7 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 });
 
 @Injectable({ providedIn: 'root' })
+@dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process>, SearchData<Process> {
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;

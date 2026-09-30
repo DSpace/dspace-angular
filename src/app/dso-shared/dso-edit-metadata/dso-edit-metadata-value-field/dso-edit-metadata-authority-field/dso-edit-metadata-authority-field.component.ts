@@ -58,6 +58,8 @@ import { AuthorityConfidenceStateDirective } from '../../../../shared/form/direc
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { editMetadataValueFieldComponent } from '../dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field.decorator';
 
 /**
  * The component used to gather input for authority controlled metadata fields
@@ -78,6 +80,7 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
     TranslateModule,
   ],
 })
+@editMetadataValueFieldComponent(EditMetadataValueFieldType.AUTHORITY)
 export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetadataValueFieldComponent implements OnInit, OnChanges {
 
   /**

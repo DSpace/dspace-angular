@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AUTHORIZATION } from '@dspace/core/shared/authorization.resource-type';
+import { FEATURE } from '@dspace/core/shared/feature.resource-type';
 import {
   hasNoValue,
   hasValue,
@@ -14,6 +16,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -42,6 +45,8 @@ import { FeatureID } from './feature-id';
  * A service to retrieve {@link Authorization}s from the REST API
  */
 @Injectable({ providedIn: 'root' })
+@dataService(AUTHORIZATION)
+@dataService(FEATURE)
 export class AuthorizationDataService extends BaseDataService<Authorization> implements SearchData<Authorization> {
   protected linkPath = 'authorizations';
   protected searchByObjectPath = 'object';

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RequestService } from './request.service';
 
 @Injectable({ providedIn: 'root' })
+@dataService(DSPACE_OBJECT)
 export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObject> {
   constructor(
     protected requestService: RequestService,

@@ -3,7 +3,7 @@ import { Options } from 'cypress-axe';
 
 describe('Search Page', () => {
   // NOTE: these tests currently assume this query will return results!
-  const query = Cypress.env('DSPACE_TEST_SEARCH_TERM');
+  const query = Cypress.expose('DSPACE_TEST_SEARCH_TERM');
 
   it('should redirect to the correct url when query was set and submit button was triggered', () => {
     const queryString = 'Another interesting query string';

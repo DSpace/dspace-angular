@@ -22,7 +22,7 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
 import { SearchService } from '../../../search/search.service';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './advanced-claimed-task-action-select-reviewer.component';
 
@@ -94,7 +94,7 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
 
     expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
       queryParams: {
-        workflow: ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
+        workflow: AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
         claimedTask: taskId,
       },
     });

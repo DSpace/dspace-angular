@@ -27,6 +27,7 @@ import { SubmissionObject } from '@dspace/core/submission/models/submission-obje
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
   isEmpty,
@@ -71,6 +72,7 @@ import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
 /**
@@ -85,6 +87,7 @@ import { SectionFormOperationsService } from './section-form-operations.service'
     ThemedLoadingComponent,
   ],
 })
+@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent implements OnDestroy {
 
   /**

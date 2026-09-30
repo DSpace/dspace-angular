@@ -101,7 +101,7 @@ describe('AdminSidebarComponent', () => {
     spyOn(menuService, 'getMenuTopSections').and.returnValue(of([]));
     fixture = TestBed.createComponent(AdminSidebarComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    comp.sections = of([]);
+    comp.sectionDTOs$ = of([]);
     fixture.detectChanges();
   });
 
