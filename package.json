@@ -235,7 +235,7 @@
     "typescript": "~5.9.3",
     "webpack": "^5.107.2",
     "webpack-cli": "^6.0.1",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.1"
   },
   "engines": {
     "node": ">=20.0.0 <25.0.0"
