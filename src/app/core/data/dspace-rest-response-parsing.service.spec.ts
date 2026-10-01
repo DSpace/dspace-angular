@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
