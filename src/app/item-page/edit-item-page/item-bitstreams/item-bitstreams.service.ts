@@ -17,6 +17,7 @@ import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { MAX_PAGE_SIZE } from '../../../core/data/find-list-options.model';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
@@ -360,7 +361,7 @@ export class ItemBitstreamsService {
     return Object.assign(new PaginationComponentOptions(), {
       id: 'bundles-pagination-options',
       currentPage: 1,
-      pageSize: 9999,
+      pageSize: MAX_PAGE_SIZE,
     });
   }
 
