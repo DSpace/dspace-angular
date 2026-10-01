@@ -18,6 +18,7 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { SortDirection } from '../cache/models/sort-options.model';
+import { MAX_PAGE_SIZE } from '../data/find-list-options.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -81,7 +82,7 @@ export class BrowseService {
    */
   getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     // TODO properly support pagination
-    return this.browseDefinitionDataService.findAll({ elementsPerPage: 9999 }).pipe(
+    return this.browseDefinitionDataService.findAll({ elementsPerPage: MAX_PAGE_SIZE }).pipe(
       getFirstSucceededRemoteData(),
     );
   }
