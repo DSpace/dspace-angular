@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import {
   GetRequest,
