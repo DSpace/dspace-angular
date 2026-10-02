@@ -567,9 +567,11 @@ export class DefaultAppConfig implements AppConfig {
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
+  // For PDFs, this enables an embedded PDF viewer (Mozilla PDF.js)
   mediaViewer: MediaViewerConfig = {
     image: false,
     video: false,
+    pdf: false,
   };
   // Whether the end-user-agreement and privacy policy feature should be enabled or not.
   // Disabling the end user agreement feature will result in:

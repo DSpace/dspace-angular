@@ -132,6 +132,7 @@ describe('MediaViewerComponent', () => {
       comp.mediaOptions = {
         image: true,
         video: true,
+        pdf: true,
       };
       comp.isLoading = true;
       fixture.detectChanges();
@@ -159,6 +160,7 @@ describe('MediaViewerComponent', () => {
       comp.mediaOptions = {
         image: true,
         video: true,
+        pdf: true,
       };
       comp.isLoading = false;
       fixture.detectChanges();
@@ -179,6 +181,30 @@ describe('MediaViewerComponent', () => {
         By.css('ds-thumbnail'),
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
+    });
+  });
+
+  describe('when the item has PDFs', () => {
+    const mockPdfItem: MediaViewerItem = Object.assign(
+      new MediaViewerItem(),
+      { bitstream: mockBitstream, format: 'application', mimetype: 'application/pdf', thumbnail: null },
+    );
+
+    beforeEach(() => {
+      comp.mediaOptions = {
+        image: true,
+        video: true,
+        pdf: true,
+      };
+      comp.mediaList$.next([]);
+      comp.pdfList$.next([mockPdfItem]);
+      comp.isLoading = false;
+      fixture.detectChanges();
+    });
+
+    it('should display the PDF viewer instead of the default thumbnail', () => {
+      expect(fixture.debugElement.query(By.css('ds-media-viewer-pdf'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('ds-thumbnail'))).toBeNull();
     });
   });
 });
