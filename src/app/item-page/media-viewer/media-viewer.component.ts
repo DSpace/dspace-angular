@@ -35,6 +35,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerPdfComponent } from './media-viewer-pdf/themed-media-viewer-pdf.component';
 import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
@@ -48,6 +49,7 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
     AsyncPipe,
     ThemedLoadingComponent,
     ThemedMediaViewerImageComponent,
+    ThemedMediaViewerPdfComponent,
     ThemedMediaViewerVideoComponent,
     ThemedThumbnailComponent,
     TranslateModule,
@@ -60,6 +62,8 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() mediaOptions: MediaViewerConfig = environment.mediaViewer;
 
   mediaList$: BehaviorSubject<MediaViewerItem[]> = new BehaviorSubject([]);
+
+  pdfList$: BehaviorSubject<MediaViewerItem[]> = new BehaviorSubject([]);
 
   captions$: BehaviorSubject<Bitstream[]> = new BehaviorSubject([]);
 
@@ -115,6 +119,8 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
                 );
                 if (types.includes(mediaItem.format)) {
                   this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
+                } else if (this.mediaOptions.pdf && format.mimetype === 'application/pdf') {
+                  this.pdfList$.next([...this.pdfList$.getValue(), mediaItem]);
                 } else if (format.mimetype === 'text/vtt') {
                   this.captions$.next([...this.captions$.getValue(), bitstreamsRD.payload.page[index]]);
                 }
