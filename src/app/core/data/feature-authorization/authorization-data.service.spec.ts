@@ -259,8 +259,7 @@ describe('AuthorizationDataService', () => {
         service.isAuthorized(featureID, 'item-url').subscribe((value) => results.push(value));
         service.isAuthorized(FeatureID.CanCreateVersion, 'item-url').subscribe((value) => results.push(value));
         expect(results).toEqual([true, false]);
-        expect(search.calls.count()).toBe(2);
-        expect(search.calls.argsFor(0)).toEqual(search.calls.argsFor(1));
+        expect(search.calls.count()).toBe(1);
         expect(search).toHaveBeenCalledWith(undefined, 'item-url', undefined, { elementsPerPage: 100 }, true, true, jasmine.anything());
       });
 

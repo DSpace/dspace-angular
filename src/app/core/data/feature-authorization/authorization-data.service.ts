@@ -18,6 +18,7 @@ import {
   filter,
   map,
   reduce,
+  shareReplay,
   switchMap,
   take,
 } from 'rxjs/operators';
@@ -45,7 +46,7 @@ import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import { oneAuthorizationMatchesFeature } from './authorization-utils';
+import { authorizationFeatureIds, oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
 
 /**
@@ -59,6 +60,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   protected searchByObjectPath = 'object';
 
   private searchData: SearchDataImpl<Authorization>;
+  private anonymousFeatureIds = new Map<string, { expiresAt: number; features: Observable<Set<string>> }>();
 
   constructor(
     protected requestService: RequestService,
@@ -77,6 +79,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    * Set all authorization requests to stale
    */
   invalidateAuthorizationsRequestCache() {
+    this.anonymousFeatureIds.clear();
     this.requestService.setStaleByHrefSubstring(this.linkPath);
   }
 
@@ -128,18 +131,42 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
             return response.payload;
           }),
         );
-        return defer(() => readPage(this.searchByObject(undefined, url, undefined, { elementsPerPage: 100 },
-          useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')))).pipe(
-          expand((page) => {
-            if (!page.next) {
-              return EMPTY;
+        const cacheKey = `${url}|${reRequestOnStale}`;
+        let cached = useCachedVersionIfAvailable ? this.anonymousFeatureIds.get(cacheKey) : undefined;
+        if (cached && cached.expiresAt <= Date.now()) {
+          this.anonymousFeatureIds.delete(cacheKey);
+          cached = undefined;
+        }
+        if (!cached) {
+          const features = defer(() => readPage(this.searchByObject(undefined, url, undefined, { elementsPerPage: 100 },
+            useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')))).pipe(
+            expand((page) => {
+              if (!page.next) {
+                return EMPTY;
+              }
+              const next$ = this.findListByHref(page.next, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature'));
+              this.addDependency(next$, of(url));
+              return readPage(next$);
+            }),
+            reduce((authorizations, page) => [...authorizations, ...page.page], [] as Authorization[]),
+            authorizationFeatureIds,
+            shareReplay({ bufferSize: 1, refCount: false }),
+          );
+          // BaseDataService may leave this unset, in which case RequestService uses its
+          // 15-minute default response lifetime as well.
+          cached = { expiresAt: Date.now() + (this.responseMsToLive ?? 15 * 60 * 1000), features };
+          if (useCachedVersionIfAvailable) {
+            this.anonymousFeatureIds.set(cacheKey, cached);
+          }
+        }
+        return cached.features.pipe(
+          map((featureIds) => featureIds.has(featureId.valueOf())),
+          catchError(() => {
+            if (this.anonymousFeatureIds.get(cacheKey) === cached) {
+              this.anonymousFeatureIds.delete(cacheKey);
             }
-            const next$ = this.findListByHref(page.next, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature'));
-            this.addDependency(next$, of(url));
-            return readPage(next$);
+            return this.checkAuthorization(featureId, url, undefined, useCachedVersionIfAvailable, reRequestOnStale);
           }),
-          reduce((authorizations, page) => [...authorizations, ...page.page], [] as Authorization[]),
-          oneAuthorizationMatchesFeature(featureId),
         );
       }),
       catchError(() => this.checkAuthorization(featureId, objectUrl, undefined, useCachedVersionIfAvailable, reRequestOnStale)),
