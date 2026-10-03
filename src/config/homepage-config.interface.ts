@@ -28,4 +28,8 @@ export interface HomeConfig extends Config {
   * Enable or disable the Discover filters on the homepage
   */
   showDiscoverFilters: boolean;
+  /**
+   * Whether to enable dynamic home page rendering.
+   */
+  enableDynamicLayout: boolean;
 }
