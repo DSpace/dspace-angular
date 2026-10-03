@@ -42,7 +42,14 @@ import {
   hasValueOperator,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormLayout,
@@ -93,6 +100,11 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
     ContextHelpDirective,
     FormComponent,
     MembersListComponent,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     SubgroupsListComponent,
     TranslateModule,
   ],
