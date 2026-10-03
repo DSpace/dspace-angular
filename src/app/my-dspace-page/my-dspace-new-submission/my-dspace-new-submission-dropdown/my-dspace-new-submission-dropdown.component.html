@@ -7,9 +7,9 @@
   </div>
 }
 @if ((moreThanOne$ | async)) {
-  <div class="add w-100" display="dynamic" placement="bottom-right"
-    ngbDropdown
-    >
+<div class="add w-100"
+  ngbDropdown
+  placement="bottom-end">
     <button class="btn btn-lg btn-primary mt-1 ms-2" id="dropdownSubmission" ngbDropdownToggle
       type="button"  [dsBtnDisabled]="(initialized$ | async) !== true"
       [attr.aria-label]="'mydspace.new-submission' | translate"
