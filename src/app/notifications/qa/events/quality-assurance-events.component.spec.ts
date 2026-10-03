@@ -197,26 +197,27 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
       it('should call executeAction if a project is present', () => {
         const action = 'ACCEPTED';
-        comp.modalChoice(action, getQualityAssuranceEventData1(), modalStub);
+        comp.modalChoice(action, getQualityAssuranceEventData1(), modalStub, 'acceptModal');
         expect(comp.executeAction).toHaveBeenCalledWith(action, getQualityAssuranceEventData1());
       });
 
       it('should call openModal if a project is not present', () => {
         const action = 'ACCEPTED';
-        comp.modalChoice(action, getQualityAssuranceEventData2(), modalStub);
-        expect(comp.openModal).toHaveBeenCalledWith(action, getQualityAssuranceEventData2(), modalStub);
+        comp.modalChoice(action, getQualityAssuranceEventData2(), modalStub, 'acceptModal');
+        expect(comp.openModal).toHaveBeenCalledWith(action, getQualityAssuranceEventData2(), modalStub, 'acceptModal');
       });
     });
 
     describe('openModal', () => {
       it('should call modalService.open', () => {
         const action = 'ACCEPTED';
+        const labelledBy = 'acceptModal';
         comp.selectedReason = null;
         spyOn(compAsAny.modalService, 'open').and.returnValue({ result: new Promise((res, rej) => 'do' ) });
         spyOn(comp, 'executeAction');
 
-        comp.openModal(action, getQualityAssuranceEventData1(), modalStub);
-        expect(compAsAny.modalService.open).toHaveBeenCalled();
+        comp.openModal(action, getQualityAssuranceEventData1(), modalStub, labelledBy);
+        expect(compAsAny.modalService.open).toHaveBeenCalledWith(modalStub, { ariaLabelledBy: labelledBy });
       });
     });
 
