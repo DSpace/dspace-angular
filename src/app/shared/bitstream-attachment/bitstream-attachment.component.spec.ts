@@ -16,7 +16,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
 
 import { environment } from '../../../environments/environment';
 import { TruncatableComponent } from '../truncatable/truncatable.component';
@@ -34,7 +33,6 @@ describe('BitstreamAttachmentComponent', () => {
         checkSumAlgorithm: 'MD5',
         value: 'checksum',
       },
-      thumbnail: createSuccessfulRemoteDataObject$(new Bitstream()),
     },
   );
   const languageList = ['en;q=1', 'de;q=0.8'];
@@ -63,7 +61,7 @@ describe('BitstreamAttachmentComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(BitstreamAttachmentComponent, { remove: { imports: [ThemedThumbnailComponent, TruncatableComponent, TruncatablePartComponent, FileDownloadButtonComponent] } }).compileComponents();
+      .overrideComponent(BitstreamAttachmentComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent, FileDownloadButtonComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
