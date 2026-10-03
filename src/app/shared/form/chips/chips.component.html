@@ -18,7 +18,7 @@
           cdkDrag
           (cdkDragStarted)="onDrag(i)"
           href="javascript:void(0);"
-          [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged === i}"
+          [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged === i || !clickable}"
           (click)="chipsSelected($event, i);">
           <span>
             @if (showIcons && !c.isNestedItem()) {
