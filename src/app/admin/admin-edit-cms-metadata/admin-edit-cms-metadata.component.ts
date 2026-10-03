@@ -82,6 +82,12 @@ export class AdminEditCmsMetadataComponent implements OnInit {
       if (md === 'dspace.cms.footer' && !environment.homePage.showTopFooter) {
         return;
       }
+      if (md === 'dspace.cms.home-header' && !environment.homePage.editHomeHeader) {
+        return;
+      }
+      if (md === 'dspace.cms.home-news' && !environment.homePage.editHomeNews) {
+        return;
+      }
       this.metadataList.push(md);
     });
     this.refreshSiteWithAllLanguages();
