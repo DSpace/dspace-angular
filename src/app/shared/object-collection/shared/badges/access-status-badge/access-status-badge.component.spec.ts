@@ -27,6 +27,7 @@ describe('AccessStatusBadgeComponent', () => {
   let metadataOnlyStatus: AccessStatusObject;
   let openAccessStatus: AccessStatusObject;
   let embargoStatus: AccessStatusObject;
+  let leaseStatus: AccessStatusObject;
   let restrictedStatus: AccessStatusObject;
 
   let linkService;
@@ -50,6 +51,11 @@ describe('AccessStatusBadgeComponent', () => {
     embargoStatus = Object.assign(new AccessStatusObject(), {
       status: 'embargo',
       embargoDate: '2050-01-01',
+    });
+
+    leaseStatus = Object.assign(new AccessStatusObject(), {
+      status: 'lease',
+      leaseDate: '2050-06-01',
     });
 
     restrictedStatus = Object.assign(new AccessStatusObject(), {
@@ -106,6 +112,11 @@ describe('AccessStatusBadgeComponent', () => {
   function lookForAccessStatusBadgeForBitstream() {
     const badge = fixture.debugElement.query(By.css('span.badge'));
     expect(badge.nativeElement.textContent).toContain('embargo.listelement.badge');
+  }
+
+  function lookForLeaseBadgeForBitstream() {
+    const badge = fixture.debugElement.query(By.css('span.badge'));
+    expect(badge.nativeElement.textContent).toContain('lease.listelement.badge');
   }
 
   function lookForNoAccessStatusBadgeForBitstream() {
@@ -216,6 +227,20 @@ describe('AccessStatusBadgeComponent', () => {
     });
   });
 
+  describe('When the item accessStatus link returns lease', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      item.accessStatus = createSuccessfulRemoteDataObject$(leaseStatus);
+      initTestBed();
+    }));
+    beforeEach(() => {
+      initFixtureAndComponentWithItem();
+    });
+    it('should show the lease badge', () => {
+      lookForAccessStatusBadgeForItem('lease');
+    });
+  });
+
   describe('init with bitstream', () => {
     beforeEach(waitForAsync(() => {
       init();
@@ -274,6 +299,20 @@ describe('AccessStatusBadgeComponent', () => {
     });
     it('should show the badge', () => {
       lookForAccessStatusBadgeForBitstream();
+    });
+  });
+
+  describe('When the bitstream have an accessStatus link with a lease date', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      initTestBed();
+    }));
+    beforeEach(() => {
+      bitstream.accessStatus = createSuccessfulRemoteDataObject$(leaseStatus);
+      initFixtureAndComponentWithBitstream();
+    });
+    it('should show the lease badge', () => {
+      lookForLeaseBadgeForBitstream();
     });
   });
 });

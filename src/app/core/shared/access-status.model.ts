@@ -34,6 +34,12 @@ export class AccessStatusObject implements CacheableObject {
   embargoDate: string;
 
   /**
+   * The lease expiration date value
+   */
+  @autoserialize
+  leaseDate: string;
+
+  /**
    * The {@link HALLink}s for this AccessStatusObject
    */
    @deserialize
