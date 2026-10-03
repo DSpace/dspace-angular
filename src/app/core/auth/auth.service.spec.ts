@@ -343,6 +343,8 @@ describe('AuthService test', () => {
     });
 
     it('should return a token object', () => {
+      mockStore.overrideSelector(getAuthenticationToken, token);
+      mockStore.refreshState();
       const result = authService.getToken();
       expect(result).toEqual(token);
     });
