@@ -155,6 +155,55 @@ export class CollectionDataService extends ComColDataService<Collection> {
   }
 
   /**
+   * Get all collections the user is admin
+   *
+   * @param query limit the returned collection to those with metadata values matching the query terms.
+   * @param options The [[FindListOptions]] object
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow The array of [[FollowLinkConfig]]
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAdministeredCollection(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAdministered';
+    options = Object.assign({}, options, {
+      searchParams: [new RequestParam('query', query)],
+    });
+
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
+      getAllCompletedRemoteData(),
+    );
+  }
+
+  /**
+   * Get all collections the user is admin selected by entityType
+   *
+   * @param query limit the returned collection to those with metadata values matching the query terms.
+   * @param entityType mandatory, the label of the entity type field the collection must have.
+   * @param options The [[FindListOptions]] object
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow The array of [[FollowLinkConfig]]
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAdministeredCollectionByEntityType(query: string, entityType: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
+
+    const searchHref = 'findAdminAuthorizedByEntityType';
+    options = Object.assign({}, options, {
+      searchParams: [
+        new RequestParam('query', query),
+        new RequestParam('entityType', entityType),
+      ],
+    });
+
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
+      getAllCompletedRemoteData(),
+    );
+  }
+
+  /**
    * Get all collections the user is authorized to submit to
    *
    * @param query limit the returned collection to those with metadata values matching the query terms.
@@ -254,8 +303,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     options.elementsPerPage = 1;
 
     return this.searchBy(searchHref, options).pipe(
-      getFirstCompletedRemoteData(),
-      map((collections: RemoteData<PaginatedList<Collection>>) => collections?.payload?.totalElements > 0),
+      getAllCompletedRemoteData(),
+      map((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.totalElements > 0),
     );
   }
 

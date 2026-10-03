@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  IProcessNotification,
+  ProcessNotification,
+} from '@dspace/core/notification-system/models/process-notification.model';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
@@ -66,6 +70,17 @@ export class NotificationsService {
     html: boolean = false): INotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
     const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, notificationOptions, html);
+    this.add(notification);
+    return notification;
+  }
+
+  process(processId: string,
+    checkTime: number,
+    title: any = of(''),
+    options: NotificationOptions = this.getDefaultOptions(),
+    html: boolean = false): IProcessNotification {
+    const notificationOptions = { ...this.getDefaultOptions(), ...options };
+    const notification = new ProcessNotification(uniqueId(), NotificationType.Info, processId, checkTime, title, notificationOptions, html);
     this.add(notification);
     return notification;
   }

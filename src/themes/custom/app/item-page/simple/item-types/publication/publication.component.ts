@@ -24,6 +24,7 @@ import { ThemedMetadataRepresentationListComponent } from '../../../../../../../
 import { RelatedItemsComponent } from '../../../../../../../app/item-page/simple/related-items/related-items-component';
 import { AttachmentSectionComponent } from '../../../../../../../app/shared/bitstream-attachment/section/attachment-section.component';
 import { DsoEditMenuComponent } from '../../../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from '../../../../../../../app/shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ThemedResultsBackButtonComponent } from '../../../../../../../app/shared/results-back-button/themed-results-back-button.component';
@@ -42,6 +43,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AttachmentSectionComponent,
     CollectionsComponent,
     DsoEditMenuComponent,
+    DsoPublicMenuComponent,
     GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
