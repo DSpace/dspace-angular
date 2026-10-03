@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../search.service';
 import { SearchConfigurationService } from '../../search-configuration.service';
 import { SearchFilterService } from '../../search-filters/search-filter.service';
@@ -44,7 +46,7 @@ export class SearchLabelComponent implements OnInit {
   constructor(
     protected paginationService: PaginationService,
     protected router: Router,
-    protected searchConfigurationService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigurationService: SearchConfigurationService,
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
   ) {
