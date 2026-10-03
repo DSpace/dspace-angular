@@ -1,5 +1,6 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
 import { AdvancedAttachmentElementType } from '@dspace/config/advanced-attachment-rendering.config';
+import { ImportExternalMetadataViewMode } from '@dspace/config/import-external-metadata-view.mode';
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
@@ -200,6 +201,10 @@ export const environment: BuildConfig = {
           },
         ],
       },
+    },
+    importExternal: {
+      // Visibility of metadatafield names in preview item from an external source
+      viewMode: ImportExternalMetadataViewMode.Default,
     },
   },
 
