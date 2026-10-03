@@ -35,6 +35,8 @@ import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
+import { DsDynamicGeospatialMapComponent } from './models/geospatial-map/dynamic-geospatial-map.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_GEOSPATIAL_MAP } from './models/geospatial-map/dynamic-geospatial-map.model';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
@@ -93,6 +95,9 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
 
     case DYNAMIC_FORM_CONTROL_TYPE_TAG:
       return DsDynamicTagComponent;
+
+    case DYNAMIC_FORM_CONTROL_TYPE_GEOSPATIAL_MAP:
+      return DsDynamicGeospatialMapComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP:
       return (model as DynamicRelationGroupModel).isInlineGroup ? DsDynamicRelationInlineGroupComponent : DsDynamicRelationGroupComponent;
