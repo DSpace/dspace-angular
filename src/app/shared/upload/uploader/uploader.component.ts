@@ -200,12 +200,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       }
       // Ensure the current XSRF token is included in every upload request (token may change between items uploaded)
       // Ensure the behalf header is set if impersonating
-      this.uploader.options.headers = [
-        { name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() },
-      ];
-      if (hasValue(this.uploadFilesOptions.impersonatingID)) {
-        this.uploader.options.headers.push({ name: this.ON_BEHALF_HEADER, value: this.uploadFilesOptions.impersonatingID });
-      }
+      this.updateUploaderHeaders();
       this.onBeforeUpload();
       this.isOverDocumentDropZone = of(false);
     };
@@ -221,7 +216,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       const token = headers[XSRF_RESPONSE_HEADER.toLowerCase()];
       if (isNotEmpty(token)) {
         this.saveXsrfToken(token);
-        this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
+        this.updateUploaderHeaders();
       }
 
       if (isNotEmpty(response)) {
@@ -236,7 +231,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       const token = headers[XSRF_RESPONSE_HEADER.toLowerCase()];
       if (isNotEmpty(token)) {
         this.saveXsrfToken(token);
-        this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
+        this.updateUploaderHeaders();
       }
 
       this.onUploadError.emit({ item: item, response: response, status: status, headers: headers });
@@ -250,6 +245,19 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       this.announceProgress(progress);
       this.onProgress();
     };
+  }
+
+  /**
+   * (Re)build the headers sent with every upload request: the current XSRF token
+   * plus the impersonation header when acting on behalf of another EPerson.
+   */
+  private updateUploaderHeaders(): void {
+    this.uploader.options.headers = [
+      { name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() },
+    ];
+    if (hasValue(this.uploadFilesOptions.impersonatingID)) {
+      this.uploader.options.headers.push({ name: this.ON_BEHALF_HEADER, value: this.uploadFilesOptions.impersonatingID });
+    }
   }
 
   /**
