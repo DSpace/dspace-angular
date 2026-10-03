@@ -10,6 +10,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { DragService } from '@dspace/core/drag.service';
 import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
@@ -67,6 +68,21 @@ describe('UploaderComponent', () => {
 
     expect(app).toBeDefined();
   }));
+
+  it('rejects a file larger than maxFileSize before any upload and reports it as a 413 error', () => {
+    testComp.uploadFilesOptions.autoUpload = false;
+    testComp.uploadFilesOptions.maxFileSize = 4;
+    testFixture.detectChanges();
+    const uploader: UploaderComponent = testFixture.debugElement.query(By.directive(UploaderComponent)).componentInstance;
+    spyOn(uploader.onUploadError, 'emit');
+
+    uploader.uploader.addToQueue([new File(['abcdef'], 'too-large.bin')]);
+    expect(uploader.uploader.queue.length).toBe(0);
+    expect(uploader.onUploadError.emit).toHaveBeenCalledWith(jasmine.objectContaining({ status: 413 }));
+
+    uploader.uploader.addToQueue([new File(['ab'], 'small.bin')]);
+    expect(uploader.uploader.queue.length).toBe(1);
+  });
 
 });
 

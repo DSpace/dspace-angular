@@ -28,6 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   FileItem,
+  FileLikeObject,
   FileUploader,
   FileUploadModule,
 } from 'ng2-file-upload';
@@ -174,6 +175,8 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       autoUpload: this.uploadFilesOptions.autoUpload,
       method: this.uploadFilesOptions.method,
       queueLimit: this.uploadFilesOptions.maxFileNumber,
+      // Evaluated when a file is added, so a limit that arrives after initialisation is honoured too
+      filters: [{ name: 'maxFileSize', fn: (item: FileLikeObject) => !this.exceedsMaxFileSize(item.size) }],
     });
 
     if (isUndefined(this.enableDragOverDocument)) {
@@ -191,6 +194,12 @@ export class UploaderComponent implements OnInit, AfterViewInit {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
     });
+    this.uploader.onWhenAddingFileFailed = (item: FileLikeObject, filter: any) => {
+      if (filter.name === 'maxFileSize') {
+        // Nothing was sent: report it like the server's 413 so consumers handle both the same way
+        this.onUploadError.emit({ item: item, response: null, status: 413, headers: null });
+      }
+    };
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return;};
     }
@@ -250,6 +259,15 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       this.announceProgress(progress);
       this.onProgress();
     };
+  }
+
+  /**
+   * Whether a file is larger than the configured maximum upload size
+   * @param size the file size in bytes
+   */
+  private exceedsMaxFileSize(size: number): boolean {
+    const limit = this.uploadFilesOptions.maxFileSize;
+    return hasValue(limit) && limit > 0 && size > limit;
   }
 
   /**
