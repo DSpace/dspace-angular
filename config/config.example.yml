@@ -552,9 +552,11 @@ bundle:
 # Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with 'image' or 'video').
 # For images, this enables a gallery viewer where you can zoom or page through images.
 # For videos, this enables embedded video streaming
+# For PDFs (MIME type 'application/pdf'), this enables an embedded PDF viewer (Mozilla PDF.js)
 mediaViewer:
   image: false
   video: false
+  pdf: false
 
 # Whether the end user agreement is required before users use the repository.
 # If enabled, the user will be required to accept the agreement before they can use the repository.
