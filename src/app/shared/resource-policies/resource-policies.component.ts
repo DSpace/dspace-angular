@@ -199,7 +199,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   initResourcePolicyList() {
     this.subs.push(this.resourcePolicyService.searchByResource(
       this.resourceUUID, null, false, true,
-      followLink('eperson'), followLink('group'),
+      followLink('eperson', { useCachedVersionIfAvailable: false, reRequestOnStale: true }),
+      followLink('group', { useCachedVersionIfAvailable: false, reRequestOnStale: true }),
     ).pipe(
       filter(() => this.isActive),
       getAllSucceededRemoteData(),
