@@ -3,6 +3,12 @@
 // imports the base global style
 @import '../../../styles/_global-styles.scss';
 
+@media screen and (max-width: map-get($grid-breakpoints, md)) {
+  #main-site-header-container:has(form.search-expanded) {
+    margin-bottom: 25px;
+  }
+}
+
 .facet-filter, .setting-option, .advanced-search {
   background-color: var(--bs-light);
   border-radius: var(--bs-border-radius);
