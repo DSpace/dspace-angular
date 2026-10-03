@@ -3,6 +3,7 @@ import { accessTokenResolver } from '@dspace/core/auth/access-token.resolver';
 import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { itemBreadcrumbResolver } from '@dspace/core/breadcrumbs/item-breadcrumb.resolver';
+import { rerunGuardsAndResolversOnPathChange } from '@dspace/core/router/utils/route.utils';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
@@ -50,7 +51,7 @@ export const ROUTES: Route[] = [
       breadcrumb: itemBreadcrumbResolver,
       links: signpostingLinksResolver,
     },
-    runGuardsAndResolvers: 'always',
+    runGuardsAndResolvers: rerunGuardsAndResolversOnPathChange,
     children: [
       {
         path: '',

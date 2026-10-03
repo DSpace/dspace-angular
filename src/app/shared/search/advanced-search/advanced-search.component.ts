@@ -15,7 +15,10 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
+import {
+  currentPath,
+  SEARCH_COMPONENT_ANCHOR_ID,
+} from '@dspace/core/router/utils/route.utils';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
@@ -151,6 +154,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
       this.subs.push(this.searchConfigurationService.selectNewAppliedFilterParams(this.currentFilter, this.currentValue.trim(), this.currentOperator).pipe(take(1)).subscribe((params: Params) => {
         void this.router.navigate([this.getSearchLink()], {
           queryParams: params,
+          fragment: SEARCH_COMPONENT_ANCHOR_ID,
         });
         this.currentValue = '';
       }));

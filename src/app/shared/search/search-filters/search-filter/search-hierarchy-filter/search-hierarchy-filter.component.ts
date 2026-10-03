@@ -19,6 +19,7 @@ import {
 } from '@dspace/config/app-config.interface';
 import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -143,6 +144,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
         [this.getSearchLink()],
         {
           queryParams: params,
+          fragment: SEARCH_COMPONENT_ANCHOR_ID,
         },
       );
     }));
