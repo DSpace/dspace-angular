@@ -38,19 +38,17 @@ ssr:
   # may NOT be indexable by search engine crawlers (like Google Scholar). For search engine crawlers to fully index your site,
   # this "excludePathPatterns" should NEVER exclude SSR from the homepage, community/collection pages or item/entity pages.
   excludePathPatterns:
-    - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$"
-      flag: "i"
-    - pattern: "^/collections/[a-f0-9-]{36}/browse(/.*)?$"
-      flag: "i"
-    - pattern: "^/browse/"
-    - pattern: "^/search$"
-    - pattern: "^/community-list$"
-    - pattern: "^/admin/"
-    - pattern: "^/processes/?"
-    - pattern: "^/notifications/"
-    - pattern: "^/statistics/?"
-    - pattern: "^/access-control/"
-    - pattern: "^/health$"
+    - pattern: "^/communities"
+    - pattern: "^/collections"
+    - pattern: "^/browse"
+    - pattern: "^/search"
+    - pattern: "^/community-list"
+    - pattern: "^/admin"
+    - pattern: "^/processes"
+    - pattern: "^/notifications"
+    - pattern: "^/statistics"
+    - pattern: "^/access-control"
+    - pattern: "^/health"
 
   # Whether to enable rendering of Search component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
