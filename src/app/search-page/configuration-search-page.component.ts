@@ -44,6 +44,11 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,
     },
+    {
+      provide: SearchConfigurationService,
+      useExisting: SEARCH_CONFIG_SERVICE,
+    },
+    SearchService,
   ],
   imports: [
     AsyncPipe,

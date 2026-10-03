@@ -196,7 +196,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Method to reset the route when the window is opened to make sure no strange pagination issues appears
    */
   resetRoute() {
-    this.paginationService.updateRoute(this.searchConfigService.paginationID, this.initialPagination);
+    this.paginationService.updateRoute(this.searchConfigService.searchInstanceId, this.initialPagination);
   }
 
   /**
