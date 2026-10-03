@@ -7,13 +7,20 @@ import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { CollectionItemMapperComponent } from '../collection-item-mapper/collection-item-mapper.component';
+import { DeleteCollectionPageComponent } from '../delete-collection-page/delete-collection-page.component';
 import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
+import { CollectionMoveComponent } from './collection-move/collection-move.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
+import { ThemedCollectionStatusComponent } from './collection-status/themed-collection-status.component';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
+import {
+  COLLECTION_EDIT_DELETE_PATH,
+  COLLECTION_EDIT_MOVE_PATH,
+} from './edit-collection-page.routing-paths';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality
@@ -31,8 +38,13 @@ export const ROUTES: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: 'metadata',
+        redirectTo: 'status',
         pathMatch: 'full',
+      },
+      {
+        path: 'status',
+        component: ThemedCollectionStatusComponent,
+        data: { title: 'collection.edit.tabs.status.title', hideReturnButton: true, showBreadcrumbs: true },
       },
       {
         path: 'metadata',
@@ -96,5 +108,14 @@ export const ROUTES: Route[] = [
         data: { title: 'collection.edit.tabs.item-mapper.title', hideReturnButton: true, showBreadcrumbs: true },
       },
     ],
+  },
+  {
+    path: COLLECTION_EDIT_DELETE_PATH,
+    component: DeleteCollectionPageComponent,
+  },
+  {
+    path: COLLECTION_EDIT_MOVE_PATH,
+    component: CollectionMoveComponent,
+    data: { title: 'collection.edit.move.title' },
   },
 ];
