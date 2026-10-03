@@ -1,0 +1,15 @@
+@if ((initialized | async)) {
+  <div [class]="'openstreetmap-container ' + valueStyle">
+    @defer {
+      <ds-geospatial-map
+        [coordinates]="points"
+        [bbox]="bboxes"
+        [cluster]="cluster"
+        layout="item"
+        style="width: 100%;">
+      </ds-geospatial-map>
+    } @placeholder {
+      <div class="map-placeholder"></div>
+    }
+  </div>
+}

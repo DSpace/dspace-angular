@@ -14,6 +14,7 @@ import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/pagina
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
+import { AlertType } from '../../alert/alert-type';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import {
@@ -30,9 +31,32 @@ import {
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = [
+    'linkType',
+    'searchResults',
+    'searchConfig',
+    'showCsvExport',
+    'showThumbnails',
+    'sortConfig',
+    'viewMode',
+    'configuration',
+    'disableHeader',
+    'selectable',
+    'context',
+    'hidePaginationDetail',
+    'selectionConfig',
+    'contentChange',
+    'deselectObject',
+    'selectObject',
+    'searchResultNotice',
+    'searchResultNoticeType',
+  ];
 
   @Input() linkType: CollectionElementLinkType;
+
+  @Input() searchResultNotice: string;
+
+  @Input() searchResultNoticeType: AlertType;
 
   @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
 
@@ -41,6 +65,8 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
   @Input() showCsvExport: boolean;
 
   @Input() showThumbnails: boolean;
+
+  @Input() showSearchResultNotice: boolean;
 
   @Input() sortConfig: SortOptions;
 
