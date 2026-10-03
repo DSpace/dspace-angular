@@ -315,6 +315,7 @@ describe('AuthService test', () => {
     beforeEach(() => {
       mockStore = TestBed.inject(MockStore);
       authService = TestBed.inject(AuthService);
+      mockStore.overrideSelector(getAuthenticationToken, token);
       mockStore.overrideSelector(isAuthenticated, true);
       mockStore.refreshState();
       storage = (authService as any).storage;
