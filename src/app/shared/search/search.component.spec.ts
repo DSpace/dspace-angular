@@ -41,6 +41,7 @@ import {
 } from '@dspace/core/shared/search/search-filters/search-config.model';
 import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
 import {
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
@@ -200,6 +201,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     getConfigurationSortOptions: sortOptionsList,
     getConfig: filtersConfigRD$,
     getConfigurationSearchConfig: of(searchConfig),
+    getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
     getCurrentConfiguration: of('default'),
     getCurrentScope: of('test-id'),
     getCurrentSort: of(sortOptionsList[0]),
@@ -450,6 +452,30 @@ describe('SearchComponent', () => {
         //Check that the last method from which the search depend upon is being called
         expect(searchManagerStub.search).toHaveBeenCalled();
       }));
+
+      describe('when the search configuration request fails', () => {
+        beforeEach(() => {
+          searchConfigurationServiceStub.getSearchConfigurationFor.and.returnValue(
+            createFailedRemoteDataObject$('Error fetching search configuration', 500),
+          );
+        });
+
+        it('should still initialize, so the search results error can be rendered', fakeAsync(() => {
+          comp.ngOnInit();
+          tick(100);
+
+          let initialized: boolean;
+          comp.initialized$.subscribe((res) => initialized = res);
+          expect(initialized).toBeTrue();
+        }));
+
+        it('should still request results, whose failure is what the user is shown', fakeAsync(() => {
+          comp.ngOnInit();
+          tick(100);
+
+          expect(searchManagerStub.search).toHaveBeenCalled();
+        }));
+      });
     });
   });
 });
