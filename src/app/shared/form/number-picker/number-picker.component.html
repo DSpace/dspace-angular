@@ -20,7 +20,6 @@
         size="{{size}}"
         [name]="name"
         [(ngModel)]="value"
-        (blur)="onBlur($event); $event.stopPropagation();"
         (change)="update($event); $event.stopPropagation();"
         (focus)="onFocus($event); $event.stopPropagation();"
         [readonly]="disabled"
