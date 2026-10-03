@@ -25,6 +25,7 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { PaginationRouteParams } from '@dspace/core/pagination/pagination-route-params.interface';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasValue,
@@ -247,6 +248,12 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   private subs: Subscription[] = [];
 
   /**
+   * Unique element 'id' property value, in case this class is used multiply
+   * in one page.
+   */
+  public elementId: string;
+
+  /**
    * If showPaginator is set to true, emit when the previous button is clicked
    */
   @Output() prev = new EventEmitter<boolean>();
@@ -255,6 +262,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * If showPaginator is set to true, emit when the next button is clicked
    */
   @Output() next = new EventEmitter<boolean>();
+
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
@@ -315,7 +323,9 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
     protected cdRef: ChangeDetectorRef,
     protected paginationService: PaginationService,
     public hostWindowService: HostWindowService,
+    private uuidService: UUIDService,
   ) {
+    this.elementId = uuidService.generate();
   }
 
   /**
