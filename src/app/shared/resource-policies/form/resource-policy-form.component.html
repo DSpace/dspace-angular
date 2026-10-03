@@ -37,7 +37,7 @@
             (click)="onReset()">{{'form.cancel' | translate}}</button>
             <button type="button"
               class="btn btn-primary"
-              [dsBtnDisabled]="(isFormValid() | async) !== true || (isProcessing | async)"
+              [dsBtnDisabled]="(isFormValid$ | async) !== true || (isProcessing | async)"
               (click)="onSubmit()">
               @if ((isProcessing | async)) {
                 <span>

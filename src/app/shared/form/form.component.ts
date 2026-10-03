@@ -164,6 +164,11 @@ export class FormComponent implements OnDestroy, OnInit {
   enableInlineGroupCopy: boolean;
 
   /**
+   * Whether the form is valid.
+   */
+  public isValid$: Observable<boolean>;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -233,6 +238,7 @@ export class FormComponent implements OnDestroy, OnInit {
     }
 
     this.formService.initForm(this.formId, this.formModel, this.getFormGroupValidStatus());
+    this.isValid$ = this.formService.isValid(this.formId);
 
     this.keepSync();
 
@@ -311,13 +317,6 @@ export class FormComponent implements OnDestroy, OnInit {
       .forEach((sub) => sub.unsubscribe());
     this.formService.removeForm(this.formId);
     this.formBuilderService.removeFormGroup(this.formId);
-  }
-
-  /**
-   * Method to check if the form status is valid or not
-   */
-  public isValid(): Observable<boolean> {
-    return this.formService.isValid(this.formId);
   }
 
   /**
