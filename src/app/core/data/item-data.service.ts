@@ -269,7 +269,12 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () =>
+      hrefObs.pipe(
+        take(1),
+        switchMap((href: string) => this.requestService.setStaleByHrefSubstring(href)),
+      ),
+    );
   }
 
   /**
