@@ -46,7 +46,10 @@ import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import { authorizationFeatureIds, oneAuthorizationMatchesFeature } from './authorization-utils';
+import {
+  authorizationFeatureIds,
+  oneAuthorizationMatchesFeature,
+} from './authorization-utils';
 import { FeatureID } from './feature-id';
 
 /**
