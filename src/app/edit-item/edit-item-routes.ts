@@ -35,7 +35,7 @@ export const ROUTES: Route[] = [
     component: ThemedPageNotFoundComponent,
     pathMatch: 'full',
     data: {
-      title: '404.page-not-found'
-    }
-  }
+      title: '404.page-not-found',
+    },
+  },
 ];
