@@ -3,6 +3,7 @@ import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { bitstreamBreadcrumbResolver } from '@dspace/core/breadcrumbs/bitstream-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -101,4 +102,12 @@ export const ROUTES: Route[] = [
       },
     ],
   },
+  {
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found'
+    }
+  }
 ];

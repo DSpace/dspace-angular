@@ -143,6 +143,9 @@ export const ROUTES: Route[] = [
   {
     path: '',
     component: ThemedPageNotFoundComponent,
-    canActivate: [endUserAgreementCurrentUserGuard],
-  },
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found'
+    }
+  }
 ];
