@@ -96,9 +96,35 @@ export class PipelineStatusService {
         ? of(payload)
         // Resposta 200 com corpo inesperado (proxy, página de erro, HTML).
         : throwError(() => ({ kind: 'invalid', status: 200 } as PipelineStatusError))),
-      catchError((err: unknown) => throwError(() => toPipelineStatusError(err))),
+      catchError((err: unknown) => {
+        const report = statusReportInError(err);
+        return report !== null
+          ? of(report)
+          : throwError(() => toPipelineStatusError(err));
+      }),
     );
   }
+}
+
+/**
+ * A API anuncia a saúde geral **pelo próprio código HTTP**: com a plataforma `down`
+ * (um componente crítico fora), `GET /api/status` responde 503 — mas com o relatório
+ * completo no corpo, que é exatamente o que este painel existe para mostrar.
+ *
+ * Sem isto, o `HttpClient` transforma o 503 em exceção e a única tela possível
+ * justamente quando algo cai seria "a API está indisponível" — enquanto a API está
+ * no ar e respondendo qual componente caiu.
+ *
+ * O corpo válido vence o código de erro; um 401/403/504 real não traz relatório
+ * (`{ detail: ... }`, HTML de proxy, corpo vazio) e continua caindo em
+ * `toPipelineStatusError`.
+ */
+function statusReportInError(err: unknown): PipelineStatusResponse | null {
+  if (!(err instanceof HttpErrorResponse)) {
+    return null;
+  }
+  const body: unknown = err.error;
+  return isPipelineStatusResponse(body) ? body : null;
 }
 
 /** Classifica um erro de consulta: rede, HTTP, timeout ou resposta inválida. */

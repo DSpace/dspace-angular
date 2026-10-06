@@ -14,8 +14,8 @@ import { of } from 'rxjs';
 import { FooterComponent } from './footer.component';
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
-import { AuthorizationDataServiceStub } from 'src/app/shared/testing/authorization-service.stub';
+import { ActivatedRouteStub } from 'src/app/core/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from 'src/app/core/testing/authorization-service.stub';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
