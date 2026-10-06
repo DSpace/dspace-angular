@@ -1,0 +1,308 @@
+<section class="rdapp-ai" [attr.aria-busy]="loading()">
+
+  <header class="rdapp-ai__head">
+    <div class="rdapp-ai__title-group">
+      <h2 class="rdapp-ai__title">
+        {{ i18n + '.title' | translate: { query: query() } }}
+      </h2>
+      <!-- Quem lê a síntese precisa saber de saída que ela foi gerada por IA,
+           não só no rodapé depois de ter lido tudo. -->
+      <span class="rdapp-ai__badge-full" data-test="evidencia.search.ai-summary.badge">
+        <i class="fas fa-robot" aria-hidden="true"></i>
+        {{ i18n + '.badge' | translate }}
+      </span>
+    </div>
+
+    <div class="rdapp-ai__modes" role="tablist" [attr.aria-label]="i18n + '.mode.label' | translate">
+      <button class="rdapp-ai__mode"
+              type="button"
+              role="tab"
+              data-test="evidencia.search.ai-summary.mode-basic"
+              [class.rdapp-ai__mode--on]="mode() === 'basic'"
+              [attr.aria-selected]="mode() === 'basic'"
+              (click)="setMode('basic')">
+        {{ i18n + '.mode.basic' | translate }}
+      </button>
+      <button class="rdapp-ai__mode"
+              type="button"
+              role="tab"
+              data-test="evidencia.search.ai-summary.mode-by-section"
+              [class.rdapp-ai__mode--on]="mode() === 'by_section'"
+              [attr.aria-selected]="mode() === 'by_section'"
+              (click)="setMode('by_section')">
+        {{ i18n + '.mode.by-section' | translate }}
+      </button>
+    </div>
+  </header>
+
+  <!-- A síntese olhou o acervo inteiro ou só o que foi marcado? Some quando não
+       há seleção: aí a resposta é "a busca toda", que é o que o título já diz. -->
+  @if (documentCount() > 0 && !tooManyDocuments()) {
+    <p class="rdapp-ai__scope" data-test="evidencia.search.ai-summary.scope">
+      <i class="fas fa-check-square" aria-hidden="true"></i>
+      {{ scopeKey() | translate: { count: documentCount() } }}
+    </p>
+  }
+
+  <!-- Seleção acima do teto da API: nenhuma chamada sai, e o aviso diz o número e
+       o que fazer — o 422 que viria daí é fatal e não explica nada disso. -->
+  @if (tooManyDocuments()) {
+    <p class="rdapp-ai__state rdapp-ai__state--error"
+       role="alert"
+       data-test="evidencia.search.ai-summary.too-many">
+      {{ i18n + '.scope.too-many' | translate: { count: documentCount(), max: maxDocuments } }}
+    </p>
+  }
+
+  <!-- Por que esta síntese: o que foi buscado e o que a API declarou ter usado. -->
+  @if (data() !== null && !empty()) {
+    <div class="rdapp-ai__context">
+      @if (filtersUsed().length > 0) {
+        <ul class="rdapp-ai__chips">
+          @for (filter of filtersUsed(); track filter.key + filter.value) {
+            <li class="rdapp-ai__chip">
+              <span class="rdapp-ai__chip-key">{{ filter.key }}</span>
+              <span>{{ filter.value }}</span>
+            </li>
+          }
+        </ul>
+      }
+      <p class="rdapp-ai__count">
+        {{ i18n + '.evidence-count' | translate: { count: evidenceCount() } }}
+      </p>
+    </div>
+  }
+
+  @if (firstLoad()) {
+    <p class="rdapp-ai__state" role="status" data-test="evidencia.search.ai-summary.loading">
+      <i class="fas fa-spinner fa-spin rdapp-ai__spinner" aria-hidden="true"></i>
+      {{ i18n + '.state.loading' | translate }}
+    </p>
+  }
+
+  <!-- Trocar de modo refaz a chamada, mas a síntese anterior fica na tela: o
+       aviso é esta linha, não o painel inteiro virando spinner. -->
+  @if (refreshing()) {
+    <p class="rdapp-ai__state rdapp-ai__state--inline"
+       role="status"
+       data-test="evidencia.search.ai-summary.refreshing">
+      <i class="fas fa-spinner fa-spin rdapp-ai__spinner" aria-hidden="true"></i>
+      {{ i18n + '.state.refreshing' | translate }}
+    </p>
+  }
+
+  @if (blankError()) {
+    <div class="rdapp-ai__state rdapp-ai__state--error" role="alert">
+      <p class="mb-2">{{ errorKey() | translate }}</p>
+      @if (canRetry()) {
+        <button class="btn btn-outline-primary btn-sm rounded-pill px-3"
+                type="button"
+                data-test="evidencia.search.ai-summary.retry"
+                (click)="retry()">
+          {{ i18n + '.retry' | translate }}
+        </button>
+      }
+    </div>
+  }
+
+  @if (empty()) {
+    <p class="rdapp-ai__state" role="status">{{ i18n + '.state.empty' | translate }}</p>
+  }
+
+  @if (data() !== null && !empty()) {
+    <div class="rdapp-ai__body">
+
+      <!-- Só o texto gerado vai no card, no mesmo desenho do trecho de evidência do
+           `ds-document-more-results`: fontes e aviso ficam fora, porque não são
+           síntese — e o botão "Copiar" leva exatamente o que está dentro dele. -->
+      <div class="rdapp-ai__output" data-test="evidencia.search.ai-summary.output">
+        <div class="rdapp-ai__output-bar">
+          <button class="rdapp-ai__copy"
+                  type="button"
+                  data-test="evidencia.search.ai-summary.copy"
+                  [class.rdapp-ai__copy--done]="copyState() === 'copied'"
+                  [class.rdapp-ai__copy--failed]="copyState() === 'failed'"
+                  (click)="copy()">
+            @switch (copyState()) {
+              @case ('copied') {
+                <i class="fas fa-check" aria-hidden="true"></i>
+                <span>{{ i18n + '.copy.done' | translate }}</span>
+              }
+              @case ('failed') {
+                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                <span>{{ i18n + '.copy.failed' | translate }}</span>
+              }
+              @default {
+                <i class="fas fa-copy" aria-hidden="true"></i>
+                <span>{{ i18n + '.copy.label' | translate }}</span>
+              }
+            }
+          </button>
+          <!-- O rótulo do botão muda, mas foco em botão não anuncia mudança de
+               texto: o resultado da cópia sai por aqui para o leitor de tela. -->
+          <span class="visually-hidden" role="status">
+            @if (copyState() === 'copied') {
+              {{ i18n + '.copy.done' | translate }}
+            } @else if (copyState() === 'failed') {
+              {{ i18n + '.copy.failed' | translate }}
+            }
+          </span>
+        </div>
+
+        <!-- A grade de seções depende de a API ter mandado seções, não só de o modo
+             estar selecionado: sem elas, o que chegou é texto corrido e é isso que
+             se mostra — nunca uma grade vazia. -->
+        @if (sectioned()) {
+          <div class="rdapp-ai__sections">
+            @for (section of sections(); track section.key) {
+              <article class="rdapp-ai__section">
+                <h3 class="rdapp-ai__section-title">{{ section.title }}</h3>
+                <div class="rdapp-ai__text">
+                  <ng-container *ngTemplateOutlet="markdownBlocks; context: { $implicit: section.blocks, base: 4 }"></ng-container>
+                </div>
+              </article>
+            }
+          </div>
+        } @else {
+          <div class="rdapp-ai__text" data-test="evidencia.search.ai-summary.text">
+            <ng-container *ngTemplateOutlet="markdownBlocks; context: { $implicit: blocks(), base: 3 }"></ng-container>
+          </div>
+        }
+      </div>
+
+      @if (citations().length > 0) {
+        <div class="rdapp-ai__sources">
+          <p class="rdapp-ai__label">{{ i18n + '.sources.label' | translate }}</p>
+          <ul class="rdapp-ai__source-list">
+            @for (source of sources(); track source.key) {
+              <li class="rdapp-ai__source">
+                <span class="rdapp-ai__source-name">{{ source.name || (i18n + '.citation.untitled' | translate) }}</span>
+                <!-- Um marcador por trecho citado: cada um abre o PDF na sua página. -->
+                <span class="rdapp-ai__source-marks">
+                  @for (cite of source.citations; track cite.n) {
+                    @if (canOpen(cite)) {
+                      <button class="rdapp-ai__mark"
+                              type="button"
+                              data-test="evidencia.search.ai-summary.source-page"
+                              [attr.aria-label]="pageLabel(cite) | translate: { page: cite.page }"
+                              [attr.title]="pageLabel(cite) | translate: { page: cite.page }"
+                              (click)="openEvidence(cite)">[{{ cite.n }}]</button>
+                    } @else {
+                      <span class="rdapp-ai__mark rdapp-ai__mark--plain">[{{ cite.n }}]</span>
+                    }
+                  }
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <p class="rdapp-ai__disclaimer">
+        <span class="rdapp-ai__badge" aria-hidden="true">IA</span>
+        <span>{{ i18n + '.disclaimer' | translate }}</span>
+      </p>
+    </div>
+  }
+</section>
+
+<!-- Markdown da síntese: títulos, listas e parágrafos. A conversão vem pronta do
+     model, em estrutura — assim cada citação continua sendo um botão Angular com
+     popover, o que `innerHTML` não permitiria. Um só template serve o resumo geral
+     e cada seção do modo por seção. `base` é o nível ARIA dos títulos `#`/`##`:
+     abaixo do h2 do painel no resumo geral, abaixo do h3 da seção no outro modo. -->
+<ng-template #markdownBlocks let-blocks let-base="base">
+  @for (block of blocks; track $index) {
+    @switch (block.kind) {
+      @case ('heading') {
+        <p class="rdapp-ai__heading"
+           role="heading"
+           [attr.aria-level]="headingLevel(base, block.level)"
+           [attr.data-level]="block.level">
+          <ng-container *ngTemplateOutlet="textWithCitations; context: { $implicit: block.chunks }"></ng-container>
+        </p>
+      }
+      @case ('list') {
+        @if (block.ordered) {
+          <ol class="rdapp-ai__list">
+            @for (item of block.items; track $index) {
+              <li><ng-container *ngTemplateOutlet="textWithCitations; context: { $implicit: item }"></ng-container></li>
+            }
+          </ol>
+        } @else {
+          <ul class="rdapp-ai__list">
+            @for (item of block.items; track $index) {
+              <li><ng-container *ngTemplateOutlet="textWithCitations; context: { $implicit: item }"></ng-container></li>
+            }
+          </ul>
+        }
+      }
+      @default {
+        <p class="rdapp-ai__paragraph">
+          <ng-container *ngTemplateOutlet="textWithCitations; context: { $implicit: block.chunks }"></ng-container>
+        </p>
+      }
+    }
+  }
+</ng-template>
+
+<!-- Conteúdo de uma linha: texto, ênfase e marcadores de citação clicáveis. -->
+<ng-template #textWithCitations let-parts>
+  @for (chunk of parts; track $index) {
+    @switch (chunk.kind) {
+      @case ('citation') {
+        <button class="rdapp-ai__cite"
+                type="button"
+                triggers="click"
+                autoClose="outside"
+                popoverClass="rdapp-ai-popover"
+                [ngbPopover]="citationDetail"
+                [popoverContext]="{ $implicit: citation(chunk.n) }"
+                [attr.aria-label]="i18n + '.citation.open' | translate: { n: chunk.n }">{{ chunk.text }}</button>
+      }
+      @case ('strong') {
+        <strong>{{ chunk.text }}</strong>
+      }
+      @case ('em') {
+        <em>{{ chunk.text }}</em>
+      }
+      @case ('code') {
+        <code>{{ chunk.text }}</code>
+      }
+      @default {
+        <span>{{ chunk.text }}</span>
+      }
+    }
+  }
+</ng-template>
+
+<!-- Detalhe de uma citação: a evidência aparece onde a afirmação foi lida. -->
+<ng-template #citationDetail let-cite>
+  @if (cite) {
+    <div class="rdapp-ai-pop">
+      <p class="rdapp-ai-pop__title">{{ cite.title || cite.section || (i18n + '.citation.untitled' | translate) }}</p>
+      <dl class="rdapp-ai-pop__list">
+        @if (cite.page !== null) {
+          <dt>{{ i18n + '.citation.page-label' | translate }}</dt>
+          <dd>{{ cite.page }}</dd>
+        }
+        @if (cite.section) {
+          <dt>{{ i18n + '.citation.section-label' | translate }}</dt>
+          <dd>{{ cite.section }}</dd>
+        }
+        @if (cite.snippet) {
+          <dt>{{ i18n + '.citation.snippet-label' | translate }}</dt>
+          <dd class="rdapp-ai-pop__snippet">{{ cite.snippet }}</dd>
+        }
+      </dl>
+      @if (canOpen(cite)) {
+        <button class="btn btn-sm btn-primary rdapp-ai__page-link rdapp-ai-pop__link"
+                type="button"
+                data-test="evidencia.search.ai-summary.citation-page"
+                (click)="openEvidence(cite)">
+          {{ pageLabel(cite) | translate: { page: cite.page } }}
+        </button>
+      }
+    </div>
+  }
+</ng-template>

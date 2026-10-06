@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,6 +10,17 @@ import { map } from 'rxjs/operators';
 // Importações dos serviços oficiais do DSpace para varredura completa
 import { ItemDataService } from '../../../../../../app/core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../../../../../app/core/shared/operators';
+import { AiSummaryComponent } from '../../../../../../app/evidencia/ai-summary/ai-summary.component';
+import {
+  AiSummaryDocument,
+  AiSummaryService,
+} from '../../../../../../app/evidencia/ai-summary/ai-summary.service';
+import {
+  AI_SUMMARY_STORAGE_KEYS,
+  readStored,
+  removeStored,
+  writeStored,
+} from '../../../../../../app/evidencia/ai-summary/ai-summary.storage';
 
 import {
   fadeIn,
@@ -22,6 +33,17 @@ import { SearchLabelsComponent } from '../../../../../../app/shared/search/searc
 import { SearchResultsSkeletonComponent } from '../../../../../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component';
 import { SearchResultsComponent as BaseComponent } from '../../../../../../app/shared/search/search-results/search-results.component';
 
+/**
+ * O que precisa sobreviver ao F5 para a aba de síntese voltar como estava: de qual
+ * busca ela era e sobre quais documentos. A resposta em si fica no cache do
+ * `AiSummaryService`.
+ */
+interface StoredAiSummaryView {
+  query: string;
+  searchType: string;
+  documents: AiSummaryDocument[];
+}
+
 @Component({
   selector: 'ds-themed-search-results',
   templateUrl: './search-results.component.html',
@@ -31,6 +53,7 @@ import { SearchResultsComponent as BaseComponent } from '../../../../../../app/s
   ],
   animations: [fadeIn, fadeInOut],
   imports: [
+    AiSummaryComponent,
     AsyncPipe,
     ErrorComponent,
     NgbDropdownModule,
@@ -43,13 +66,140 @@ import { SearchResultsComponent as BaseComponent } from '../../../../../../app/s
     TranslateModule,
   ],
 })
-export class SearchResultsComponent extends BaseComponent {
+export class SearchResultsComponent extends BaseComponent implements OnChanges {
   selectedCount = 0;
   isExporting = false;
   isExportingDocx = false;
   isExportingPdf = false;
 
+  /**
+   * Aba visível. "Resultados" é a inicial: a síntese custa uma inferência de LLM
+   * e ninguém a pediu ainda ao chegar na busca. A exceção é o F5 com a síntese
+   * aberta — ver `restoreAiSummaryView`.
+   */
+  readonly activeTab = signal<'results' | 'ai-summary'>('results');
+
+  /**
+   * Itens marcados na lista quando a aba de síntese foi aberta.
+   *
+   * Fica num sinal e não numa leitura do DOM porque a aba de resultados sai da
+   * tela ao trocar de aba: quando o painel de síntese pergunta pela seleção, as
+   * caixas de seleção já não existem mais.
+   */
+  readonly selectedDocuments = signal<AiSummaryDocument[]>([]);
+
   private itemDataService = inject(ItemDataService);
+
+  /**
+   * A aba de síntese aparece nesta instalação? Desligada por padrão — ver
+   * `aiSummary.enabled` no app config. Lido uma vez: configuração não muda em
+   * tempo de execução, e o template consulta isso a cada verificação.
+   */
+  readonly aiSummaryEnabled = inject(AiSummaryService).enabled;
+
+  /** O primeiro `searchConfig` é a montagem da tela; os seguintes são busca ou
+   *  filtro trocados. Só o primeiro pode reabrir a síntese via F5. */
+  private firstSearchConfig = true;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.searchConfig) {
+      return;
+    }
+    if (this.firstSearchConfig) {
+      this.firstSearchConfig = false;
+      // F5 na síntese aberta volta a ela, se for a mesma busca e a mesma seleção.
+      this.restoreAiSummaryView();
+      return;
+    }
+    // Busca alterada ou filtro aplicado depois da montagem: a seleção que a
+    // síntese resumia veio das caixas da lista, que é recarregada e volta em
+    // branco. Manter o painel aberto o deixaria falando de documentos que já
+    // saíram do resultado, então ele é limpo e escondido para ficar em sincronia
+    // com a busca e os filtros atuais.
+    this.clearAiSummary();
+  }
+
+  showTab(tab: 'results' | 'ai-summary'): void {
+    if (tab === 'ai-summary') {
+      // Última chance de ler as caixas de seleção: a troca de aba desmonta a
+      // lista de resultados.
+      const documents = this.readSelectedDocuments();
+      // A síntese só existe sobre uma seleção. Sem itens marcados não há o que
+      // resumir, então o clique não abre a aba.
+      if (documents.length === 0) {
+        return;
+      }
+      this.selectedDocuments.set(documents);
+      this.selectedCount = documents.length;
+      this.activeTab.set('ai-summary');
+      // O F5 volta à síntese com a mesma seleção.
+      this.storeAiSummaryView();
+    } else {
+      // A lista é remontada com as caixas em branco, então o contador volta a
+      // zero junto — senão a exportação segue habilitada sobre uma seleção que
+      // já não existe na tela.
+      this.selectedCount = 0;
+      this.selectedDocuments.set([]);
+      this.activeTab.set('results');
+      removeStored(AI_SUMMARY_STORAGE_KEYS.view);
+    }
+  }
+
+  /**
+   * Esvazia a síntese e volta à lista de resultados.
+   *
+   * Chamado a cada mudança de busca ou filtro: a seleção deixa de valer e o
+   * painel não pode continuar aberto sobre ela.
+   */
+  private clearAiSummary(): void {
+    this.selectedCount = 0;
+    this.selectedDocuments.set([]);
+    this.activeTab.set('results');
+    removeStored(AI_SUMMARY_STORAGE_KEYS.view);
+  }
+
+  /**
+   * Depois de um F5, reabre a síntese se ela estava aberta **para esta mesma
+   * busca**, com a mesma seleção — o cache do serviço devolve o texto sem outra
+   * chamada à API.
+   *
+   * Busca diferente é navegação nova, não F5: o estado guardado sai, para uma
+   * volta futura àquela consulta não abrir a síntese sozinha.
+   */
+  private restoreAiSummaryView(): void {
+    const query = this.searchConfig?.query?.trim() ?? '';
+    if (!this.aiSummaryEnabled || query === '') {
+      return;
+    }
+
+    const stored = readStored<StoredAiSummaryView>(AI_SUMMARY_STORAGE_KEYS.view);
+    if (stored === null) {
+      return;
+    }
+    const sameSearch = stored.query === query && stored.searchType === this.currentSearchType();
+    // A síntese só se restaura sobre uma seleção: sem documentos guardados não há
+    // o que reabrir, mesma regra da abertura pela aba.
+    if (!sameSearch || !Array.isArray(stored.documents) || stored.documents.length === 0) {
+      removeStored(AI_SUMMARY_STORAGE_KEYS.view);
+      return;
+    }
+    this.selectedDocuments.set(stored.documents);
+    this.selectedCount = stored.documents.length;
+    this.activeTab.set('ai-summary');
+  }
+
+  private storeAiSummaryView(): void {
+    const view: StoredAiSummaryView = {
+      query: this.searchConfig?.query?.trim() ?? '',
+      searchType: this.currentSearchType(),
+      documents: this.selectedDocuments(),
+    };
+    writeStored(AI_SUMMARY_STORAGE_KEYS.view, view);
+  }
+
+  private currentSearchType(): string {
+    return this.searchConfig?.searchType ?? '';
+  }
 
   @HostListener('change', ['$event'])
   onChange(event: Event) {
@@ -64,6 +214,37 @@ export class SearchResultsComponent extends BaseComponent {
     this.selectedCount = checkboxes.length;
   }
 
+  /** UUIDs dos itens marcados; a caixa de seleção guarda o id no próprio `id`. */
+  private selectedItemIds(): string[] {
+    return Array.from(document.querySelectorAll('.item-checkbox:checked'))
+      .map((checkbox: Element) => checkbox.id.replace('checkbox-', ''));
+  }
+
+  /**
+   * A seleção no formato que a síntese pede: UUID e, quando a página de
+   * resultados o conhece, o handle do item.
+   *
+   * O handle vem do resultado já carregado, não do DOM — a lista só imprime o
+   * UUID —, e é opcional: a API acha o documento pelo UUID, o handle apenas
+   * dispensa a tradução do outro lado.
+   */
+  private readSelectedDocuments(): AiSummaryDocument[] {
+    return this.selectedItemIds()
+      .map((uuid: string) => ({ uuid, handle: this.handleOf(uuid) }));
+  }
+
+  /** Handle do item na página de resultados atual; `null` quando não se sabe. */
+  private handleOf(uuid: string): string | null {
+    const page = this.searchResults?.payload?.page ?? [];
+    for (const result of page) {
+      const dso = result?.indexableObject as { uuid?: string, handle?: string };
+      if (dso?.uuid === uuid) {
+        return dso.handle ?? null;
+      }
+    }
+    return null;
+  }
+
   toggleSelectAll(event: any) {
     const isChecked = event.target.checked;
     const checkboxes = document.querySelectorAll('.item-checkbox');
@@ -72,10 +253,7 @@ export class SearchResultsComponent extends BaseComponent {
   }
 
   async exportSelectedToCsv() {
-    const checkboxes = document.querySelectorAll('.item-checkbox:checked');
-    const selectedIds = Array.from(checkboxes).map((cb) =>
-      cb.id.replace('checkbox-', ''),
-    );
+    const selectedIds = this.selectedItemIds();
 
     if (selectedIds.length === 0) return;
 
@@ -151,10 +329,7 @@ export class SearchResultsComponent extends BaseComponent {
   }
 
   async exportSelectedToDocx() {
-    const checkboxes = document.querySelectorAll('.item-checkbox:checked');
-    const selectedIds = Array.from(checkboxes).map((cb) =>
-      cb.id.replace('checkbox-', ''),
-    );
+    const selectedIds = this.selectedItemIds();
 
     if (selectedIds.length === 0) return;
 
@@ -257,10 +432,7 @@ export class SearchResultsComponent extends BaseComponent {
   }
 
   async exportSelectedToPdf() {
-    const checkboxes = document.querySelectorAll('.item-checkbox:checked');
-    const selectedIds = Array.from(checkboxes).map((cb) =>
-      cb.id.replace('checkbox-', ''),
-    );
+    const selectedIds = this.selectedItemIds();
 
     if (selectedIds.length === 0) return;
 

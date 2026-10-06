@@ -7604,6 +7604,10 @@
 
   "evidencia.search.tab.ai-summary.short": "IA Resumo",
 
+  "evidencia.search.tab.ai-summary.selected": "Sintetizar apenas os itens selecionados ({{ count }})",
+
+  "evidencia.search.tab.ai-summary.needs-selection": "Selecione um ou mais itens para gerar o resumo",
+
   "evidencia.search.tab.ai-observation.short": "IA Obs.",
 
   "evidencia.item.reference.copied": "Copiado!",
@@ -8196,4 +8200,55 @@
   "health-page.ingestion.lookup.doc": "Documento",
   "health-page.ingestion.lookup.chunks": "Chunks",
   "health-page.ingestion.lookup.indexed": "Indexados",
+
+  // ---------------------------------------------------------------------------
+  // Aba "Sintese por IA" da busca — GET /api/search/summarize (evidencia_pipe)
+  // ---------------------------------------------------------------------------
+
+  "evidencia.search.tab.label": "Modo de exibição dos resultados",
+
+  "evidencia.search.ai-summary.title": "Síntese sobre: {{ query }}",
+  "evidencia.search.ai-summary.badge": "Conteúdo gerado por IA",
+  "evidencia.search.ai-summary.mode.label": "Modo da síntese",
+  "evidencia.search.ai-summary.mode.basic": "Resumo de achados",
+  "evidencia.search.ai-summary.mode.by-section": "Resumo de recomendações",
+  "evidencia.search.ai-summary.filters.label": "Filtros aplicados",
+  "evidencia.search.ai-summary.evidence-count": "{{ count }} evidências analisadas",
+
+  "evidencia.search.ai-summary.scope.selected-one": "Síntese restrita a 1 documento selecionado",
+  "evidencia.search.ai-summary.scope.selected-many": "Síntese restrita a {{ count }} documentos selecionados",
+
+  "evidencia.search.ai-summary.scope.too-many": "A síntese aceita no máximo {{ max }} documentos por vez, e há {{ count }} marcados. Volte aos resultados e desmarque alguns.",
+  "evidencia.search.ai-summary.sources.label": "Fontes",
+  "evidencia.search.ai-summary.copy.label": "Copiar",
+  "evidencia.search.ai-summary.copy.done": "Copiado",
+  "evidencia.search.ai-summary.copy.failed": "Não foi possível copiar",
+  "evidencia.search.ai-summary.retry": "Gerar de novo",
+  "evidencia.search.ai-summary.disclaimer": "Síntese gerada por IA a partir das evidências recuperadas. Consulte as fontes originais antes de usar o conteúdo em decisões ou documentos oficiais.",
+
+  "evidencia.search.ai-summary.citation.open": "Ver a evidência da citação {{ n }}",
+  "evidencia.search.ai-summary.citation.untitled": "Documento sem título",
+  "evidencia.search.ai-summary.citation.page": "p. {{ page }}",
+  "evidencia.search.ai-summary.citation.page-label": "Página",
+  "evidencia.search.ai-summary.citation.page-link": "Página {{page}}",
+  "evidencia.search.ai-summary.citation.section-label": "Seção",
+  "evidencia.search.ai-summary.citation.snippet-label": "Trecho",
+  "evidencia.search.ai-summary.citation.open-item": "Abrir no DSpace",
+
+  "evidencia.search.ai-summary.state.loading": "Analisando as evidências recuperadas…",
+  "evidencia.search.ai-summary.state.refreshing": "Atualizando a síntese para este modo…",
+  "evidencia.search.ai-summary.state.empty": "Não houve evidência suficiente para sintetizar esta busca. Amplie a consulta ou remova filtros.",
+
+  "evidencia.search.ai-summary.error.network": "Não foi possível alcançar o serviço de síntese. Verifique a conexão com o host do evidencia_pipe e tente de novo.",
+  "evidencia.search.ai-summary.error.timeout": "A síntese demorou mais que o limite e foi interrompida. Tente de novo ou reduza o alcance da busca.",
+  "evidencia.search.ai-summary.error.invalid": "O serviço de síntese respondeu num formato inesperado. Avise a equipe do evidencia_pipe.",
+  "evidencia.search.ai-summary.error.http": "Falha inesperada ao gerar a síntese. Tente de novo.",
+  "evidencia.search.ai-summary.error.bad-request": "O serviço de síntese recusou esta consulta. Simplifique os termos e tente de novo.",
+  "evidencia.search.ai-summary.error.unauthorized": "Sua sessão expirou. Entre novamente para gerar a síntese.",
+  "evidencia.search.ai-summary.error.forbidden": "Sua conta não pode usar a síntese por IA. Peça acesso a um administrador.",
+  "evidencia.search.ai-summary.error.notfound": "A síntese por IA ainda não está publicada nesta instalação da API.",
+  "evidencia.search.ai-summary.error.unprocessable": "O serviço de síntese não conseguiu processar esta consulta.",
+  "evidencia.search.ai-summary.error.throttled": "Requisições em excesso. Aguarde um momento antes de gerar outra síntese.",
+  "evidencia.search.ai-summary.error.server": "O serviço de síntese falhou com erro interno. Verifique os logs do evidencia_pipe.",
+  "evidencia.search.ai-summary.error.gateway": "O serviço de síntese está indisponível. Ele pode estar reiniciando: tente de novo em instantes.",
 }
