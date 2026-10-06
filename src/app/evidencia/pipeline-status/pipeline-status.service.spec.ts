@@ -82,6 +82,33 @@ describe('PipelineStatusService', () => {
     });
   });
 
+  it('entrega o relatório quando a API sinaliza a queda pelo 503 e manda o corpo', () => {
+    // A API responde 503 quando um componente crítico cai (`status: 'down'`), mas
+    // com o relatório completo — é o caso que o painel mais precisa mostrar.
+    const down: PipelineStatusResponse = { ...PIPELINE_STATUS_MOCK, status: 'down' };
+    let received: PipelineStatusResponse;
+    let errored = false;
+    service.getStatus().subscribe({
+      next: (response: PipelineStatusResponse) => received = response,
+      error: () => errored = true,
+    });
+
+    httpMock.expectOne(url).flush(down, { status: 503, statusText: 'Service Unavailable' });
+
+    expect(errored).toBeFalse();
+    expect(received.status).toBe('down');
+    expect(Object.keys(received.components).length).toBe(13);
+  });
+
+  it('mantém o erro quando o 503 não traz relatório', () => {
+    let error: PipelineStatusError;
+    service.getStatus().subscribe({ error: (err: unknown) => error = err as PipelineStatusError });
+
+    httpMock.expectOne(url).flush({ detail: 'indisponível' }, { status: 503, statusText: 'erro' });
+
+    expect(error).toEqual({ kind: 'http', status: 503 });
+  });
+
   it('classifica resposta 200 fora do formato como inválida', () => {
     let error: PipelineStatusError;
     service.getStatus().subscribe({ error: (err: unknown) => error = err as PipelineStatusError });
