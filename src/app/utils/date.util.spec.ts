@@ -2,6 +2,7 @@ import {
   dateToISOFormat,
   dateToNgbDateStruct,
   dateToString,
+  dateValueToString,
   isValidDate,
   yearFromString,
 } from './date.util';
@@ -90,6 +91,24 @@ describe('Date Utils', () => {
     });
     it('should return false for a time that does not exist', () => {
       expect(isValidDate('2022-02-60T10:60:20')).toBe(false);
+    });
+  });
+
+  describe('dateValueToString', () => {
+    it('should return the same string when given a string', () => {
+      expect(dateValueToString('1983-11-18')).toEqual('1983-11-18');
+    });
+    it('should return YYYY-MM-DD when given a Date object', () => {
+      expect(dateValueToString(new Date(Date.UTC(1983, 10, 18)))).toEqual('1983-11-18');
+    });
+    it('should return YYYY-MM-DD when given a NgbDateStruct-like object', () => {
+      expect(dateValueToString({ year: 1983, month: 11, day: 18 })).toEqual('1983-11-18');
+    });
+    it('should throw an error for an arbitrary object', () => {
+      expect(() => dateValueToString({ foo: 'bar' })).toThrowError(/Unsupported date value type/);
+    });
+    it('should throw an error for an empty object', () => {
+      expect(() => dateValueToString({})).toThrowError(/Unsupported date value type/);
     });
   });
 

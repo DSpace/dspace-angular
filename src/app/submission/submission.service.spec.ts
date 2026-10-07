@@ -412,7 +412,7 @@ describe('SubmissionService', () => {
 
   const searchService = getMockSearchService();
 
-  const requestServce = getMockRequestService();
+  const requestService = getMockRequestService();
 
   beforeEach(waitForAsync(() => {
     itemService = new ItemDataServiceStub();
@@ -432,7 +432,7 @@ describe('SubmissionService', () => {
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: SearchService, useValue: searchService },
-        { provide: RequestService, useValue: requestServce },
+        { provide: RequestService, useValue: requestService },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
         { provide: ItemDataService, useValue: itemService },
         NotificationsService,
@@ -980,6 +980,7 @@ describe('SubmissionService', () => {
     it('should redirect to Item page', fakeAsync(() => {
       scheduler = getTestScheduler();
 
+      (requestService.setStaleByHrefSubstring as jasmine.Spy).calls.reset();
       const itemUuid = 'd62fc60f-e9a5-48e6-973a-90819acf23ae';
       const mockBundle = Object.assign(new Bundle(), {
         _links: {
@@ -999,7 +1000,6 @@ describe('SubmissionService', () => {
       });
       let itemSubmissionId = itemUuid + ':FULL';
       spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
-      spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
 
       scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
       scheduler.flush();

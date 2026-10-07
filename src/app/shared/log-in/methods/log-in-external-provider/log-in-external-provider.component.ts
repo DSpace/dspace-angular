@@ -26,6 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
+
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
@@ -35,6 +37,10 @@ import { take } from 'rxjs/operators';
     TranslateModule,
   ],
 })
+@renderAuthMethodFor(AuthMethodType.Shibboleth)
+@renderAuthMethodFor(AuthMethodType.Oidc)
+@renderAuthMethodFor(AuthMethodType.Orcid)
+@renderAuthMethodFor(AuthMethodType.Saml)
 export class LogInExternalProviderComponent implements OnInit {
 
   /**

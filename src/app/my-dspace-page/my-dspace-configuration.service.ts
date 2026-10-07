@@ -123,12 +123,12 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
         const availableConf: MyDSpaceConfigurationValueType[] = [];
         if (isSubmitter) {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);
-          availableConf.push(MyDSpaceConfigurationValueType.OtherWorkspace);
         }
         if (isController || isAdmin) {
           availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);
         }
+        availableConf.push(MyDSpaceConfigurationValueType.OtherWorkspace);
         return availableConf;
       }));
   }

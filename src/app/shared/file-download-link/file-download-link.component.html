@@ -7,26 +7,26 @@
 
 <a [routerLink]="bitstreamPath?.routerLink" class="d-block dont-break-out mb-1"
   [queryParams]="bitstreamPath?.queryParams"
-  [target]="isBlank ? '_blank': '_self'"
-  [ngClass]="cssClasses"
+   [target]="isBlank ? '_blank': '_self'"
+   [ngClass]="cssClasses"
   [attr.aria-label]="getDownloadLinkTitle(canDownload, canDownloadWithToken, dsoNameService.getName(bitstream))"
   [title]="getDownloadLinkTitle(canDownload, canDownloadWithToken, dsoNameService.getName(bitstream))"
-  role="link"
-  tabindex="0">
+   role="link"
+   tabindex="0">
   @if ((canDownload) === false && (canDownloadWithToken) === false) {
     <!-- If the user cannot download the file by auth or token, show a lock icon -->
     <span role="img"
-    [attr.aria-label]="'file-download-link.restricted' | translate"
-    [title]="'file-download-link.restricted' | translate"
-    class="pe-1">
+          [attr.aria-label]="'file-download-link.restricted' | translate"
+          [title]="'file-download-link.restricted' | translate"
+          class="pe-1">
       <i class="fas fa-lock"></i>
     </span>
   } @else if (canDownloadWithToken && (canDownload === false)) {
     <!-- If the user can download the file by token, and NOT normally show a lock open icon -->
     <span role="img"
-    [attr.aria-label]="'file-download-link.secure-access' | translate"
-    [title]="'file-download-link.secure-access' | translate"
-    class="pe-1 request-a-copy-access-icon">
+          [attr.aria-label]="'file-download-link.secure-access' | translate"
+          [title]="'file-download-link.secure-access' | translate"
+          class="pe-1 request-a-copy-access-icon">
       <i class="fa-solid fa-lock-open"></i>
     </span>
   } @else if (showIcon) {
@@ -35,6 +35,41 @@
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 
+@let showAudioTranscript = audioTranscript && isAudioMediaType;
+@let showVideoDescription = videoDescription && isVideoMediaType;
+@if (audioTranscript || videoDescription) {
+  <span class="file-download-link">
+    @if (showAudioTranscript) {
+      <button
+        class="btn btn-link p-0 file-download-link-button"
+        type="button"
+        (click)="openTextModal(textModal, 'file-download-link.audio-transcript.title', audioTranscript)"
+        [attr.aria-label]="'file-download-link.audio-transcript.aria' | translate">
+        {{ 'file-download-link.audio-transcript.label' | translate }}
+      </button>
+    }
+    @if (showVideoDescription) {
+      <button
+        class="btn btn-link p-0 file-download-link-button"
+        type="button"
+        (click)="openTextModal(textModal, 'file-download-link.video-description.title', videoDescription)"
+        [attr.aria-label]="'file-download-link.video-description.aria' | translate">
+        {{ 'file-download-link.video-description.label' | translate }}
+      </button>
+    }
+  </span>
+}
+
 <ng-template #content>
   <ng-content></ng-content>
+</ng-template>
+
+<ng-template #textModal let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title" id="file-download-link-text-modal-title">{{ modalTitle }}</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div>{{ modalContent }}</div>
+  </div>
 </ng-template>

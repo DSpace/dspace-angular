@@ -4,7 +4,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Registration } from '@dspace/core/shared/registration.model';
 import { hasNoValue } from '@dspace/shared/utils/empty.util';
@@ -19,10 +18,9 @@ import {
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { AuthMethodTypeComponent } from '../shared/log-in/methods/auth-methods.type';
-import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../shared/log-in/methods/log-in.methods-decorator';
 
 @Component({
+  selector: 'ds-base-external-login-page',
   templateUrl: './external-login-page.component.html',
   styleUrls: ['./external-login-page.component.scss'],
   imports: [
@@ -55,14 +53,11 @@ export class ExternalLoginPageComponent implements OnInit {
    */
   public hasErrors = false;
 
-  public authMethods: Map<AuthMethodType, AuthMethodTypeComponent>;
-
   constructor(
     private arouter: ActivatedRoute,
   ) {
     this.token = this.arouter.snapshot.params.token;
     this.hasErrors = hasNoValue(this.arouter.snapshot.params.token);
-    this.authMethods = AUTH_METHOD_FOR_DECORATOR_MAP;
   }
 
   ngOnInit(): void {

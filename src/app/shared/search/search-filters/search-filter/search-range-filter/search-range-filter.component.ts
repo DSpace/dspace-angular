@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { RouteService } from '@dspace/core/services/route.service';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { yearFromString } from '@dspace/shared/utils/date.util';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
@@ -35,6 +36,7 @@ import {
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
@@ -63,6 +65,7 @@ import {
 /**
  * Component that represents a range facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.range)
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Fallback minimum for the range

@@ -22,7 +22,7 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
 import { SearchService } from '../../../search/search.service';
 import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 
@@ -93,7 +93,7 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
 
     expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
       queryParams: {
-        workflow: ADVANCED_WORKFLOW_ACTION_RATING,
+        workflow: AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING,
         claimedTask: taskId,
       },
     });

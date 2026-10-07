@@ -25,6 +25,7 @@ import {
   from as fromPromise,
   Observable,
   of,
+  ReplaySubject,
 } from 'rxjs';
 import {
   map,
@@ -45,7 +46,6 @@ import { environment } from '../../environments/environment';
  * Provides methods for initializing tracking, managing consent, and appending visitor identifiers.
  */
 export class MatomoService {
-
   /** Injects the MatomoInitializerService to initialize the Matomo tracker. */
   matomoInitializer: MatomoInitializerService;
 
@@ -61,8 +61,25 @@ export class MatomoService {
   /** Injects the ConfigurationService. */
   configService = inject(ConfigurationDataService);
 
-  constructor(private injector: EnvironmentInjector) {
+  private statusSubject = new ReplaySubject<'loading' | 'loaded' | 'error'>(1);
+  private status$ = this.statusSubject.asObservable();
 
+  constructor(private injector: EnvironmentInjector) {
+    this.statusSubject.next('loading');
+  }
+
+  /**
+   * This method indicates that the Matomo script loaded successfully thus we set state to loaded
+   */
+  markAsLoaded() {
+    this.statusSubject.next('loaded');
+  }
+
+  /**
+   * This method indicates that the Matomo script failed to download or execute and sets state to error
+   */
+  markAsError() {
+    this.statusSubject.next('error');
   }
 
   /**
@@ -163,6 +180,16 @@ export class MatomoService {
             res.payload.values[0]?.toLowerCase() === 'true';
         }),
       );
+  }
+
+  /**
+   * Checks if Matomo script loaded correctly
+   * @returns An Observable that emits a boolean indicating whether Matomo script loaded correctly.
+   */
+  isMatomoScriptLoaded$(): Observable<boolean> {
+    return this.status$.pipe(
+      map(status => status === 'loaded'),
+    );
   }
 
   /**
