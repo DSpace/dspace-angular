@@ -87,7 +87,9 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   onSelect() {
     const navigationExtras: NavigationExtras = {
-      queryParams: { configuration: this.selectedOption.value },
+      queryParams: {
+        [this.searchConfigService.getCurrentSearchInstanceParam('configuration')]: this.selectedOption.value,
+      },
     };
 
     this.changeConfiguration.emit(this.selectedOption);
