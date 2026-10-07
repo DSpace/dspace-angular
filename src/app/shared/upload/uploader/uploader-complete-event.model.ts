@@ -6,7 +6,7 @@ export interface UploaderCompleteEvent {
   /**
    * The parsed response body (e.g. the submission object returned by REST)
    */
-  response: any;
+  response: unknown;
 
   /**
    * The client-side name of the file that completed uploading. Present only when a
