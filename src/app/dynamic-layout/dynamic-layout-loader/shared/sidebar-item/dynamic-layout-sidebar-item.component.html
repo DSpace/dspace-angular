@@ -12,8 +12,8 @@
   @if (!!tab.children && tab.children.length > 0 ) {
     <div class="sidebar-collapsible h-100">
       <button class="btn btn-link nav-item shortcut-icon w-100" [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
-        (click)="toggleSection($event)">
-        <span id="sidebarName-{{tab.id}}" class="section-header-text" [innerHTML]="getTabHeader(tab)">
+        (click)="toggleSection()">
+        <span id="sidebarName-main-{{tab.id}}" class="section-header-text" [innerHTML]="getTabHeader(tab)">
         </span>
         @if (layout === 'vertical') {
           <i class="fas fa-chevron-right fa-pull-right" [@rotate]="expanded ? 'expanded' : 'collapsed'"
@@ -32,7 +32,8 @@
                 [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
                 (click)="selectTab(subTab)">
                 <span id="sidebarName-{{subTab.id}}"
-                      class="ps-3 section-header-text"
+                      [class.ps-3]="layout === 'vertical'"
+                      class="section-header-text"
                       [innerHTML]="getTabHeader(subTab)"></span>
               </button>
             </li>

@@ -159,7 +159,7 @@
   --ds-dynamic-layout-sidebar-border-color: #207698;
   --ds-dynamic-layout-sidebar-hover-focus-background-color: #207698;
   --ds-dynamic-layout-sidebar-hover-focus-border-color: #207698;
-  --ds-dynamic-layout-sidebar-menu-active-color: #{$cyan};
+  --ds-dynamic-layout-sidebar-menu-active-color: #{$link-color};
   --ds-dynamic-layout-sidebar-menu-active-background: #{map-get($theme-colors,'light')};
   --ds-dynamic-layout-sidebar-tab-color-hover : #{map-get($theme-colors,'light')};
 

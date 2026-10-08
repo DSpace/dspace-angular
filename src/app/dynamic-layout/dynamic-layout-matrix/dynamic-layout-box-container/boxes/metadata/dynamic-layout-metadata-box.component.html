@@ -4,7 +4,8 @@
       [row]="row"
       [item]="item"
       [box]="box"
-      class="row py-2">
+      class="row"
+      [class.py-2]="rowHasFields(row)">
     </div>
   }
 </div>

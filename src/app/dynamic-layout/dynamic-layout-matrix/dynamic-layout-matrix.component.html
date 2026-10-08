@@ -1,6 +1,6 @@
 @if (!!tab) {
   @for (row of tab.rows; track row) {
-    <div [class]="row.style" [class.row]="!hasRowClass(row.style)">
+    <div dsRoundedDynamicLayoutMatrix [class]="row.style" [class.row]="!hasRowClass(row.style)">
       @for (cell of row.cells; track cell) {
         <div class="cell" [class]="cell.style" [class.col]="!hasColClass(cell.style)" [class.px-0]="!showCellPadding">
           @for (box of cell.boxes; track box) {

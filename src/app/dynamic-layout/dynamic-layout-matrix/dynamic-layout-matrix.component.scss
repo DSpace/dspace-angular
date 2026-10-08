@@ -3,16 +3,12 @@
     border-radius: 0;
   }
 
-  & > :not(:first-child) .accordion .accordion-item {
-    border-top: 0;
-  }
-
-  & > :first-child .accordion .accordion-item {
+  .layout-rounded-top .accordion .accordion-item {
     border-top-left-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
     border-top-right-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
   }
 
-  & > :last-child .accordion {
+  .layout-rounded-bottom .accordion {
     .accordion-item {
       border-bottom-left-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
       border-bottom-right-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
@@ -22,5 +18,9 @@
       border-bottom-left-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
       border-bottom-right-radius: var(--bs-accordion-border-radius, var(--bs-border-radius));
     }
+  }
+
+  .layout-connected-bottom {
+    margin-bottom: -1px;
   }
 }

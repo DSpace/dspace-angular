@@ -2,15 +2,15 @@
   @if (!!tabs$) {
     <ng-container *ngVar="(leadingTabs$ | async) as leadingTabs">
       @if ((hasLeadingTab$ | async) && !!leadingTabs && leadingTabs.length > 0) {
-        <ds-dynamic-layout-leading
-          [item]="item"
-          [showContextMenu]="showContextMenu"
-          [tab]="leadingTabs[0]"></ds-dynamic-layout-leading>
+        <div class="mb-4">
+          <ds-dynamic-layout-leading
+            [item]="item"
+            [showContextMenu]="showContextMenu"
+            [tab]="leadingTabs[0]"></ds-dynamic-layout-leading>
+        </div>
       }
     </ng-container>
-  }
 
-  @if (!!tabs$) {
     <ng-container *ngVar="(loaderTabs$ | async) as loaderTabs">
       @if (!!loaderTabs && loaderTabs.length > 0) {
         <ds-dynamic-layout-loader

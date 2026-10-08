@@ -108,12 +108,15 @@ export class DynamicLayoutSidebarItemComponent implements OnInit {
             '';
   }
 
-  toggleSection(event): void {
+  toggleSection(): void {
     this.expanded = !this.expanded;
   }
 
-  selectTab(tab): void {
+  selectTab(tab: DynamicLayoutTab): void {
     this.tabSelectedChange.emit(tab);
+    if (tab.shortname === this.activeTab.shortname) {
+      this.expanded = !this.expanded;
+    }
   }
 
 }

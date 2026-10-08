@@ -72,4 +72,18 @@ describe('DynamicLayoutMetadataBoxComponent', () => {
     expect(rowsFound.length).toEqual(2);
     done();
   });
+
+  it('should add py-2 only to rows that render at least one field', () => {
+    const rowsFound = fixture.debugElement.queryAll(By.css('div[ds-row]'));
+
+    expect(rowsFound[0].nativeElement.classList).toContain('py-2');
+    expect(rowsFound[1].nativeElement.classList).not.toContain('py-2');
+  });
+
+  it('rowHasFields should return true when a field has a value and false otherwise', () => {
+    const [rowWithValues, rowWithoutValues] = component.metadataBoxConfiguration.rows;
+
+    expect(component.rowHasFields(rowWithValues)).toBeTrue();
+    expect(component.rowHasFields(rowWithoutValues)).toBeFalse();
+  });
 });

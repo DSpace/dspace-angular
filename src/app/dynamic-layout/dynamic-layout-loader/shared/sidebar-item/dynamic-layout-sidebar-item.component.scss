@@ -50,6 +50,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
+  border-radius: unset;
 }
 
 .vertical {
@@ -84,6 +85,8 @@
 
   .sidebar-sub-level-items {
     background-color: var(--ds-dynamic-layout-navbar-sub-level-backround-color);
+    border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+    border-top: 0;
   }
 
   ul .active > .nav-item, .sidebar-section.active > div > .nav-item {

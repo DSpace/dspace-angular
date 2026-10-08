@@ -70,9 +70,20 @@ export abstract class DynamicLayoutTabsComponent {
       if (isNotNull(this.route.snapshot.paramMap.get('tab'))) {
         this.parseTabs(this.route.snapshot.paramMap.get('tab'));
       } else {
-        this.parseTabs(this.tabs[0].shortname);
+        this.parseTabs(this.getLeafShortname(this.tabs[0].shortname));
       }
     }
+  }
+
+  /**
+   * Return the leaf part of a tab shortname, i.e. the segment after the last "::".
+   * For a plain shortname this returns the shortname unchanged.
+   *
+   * @param shortname the tab shortname
+   */
+  private getLeafShortname(shortname: string): string {
+    const split = shortname.split('::');
+    return split[split.length - 1];
   }
 
   public parseTabs(shortname): void {
@@ -104,6 +115,9 @@ export abstract class DynamicLayoutTabsComponent {
         } else {
           tab.header = splitedHeaderTabs[1];
           tab.shortname = splitedTabs[1];
+          if (!previousTab.children) {
+            previousTab.children = [];
+          }
           previousTab.children.push(tab);
         }
         if (shortname === tab.shortname) {
