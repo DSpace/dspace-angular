@@ -10,6 +10,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -26,11 +27,12 @@ describe('AdminEditCmsMetadataComponent', () => {
   let component: AdminEditCmsMetadataComponent;
   let fixture: ComponentFixture<AdminEditCmsMetadataComponent>;
   const site = Object.assign(new Site(), {
-    metadata: { },
+    metadata: {},
   });
 
   const siteServiceStub = jasmine.createSpyObj('SiteDataService', {
     find: jasmine.createSpy('find'),
+    findByHref: jasmine.createSpy('findByHref'),
     patch: jasmine.createSpy('patch'),
   });
 
@@ -70,6 +72,7 @@ describe('AdminEditCmsMetadataComponent', () => {
     fixture = TestBed.createComponent(AdminEditCmsMetadataComponent);
     component = fixture.componentInstance;
     siteServiceStub.find.and.returnValue(of(site));
+    siteServiceStub.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(site));
     siteServiceStub.patch.and.returnValue(of(site));
   });
 
@@ -117,7 +120,6 @@ describe('AdminEditCmsMetadataComponent', () => {
     it('should render textareas of the languages', () => {
       const languagesLength = environment.languages.filter((l) => l.active).length;
       const textareas = fixture.debugElement.queryAll(By.css('textarea'));
-      console.log(textareas.length, languagesLength);
       expect(textareas).toHaveSize(languagesLength);
     });
 
@@ -132,28 +134,29 @@ describe('AdminEditCmsMetadataComponent', () => {
 
       it('should call method patch of service', () => {
         component.selectedMetadata = environment.cms.metadataList[0];
-        const saveButton = fixture.debugElement.query(By.css('#save-metadata-btn'));
-        saveButton.nativeElement.click();
+        component.site = site;
+        component.selectedMetadataValues.set(environment.languages[0].code, 'Test English Text');
+        component.selectedMetadataValues.set(environment.languages[1].code, 'Test Second Language Text');
+        component.saveMetadata();
+
         const operations = [];
-        operations.push({
-          op: 'replace',
-          path: '/metadata/' + component.selectedMetadata,
-          value: {
-            value: component.selectedMetadataValues.get(environment.languages[0].code),
-            language: environment.languages[0].code,
-          },
-        });
-        component.selectedMetadataValues.forEach((value, key) => {
-          if (key !== environment.languages[0].code) {
-            operations.push({
-              op: 'add',
-              path: '/metadata/' + component.selectedMetadata,
-              value: {
-                value: value,
-                language: key,
-              },
-            });
-          }
+        if (site.hasMetadata && site.hasMetadata(component.selectedMetadata)) {
+          operations.push({
+            op: 'remove',
+            path: '/metadata/' + component.selectedMetadata,
+          });
+        }
+        const nonEmptyValues = Array.from(component.selectedMetadataValues.entries())
+          .filter(([, text]) => text && text.trim().length > 0);
+        nonEmptyValues.forEach(([language, value]) => {
+          operations.push({
+            op: 'add',
+            path: '/metadata/' + component.selectedMetadata + '/-',
+            value: {
+              value,
+              language,
+            },
+          });
         });
         expect(siteServiceStub.patch).toHaveBeenCalledWith(site, operations);
       });

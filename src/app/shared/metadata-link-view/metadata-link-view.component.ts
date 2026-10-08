@@ -34,6 +34,7 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
+import { normalizeLanguageCode } from '../utils/normalize-language-code-utils';
 import { VarDirective } from '../utils/var.directive';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 import { MetadataView } from './metadata-view.model';
@@ -107,6 +108,11 @@ export class MetadataLinkViewComponent implements OnInit {
   relatedDsoRoute: string;
 
   /**
+   * Normalized language code to use as lang attribute, if the metadata value has a language specified
+   */
+  normalizedLanguageCode: string;
+
+  /**
    * Map all entities with the icons specified in the environment configuration file
    */
   constructor(private itemService: ItemDataService) { }
@@ -119,6 +125,7 @@ export class MetadataLinkViewComponent implements OnInit {
       switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
       take(1),
     );
+    this.normalizedLanguageCode = normalizeLanguageCode(this.metadata?.language) || undefined;
   }
 
 

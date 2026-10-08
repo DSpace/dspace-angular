@@ -180,6 +180,13 @@ describe('ItemCollectionMapperComponent', () => {
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
     });
+
+    it('should display a permission error message if mapping returns 403', () => {
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(createFailedRemoteDataObject$('Forbidden', 403));
+      comp.mapCollections(ids);
+      expect(notificationsService.success).not.toHaveBeenCalled();
+      expect(notificationsService.error).toHaveBeenCalled();
+    });
   });
 
   describe('removeMappings', () => {
@@ -193,6 +200,13 @@ describe('ItemCollectionMapperComponent', () => {
 
     it('should display an error message if the removal of at least one mapping was unsuccessful', () => {
       spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(createFailedRemoteDataObject$('Not Found', 404));
+      comp.removeMappings(ids);
+      expect(notificationsService.success).not.toHaveBeenCalled();
+      expect(notificationsService.error).toHaveBeenCalled();
+    });
+
+    it('should display a permission error message if removal returns 403', () => {
+      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(createFailedRemoteDataObject$('Forbidden', 403));
       comp.removeMappings(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();

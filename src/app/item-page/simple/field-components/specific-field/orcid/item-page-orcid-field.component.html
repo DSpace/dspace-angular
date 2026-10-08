@@ -1,0 +1,13 @@
+@if (hasOrcidMetadata) {
+  <div class="simple-view-element">
+    <h2 class="simple-view-element-header">{{ label | translate }}</h2>
+    <div #content class="simple-view-element-body d-flex flex-column">
+      <span class="d-flex align-items-center">
+        <a [href]="orcidUrl$ | async" target="_blank" rel="noopener noreferrer">
+          <img [src]="img.URI" [alt]="img.alt | translate" class="orcid-icon" />
+          <span>{{ orcidId }}</span>
+        </a>
+      </span>
+    </div>
+  </div>
+}

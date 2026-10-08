@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { NOTIFYREQUEST } from '@dspace/core/shared/notify-requests-status.resource-type';
 import {
   map,
   Observable,
@@ -15,6 +17,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotifyRequestsStatus } from './models/notify-requests-status.model';
 
 @Injectable({ providedIn: 'root' })
+@dataService(NOTIFYREQUEST)
 export class NotifyRequestsStatusDataService extends IdentifiableDataService<NotifyRequestsStatus> {
 
   constructor(

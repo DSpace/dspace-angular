@@ -7,13 +7,13 @@
   @let showClearfix = shouldShowClearfix();
   @let showErrors = shouldShowErrorMessages();
 
-  @if (!isCheckbox && hasLabel) {
+  @if (!isCheckbox && hasLabel && !isDateField) {
     <label
       [id]="'label_' + model.id"
       [for]="id"
       class="form-label"
       [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
-    [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+      [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
   }
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->

@@ -12,6 +12,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { DragService } from '@dspace/core/drag.service';
 import {
@@ -94,6 +95,11 @@ export class UploaderComponent implements OnInit, AfterViewInit {
   @Input() ariaLabel: string;
 
   /**
+   * Component that defines the area in which `dragOver` events are processed
+   */
+  @Input() dragoverContainer = 'ds-app';
+
+  /**
    * The function to call when upload is completed
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
@@ -126,8 +132,17 @@ export class UploaderComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
-
+    if (hasValue(this.dragoverContainer)) {
+      if (!event.target.closest(this.dragoverContainer)) {
+        return;
+      }
+    }
     if (this.enableDragOverDocument && this.dragService.isAllowedDragOverPage()) {
+      // Only show drop area when dragging files or event is manually triggered
+      const hasFiles = event.dataTransfer?.types ? Array.from(event.dataTransfer.types).includes('Files') : true;
+      if (!hasFiles) {
+        return;
+      }
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
@@ -142,6 +157,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
     private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService,
     private liveRegionService: LiveRegionService,
+    private authService: AuthService,
   ) {
   }
 
@@ -173,6 +189,9 @@ export class UploaderComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Configure upload callbacks, refreshing authentication headers before each file is sent.
+   */
   ngAfterViewInit(): void {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
@@ -181,6 +200,8 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       this.onBeforeUpload = () => {return;};
     }
     this.uploader.onBeforeUploadItem = (item) => {
+      // ng2-file-upload caches authToken and bypasses the Angular authentication interceptor.
+      this.uploader.authToken = this.authService.buildAuthHeader();
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }

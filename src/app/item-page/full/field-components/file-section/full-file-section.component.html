@@ -33,8 +33,7 @@
               <dt class="col-md-4">
                 {{ "item.page.filesection.description" | translate }}
               </dt>
-              <dd class="col-md-8">
-                {{ file.firstMetadataValue("dc.description") }}
+              <dd class="col-md-8" [dsMetadata]="file.firstMetadata('dc.description')">
               </dd>
               }
             </dl>
@@ -86,8 +85,7 @@
               <dt class="col-md-4">
                 {{ "item.page.filesection.description" | translate }}
               </dt>
-              <dd class="col-md-8">
-                {{ file.firstMetadataValue("dc.description") }}
+              <dd class="col-md-8" [dsMetadata]="file.firstMetadata('dc.description')">
               </dd>
             </dl>
           </div>

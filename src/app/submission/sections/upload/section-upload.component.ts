@@ -18,6 +18,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
   isNotEmpty,
@@ -48,6 +49,7 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
 import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
 import { SectionUploadService } from './section-upload.service';
@@ -75,6 +77,7 @@ export interface AccessConditionGroupsMapEntry {
     TranslateModule,
   ],
 })
+@renderSectionFor(SectionsType.Upload)
 export class SubmissionSectionUploadComponent extends SectionModelComponent {
 
   /**

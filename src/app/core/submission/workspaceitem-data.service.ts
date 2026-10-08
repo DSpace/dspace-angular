@@ -3,6 +3,8 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { WORKSPACEITEM } from '@dspace/core/eperson/models/workspaceitem.resource-type';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -41,6 +43,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(WORKSPACEITEM)
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
   protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';

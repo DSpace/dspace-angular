@@ -184,6 +184,34 @@ export class RouteService {
       });
   }
 
+  /**
+   * Store a URL in session storage for later retrieval
+   * Generic method that can be used by any component
+   * @param key The session storage key
+   * @param url The URL to store
+   */
+  public storeUrlInSession(key: string, url: string): void {
+    if (typeof window !== 'undefined' && hasValue(window.sessionStorage)) {
+      // Only write if the value is different to avoid unnecessary writes
+      const currentValue = window.sessionStorage.getItem(key);
+      if (currentValue !== url) {
+        window.sessionStorage.setItem(key, url);
+      }
+    }
+  }
+
+  /**
+   * Retrieve a URL from session storage
+   * Generic method that can be used by any component
+   * @param key The session storage key
+   */
+  public getUrlFromSession(key: string): string | null {
+    if (typeof window !== 'undefined' && hasValue(window.sessionStorage)) {
+      return window.sessionStorage.getItem(key);
+    }
+    return null;
+  }
+
   private getRouteParams(): Observable<Params> {
     let active = this.route;
     while (active.firstChild) {

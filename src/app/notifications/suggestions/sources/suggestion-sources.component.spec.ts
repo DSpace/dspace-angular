@@ -83,7 +83,6 @@ describe('SuggestionSourcesComponent', () => {
   beforeEach(waitForAsync(() => {
     // Mock the suggestion source data service to return an empty list
     mockSuggestionSourceDataService.getSources.and.returnValue(mockPaginatedListRD);
-    console.log(mockSuggestionSourceDataService);
     fixture = TestBed.createComponent(SuggestionSourcesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

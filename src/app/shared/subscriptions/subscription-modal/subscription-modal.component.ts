@@ -97,11 +97,6 @@ export class SubscriptionModalComponent implements OnInit {
   public processing$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * If true, show a message explaining how to delete a subscription
-   */
-  public showDeleteInfo$ = new BehaviorSubject<boolean>(false);
-
-  /**
    * Reactive form group that will be used to add/edit subscriptions
    */
   subscriptionForm: UntypedFormGroup;
@@ -122,13 +117,15 @@ export class SubscriptionModalComponent implements OnInit {
   frequencyDefaultValues = ['D', 'W', 'M'];
 
   /**
-   * True if form status has changed and at least one frequency is checked
+    * True if form status has changed and submit action is valid
    */
   isValid = false;
   /**
    * Event emitted when a given subscription has been updated
    */
   @Output() updateSubscription: EventEmitter<Subscription> = new EventEmitter<Subscription>();
+
+  @Output() updated = new EventEmitter<void>();
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -167,7 +164,10 @@ export class SubscriptionModalComponent implements OnInit {
       for (const f of this.frequencyDefaultValues) {
         anyFrequencySelected = anyFrequencySelected || newValue.content.frequencies[f];
       }
-      this.isValid = anyFrequencySelected;
+      const hasExistingSubscription = this.subscriptionDefaultTypes.some(
+        (t) => isNotEmpty(newValue[t]?.subscriptionId),
+      );
+      this.isValid = anyFrequencySelected || hasExistingSubscription;
     });
   }
 
@@ -215,7 +215,6 @@ export class SubscriptionModalComponent implements OnInit {
     ).subscribe({
       next: (res: PaginatedList<Subscription>) => {
         if (res.pageInfo.totalElements > 0) {
-          this.showDeleteInfo$.next(true);
           for (const subscription of res.page) {
             const type = subscription.subscriptionType;
             const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.get(type) as UntypedFormGroup;
@@ -243,6 +242,7 @@ export class SubscriptionModalComponent implements OnInit {
     const subscriptionTypes: string[] = Object.keys(this.subscriptionForm.controls);
     const subscriptionsToBeCreated = [];
     const subscriptionsToBeUpdated = [];
+    const subscriptionsToBeDeleted = [];
 
     subscriptionTypes.forEach((subscriptionType: string) => {
       const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.controls[subscriptionType] as UntypedFormGroup;
@@ -252,9 +252,10 @@ export class SubscriptionModalComponent implements OnInit {
           subscriptionType,
           subscriptionGroup.controls.frequencies as UntypedFormGroup,
         );
-
-        if (isNotEmpty(body.id)) {
+        if (isNotEmpty(body.id) && isNotEmpty(body.subscriptionParameterList)) {
           subscriptionsToBeUpdated.push(body);
+        } else if (isNotEmpty(body.id) && !isNotEmpty(body.subscriptionParameterList)) {
+          subscriptionsToBeDeleted.push(body);
         } else if (isNotEmpty(body.subscriptionParameterList)) {
           subscriptionsToBeCreated.push(body);
         }
@@ -302,8 +303,26 @@ export class SubscriptionModalComponent implements OnInit {
       ));
     }
 
+    if (isNotEmpty(subscriptionsToBeDeleted)) {
+      toBeProcessed.push(from(subscriptionsToBeDeleted).pipe(
+        mergeMap((subscriptionBody: any) => {
+          return this.subscriptionService.deleteSubscription(subscriptionBody.id).pipe(
+            getFirstCompletedRemoteData(),
+          );
+        }),
+        tap((res: any) => {
+          if (res.hasSucceeded) {
+            this.notificationsService.success(null, this.translate.instant('subscriptions.modal.delete.success'));
+          } else {
+            this.notificationsService.error(null, this.translate.instant('subscriptions.modal.delete.error'));
+          }
+        }),
+      ));
+    }
+
     combineLatest([...toBeProcessed]).subscribe((res) => {
-      this.activeModal.close();
+      this.updated.emit();
+      this.activeModal.close('updated');
     });
 
   }

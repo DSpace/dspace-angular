@@ -38,7 +38,7 @@ describe('SocialComponent', () => {
 
   it('should initialize properties from socialService configuration on ngOnInit', () => {
     const config = {
-      buttons: ['facebook', 'twitter'],
+      buttons: ['facebook', 'x'],
       showPlusButton: true,
       showCounters: true,
       title: 'Test Title',

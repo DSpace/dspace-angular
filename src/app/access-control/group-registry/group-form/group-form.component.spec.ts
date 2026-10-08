@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -343,6 +345,19 @@ describe('GroupFormComponent', () => {
         spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
         component.ngOnInit();
       });
+
+      it('should update the form fields with the new values after successful edit', fakeAsync(() => {
+        component.groupName.setValue('newGroupName');
+        component.groupDescription.setValue(groupDescription);
+
+        component.onSubmit();
+        tick();
+
+        expect(component.formGroup.value.groupName).toBe(expected2.name);
+        expect(component.formGroup.value.groupDescription).toBe(
+          expected2.firstMetadataValue('dc.description'),
+        );
+      }));
 
       it('should edit with name and description operations', () => {
         component.groupName.setValue('newGroupName');

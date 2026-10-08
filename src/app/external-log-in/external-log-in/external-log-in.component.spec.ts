@@ -26,8 +26,9 @@ import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
-import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
+import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
 import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 import { ExternalLogInComponent } from './external-log-in.component';
@@ -35,11 +36,13 @@ import { ExternalLogInComponent } from './external-log-in.component';
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
-  let modalService: NgbModal = jasmine.createSpyObj('modalService', {
-    open: { dismissed: of(), close: () => {} },
+  let modalRef = Object.defineProperty({
+    close: jasmine.createSpy('close'),
+  },
+  'dismissed', {
+    get: () => of(),
   });
-  let authServiceStub: jasmine.SpyObj<AuthService>;
-  let authMethodsServiceStub: jasmine.SpyObj<AuthMethodsService>;
+  let modalService = jasmine.createSpyObj('modalService', ['open']);
   let mockAuthMethodsArray: AuthMethod[] = [
     { id: 'password', authMethodType: AuthMethodType.Password, position: 2 } as AuthMethod,
     { id: 'shibboleth', authMethodType: AuthMethodType.Shibboleth, position: 1 } as AuthMethod,
@@ -82,8 +85,7 @@ describe('ExternalLogInComponent', () => {
   };
 
   beforeEach(async () => {
-    authServiceStub = jasmine.createSpyObj('AuthService', ['getAuthenticationMethods']);
-    authMethodsServiceStub = jasmine.createSpyObj('AuthMethodsService', ['getAuthMethods']);
+    modalService.open.and.returnValue(modalRef);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -96,6 +98,7 @@ describe('ExternalLogInComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: NgbModal, useValue: modalService },
         provideMockStore({ initialState }),
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).overrideComponent(ExternalLogInComponent, {
       add: {
@@ -106,6 +109,7 @@ describe('ExternalLogInComponent', () => {
           ConfirmEmailComponent,
           ProvideEmailComponent,
           AlertComponent,
+          ThemedLogInComponent,
         ],
       },
     }).compileComponents();
@@ -113,27 +117,14 @@ describe('ExternalLogInComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLogInComponent);
     component = fixture.componentInstance;
-    component.registrationData = Object.assign(new Registration(), registrationDataMock);
+    component.registrationData = Object.assign(new Registration(), registrationDataMock, { email: 'user@institution.edu' });
     component.registrationType = registrationDataMock.registrationType;
-
-    let mockAuthMethods = new Map<AuthMethodType, AuthMethodTypeComponent>();
-    mockAuthMethods.set(AuthMethodType.Password, {} as AuthMethodTypeComponent);
-    mockAuthMethods.set(AuthMethodType.Shibboleth, {} as AuthMethodTypeComponent);
-    mockAuthMethods.set(AuthMethodType.Oidc, {} as AuthMethodTypeComponent);
-    mockAuthMethods.set(AuthMethodType.Ip, {} as AuthMethodTypeComponent);
-    component.authMethods = mockAuthMethods;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-  });
-
-  beforeEach(() => {
-    component.registrationData = Object.assign(new Registration(), registrationDataMock, { email: 'user@institution.edu' });
-
-    fixture.detectChanges();
   });
 
   it('should set registrationType and informationText correctly when email is present', () => {

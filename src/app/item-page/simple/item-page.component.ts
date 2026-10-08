@@ -46,6 +46,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -56,6 +57,7 @@ import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.componen
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { AccessByTokenNotificationComponent } from './access-by-token-notification/access-by-token-notification.component';
+import { CustomUrlConflictErrorComponent } from './custom-url-conflict-error/custom-url-conflict-error.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
@@ -73,6 +75,8 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
   imports: [
     AccessByTokenNotificationComponent,
     AsyncPipe,
+    CustomUrlConflictErrorComponent,
+    CustomUrlConflictErrorComponent,
     ErrorComponent,
     ItemVersionsComponent,
     ItemVersionsNoticeComponent,
@@ -120,6 +124,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   itemUrl: string;
 
   /**
+   * When set, indicates that the page failed due to a custom URL conflict (HTTP 500 + non-UUID param).
+   * Contains the conflicting custom URL value so the error component can build search/edit links.
+   */
+  customUrlConflict$: Observable<string | null>;
+
+  /**
    * Contains a list of SignpostingLink related to the item
    */
   signpostingLinks: SignpostingLink[] = [];
@@ -162,6 +172,16 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
+    // Detect custom URL conflict: 500 error on a non-UUID route param
+    this.customUrlConflict$ = this.itemRD$.pipe(
+      map((itemRD: RemoteData<Item>) => {
+        const routeId = this.route.snapshot.params.id;
+        if (itemRD?.hasFailed && itemRD.statusCode === 500 && hasValue(routeId) && !uuidValidate(routeId)) {
+          return routeId as string;
+        }
+        return null;
+      }),
+    );
   }
 
   /**

@@ -24,21 +24,21 @@
       @if (linkType !== linkTypes.None) {
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
           [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-        [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
+        [dsMetadata]="dsoTitle" role="link" tabindex="0"></a>
       }
       @if (linkType === linkTypes.None) {
         <span
           class="lead item-list-title dont-break-out"
-        [innerHTML]="dsoTitle"></span>
+        [dsMetadata]="dsoTitle"></span>
       }
       <span class="text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
           @if (dso.allMetadata(['creativeworkseries.issn']).length > 0) {
             <span
               class="item-list-journals">
-              @for (value of allMetadataValues(['creativeworkseries.issn']); track value; let last = $last) {
+              @for (value of allMetadata(['creativeworkseries.issn']); track value; let last = $last) {
                 <span>
-                  <span [innerHTML]="value"></span>@if (!last) {
+                  <span [dsMetadata]="value"></span>@if (!last) {
                   <span>; </span>
                 }
               </span>

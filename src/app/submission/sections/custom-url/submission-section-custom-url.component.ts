@@ -46,6 +46,7 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 
 
 /**
@@ -60,6 +61,7 @@ import { SectionsService } from '../sections.service';
     TranslateModule,
   ],
 })
+@renderSectionFor(SectionsType.CustomUrl)
 export class SubmissionSectionCustomUrlComponent extends SectionModelComponent implements AfterViewInit {
 
   /**

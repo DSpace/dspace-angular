@@ -23,8 +23,8 @@ import {
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-
-export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-approve',
@@ -40,6 +40,7 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 /**
  * Component for displaying and processing the approve action on a workflow task item
  */
+@rendersWorkflowTaskOption(ClaimedTaskType.WORKFLOW_TASK_OPTION_APPROVE)
 export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstractComponent {
 
   constructor(
@@ -58,7 +59,7 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     return of(this.object);
   }
 
-  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
     const reloadedObject = Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
       indexableObject: dso,
     });

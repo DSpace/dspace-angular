@@ -1,14 +1,16 @@
 import { testA11y } from 'cypress/support/utils';
 import { Options } from 'cypress-axe';
 
-const ITEM_EDIT_PAGE = '/items/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION')).concat('/edit');
+const ITEM_EDIT_PAGE = '/items/'.concat(Cypress.expose('DSPACE_TEST_ENTITY_PUBLICATION')).concat('/edit');
 
 beforeEach(() => {
   // All tests start with visiting the Edit Item Page
   cy.visit(ITEM_EDIT_PAGE);
 
   // This page is restricted, so we will be shown the login form. Fill it out & submit.
-  cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+  cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+    cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+  });
 });
 
 describe('Edit Item > Edit Metadata tab', () => {
@@ -23,13 +25,27 @@ describe('Edit Item > Edit Metadata tab', () => {
     // <ds-edit-item-page> tag must be loaded
     cy.get('ds-edit-item-page').should('be.visible');
 
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
+
     // wait for all the ds-dso-edit-metadata-value components to be rendered
     cy.get('ds-dso-edit-metadata-value div[role="row"]').each(($row: HTMLDivElement) => {
       cy.wrap($row).find('div[role="cell"]').should('be.visible');
     });
 
     // Analyze <ds-edit-item-page> for accessibility issues
-    testA11y('ds-edit-item-page');
+    testA11y('ds-edit-item-page',
+            {
+              rules: {
+                // Disable flakey "aria-required-children" test. While this test passes when run locally,
+                // in GitHub CI it will return random failures roughly 1/3 of the time saying that the
+                // "tablist" doesn't contain required "tab" elements, even though they do exist.
+                'aria-required-children': { enabled: false },
+              },
+            } as Options,
+    );
   });
 });
 
@@ -45,6 +61,11 @@ describe('Edit Item > Status tab', () => {
 
     // <ds-item-status> tag must be loaded
     cy.get('ds-item-status').should('be.visible');
+
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
 
     // Analyze for accessibility issues
     testA11y('ds-item-status');
@@ -64,6 +85,10 @@ describe('Edit Item > Bitstreams tab', () => {
     // <ds-item-bitstreams> tag must be loaded
     cy.get('ds-item-bitstreams').should('be.visible');
 
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
     // Table of item bitstreams must also be loaded
     cy.get('div.item-bitstreams').should('be.visible');
 
@@ -93,6 +118,11 @@ describe('Edit Item > Curate tab', () => {
     // <ds-item-curate> tag must be loaded
     cy.get('ds-item-curate').should('be.visible');
 
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
+
     // Analyze for accessibility issues
     testA11y('ds-item-curate');
   });
@@ -110,6 +140,11 @@ describe('Edit Item > Relationships tab', () => {
 
     // <ds-item-relationships> tag must be loaded
     cy.get('ds-item-relationships').should('be.visible');
+
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
 
     // Analyze for accessibility issues
     testA11y('ds-item-relationships');
@@ -129,6 +164,11 @@ describe('Edit Item > Version History tab', () => {
     // <ds-item-version-history> tag must be loaded
     cy.get('ds-item-version-history').should('be.visible');
 
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
+
     // Analyze for accessibility issues
     testA11y('ds-item-version-history');
   });
@@ -147,6 +187,11 @@ describe('Edit Item > Access Control tab', () => {
     // <ds-item-access-control> tag must be loaded
     cy.get('ds-item-access-control').should('be.visible');
 
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
+
     // Analyze for accessibility issues
     testA11y('ds-item-access-control');
   });
@@ -164,6 +209,11 @@ describe('Edit Item > Collection Mapper tab', () => {
 
     // <ds-item-collection-mapper> tag must be loaded
     cy.get('ds-item-collection-mapper').should('be.visible');
+
+    // wait for all the tabs to be rendered on this page
+    cy.get('ds-edit-item-page ul[role="tablist"]').each(($row: HTMLUListElement) => {
+      cy.wrap($row).find('a[role="tab"]').should('be.visible');
+    });
 
     // Analyze entire page for accessibility issues
     testA11y('ds-item-collection-mapper');
