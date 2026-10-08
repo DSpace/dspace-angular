@@ -228,7 +228,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
+  if (environment.ssr.enabled && req.method === 'GET' && !isUserAuthenticated(req) && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -407,13 +407,19 @@ function anonymousCacheEnabled(): boolean {
  * Caching is ONLY done for SSR requests. Pages are cached base on their path (e.g. /home or /search?query=test)
  */
 function cacheCheck(req, res, next) {
+  // Authenticated users are never served via SSR
+  if (isUserAuthenticated(req)) {
+    next();
+    return;
+  }
+
   // Cached copy of page (if found)
   let cachedCopy;
 
   // If the bot cache is enabled and this request looks like a bot, check the bot cache for a cached page.
   if (botCacheEnabled() && isbot(req.get('user-agent'))) {
     cachedCopy = checkCacheForRequest('bot', botCache, req, res, next);
-  } else if (anonymousCacheEnabled() && !isUserAuthenticated(req)) {
+  } else if (anonymousCacheEnabled()) {
     cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res, next);
   }
 
