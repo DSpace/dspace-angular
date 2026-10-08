@@ -90,7 +90,6 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * This method loads all the Bitstreams and Thumbnails and converts it to {@link MediaViewerItem}s
    */
   ngOnInit(): void {
-    console.log('MediaViewerComponent init', this.mediaList$);
     this.itemRequest = this.route.snapshot.data.itemRequest;
     const types: string[] = [
       ...(this.mediaOptions.image ? ['image'] : []),
