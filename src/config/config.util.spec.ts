@@ -17,11 +17,7 @@ describe('Config Util', () => {
       replaceRestUrl: true,
       excludePathPatterns: [
         {
-          pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
-          flag: 'i',
-        },
-        {
-          pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
+          pattern: '^/(communities|collections)/[a-f0-9-]{36}/(browse|search)(/.*)?$',
           flag: 'i',
         },
         { pattern: '^/browse/' },
