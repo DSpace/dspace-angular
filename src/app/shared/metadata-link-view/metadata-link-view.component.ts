@@ -4,14 +4,23 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbPopoverModule,
   NgbTooltipModule,
@@ -83,9 +92,23 @@ export class MetadataLinkViewComponent implements OnInit {
   @Input() metadata: MetadataValue;
 
   /**
+   * Metadata name that we need to show in the template
+   */
+  @Input() metadataName: string|string[];
+
+  /**
+   * Item of the metadata value
+   */
+  @Input() item: DSpaceObject;
+
+  /**
    * Where to place the popover
    */
   @Input() popoverPlacement: string;
+  /**
+   * The metadata name from where to take the value of the dynamic style
+   */
+  dynamicRefMetadata = this.appConfig.layout.dynamicRefStyleMetadata;
 
   /**
    * Processed metadata to create MetadataOrcid with the information needed to show
@@ -115,7 +138,10 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Map all entities with the icons specified in the environment configuration file
    */
-  constructor(private itemService: ItemDataService) { }
+  constructor(
+    private itemService: ItemDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) { }
 
   /**
    * On init process metadata to get the information and form MetadataOrcid model
@@ -166,11 +192,13 @@ export class MetadataLinkViewComponent implements OnInit {
     if (itemRD.hasSucceeded && itemRD.payload) {
       this.relatedItem = itemRD.payload;
       this.relatedDsoRoute = this.getItemPageRoute(this.relatedItem);
+      const entityStyleValue = this.getDynamicRefMetadata(itemRD.payload?.entityType);
       return {
         authority: metadataValue.authority,
         value: metadataValue.value,
         orcidAuthenticated: this.getOrcid(itemRD.payload),
         entityType: (itemRD.payload as Item)?.entityType,
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue),
       };
     } else {
       return {
@@ -178,6 +206,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: null,
         entityType: 'PRIVATE',
+        entityStyle: this.metadataName,
       };
     }
   }
@@ -205,6 +234,20 @@ export class MetadataLinkViewComponent implements OnInit {
     } else {
       return value;
     }
+  }
+
+  private getDynamicRefMetadata(entity: string): string {
+    if (isEmpty(this.dynamicRefMetadata)) {
+      return 'dspace.entity.style';
+    }
+    let metadata;
+    if (isNotEmpty(entity)) {
+      const asLowercase = entity.toLowerCase();
+      metadata = this.dynamicRefMetadata[Object.keys(this.dynamicRefMetadata)
+        .find(k => k.toLowerCase() === asLowercase)
+      ];
+    }
+    return metadata ?? this.dynamicRefMetadata?.default;
   }
 
   getItemPageRoute(item: Item): string {
