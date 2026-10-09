@@ -106,12 +106,15 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
     if (this.appConfig.item.showAccessStatuses) {
       linksToFollow.push(followLink('accessStatus'));
     }
+    const entityType = this.appConfig.homePage.recentSubmissions.entityType;
+    const query = this.buildEntityTypeQuery(entityType);
 
     this.itemRD$ = this.searchService.search(
       new PaginatedSearchOptions({
         pagination: this.paginationConfig,
         dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
+        query: query,
       }),
       undefined,
       undefined,
@@ -122,16 +125,49 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
     ) as Observable<RemoteData<PaginatedList<Item>>>;
   }
 
+  /**
+   * Build a query string for filtering by entity types using search.entitytype syntax.
+   * Supports single entity type or multiple entity types (OR clause).
+   * @param entityTypes - Array of entity type strings
+   * @returns Query string or undefined if no valid entity types
+   */
+  private buildEntityTypeQuery(entityTypes: string[] | undefined): string | undefined {
+    if (!entityTypes || entityTypes.length === 0) {
+      return undefined;
+    }
+    const validTypes = entityTypes.filter(type => type && type.trim().length > 0);
+    if (validTypes.length === 0) {
+      return undefined;
+    }
+    if (validTypes.length === 1) {
+      return `search.entitytype:${validTypes[0]}`;
+    }
+    return `search.entitytype:(${validTypes.join(' OR ')})`;
+  }
+
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
 
   onLoadMore(): void {
-    this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, ['search'], {
-      sortField: environment.homePage.recentSubmissions.sortField,
-      sortDirection: 'DESC' as SortDirection,
-      page: 1,
-    });
+    const entityType = this.appConfig.homePage.recentSubmissions.entityType;
+    const query = this.buildEntityTypeQuery(entityType);
+
+    const extraParams: Record<string, unknown> = {};
+
+    if (query) {
+      extraParams.query = query;
+    }
+
+    this.paginationService.updateRouteWithUrl(
+      this.searchConfigurationService.paginationID,
+      ['search'],
+      {
+        sortField: environment.homePage.recentSubmissions.sortField,
+        sortDirection: 'DESC' as SortDirection,
+        page: 1,
+      },
+      extraParams);
   }
 
   get placeholderFontClass(): string {
@@ -147,4 +183,3 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
   }
 
 }
-
