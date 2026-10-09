@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -20,6 +21,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { SearchService } from '../../../../search.service';
@@ -73,11 +75,11 @@ export class SearchFacetOptionComponent implements OnInit {
    */
   searchLink: string;
 
-  paginationId: string;
+  searchInstanceId: string;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService,
               protected liveRegionService: LiveRegionService,
@@ -89,7 +91,7 @@ export class SearchFacetOptionComponent implements OnInit {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
-    this.paginationId = this.searchConfigService.paginationID;
+    this.searchInstanceId = this.searchConfigService.searchInstanceId;
     this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.addQueryParams$ = this.updateAddParams();
@@ -99,7 +101,7 @@ export class SearchFacetOptionComponent implements OnInit {
    * Checks if a value for this filter is currently active
    */
   isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue());
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue(), this.searchInstanceId);
   }
 
   /**
