@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
+import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
 import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
-import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
