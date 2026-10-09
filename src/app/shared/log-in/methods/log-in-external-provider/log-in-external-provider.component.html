@@ -1,3 +1,13 @@
-<button class="btn btn-lg btn-primary w-100 text-white" (click)="redirectToExternalProvider()" role="button" tabindex="0">
-  <i class="fas fa-sign-in-alt"></i> {{getButtonLabel() | translate}}
+<button
+  class="btn btn-lg btn-primary w-100"
+  [class.text-white]="!isOrcid"
+  (click)="redirectToExternalProvider()"
+  role="button"
+  tabindex="0"
+>
+  <i class="fas fa-sign-in-alt" [ngClass]="{
+      'fas fa-sign-in-alt': !isOrcid,
+      'fa-brands fa-orcid': isOrcid
+    }"
+  ></i> <span>{{getButtonLabel() | translate}}</span>
 </button>
