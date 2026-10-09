@@ -5,4 +5,8 @@
    [href]="href"
    [title]="item.text | translate"
    (click)="$event.stopPropagation()"
->{{item.text | translate}}</a>
+>@if (item.icon) {
+    <i class="fas fa-{{item.icon}} fa-fw" aria-hidden="true"></i>
+  }
+  <span>{{item.text | translate}}</span>
+</a>

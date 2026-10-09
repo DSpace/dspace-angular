@@ -9,4 +9,5 @@ export class ExternalLinkMenuItemModel implements MenuItemModel {
   disabled?: boolean;
   text: string;
   href: string;
+  icon?: string;
 }
