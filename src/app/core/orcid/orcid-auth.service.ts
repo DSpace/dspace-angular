@@ -127,7 +127,7 @@ export class OrcidAuthService {
       this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())],
     ).pipe(
       map(([authorizeUrl, clientId, scopes]) => {
-        const redirectUri = new URLCombiner(this._window.nativeWindow.origin, encodeURIComponent(this.router.url.split('?')[0]));
+        const redirectUri = new URLCombiner(this._window.nativeWindow.origin, this.router.url.split('?')[0]);
         return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
           + scopes.values.join(' ');
       }));
