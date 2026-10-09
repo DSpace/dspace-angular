@@ -17,14 +17,8 @@ export const environment: Partial<BuildConfig> = {
     // may NOT be indexable by search engine crawlers (like Google Scholar). For search engine crawlers to fully index your site,
     // this "excludePathPatterns" should NEVER exclude SSR from the homepage, community/collection pages or item/entity pages.
     excludePathPatterns: [
-      {
-        pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
-        flag: 'i',
-      },
-      {
-        pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
-        flag: 'i',
-      },
+      { pattern: '^/communities/[a-fA-F0-9-]{36}/browse(/.*)?$' },
+      { pattern: '^/collections/[a-fA-F0-9-]{36}/browse(/.*)?$' },
       { pattern: '^/browse/' },
       { pattern: '^/search' },
       { pattern: '^/community-list$' },
