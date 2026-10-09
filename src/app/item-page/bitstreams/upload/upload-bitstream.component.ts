@@ -233,6 +233,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
+      this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
       // Re-initialize the uploader component to ensure the latest changes to the options are applied
       if (this.uploaderComponent) {
         this.uploaderComponent.ngOnInit();
