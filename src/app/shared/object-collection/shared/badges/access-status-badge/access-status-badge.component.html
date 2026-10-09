@@ -1,6 +1,8 @@
 @if (showAccessStatus) {
   @if ((accessStatus$ | async); as status) {
-    @let date = embargoDate$ | async;
+    @let embargoDate = embargoDate$ | async;
+    @let leaseDate = leaseDate$ | async;
+    @let date = embargoDate ?? leaseDate;
     <span [class]="'badge bg-secondary dont-break-out access-status-list-element-badge ' + accessStatusClass">
       <span class="sr-only">{{ 'listelement.badge.access-status' | translate }}</span>
       {{ status | translate: { date: date } }}
