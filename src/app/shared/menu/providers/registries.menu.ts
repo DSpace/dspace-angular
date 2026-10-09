@@ -15,7 +15,6 @@ import {
   combineLatest,
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
@@ -36,15 +35,15 @@ export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return of(
-      {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      map((isSiteAdmin) => ({
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.registries',
         },
         icon: 'list',
-        visible: true,
-      },
+        visible: isSiteAdmin,
+      })),
     );
   }
 
