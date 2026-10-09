@@ -44,6 +44,8 @@ import {
   filter,
   find,
   map,
+  switchMap,
+  timeout,
 } from 'rxjs/operators';
 
 import { logStartupMessage } from '../../../startup-message';
@@ -58,6 +60,11 @@ import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.se
 import { MatomoService } from '../../app/statistics/matomo.service';
 import { StoreAction } from '../../app/store.actions';
 import { environment } from '../../environments/environment';
+
+/**
+ * Maximum time (in ms) the client-side initialization waits for the i18n messages of the current language
+ */
+const TRANSLATIONS_TIMEOUT_MS = 5000;
 
 /**
  * Performs client-side initialization.
@@ -125,6 +132,7 @@ export class BrowserInitService extends InitService {
       logStartupMessage(environment);
 
       this.initI18n();
+      const translationsLoaded = this.loadTranslations();
       this.initAngulartics();
       this.initGoogleAnalytics();
       this.initMatomo();
@@ -134,7 +142,10 @@ export class BrowserInitService extends InitService {
 
       this.initOrejime();
 
-      await lastValueFrom(this.authenticationReady$());
+      await Promise.all([
+        lastValueFrom(this.authenticationReady$()),
+        translationsLoaded,
+      ]);
       this.menuProviderService.initPersistentMenus(false);
 
       return true;
@@ -162,6 +173,28 @@ export class BrowserInitService extends InitService {
       );
     } else {
       return Promise.resolve(true);
+    }
+  }
+
+  /**
+   * Wait until the i18n messages for the current language are loaded, so they're available when the app is rendered
+   * client side. Otherwise, the translated texts of the server-side rendered page would be briefly replaced by their
+   * message keys. The download itself usually started earlier, from the preload link added during SSR.
+   *
+   * Resolves after {@link TRANSLATIONS_TIMEOUT_MS} at the latest, so the app is never blocked by a hanging request
+   * (e.g. to determine the language of the authenticated user, or to download the messages). In that case, the messages
+   * are applied as soon as they're loaded.
+   * @private
+   */
+  private async loadTranslations(): Promise<void> {
+    try {
+      await firstValueFrom(this.localeService.getCurrentLanguageCode().pipe(
+        switchMap((lang: string) => this.translate.use(lang)),
+        timeout(TRANSLATIONS_TIMEOUT_MS),
+      ));
+    } catch (e) {
+      // don't block the app if the translation message catalog can't be loaded
+      console.error('Failed to load translation message catalog', e);
     }
   }
 
@@ -242,5 +275,4 @@ export class BrowserInitService extends InitService {
       this.rootDataService.invalidateRootCache();
     });
   }
-
 }

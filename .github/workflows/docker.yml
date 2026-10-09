@@ -154,13 +154,13 @@ jobs:
           sleep 10
           docker container ls
       # Verify production frontend started successfully.
-      # 1. Make sure /home path has "DSpace software" (this is in the footer of the page)
+      # 1. Make sure /home path has "DSpace software" (this is in the footer of the page; without double quotes)
       # 2. Also check /community-list page lists one of the test Communities in the loaded test data
       - name: Verify production frontend is responding properly
         run: |
           result=$(wget -O- -q http://127.0.0.1:4000/home)
           echo "$result"
-          echo "$result" |  grep -oE "\"DSpace software\""
+          echo "$result" |  grep -oE "DSpace software"
       - name: Error logs of production frontend (if error in startup)
         if: ${{ failure() }}
         run: |
