@@ -23,6 +23,9 @@ import { switchMap } from 'rxjs/operators';
 })
 export class DsoEditMetadataFieldService {
 
+  private static readonly VALID_METADATA_FIELD_PATTERN =
+    /^[a-zA-Z][a-zA-Z0-9_-]*\.[a-zA-Z]{2,}[a-zA-Z0-9_-]*(\.[a-zA-Z]{2,}[a-zA-Z0-9_-]*)?$/;
+
   constructor(
     protected itemService: ItemDataService,
     protected vocabularyService: VocabularyService,
@@ -36,7 +39,7 @@ export class DsoEditMetadataFieldService {
    * @param mdField The metadata field
    */
   findDsoFieldVocabulary(dso: DSpaceObject, mdField: string): Observable<Vocabulary> {
-    if (isNotEmpty(mdField)) {
+    if (isNotEmpty(mdField) && DsoEditMetadataFieldService.VALID_METADATA_FIELD_PATTERN.test(mdField)) {
       const owningCollection$: Observable<Collection> = this.itemService.findByHref(dso._links.self.href, true, true, followLink('owningCollection')).pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((item: Item) => item.owningCollection),
