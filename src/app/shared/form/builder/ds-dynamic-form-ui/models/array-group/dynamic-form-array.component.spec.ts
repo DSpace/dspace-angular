@@ -163,13 +163,17 @@ describe('DsDynamicFormArrayComponent', () => {
     expect(component.elementBeingSortedStartingIndex).toBeNull();
   });
 
+  it('should have aria-labelledby pointing to the label', () => {
+    const arrayDiv = fixture.debugElement.query(By.css(`#${component.model.id}`));
+    expect(arrayDiv.nativeElement.getAttribute('aria-labelledby')).toBe('label_' + component.model.id);
+  });
+
   describe('moveFormControlToPosition', () => {
     it('should move form control from one position to another', () => {
       const formArray = component.control as any;
       const initialControls = formArray.controls.map((ctrl: any) => ctrl);
       const movedControl = initialControls[1];
 
-      // Move control from index 1 to index 3
       (component as any).moveFormControlToPosition(1, 3);
 
       expect(formArray.at(3)).toBe(movedControl);
@@ -179,7 +183,6 @@ describe('DsDynamicFormArrayComponent', () => {
     it('should preserve form control values after move', () => {
       const formArray = component.control as any;
 
-      // Set actual values to the form controls
       formArray.at(0).patchValue({ testFormRowArrayGroupInput: 'Author 1' });
       formArray.at(1).patchValue({ testFormRowArrayGroupInput: 'Author 2' });
       formArray.at(2).patchValue({ testFormRowArrayGroupInput: 'Author 3' });
