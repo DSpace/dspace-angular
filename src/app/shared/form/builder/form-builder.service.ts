@@ -67,7 +67,7 @@ import { RowParser } from './parsers/row-parser';
 @Injectable({ providedIn: 'root' })
 export class FormBuilderService extends DynamicFormService {
 
-  private typeBindModel: DynamicFormControlModel;
+  private typeBindModels: { [key: string]: DynamicFormControlModel } = {};
 
   /**
    * This map contains the active forms model
@@ -110,12 +110,16 @@ export class FormBuilderService extends DynamicFormService {
     return { $event, context, control: control, group: group, model: model, type };
   }
 
-  getTypeBindModel() {
-    return this.typeBindModel;
+  getTypeBindModels(key: string) {
+    if (!this.typeBindModels[key]) {
+      return;
+    }
+
+    return this.typeBindModels[key];
   }
 
-  setTypeBindModel(model: DynamicFormControlModel) {
-    this.typeBindModel = model;
+  setTypeBindModels(model: DynamicFormControlModel, key: string) {
+    this.typeBindModels[key] = model;
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
@@ -383,8 +387,8 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
-    submissionScope?: string, readOnly = false, typeBindModel = null,
-    isInnerForm = false, securityConfig: any = null, setTypeBind: boolean = true): DynamicFormControlModel[] | never {
+    submissionScope?: string, readOnly = false, isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
+    const typeBindToFieldList: string[] = ['dc_type'];
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
@@ -398,16 +402,31 @@ export class FormBuilderService extends DynamicFormService {
             rows.push(rowParsed);
           }
         }
+
+        // Collect all type-bind keys
+        if (currentRow.fields && currentRow.fields.length > 0) {
+          currentRow.fields.forEach((field) => {
+            if (field.typeBindToField) {
+              const typeBindToField = field.typeBindToField.replace(/\./g, '_');
+              if (!typeBindToFieldList.includes(typeBindToField)) {
+                typeBindToFieldList.push(typeBindToField);
+              }
+            }
+          });
+        }
       });
     }
 
-    if (hasNoValue(typeBindModel)) {
-      typeBindModel = this.findById(this.typeField, rows);
+    // If type-bind exists, set their corresponding models for later use in value changes subscription
+    if (typeBindToFieldList.length > 0) {
+      typeBindToFieldList.forEach((typeBindToField) => {
+        const foundTypeBindModel = this.findById(typeBindToField, rows);
+        if (hasValue(foundTypeBindModel)) {
+          this.setTypeBindModels(foundTypeBindModel, typeBindToField);
+        }
+      });
     }
 
-    if (hasValue(typeBindModel)) {
-      this.setTypeBindModel(typeBindModel);
-    }
     return rows;
   }
 
