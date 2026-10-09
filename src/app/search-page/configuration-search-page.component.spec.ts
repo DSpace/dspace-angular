@@ -64,8 +64,8 @@ describe('ConfigurationSearchPageComponent', () => {
     expect(comp.configuration).toBe(CONFIGURATION);
     expect(comp.fixedFilterQuery).toBe(QUERY);
 
-    expect(routeService.setParameter).toHaveBeenCalledWith('configuration', CONFIGURATION);
-    expect(routeService.setParameter).toHaveBeenCalledWith('fixedFilterQuery', QUERY);
+    expect(routeService.setParameter).toHaveBeenCalledWith('search-test-page-id.configuration', CONFIGURATION);
+    expect(routeService.setParameter).toHaveBeenCalledWith('search-test-page-id.fixedFilterQuery', QUERY);
   });
 
 });
