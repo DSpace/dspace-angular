@@ -13,7 +13,7 @@
           <div class="col-3">
             <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
           </div>
-          <div class="col-7">
+          <div class="col">
             <dl class="row dont-break-out">
               <dt class="col-md-4">
                 {{ "item.page.filesection.name" | translate }}
@@ -38,7 +38,7 @@
               }
             </dl>
           </div>
-          <div class="col-2">
+          <div class="col-auto">
             <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
                 <span class="d-none d-md-inline">
                   {{ "item.page.filesection.download" | translate }}
@@ -66,7 +66,7 @@
           <div class="col-3">
             <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
           </div>
-          <div class="col-7">
+          <div class="col">
             <dl class="row">
               <dt class="col-md-4">
                 {{ "item.page.filesection.name" | translate }}
@@ -89,7 +89,7 @@
               </dd>
             </dl>
           </div>
-          <div class="col-2">
+          <div class="col-auto">
             <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
                 <span class="d-none d-md-inline">
                   {{ "item.page.filesection.download" | translate }}
