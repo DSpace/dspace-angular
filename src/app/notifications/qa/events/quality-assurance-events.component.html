@@ -14,7 +14,7 @@
       @if (targetId) {
         <ds-alert [type]="'alert-info'">
           <span [innerHTML]="'quality-assurance.events.description-with-topic-and-target' | translate : {topic: selectedTopicName, source: sourceId}"></span>
-          <a [routerLink]="itemPageUrl" target="_blank">{{(getTargetItemTitle() | async)}}</a>
+          <a [routerLink]="itemPageUrl" target="_blank">{{(targetItemTitle$ | async)}}</a>
         </ds-alert>
       }
     </div>
