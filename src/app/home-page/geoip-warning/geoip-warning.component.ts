@@ -8,6 +8,10 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import {
@@ -34,7 +38,8 @@ const DISMISSED_KEY = 'geoip-warning-dismissed';
 
 /**
  * Component that displays a warning when the GeoLite database is not installed.
- * Only visible to administrators. Once dismissed, stays hidden for the browser session.
+ * Only visible to administrators, and only while `homePage.showGeoIpWarning` is enabled.
+ * Once dismissed, stays hidden for the browser session.
  */
 @Component({
   selector: 'ds-geoip-warning',
@@ -55,6 +60,7 @@ export class GeoIpWarningComponent implements OnInit {
   readonly AlertType = AlertType;
 
   constructor(
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
     private authorizationService: AuthorizationDataService,
     private healthService: HealthService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -62,7 +68,8 @@ export class GeoIpWarningComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId) && sessionStorage.getItem(DISMISSED_KEY)) {
+    if (!this.appConfig.homePage.showGeoIpWarning
+      || (isPlatformBrowser(this.platformId) && sessionStorage.getItem(DISMISSED_KEY))) {
       this.showWarning$ = of(false);
       return;
     }
