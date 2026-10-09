@@ -21,8 +21,11 @@
                role="dialog"
                aria-modal="true"
             [attr.aria-label]="'nav.login' | translate">
-            <ds-log-in
-            [isStandalonePage]="false"></ds-log-in>
+            <!-- Not rendered during SSR: the login form is only useful to interactive human users -->
+            @defer {
+              <ds-log-in
+              [isStandalonePage]="false"></ds-log-in>
+            }
           </div>
         </div>
       </div>
