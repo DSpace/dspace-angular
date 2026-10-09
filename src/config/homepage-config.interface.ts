@@ -28,4 +28,8 @@ export interface HomeConfig extends Config {
   * Enable or disable the Discover filters on the homepage
   */
   showDiscoverFilters: boolean;
+  /*
+  * Show administrators a warning when the backend reports that the GeoLite database is missing
+  */
+  showGeoIpWarning: boolean;
 }

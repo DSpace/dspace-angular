@@ -408,6 +408,9 @@ homePage:
     pageSize: 5
   # Enable or disable the Discover filters on the homepage
   showDiscoverFilters: false
+  # Show administrators a warning when the GeoLite database used for usage statistics is missing.
+  # Set to false if you deliberately do not collect location data.
+  showGeoIpWarning: true
 
 # Item Config
 item:

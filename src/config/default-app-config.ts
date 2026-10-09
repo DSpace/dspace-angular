@@ -375,6 +375,7 @@ export class DefaultAppConfig implements AppConfig {
       pageSize: 5,
     },
     showDiscoverFilters: false,
+    showGeoIpWarning: true,
   };
 
   // Item Config

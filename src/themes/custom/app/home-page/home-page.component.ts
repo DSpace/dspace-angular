@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
+import { GeoIpWarningComponent } from '../../../../app/home-page/geoip-warning/geoip-warning.component';
 import { HomeCoarComponent } from '../../../../app/home-page/home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from '../../../../app/home-page/home-news/themed-home-news.component';
 import { HomePageComponent as BaseComponent } from '../../../../app/home-page/home-page.component';
@@ -23,6 +24,7 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
   templateUrl: '../../../../app/home-page/home-page.component.html',
   imports: [
     AsyncPipe,
+    GeoIpWarningComponent,
     HomeCoarComponent,
     MarkdownViewerComponent,
     NgTemplateOutlet,

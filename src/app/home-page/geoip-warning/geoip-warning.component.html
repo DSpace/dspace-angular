@@ -1,0 +1,6 @@
+@if (showWarning$ | async) {
+  <ds-alert [type]="AlertType.Warning" [dismissible]="true"
+            [content]="'home.geoip-warning'"
+            (close)="onDismiss()">
+  </ds-alert>
+}
