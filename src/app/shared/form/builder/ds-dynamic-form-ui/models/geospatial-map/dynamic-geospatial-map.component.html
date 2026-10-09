@@ -1,0 +1,22 @@
+<div class="d-flex align-items-start gap-2">
+  <input type="text"
+         class="form-control"
+         [id]="model.id"
+         [name]="model.name"
+         [attr.aria-label]="model.label"
+         [disabled]="model.disabled"
+         [readOnly]="model.readOnly"
+         [(ngModel)]="currentValue"
+         (ngModelChange)="onInputChange()"
+         (blur)="onBlur($event)"
+         (focus)="onFocus($event)"
+         placeholder="POINT(longitude latitude)" />
+  <button type="button"
+          class="btn btn-outline-secondary flex-shrink-0"
+          [dsBtnDisabled]="model.readOnly"
+          [title]="'form.geospatial-map-picker.open' | translate"
+          [attr.aria-label]="'form.geospatial-map-picker.open' | translate"
+          (click)="openMapPicker()">
+    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+  </button>
+</div>
