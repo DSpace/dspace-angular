@@ -5,7 +5,10 @@ import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
-import { AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentVisibility,
+} from './advanced-attachment-rendering.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -812,6 +815,7 @@ export class DefaultAppConfig implements AppConfig {
         {
           name: 'checksum',
           type: AdvancedAttachmentElementType.Attribute,
+          visibility: AdvancedAttachmentVisibility.Admin,
         },
       ],
     },
