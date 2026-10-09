@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -57,6 +60,7 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
     FileSizePipe,
     MetadataDirective,
     MetadataFieldWrapperComponent,
+    NgTemplateOutlet,
     PaginationComponent,
     ThemedFileDownloadLinkComponent,
     ThemedThumbnailComponent,
