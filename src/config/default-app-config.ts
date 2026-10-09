@@ -317,6 +317,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'fa', label: 'فارسی', active: true },
     { code: 'fi', label: 'Suomi', active: true },
     { code: 'fr', label: 'Français', active: true },
+    { code: 'ga', label: 'Gaeilge', active: true },
     { code: 'gd', label: 'Gàidhlig', active: true },
     { code: 'gu', label: 'ગુજરાતી', active: true },
     { code: 'hi', label: 'हिंदी', active: true },
