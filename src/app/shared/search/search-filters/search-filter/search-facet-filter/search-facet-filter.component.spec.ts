@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
@@ -229,6 +230,7 @@ describe('SearchFacetFilterComponent', () => {
       expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalledWith(filterName1, testValue, 'equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
+        fragment: SEARCH_COMPONENT_ANCHOR_ID,
       });
     });
 
