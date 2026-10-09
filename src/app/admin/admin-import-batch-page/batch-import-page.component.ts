@@ -13,11 +13,11 @@ import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import {
   StagedUpload,
   StagedUploadService,
 } from '@dspace/core/data/staged-upload.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Process } from '@dspace/core/processes/process.model';
 import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
@@ -179,7 +179,7 @@ export class BatchImportPageComponent implements OnDestroy {
             getFirstCompletedRemoteData(),
             map((rd: RemoteData<Process>) => {
               if (!rd.hasSucceeded) {
-                throw rd;
+                throw Object.assign(new Error(rd.errorMessage), { statusCode: rd.statusCode });
               }
               return rd.payload.processId;
             }),

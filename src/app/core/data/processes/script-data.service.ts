@@ -1,6 +1,4 @@
-import {
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Script } from '@dspace/core/shared/scripts/script.model';
 import { SCRIPT } from '@dspace/core/shared/scripts/script.resource-type';
@@ -14,6 +12,7 @@ import {
 import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { HttpOptions } from '../../dspace-rest/dspace-rest.service';
 import { Process } from '../../processes/process.model';
 import { ProcessParameter } from '../../processes/process-parameter.model';
 import { FollowLinkConfig } from '../../shared/follow-link-config.model';
@@ -28,7 +27,6 @@ import { IdentifiableDataService } from '../base/identifiable-data.service';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
-import { HttpOptions } from '../../dspace-rest/dspace-rest.service';
 import {
   MultipartPostRequest,
   PostRequest,
