@@ -3,6 +3,7 @@ import { editItemBreadcrumbResolver } from '@dspace/core/breadcrumbs/edit-item-b
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { pendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 
@@ -28,5 +29,13 @@ export const ROUTES: Route[] = [
         },
       },
     ],
+  },
+  {
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found',
+    },
   },
 ];
