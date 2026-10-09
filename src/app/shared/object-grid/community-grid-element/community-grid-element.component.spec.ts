@@ -42,9 +42,8 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
   },
 });
 
-const linkService = jasmine.createSpyObj('linkService', {
-  resolveLink: mockCommunityWithAbstract,
-});
+const linkService = jasmine.createSpyObj('linkService', ['resolveLink']);
+linkService.resolveLink.and.callFake((object) => object);
 
 describe('CommunityGridElementComponent', () => {
   beforeEach(waitForAsync(() => {

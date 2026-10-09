@@ -58,7 +58,7 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
   @Input() set dso(dso: Community) {
     this._dso = dso;
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {
-      this.linkService.resolveLink<Community>(this._dso, followLink('logo'));
+      this._dso = this.linkService.resolveLink<Community>(this._dso, followLink('logo'));
     }
   }
 

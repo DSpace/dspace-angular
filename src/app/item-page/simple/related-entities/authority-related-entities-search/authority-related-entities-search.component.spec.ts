@@ -82,7 +82,7 @@ describe('AuthorityRelatedEntitiesSearchComponent', () => {
 
     fixture.detectChanges();
 
-    const searchPage = fixture.nativeElement.querySelector('ds-configuration-search-page');
+    const searchPage = fixture.nativeElement.querySelector('ds-search');
     expect(searchPage).toBeTruthy();
   });
 
@@ -92,7 +92,7 @@ describe('AuthorityRelatedEntitiesSearchComponent', () => {
 
     fixture.detectChanges();
 
-    const searchPage = fixture.nativeElement.querySelector('ds-configuration-search-page');
+    const searchPage = fixture.nativeElement.querySelector('ds-search');
     expect(searchPage).toBeFalsy();
   });
 

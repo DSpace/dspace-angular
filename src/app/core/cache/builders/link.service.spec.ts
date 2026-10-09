@@ -172,6 +172,41 @@ describe('LinkService', () => {
       });
     });
 
+    describe(`when the model is not extensible (e.g. frozen NgRx state)`, () => {
+      let frozenModel: TestModel;
+
+      beforeEach(() => {
+        frozenModel = Object.assign(new TestModel(), {
+          value: 'a frozen value',
+          _links: {
+            self: {
+              href: 'http://self.link',
+            },
+            predecessor: {
+              href: 'http://predecessor.link',
+            },
+            successor: {
+              href: 'http://successor.link',
+            },
+          },
+        });
+        Object.freeze(frozenModel);
+        result = service.resolveLink(frozenModel, followLink('predecessor', {}, followLink('successor')));
+      });
+
+      it('should not throw and should return a mutable clone with the resolved link', (done) => {
+        expect(Object.isExtensible(frozenModel)).toBeFalse();
+        expect(Object.isExtensible(result)).toBeTrue();
+        expect(result).not.toBe(frozenModel);
+        expect(result.value).toBe('a frozen value');
+        expect(frozenModel.predecessor).toBeUndefined();
+        result.predecessor.subscribe((res) => {
+          expect(res).toBe('findByHref');
+          done();
+        });
+      });
+    });
+
     describe(`when the specified link doesn't exist on the model's class`, () => {
       beforeEach(() => {
         ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue(undefined);
@@ -201,7 +236,7 @@ describe('LinkService', () => {
 
   describe('resolveLinks', () => {
     beforeEach(() => {
-      spyOn(service, 'resolveLink');
+      spyOn(service, 'resolveLink').and.callFake((model) => model);
       result = service.resolveLinks(testModel, followLink('predecessor'), followLink('successor'));
     });
 

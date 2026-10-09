@@ -40,9 +40,8 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
     searchResult.indexableObject.uuid = id;
   }
 
-  const linkService = jasmine.createSpyObj('linkService', {
-    resolveLink: {},
-  });
+  const linkService = jasmine.createSpyObj('linkService', ['resolveLink']);
+  linkService.resolveLink.and.callFake((object) => object);
 
   beforeEach(waitForAsync(() => {
     init();

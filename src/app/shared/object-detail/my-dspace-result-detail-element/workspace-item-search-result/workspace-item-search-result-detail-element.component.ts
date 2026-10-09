@@ -58,7 +58,7 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.linkService.resolveLink(this.dso, followLink('item'));
+    this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 

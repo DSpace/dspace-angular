@@ -56,7 +56,7 @@ export class ItemSubmitterComponent implements OnInit {
    * Initialize submitter object
    */
   ngOnInit() {
-    this.linkService.resolveLinks(this.object, followLink('workflowitem', {},
+    this.object = this.linkService.resolveLinks(this.object, followLink('workflowitem', {},
       followLink('submitter',{}),
     ));
     this.submitter$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
