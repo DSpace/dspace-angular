@@ -26,6 +26,7 @@ import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-me
 import { EditItemMenuProvider } from './shared/menu/providers/edit-item-details.menu';
 import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
 import { ExportMenuProvider } from './shared/menu/providers/export.menu';
+import { ExportItemMenuProvider } from './shared/menu/providers/export-item.menu';
 import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
 import { ClaimMenuProvider } from './shared/menu/providers/item-claim.menu';
@@ -50,6 +51,7 @@ import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
  * - `MenuID.PUBLIC`: Defines menus accessible by the public in the navigation bar.
  * - `MenuID.ADMIN`: Defines menus for administrative users in the sidebar.
  * - `MenuID.DSO_EDIT`: Defines dynamic menu options for DSpace Objects that will be present on the DSpace Object's page.
+ * - `MenuID.DSO_PUBLIC`: Defines dynamic menu options for DSpace Objects available to unauthenticated users.
  *
  * To add more menu sections to a menu (public navbar, admin sidebar or the dso edit menus),
  * a new provider can be added to the list with the corresponding menu ID.
@@ -117,5 +119,10 @@ export const MENUS = buildMenuStructure({
         MenuRoute.COLLECTION_PAGE,
       ),
     ]),
+  ],
+  [MenuID.DSO_PUBLIC]: [
+    ExportItemMenuProvider.onRoute(
+      MenuRoute.ITEM_PAGE,
+    ),
   ],
 });
