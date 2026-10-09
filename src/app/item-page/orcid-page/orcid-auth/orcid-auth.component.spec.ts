@@ -178,6 +178,13 @@ describe('OrcidAuthComponent test suite', () => {
       fixture.detectChanges();
     }));
 
+    it('should display orcid benefits description and learn more link', fakeAsync(() => {
+      const benefitsDescription = fixture.debugElement.query(By.css('[data-test="orcid-benefits-description"]'));
+      const benefitsLink = fixture.debugElement.query(By.css('[data-test="orcid-benefits-learn-more"]'));
+      expect(benefitsDescription).toBeTruthy();
+      expect(benefitsLink).toBeTruthy();
+    }));
+
     it('should create', fakeAsync(() => {
       const orcidLinked = fixture.debugElement.query(By.css('[data-test="orcidLinked"]'));
       const orcidNotLinked = fixture.debugElement.query(By.css('[data-test="orcidNotLinked"]'));
