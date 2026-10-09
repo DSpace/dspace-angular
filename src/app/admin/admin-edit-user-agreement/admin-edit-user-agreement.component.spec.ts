@@ -110,4 +110,21 @@ describe('AdminEditUserAgreementComponent', () => {
     expect(component.userAgreementTexts.get('de').text).toEqual('Dies ist der Text der Endbenutzervereinbarung für diesen Test');
   }));
 
+  it('should replace the first language and append every other language when saving', () => {
+    const operations = (component as any).getOperationsToEditText();
+    expect(operations.length).toEqual(component.userAgreementTexts.size);
+    expect(operations[0].op).toEqual('replace');
+    expect(operations[0].path).toEqual('/metadata/dc.rights');
+    // An 'add' without an index would replace all dc.rights values (RFC 6902), keeping only the last language.
+    operations.slice(1).forEach((operation) => {
+      expect(operation.op).toEqual('add');
+      expect(operation.path).toEqual('/metadata/dc.rights/-');
+    });
+    expect(operations).toContain({
+      op: 'add',
+      path: '/metadata/dc.rights/-',
+      value: { value: 'Dies ist der Text der Endbenutzervereinbarung für diesen Test', language: 'de' },
+    });
+  });
+
 });
