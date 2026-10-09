@@ -8,9 +8,10 @@
         <i class="fas fa-search fa-lg fa-fw"></i>
       </button>
     } @else {
-      <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" autocomplete="on" class="d-flex">
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" class="d-flex">
         <input #searchInput [@toggleAnimation]="isExpanded" [attr.aria-label]="('nav.search' | translate)" name="query"
                formControlName="query" type="text" placeholder="{{'nav.search' | translate}}"
+               autocomplete="off"
                class="d-inline-block bg-transparent position-absolute form-control dropdown-menu-end p1"
                [attr.data-test]="'header-search-box' | dsBrowserOnly">
         <button type="submit" class="submit-icon btn btn-link btn-link-inline"
