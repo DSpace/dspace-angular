@@ -135,6 +135,9 @@ jobs:
       - name: Run specs (unit tests)
         run: npm run test:headless
 
+      - name: Run SSR cache unit tests
+        run: npm run test:ssr-cache
+
       # Upload code coverage report to artifact (for one version of Node only),
       # so that it can be shared with the 'codecov' job (see below)
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
