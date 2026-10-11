@@ -17,46 +17,27 @@
 import 'reflect-metadata';
 import 'zone.js/node';
 
+import { readFileSync } from 'node:fs';
+import { createServer } from 'node:https';
+import { join } from 'node:path';
+
+import { APP_BASE_HREF } from '@angular/common';
+import { enableProdMode } from '@angular/core';
+import { CommonEngine } from '@angular/ssr/node';
+import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import * as compression from 'compression';
+import { renderFile } from 'ejs';
+import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createHttpTerminator } from 'http-terminator';
+import { isbot } from 'isbot';
+import { LRUCache } from 'lru-cache';
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
-import express from 'express';
-import * as ejs from 'ejs';
-import * as compression from 'compression';
-import expressStaticGzip from 'express-static-gzip';
-import { LRUCache } from 'lru-cache';
-import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
-import { createServer } from 'https';
-import { createHttpTerminator } from 'http-terminator';
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
-import { enableProdMode } from '@angular/core';
-
-
-import { environment } from './src/environments/environment';
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
-import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
-import {
-  APP_CONFIG,
-  AppConfig,
-  toClientConfig,
-} from './src/config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from './src/config/config.util';
-import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
-import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
-import { CommonEngine } from '@angular/ssr/node';
-import { APP_BASE_HREF } from '@angular/common';
-import {
-  REQUEST,
-  RESPONSE,
-} from './src/express.tokens';
-import { SsrExcludePatterns } from './src/config/ssr-config.interface';
 import {
   canCacheSsrRequest,
   createSsrRefreshContext,
@@ -64,6 +45,23 @@ import {
   RedisSsrCache,
 } from './server/redis-cache';
 import { RedisCachePolicy } from './server/redis-cache-policy';
+import {
+  APP_CONFIG,
+  AppConfig,
+  toClientConfig,
+} from './src/config/app-config.interface';
+import { buildAppConfig } from './src/config/config.server';
+import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import { UIServerConfig } from './src/config/ui-server-config.interface';
+import { environment } from './src/environments/environment';
+import {
+  REQUEST,
+  RESPONSE,
+} from './src/express.tokens';
+import bootstrap from './src/main.server';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -149,7 +147,7 @@ export function app() {
    */
   server.use(express.json());
 
-  server.engine('ejs', ejs.renderFile);
+  server.engine('ejs', renderFile);
 
   /*
    * Register the view engines for html and ejs
@@ -195,14 +193,14 @@ export function app() {
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
    */
   if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-    const { rateLimit } = require('express-rate-limit')
+    const { rateLimit } = require('express-rate-limit');
     const limiter = rateLimit({
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
       limit: (environment.ui as UIServerConfig).rateLimiter.limit,
       standardHeaders: true,
       legacyHeaders: false,
       // don't log ERR_ERL_PERMISSIVE_TRUST_PROXY if we are trusting proxies
-      validate: {trustProxy: !environment.ui.useProxies},
+      validate: { trustProxy: !environment.ui.useProxies },
     });
     server.use(limiter);
   }
@@ -268,8 +266,8 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
   // "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
   // By default, this is set to the host of the UI's baseUrl.
   const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
-                                          allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
-                                        });
+    allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+  });
   // Render the page via SSR (server side rendering)
   return commonEngine
     .render({
@@ -347,7 +345,7 @@ function clientSideRender(req, res) {
   // Replace base href dynamically
   html = html.replace(
     /<base href="[^"]*">/,
-    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`
+    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`,
   );
 
   // Replace REST URL with UI URL
@@ -439,8 +437,7 @@ function redisCacheEnabled(): boolean {
 
 /** Never serve shared pages to authenticated users, or on routes which bypass SSR. */
 function canCacheRequest(req): boolean {
-  return canCacheSsrRequest(req, !!environment.production, environment.ssr.enabled, TOKENITEM,
-    path => isExcludedFromSsr(path, environment.ssr.excludePathPatterns));
+  return canCacheSsrRequest(req, !!environment.production, environment.ssr.enabled, TOKENITEM, isExcludedFromSsr);
 }
 
 /**
