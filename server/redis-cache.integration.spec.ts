@@ -40,12 +40,16 @@ if (process.env.DSPACE_TEST_REDIS_URL) {
     });
 
     it('shares serialized pages, headers and status between workers and expires them', async () => {
-      await first.set('page', value, 100);
+      await first.set('page', value, 2000);
       expect((await second.get('page'))?.value).toEqual(value);
       const ttl = await redis.pTTL(`${prefix}page:page`);
       expect(ttl).toBeGreaterThan(0);
-      expect(ttl).toBeLessThanOrEqual(100);
-      await new Promise(resolve => setTimeout(resolve, 150));
+      expect(ttl).toBeLessThanOrEqual(2000);
+      const deadline = Date.now() + 4000;
+      while (await redis.exists(`${prefix}page:page`) && Date.now() < deadline) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+      expect(await redis.exists(`${prefix}page:page`)).toBe(0);
       expect(await second.get('page')).toBeUndefined();
     });
 
@@ -64,22 +68,26 @@ if (process.env.DSPACE_TEST_REDIS_URL) {
       finish();
       await refreshing;
       expect(await redis.get(`${prefix}refresh:page`)).toBeNull();
-      await second.refresh('page', () => Promise.resolve());
+      const nextRender = jasmine.createSpy('nextRender').and.returnValue(Promise.resolve());
+      await second.refresh('page', nextRender);
+      expect(nextRender).toHaveBeenCalledTimes(1);
       expect(await redis.get(`${prefix}refresh:page`)).toBeNull();
     });
 
-    it('does not delete a replacement lock after its own lease expires', async () => {
+    it('does not delete a lock owned by another worker', async () => {
       await first.refresh('page', async () => {
-        // Simulate a new worker acquiring an expired lease during a slow render.
-        await redis.set(`${prefix}refresh:page`, 'new-owner', { PX: 1000 });
+        // Replace the owner to verify the old worker cannot release the new lock.
+        await redis.set(`${prefix}refresh:page`, 'new-owner', { PX: 10000 });
       });
       expect(await redis.get(`${prefix}refresh:page`)).toBe('new-owner');
     });
 
-    it('treats an incompatible cached entry as a miss', async () => {
-      await redis.set(`${prefix}page:page`, '<html>old raw HTML format</html>', { PX: 1000 });
+    it('allows another worker to refresh after a failed render', async () => {
       spyOn(console, 'warn');
-      expect(await first.get('page')).toBeUndefined();
+      await first.refresh('page', () => Promise.reject(new Error('SSR failed')));
+      const render = jasmine.createSpy('render').and.returnValue(Promise.resolve());
+      await second.refresh('page', render);
+      expect(render).toHaveBeenCalledTimes(1);
     });
   });
 }
