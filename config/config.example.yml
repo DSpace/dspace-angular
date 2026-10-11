@@ -112,6 +112,42 @@ cache:
   serverSide:
     # Set to true to see all cache hits/misses/refreshes in your console logs. Useful for debugging SSR caching issues.
     debug: false
+    # Shared cache for anonymous SSR pages (including bots), replacing both LRU caches below.
+    # Only active with production mode and ssr.enabled=true. Disabled by default.
+    # Redis outages cause uncached SSR; the in-memory caches are used when Redis is disabled.
+    redis:
+      enabled: false
+      # Supports redis:// and rediss:// (TLS), credentials and a database number.
+      # Prefer DSPACE_CACHE_SERVERSIDE_REDIS_URL for connection credentials.
+      url: redis://localhost:6379
+      # Use a unique prefix per deployment; change it after deploying incompatible page changes.
+      keyPrefix: 'dspace:ssr:'
+      connectTimeout: 1000 # milliseconds
+      commandTimeout: 1000 # maximum time to wait for a cache operation, in milliseconds
+      refreshLockTimeToLive: 60000 # milliseconds; should exceed the longest SSR render
+      # Only explicitly configured routes are cached. Empty or unmatched routes bypass Redis.
+      # Patterns match the entire router-relative path, without namespace or query parameters.
+      # '*' matches any characters, including '/'; other characters are literal and case-sensitive.
+      # Exact paths win, then the longest literal prefix before '*', then more literal characters,
+      # then fewer wildcards. Equal specificity uses the first configured rule.
+      # Each route requires timeToLive (milliseconds). Zero bypasses cache reads and writes.
+      # refreshWhenTimeBelow is in milliseconds; omitted or zero disables background refreshing.
+      # Rules do not override ssr.excludePathPatterns.
+      routes: []
+      # Example (replace the empty list above to enable):
+      # routes:
+      #   - pattern: '*' # optional catch-all; all eligible SSR pages
+      #     timeToLive: 900000
+      #     refreshWhenTimeBelow: 300000
+      #   - pattern: '/entities/*'
+      #     timeToLive: 30000
+      #     refreshWhenTimeBelow: 10000
+      #   - pattern: '/entities/service' # exact path; takes precedence over /entities/*
+      #     timeToLive: 60000
+      #     refreshWhenTimeBelow: 20000
+      #   - pattern: '/entities/service/*' # service pages below this path
+      #     timeToLive: 60000
+      #     refreshWhenTimeBelow: 20000
     # When enabled (i.e. max > 0), known bots will be sent pages from a server side cache specific for bots.
     # (Keep in mind, bot detection cannot be guaranteed. It is possible some bots will bypass this cache.)
     botCache:
