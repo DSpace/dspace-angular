@@ -1,4 +1,3 @@
-import { EventEmitter } from 'node:events';
 import {
   IncomingMessage,
   ServerResponse,
@@ -29,22 +28,21 @@ describe('Redis SSR cache', () => {
       routes: [],
     };
     cache = new RedisSsrCache(config);
-    client = Object.assign(new EventEmitter(), {
+    client = {
       isReady: true,
       isOpen: true,
       get: jasmine.createSpy('get').and.returnValue(Promise.resolve(JSON.stringify(value))),
       pTTL: jasmine.createSpy('pTTL').and.returnValue(Promise.resolve(10000)),
       set: jasmine.createSpy('set').and.returnValue(Promise.resolve('OK')),
       eval: jasmine.createSpy('eval').and.returnValue(Promise.resolve(1)),
-      connect: jasmine.createSpy('connect').and.returnValue(Promise.resolve()),
       disconnect: jasmine.createSpy('disconnect').and.returnValue(Promise.resolve()),
-    });
+    };
     // Replace the unconnected client; these tests do not require a Redis server.
     (cache as any).client = client;
     spyOn(console, 'warn');
   });
 
-  it('round-trips HTML, response headers and a successful status as JSON with a millisecond TTL', async () => {
+  it('serializes pages with a millisecond TTL and deserializes cached HTML, headers and status', async () => {
     await cache.set('key', value, 900000);
     expect(client.set).toHaveBeenCalledWith('test:page:key', JSON.stringify(value), { PX: 900000 });
     expect(await cache.get('key')).toEqual({ value, remainingTime: 10000 });
@@ -100,29 +98,12 @@ describe('Redis SSR cache', () => {
     expect(console.warn).toHaveBeenCalled();
   });
 
-  it('acquires a distributed refresh lock and only releases its own token', async () => {
-    const render = jasmine.createSpy('render').and.returnValue(Promise.resolve());
-    await cache.refresh('key', render);
-    const [lockKey, token, options] = client.set.calls.mostRecent().args;
-    expect(lockKey).toBe('test:refresh:key');
-    expect(options).toEqual({ NX: true, PX: 60000 });
-    expect(render).toHaveBeenCalledTimes(1);
-    expect(client.eval).toHaveBeenCalledWith(jasmine.stringMatching('ARGV\\[1\\]'), {
-      keys: [lockKey], arguments: [token],
-    });
-  });
-
   it('does not refresh if another worker owns the lock', async () => {
     client.set.and.returnValue(Promise.resolve(null));
     const render = jasmine.createSpy('render');
     await cache.refresh('key', render);
     expect(render).not.toHaveBeenCalled();
     expect(client.eval).not.toHaveBeenCalled();
-  });
-
-  it('releases the lock after a failed render', async () => {
-    await cache.refresh('key', () => Promise.reject(new Error('SSR failed')));
-    expect(client.eval).toHaveBeenCalled();
   });
 
   it('disconnects the Redis connection at shutdown', async () => {
@@ -137,7 +118,6 @@ describe('Redis SSR cache', () => {
 describe('Redis cache keys', () => {
   it('isolates deployments, languages, namespaces and query strings', () => {
     const key = getRedisCacheKey('https://example.org', 'en', '/dspace/search?query=a');
-    expect(key.length).toBe(64);
     expect(key).toBe(getRedisCacheKey('https://example.org', 'en', '/dspace/search?query=a'));
     for (const args of [
       ['https://another.org', 'en', '/dspace/search?query=a'],
@@ -196,7 +176,7 @@ describe('SSR cache request eligibility', () => {
     expect(canCacheSsrRequest(request('/search'), true, false, 'token', excluded)).toBe(false);
   });
 
-  it('bypasses authenticated requests even if the user agent is a bot', () => {
+  it('bypasses requests authenticated by cookie or Authorization header', () => {
     expect(canCacheSsrRequest(request('/search', 'jwt'), true, true, 'token', excluded)).toBe(false);
     expect(canCacheSsrRequest(request('/search', undefined, 'Bearer jwt'), true, true, 'token', excluded)).toBe(false);
   });

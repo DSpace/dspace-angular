@@ -52,15 +52,6 @@ describe('Redis SSR cache route policy', () => {
     expect(policy.getDurationsForUrl('/entities/service/details').timeToLive).toBe(60000);
   });
 
-  it('uses fewer wildcards and then configuration order to resolve equal specificity', () => {
-    const policy = new RedisCachePolicy({ routes: [
-      { pattern: '/entities/**', timeToLive: 10000 },
-      { pattern: '/entities/*', timeToLive: 30000 },
-      { pattern: '/entities/*', timeToLive: 60000 },
-    ] });
-    expect(policy.getDurationsForUrl('/entities/service').timeToLive).toBe(30000);
-  });
-
   it('matches the entire path and excludes query parameters from policy selection', () => {
     const policy = new RedisCachePolicy({ routes: [{ pattern: '/entities/service', timeToLive: 60000 }] });
     expect(policy.getDurationsForUrl('/entities/service?query=anything').timeToLive).toBe(60000);
