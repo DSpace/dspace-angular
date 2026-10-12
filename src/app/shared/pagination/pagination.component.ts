@@ -271,6 +271,10 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (hasValue(changes.collectionSize)) {
       this.showingDetails$ = this.getShowingDetails(this.collectionSize);
+      // Re-evaluate when total elements change without a page/rpp query param change
+      if (hasValue(this.id)) {
+        this.showBottomPager$ = this.shouldShowBottomPager;
+      }
     }
   }
 
