@@ -47,7 +47,7 @@ export class EditCMSMetadataMenuProvider extends AbstractMenuProvider {
       map(([isSiteAdmin]) => {
         return [
           {
-            visible: isSiteAdmin && (this.appConfig.homePage.editHomeHeader || this.appConfig.homePage.editHomeHeader || this.appConfig.homePage.showTopFooter),
+            visible: isSiteAdmin && (this.appConfig.homePage.editHomeHeader || this.appConfig.homePage.editHomeNews || this.appConfig.homePage.showTopFooter),
             model: {
               type: MenuItemType.LINK,
               text: 'menu.section.edit-cms-metadata',
