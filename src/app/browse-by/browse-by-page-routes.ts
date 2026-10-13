@@ -16,14 +16,6 @@ export const ROUTES: Route[] = [
     },
     children: [
       {
-        path: '',
-        component: ThemedPageNotFoundComponent,
-        pathMatch: 'full',
-        data: {
-          title: '404.page-not-found',
-        },
-      },
-      {
         path: 'map',
         component: BrowseByGeospatialDataComponent,
         resolve: { breadcrumb: i18nBreadcrumbResolver },
@@ -35,6 +27,14 @@ export const ROUTES: Route[] = [
         canActivate: [browseByGuard],
         resolve: { breadcrumb: browseByI18nBreadcrumbResolver },
         data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' },
+      },
+      {
+        path: '',
+        component: ThemedPageNotFoundComponent,
+        pathMatch: 'full',
+        data: {
+          title: '404.page-not-found',
+        },
       },
     ],
   },
