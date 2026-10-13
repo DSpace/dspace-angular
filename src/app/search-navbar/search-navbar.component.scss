@@ -1,6 +1,6 @@
 input[type="text"] {
   margin-top: calc(-0.45 * var(--bs-font-size-base));
-  background-color: #fff !important;
+  background-color: var(--ds-white-bg) !important;
   border-color: var(--ds-header-icon-color);
   right: 0;
 

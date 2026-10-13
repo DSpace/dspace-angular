@@ -3,7 +3,7 @@
     @for (secLevel of securityLevelsMap; track secLevel.value) {
       <div>
         <div class="switch-opt"
-             [ngStyle]="{'background-color': securityLevel === $any(secLevel).value ? 'white' : 'rgb(204,204,204)' }">
+             [class.selected]="securityLevel === $any(secLevel).value">
           <button class="btn btn-link text-primary" data-test="switch-btn"
                   [title]="'metadata.security.level.title' | translate: { level: $any(secLevel).value }"
                   [dsBtnDisabled]="readOnly"

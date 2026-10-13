@@ -2,7 +2,7 @@
   display: block;
 
   div.background-image-container {
-    color: white;
+    color: var(--ds-light-color);
     position: relative;
     font-weight: 600;
 
@@ -20,7 +20,7 @@
 
     .container {
       position: relative;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+      text-shadow: 1px 1px 4px rgba(var(--bs-black-rgb), 0.6);
 
       &:before, &:after {
         content: '';
@@ -51,8 +51,8 @@
         color: inherit;
       }
 
-      color: rgba(255, 255, 255, 0.7);
-      background-color: rgba(0, 0, 0, 0.1);
+      color: rgba(var(--bs-white-rgb), 0.7);
+      background-color: rgba(var(--bs-black-rgb), 0.1);
       position: absolute;
       right: var(--bs-spacer);
       bottom: 0;

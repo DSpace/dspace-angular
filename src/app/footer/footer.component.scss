@@ -57,7 +57,7 @@
             }
 
             &:focus-visible {
-              box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+              box-shadow: 0 0 0 0.2rem rgba(var(--bs-white-rgb), 0.5);
             }
           }
 

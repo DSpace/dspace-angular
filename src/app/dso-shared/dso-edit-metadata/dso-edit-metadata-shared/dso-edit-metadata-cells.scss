@@ -28,7 +28,7 @@
 }
 
 .ds-value-row {
-  background-color: white;
+  background-color: var(--ds-white-bg);
 
   &:active {
     cursor: grabbing;
