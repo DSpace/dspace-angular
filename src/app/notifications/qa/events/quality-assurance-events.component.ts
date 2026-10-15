@@ -278,11 +278,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param {any} content
    *    Reference to the modal
    */
-  public modalChoice(action: string, eventData: QualityAssuranceEventData, content: any): void {
+  public modalChoice(action: string, eventData: QualityAssuranceEventData, content: any, labelledBy: string): void {
     if (eventData.hasProject) {
       this.executeAction(action, eventData);
     } else {
-      this.openModal(action, eventData, content);
+      this.openModal(action, eventData, content, labelledBy);
     }
   }
 
@@ -296,8 +296,8 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param {any} content
    *    Reference to the modal
    */
-  public openModal(action: string, eventData: QualityAssuranceEventData, content: any): void {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+  public openModal(action: string, eventData: QualityAssuranceEventData, content: any, labelledBy: string): void {
+    this.modalService.open(content, { ariaLabelledBy: labelledBy }).result.then(
       (result) => {
         if (result === 'do') {
           eventData.reason = this.selectedReason;
