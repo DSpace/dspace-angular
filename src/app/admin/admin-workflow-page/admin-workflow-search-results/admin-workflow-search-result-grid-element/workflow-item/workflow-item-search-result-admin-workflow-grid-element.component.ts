@@ -24,8 +24,15 @@ import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {
+  from,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
@@ -92,9 +99,17 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
-    this.item$.pipe(take(1)).subscribe((item: Item) => {
-      const component: GenericConstructor<Component> = this.getComponent(item);
 
+    this.item$.pipe(
+      take(1),
+      switchMap((item: Item) => {
+        return from(this.getComponent(item)).pipe(
+          map((component: GenericConstructor<Component>) => {
+            return { item, component };
+          }),
+        );
+      }),
+    ).subscribe(({ item, component }: { item: Item, component: GenericConstructor<Component> }) => {
       const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
       viewContainerRef.clear();
 
@@ -127,7 +142,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
    * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(item: Item): GenericConstructor<Component> {
+  private getComponent(item: Item): Promise<GenericConstructor<Component>> {
     return getListableObjectComponent(item.getRenderTypes(), ViewMode.GridElement, undefined, this.themeService.getThemeName());
   }
 

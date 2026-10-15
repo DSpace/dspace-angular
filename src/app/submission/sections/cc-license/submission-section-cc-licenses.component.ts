@@ -58,6 +58,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -77,6 +78,7 @@ import { SectionsService } from '../sections.service';
     VarDirective,
   ],
 })
+@renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
 
   /**
