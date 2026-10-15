@@ -1,20 +1,20 @@
 @if (moreThanOneLanguage) {
-  <!-- Not rendered during SSR: the switch is only useful to interactive human users -->
-  @defer {
-    <div ngbDropdown class="navbar-nav" display="dynamic" placement="bottom-right">
-      <button role="button"
-              [attr.aria-label]="'nav.language' |translate"
-              aria-controls="language-menu-list"
-              aria-haspopup="menu"
-              class="dropdown-toggle btn btn-link px-0"
-              [title]="'nav.language' | translate"
-              (click)="$event.preventDefault()" data-bs-toggle="dropdown" ngbDropdownToggle
-              data-test="lang-switch"
-              tabindex="0">
-        <i class="fas fa-globe-asia fa-lg fa-fw"></i>
-      </button>
-      <div ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate" id="language-menu-list"
-           role="listbox">
+  <div ngbDropdown class="navbar-nav" display="dynamic" placement="bottom-right">
+    <button role="button"
+            [attr.aria-label]="'nav.language' |translate"
+            aria-controls="language-menu-list"
+            aria-haspopup="menu"
+            class="dropdown-toggle btn btn-link px-0"
+            [title]="'nav.language' | translate"
+            (click)="$event.preventDefault()" data-bs-toggle="dropdown" ngbDropdownToggle
+            data-test="lang-switch"
+            tabindex="0">
+      <i class="fas fa-globe-asia fa-lg fa-fw"></i>
+    </button>
+    <div ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate" id="language-menu-list"
+         role="listbox">
+      <!-- Not rendered during SSR: the switch is only useful to interactive human users -->
+      @defer {      
         @for (lang of translate.getLangs(); track lang) {
           <div class="dropdown-item" tabindex="0"
                role="option"
@@ -26,7 +26,7 @@
             {{ langLabel(lang) }}
           </div>
         }
-      </div>
+      }
     </div>
-  }
+  </div>
 }
