@@ -26,6 +26,7 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
     payload.sort = data.payload.sort;
     payload.scope = data.payload.scope;
     payload.configuration = data.payload.configuration;
+    payload.spellCheckSuggestions = data.payload.spellCheckSuggestions;
     const hitHighlights: MetadataMap[] = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
