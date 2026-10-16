@@ -26,6 +26,7 @@ import { SubmissionDuplicateDataService } from '@dspace/core/submission/submissi
 import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
@@ -113,7 +114,7 @@ describe('PoolSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, VarDirective, PoolSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
