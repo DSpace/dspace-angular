@@ -69,8 +69,8 @@ export class SearchFilterToggleAction extends SearchFilterAction {
 export class SearchFilterInitializeAction extends SearchFilterAction {
   type = SearchFilterActionTypes.INITIALIZE;
   initiallyExpanded;
-  constructor(filter: SearchFilterConfig) {
-    super(filter.name);
+  constructor(filter: SearchFilterConfig, filterName: string = filter.name) {
+    super(filterName);
     this.initiallyExpanded = filter.isOpenByDefault;
   }
 }
