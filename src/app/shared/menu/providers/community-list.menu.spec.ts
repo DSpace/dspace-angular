@@ -7,6 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
@@ -25,24 +26,30 @@ describe('CommunityListMenuProvider', () => {
     },
   ];
 
-  let provider: CommunityListMenuProvider;
-
-  beforeEach(() => {
+  const createProvider = (showCommunityCollection: boolean): CommunityListMenuProvider => {
     TestBed.configureTestingModule({
       providers: [
         CommunityListMenuProvider,
+        { provide: APP_CONFIG, useValue: { layout: { navbar: { showCommunityCollection } } } },
       ],
     });
-    provider = TestBed.inject(CommunityListMenuProvider);
-  });
+    return TestBed.inject(CommunityListMenuProvider);
+  };
 
   it('should be created', () => {
-    expect(provider).toBeTruthy();
+    expect(createProvider(true)).toBeTruthy();
   });
 
-  it('getSections should return expected menu sections', (done) => {
-    provider.getSections().subscribe((sections) => {
+  it('getSections should return the community list section when showCommunityCollection is enabled', (done) => {
+    createProvider(true).getSections().subscribe((sections) => {
       expect(sections).toEqual(expectedSections);
+      done();
+    });
+  });
+
+  it('getSections should return no sections when showCommunityCollection is disabled', (done) => {
+    createProvider(false).getSections().subscribe((sections) => {
+      expect(sections).toEqual([]);
       done();
     });
   });

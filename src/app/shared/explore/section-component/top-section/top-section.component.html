@@ -1,0 +1,17 @@
+<div>
+  <div class="card mb-4">
+    @if (topSection.titleKey) {
+      <div class="card-header">{{ 'explore.index.' + topSection.titleKey | translate }}</div>
+    }
+    @if (!topSection.titleKey) {
+      <div class="card-header">{{ 'explore.index.' + topSection.sortField | translate }}</div>
+    }
+    <div class="card-body p-0">
+      <ds-browse-most-elements [context]="context"
+        [paginatedSearchOptions]="paginatedSearchOptions"
+        [showLabel]="true"
+        [showMetrics]="true"
+      [topSection]="topSection"></ds-browse-most-elements>
+    </div>
+  </div>
+</div>

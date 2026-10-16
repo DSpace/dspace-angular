@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgComponentOutlet,
+  NgTemplateOutlet,
 } from '@angular/common';
 import {
   AfterViewChecked,
@@ -11,21 +12,39 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { Observable } from 'rxjs';
+import {
+  from,
+  Observable,
+} from 'rxjs';
 import {
   first,
   map,
+  mergeMap,
+  shareReplay,
+  switchMap,
+  toArray,
 } from 'rxjs/operators';
 
 import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
+import { MenuItemModel } from '../../shared/menu/menu-item/models/menu-item.model';
 import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
+import { MenuSection } from '../../shared/menu/menu-section.model';
+import { MenuSectionComponentDTO } from '../../shared/menu/menu-section/abstract-menu-section.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
+
+/**
+ * A sub-section together with the component and injector needed to render it via {@link NgComponentOutlet}.
+ */
+export interface ExpandableSubSection extends MenuSectionComponentDTO {
+  section: MenuSection;
+}
 
 /**
  * Represents an expandable section in the navbar
@@ -39,6 +58,7 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
     AsyncPipe,
     HoverOutsideDirective,
     NgComponentOutlet,
+    NgTemplateOutlet,
     RouterLinkActive,
   ],
 })
@@ -86,6 +106,11 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    * Emits true when the top section has subsections, else emits false
    */
   hasSubSections$: Observable<boolean>;
+
+  /**
+   * Cache of resolved sub-section component observables, keyed by parent section id.
+   */
+  private subSectionComponentsCache = new Map<string, Observable<ExpandableSubSection[]>>();
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -239,6 +264,61 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
       (items[(currentIndex - 1 + items.length) % items.length] as HTMLElement).focus();
     }
   }
+
+  /**
+   * Resolve the visible sub-sections of a given parent section, together with the component and injector required to
+   * render each of them through {@link NgComponentOutlet}.
+   *
+   * This is used by the recursive sub-section template so that every level of the tree is rendered by the regular menu
+   * item components (e.g. {@link LinkMenuItemComponent}, {@link TextMenuItemComponent}) instead of inlined markup.
+   *
+   * @param parentID the id of the parent section whose children should be resolved
+   */
+  getSubSectionComponents(parentID: string): Observable<ExpandableSubSection[]> {
+    if (!this.subSectionComponentsCache.has(parentID)) {
+      this.subSectionComponentsCache.set(parentID, this.buildSubSectionComponents(parentID).pipe(
+        shareReplay({ bufferSize: 1, refCount: false }),
+      ));
+    }
+    return this.subSectionComponentsCache.get(parentID);
+  }
+
+  /**
+   * Build the observable of resolved sub-sections for a parent section. See {@link getSubSectionComponents}.
+   *
+   * @param parentID the id of the parent section whose children should be resolved
+   */
+  private buildSubSectionComponents(parentID: string): Observable<ExpandableSubSection[]> {
+    return this.menuService.getSubSectionsByParentID(this.menuID, parentID).pipe(
+      switchMap((sections: MenuSection[]) => from(sections).pipe(
+        mergeMap((section: MenuSection) => from(this.getMenuItemComponent(section.model)).pipe(
+          map((component: GenericConstructor<Component>) => ({
+            section,
+            component,
+            injector: this.getSubSectionInjector(section.model),
+          })),
+        )),
+        toArray(),
+        map((resolved: ExpandableSubSection[]) => sections
+          .map((section: MenuSection) => resolved.find((dto: ExpandableSubSection) => dto.section.id === section.id))
+          .filter((dto: ExpandableSubSection) => isNotEmpty(dto)),
+        ),
+      )),
+    );
+  }
+
+  /**
+   * Create an {@link Injector} that provides the given item model to the dynamically rendered menu item component.
+   *
+   * @param itemModel the model to provide to the rendered menu item component
+   */
+  private getSubSectionInjector(itemModel: MenuItemModel): Injector {
+    return Injector.create({
+      providers: [{ provide: 'itemModelProvider', useFactory: () => itemModel, deps: [] }],
+      parent: this.injector,
+    });
+  }
+
 
   /**
    * Handles all the keydown events on the dropdown toggle
