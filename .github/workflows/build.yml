@@ -335,6 +335,22 @@ jobs:
       - name: Stop running app
         run: kill -9 $(lsof -t -i:4000)
 
+
+      # If any prior step errors out, export the backend logs for help with debugging issues
+      - name: Export backend logs (on failure only)
+        if: failure()
+        run: |
+          docker compose -f ./docker/docker-compose-ci.yml logs > backend-logs-${{ matrix.node-version }}.txt
+
+      # If any prior step errors out, upload backend logs to artifact
+      - name: Upload backend logs to artifact (on failure only)
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: backend-logs-${{ matrix.node-version }}
+          path: backend-logs-${{ matrix.node-version }}.txt
+          retention-days: 14
+
       - name: Shutdown Docker containers
         run: docker compose -f ./docker/docker-compose-ci.yml down
 
