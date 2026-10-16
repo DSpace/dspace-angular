@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformBrowser,
   isPlatformServer,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -8,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Inject,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -16,6 +18,7 @@ import {
 } from '@angular/core';
 import {
   NavigationStart,
+  Params,
   Router,
 } from '@angular/router';
 import {
@@ -55,7 +58,6 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest,
@@ -68,6 +70,7 @@ import {
   filter,
   map,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -81,6 +84,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
+import { SearchInstanceIdService } from './search-instance-id.service';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
@@ -110,6 +114,10 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
  * This component renders a sidebar, a search input bar and the search results.
  */
 export class SearchComponent implements OnDestroy, OnInit {
+
+  private readonly searchInstanceIdService = inject(SearchInstanceIdService);
+
+  private uniqueSearchInstanceBaseId: string;
 
   /**
    * The list of available configuration options
@@ -156,9 +164,9 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() linkType: CollectionElementLinkType;
 
   /**
-   * The pagination id used in the search
+   * The search instance id used in the search
    */
-  @Input() paginationId = 'spc';
+  @Input() searchInstanceId = 'spc';
 
   /**
    * Whether or not the search bar should be visible
@@ -379,22 +387,26 @@ export class SearchComponent implements OnDestroy, OnInit {
     }
 
     if (this.useUniquePageId) {
-      // Create an unique pagination id related to the instance of the SearchComponent
-      this.paginationId = uniqueId(this.paginationId);
+      // Allocate an id that can be reused if routing recreates this search component.
+      this.uniqueSearchInstanceBaseId = this.searchInstanceId;
+      this.searchInstanceId = this.searchInstanceIdService.acquire(this.uniqueSearchInstanceBaseId);
     }
 
-    this.searchConfigService.setPaginationId(this.paginationId);
+    this.searchConfigService.useLegacySearchParamFallback = !this.useUniquePageId;
+    this.searchConfigService.setSearchInstanceId(this.searchInstanceId);
+
+    if (isPlatformBrowser(this.platformId) && this.searchConfigService.useLegacySearchParamFallback) {
+      this.migrateLegacySearchParams();
+    }
 
     if (hasValue(this.configuration)) {
-      this.routeService.setParameter('configuration', this.configuration);
+      this.routeService.setParameter(this.searchConfigService.getCurrentSearchInstanceParam('configuration'), this.configuration);
     }
     if (hasValue(this.fixedFilterQuery)) {
-      this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
+      this.routeService.setParameter(this.searchConfigService.getCurrentSearchInstanceParam('fixedFilterQuery'), this.fixedFilterQuery);
     }
 
-    this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
-      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope ?? ''),
-    );
+    this.currentScope$ = this.searchConfigService.getCurrentScope(this.scope ?? '');
 
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.searchLink = this.getSearchLink();
@@ -411,7 +423,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
       switchMap((searchSortOptions: SortOptions[]) => {
         const defaultSort: SortOptions = searchSortOptions[0];
-        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
+        return this.searchConfigService.getCurrentSort(this.searchInstanceId, defaultSort);
       }),
       distinctUntilChanged(),
     );
@@ -419,8 +431,8 @@ export class SearchComponent implements OnDestroy, OnInit {
 
     this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
       filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
-        // filter for search options related to instanced paginated id
-        return searchOptions.pagination.id === this.paginationId;
+        // filter for search options related to this search instance id
+        return searchOptions.pagination.id === this.searchInstanceId;
       }),
       debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
@@ -498,6 +510,9 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    if (hasValue(this.uniqueSearchInstanceBaseId)) {
+      this.searchInstanceIdService.release(this.uniqueSearchInstanceBaseId, this.searchInstanceId);
+    }
   }
 
   /**
@@ -562,7 +577,7 @@ export class SearchComponent implements OnDestroy, OnInit {
           const totalPages = results.payload?.pageInfo?.totalPages;
           if (totalPages && totalPages > 0 && searchOptionsWithHidden.pagination.currentPage > totalPages) {
             // Update the route to the last available page
-            this.paginationService.updateRoute(this.paginationId, { page: totalPages });
+            this.paginationService.updateRoute(this.searchInstanceId, { page: totalPages });
             return;
           }
         }
@@ -598,6 +613,45 @@ export class SearchComponent implements OnDestroy, OnInit {
         }),
       );
     }
+  }
+
+  /**
+   * Detect legacy (unprefixed) search parameters in the current URL and replace them with their
+   * search-instance-prefixed equivalents (e.g. `query` becomes `spc.query`, `f.author` becomes
+   * `spc.f.author`). This keeps backwards compatibility with old search URLs while making sure that
+   * subsequent search interactions (entering a new query, adding a filter, ...) operate on the
+   * prefixed parameters only, instead of mixing or dropping the legacy ones.
+   * @private
+   */
+  private migrateLegacySearchParams(): void {
+    this.subs.push(this.routeService.getQueryParamMap().pipe(take(1)).subscribe((queryParamMap) => {
+      const prefix = `${this.searchInstanceId}.`;
+      const updatedParams: Params = {};
+      let hasLegacyParams = false;
+
+      queryParamMap.keys
+        .filter((key: string) => this.searchConfigService.isLegacySearchParam(key))
+        .forEach((key: string) => {
+          hasLegacyParams = true;
+          // Remove the legacy parameter from the URL
+          updatedParams[key] = null;
+          // Only move its value(s) to the prefixed parameter when no prefixed value is set yet,
+          // so an existing prefixed parameter always takes precedence over the legacy one.
+          const prefixedKey = `${prefix}${key}`;
+          if (!queryParamMap.has(prefixedKey)) {
+            const values: string[] = queryParamMap.getAll(key);
+            updatedParams[prefixedKey] = values.length > 1 ? values : values[0];
+          }
+        });
+
+      if (hasLegacyParams) {
+        void this.router.navigate([], {
+          queryParams: updatedParams,
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
+    }));
   }
 
   /**

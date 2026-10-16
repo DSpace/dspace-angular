@@ -28,6 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
 import { HostWindowService } from '../../shared/host-window.service';
+import { CommunityListElementComponent } from '../../shared/object-list/community-list-element/community-list-element.component';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
@@ -148,6 +149,7 @@ describe('TopLevelCommunityListComponent', () => {
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
+        CommunityListElementComponent,
         TopLevelCommunityListComponent,
       ],
       providers: [

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Params } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
@@ -75,7 +74,18 @@ export class SearchFilterService {
    * @param {string} filterValue The value for which to search
    * @returns {Observable<boolean>} Emit true when the filter is active with the given value
    */
-  isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
+  isFilterActiveWithValue(paramName: string, filterValue: string, searchInstanceId?: string, useLegacySearchParamFallback = true): Observable<boolean> {
+    if (hasValue(searchInstanceId)) {
+      const instanceActive$ = this.routeService.hasQueryParamWithValue(this.getSearchInstanceParam(searchInstanceId, paramName), filterValue);
+      if (!useLegacySearchParamFallback) {
+        return instanceActive$;
+      }
+      return observableCombineLatest(
+        instanceActive$,
+        this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceParam(searchInstanceId, 'f.')),
+        this.routeService.hasQueryParamWithValue(paramName, filterValue),
+      ).pipe(map(([instanceActive, instanceFilters, legacyActive]) => instanceActive || (!isNotEmpty(instanceFilters) && legacyActive)));
+    }
     return this.routeService.hasQueryParamWithValue(paramName, filterValue);
   }
 
@@ -84,7 +94,18 @@ export class SearchFilterService {
    * @param {string} paramName The parameter name of the filter's configuration for which to search
    * @returns {Observable<boolean>} Emit true when the filter is active with any value
    */
-  isFilterActive(paramName: string): Observable<boolean> {
+  isFilterActive(paramName: string, searchInstanceId?: string, useLegacySearchParamFallback = true): Observable<boolean> {
+    if (hasValue(searchInstanceId)) {
+      const instanceActive$ = this.routeService.hasQueryParam(this.getSearchInstanceParam(searchInstanceId, paramName));
+      if (!useLegacySearchParamFallback) {
+        return instanceActive$;
+      }
+      return observableCombineLatest(
+        instanceActive$,
+        this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceParam(searchInstanceId, 'f.')),
+        this.routeService.hasQueryParam(paramName),
+      ).pipe(map(([instanceActive, instanceFilters, legacyActive]) => instanceActive || (!isNotEmpty(instanceFilters) && legacyActive)));
+    }
     return this.routeService.hasQueryParam(paramName);
   }
 
@@ -92,16 +113,16 @@ export class SearchFilterService {
    * Fetch the current active scope from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentScope(): Observable<string> {
-    return this.routeService.getQueryParameterValue('scope');
+  getCurrentScope(searchInstanceId?: string, useLegacySearchParamFallback = true) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'scope', useLegacySearchParamFallback);
   }
 
   /**
    * Fetch the current query from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentQuery(): Observable<string> {
-    return this.routeService.getQueryParameterValue('query');
+  getCurrentQuery(searchInstanceId?: string, useLegacySearchParamFallback = true) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'query', useLegacySearchParamFallback);
   }
 
   /**
@@ -142,7 +163,17 @@ export class SearchFilterService {
    * Fetch the current active filters from the query parameters
    * @returns {Observable<Params>}
    */
-  getCurrentFilters(): Observable<Params> {
+  getCurrentFilters(searchInstanceId?: string, useLegacySearchParamFallback = true) {
+    if (hasValue(searchInstanceId)) {
+      const instanceFilters$ = this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceParam(searchInstanceId, 'f.'));
+      if (!useLegacySearchParamFallback) {
+        return instanceFilters$;
+      }
+      return observableCombineLatest(
+        instanceFilters$,
+        this.routeService.getQueryParamsWithPrefix('f.'),
+      ).pipe(map(([instanceFilters, legacyFilters]) => isNotEmpty(instanceFilters) ? instanceFilters : legacyFilters));
+    }
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
@@ -150,8 +181,8 @@ export class SearchFilterService {
    * Fetch the current view from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentView(): Observable<string> {
-    return this.routeService.getQueryParameterValue('view');
+  getCurrentView(searchInstanceId?: string, useLegacySearchParamFallback = true) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'view', useLegacySearchParamFallback);
   }
 
   /**
@@ -190,14 +221,43 @@ export class SearchFilterService {
     return `${new EmphasizePipe().transform(facet.value, query)} (${facet.count})`;
   }
 
+  private getSearchInstanceParam(searchInstanceId: string, parameterName: string): string {
+    return `${searchInstanceId}.${parameterName}`;
+  }
+
+  private getCurrentSearchInstanceQueryParam(searchInstanceId: string | undefined, parameterName: string, useLegacySearchParamFallback: boolean): Observable<string> {
+    if (hasValue(searchInstanceId)) {
+      const instanceValue$ = this.routeService.getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, parameterName));
+      if (!useLegacySearchParamFallback) {
+        return instanceValue$;
+      }
+      return observableCombineLatest(
+        instanceValue$,
+        this.routeService.getQueryParameterValue(parameterName),
+      ).pipe(map(([instanceValue, legacyValue]) => hasValue(instanceValue) ? instanceValue : legacyValue));
+    }
+    return this.routeService.getQueryParameterValue(parameterName);
+  }
+
+  /**
+   * Get the key under which the UI state (collapsed, page) of a filter is stored. When a search instance id is
+   * provided, the key is scoped to that instance so multiple searches on the same page don't share their filter state.
+   * @param {string} filterName The filter name
+   * @param {string} searchInstanceId The optional search instance id
+   */
+  getFilterStateKey(filterName: string, searchInstanceId?: string): string {
+    return hasValue(searchInstanceId) ? this.getSearchInstanceParam(searchInstanceId, filterName) : filterName;
+  }
+
   /**
    * Checks if the state of a given filter is currently collapsed or not
    * @param {string} filterName The filtername for which the collapsed state is checked
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    * @returns {Observable<boolean>} Emits the current collapsed state of the given filter, if it's unavailable, return false
    */
-  isCollapsed(filterName: string): Observable<boolean> {
+  isCollapsed(filterName: string, searchInstanceId?: string): Observable<boolean> {
     return this.store.pipe(
-      select(filterByNameSelector(filterName)),
+      select(filterByNameSelector(this.getFilterStateKey(filterName, searchInstanceId))),
       map((object: SearchFilterState) => {
         if (object) {
           return object.filterCollapsed || object.minimized;
@@ -212,11 +272,12 @@ export class SearchFilterService {
   /**
    * Request the current page of a given filter
    * @param {string} filterName The filter name for which the page state is checked
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    * @returns {Observable<boolean>} Emits the current page state of the given filter, if it's unavailable, return 1
    */
-  getPage(filterName: string): Observable<number> {
+  getPage(filterName: string, searchInstanceId?: string): Observable<number> {
     return this.store.pipe(
-      select(filterByNameSelector(filterName)),
+      select(filterByNameSelector(this.getFilterStateKey(filterName, searchInstanceId))),
       map((object: SearchFilterState) => {
         if (object) {
           return object.page;
@@ -230,57 +291,64 @@ export class SearchFilterService {
   /**
    * Dispatches a collapse action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public collapse(filterName: string): void {
-    this.store.dispatch(new SearchFilterCollapseAction(filterName));
+  public collapse(filterName: string, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterCollapseAction(this.getFilterStateKey(filterName, searchInstanceId)));
   }
 
   /**
    * Dispatches an expand action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public expand(filterName: string): void {
-    this.store.dispatch(new SearchFilterExpandAction(filterName));
+  public expand(filterName: string, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterExpandAction(this.getFilterStateKey(filterName, searchInstanceId)));
   }
 
   /**
    * Dispatches a toggle action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public toggle(filterName: string): void {
-    this.store.dispatch(new SearchFilterToggleAction(filterName));
+  public toggle(filterName: string, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterToggleAction(this.getFilterStateKey(filterName, searchInstanceId)));
   }
 
   /**
    * Dispatches an initialize action to the store for a given filter
    * @param {SearchFilterConfig} filter The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public initializeFilter(filter: SearchFilterConfig): void {
-    this.store.dispatch(new SearchFilterInitializeAction(filter));
+  public initializeFilter(filter: SearchFilterConfig, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterInitializeAction(filter, this.getFilterStateKey(filter.name, searchInstanceId)));
   }
 
   /**
    * Dispatches a decrement action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public decrementPage(filterName: string): void {
-    this.store.dispatch(new SearchFilterDecrementPageAction(filterName));
+  public decrementPage(filterName: string, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterDecrementPageAction(this.getFilterStateKey(filterName, searchInstanceId)));
   }
 
   /**
    * Dispatches an increment page action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public incrementPage(filterName: string): void {
-    this.store.dispatch(new SearchFilterIncrementPageAction(filterName));
+  public incrementPage(filterName: string, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterIncrementPageAction(this.getFilterStateKey(filterName, searchInstanceId)));
   }
 
   /**
    * Dispatches a reset page action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
+   * @param {string} searchInstanceId The optional search instance id the filter belongs to
    */
-  public resetPage(filterName: string): void {
-    this.store.dispatch(new SearchFilterResetPageAction(filterName));
+  public resetPage(filterName: string, searchInstanceId?: string): void {
+    this.store.dispatch(new SearchFilterResetPageAction(this.getFilterStateKey(filterName, searchInstanceId)));
   }
 
   public minimizeAll(): void {
