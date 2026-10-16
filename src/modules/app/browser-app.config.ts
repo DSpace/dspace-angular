@@ -75,8 +75,8 @@ import { BrowserInitService } from './browser-init.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
-export function createTranslateLoader(transferState: TransferState, http: HttpClient) {
-  return new TranslateBrowserLoader(transferState, http, 'assets/i18n/', '.json');
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateBrowserLoader(http, 'assets/i18n/', '.json');
 }
 
 export function getRequest(transferState: TransferState): any {
@@ -98,7 +98,7 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [TransferState, HttpClient],
+        deps: [HttpClient],
       },
       missingTranslationHandler: provideMissingTranslationHandler(MissingTranslationHelper),
     }),
