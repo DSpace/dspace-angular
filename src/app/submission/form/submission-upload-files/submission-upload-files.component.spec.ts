@@ -156,6 +156,23 @@ describe('SubmissionUploadFilesComponent Component', () => {
       expect(compAsAny.uploadEnabled).toBeObservable(expected);
     });
 
+    describe('on upload error', () => {
+      it('should name the size limit when the file was too large', () => {
+        const translate = TestBed.inject(TranslateService);
+        comp.uploadFilesOptions = Object.assign(new UploaderOptions(), { maxFileSize: 1024 });
+        comp.onUploadError({ status: 413 });
+        expect(translate.get).toHaveBeenCalledWith('submission.sections.upload.upload-failed-max-size', { size: '1 KB' });
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+      });
+
+      it('should show the generic message for other failures', () => {
+        const translate = TestBed.inject(TranslateService);
+        comp.onUploadError({ status: 500 });
+        expect(translate.get).toHaveBeenCalledWith('submission.sections.upload.upload-failed');
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+      });
+    });
+
     describe('on upload complete', () => {
       beforeEach(() => {
         sectionsServiceStub.isSectionType.and.callFake((_, sectionId, __) => of(sectionId === 'upload'));
