@@ -482,7 +482,7 @@ export class AuthService {
    */
   public isTokenExpired(token?: AuthTokenInfo): boolean {
     token = token || this.getToken();
-    return token && token.expires < Date.now();
+    return !!token && token.expires < Date.now();
   }
 
   /**
