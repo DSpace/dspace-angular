@@ -1,11 +1,9 @@
 .parent {
   display: flex;
 }
-
 .upload {
   flex: auto;
 }
-
 .add {
   flex: initial;
 }
@@ -13,4 +11,10 @@
 #entityControlsDropdownMenu {
   min-width: 18rem;
   box-shadow: $btn-focus-box-shadow;
+  max-width: 100vw;
+
+  @media (max-width: 767px) {
+    min-width: 0;
+    max-width: calc(100vw - 5rem);
+  }
 }
