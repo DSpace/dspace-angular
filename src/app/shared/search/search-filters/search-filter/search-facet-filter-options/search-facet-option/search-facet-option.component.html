@@ -3,6 +3,7 @@
     [tabIndex]="-1"
     [routerLink]="[searchLink]"
     [queryParams]="addQueryParams$ | async"
+    [fragment]="'search-component'"
     (click)="announceFilter(); filterService.minimizeAll()"
     rel="nofollow">
     <label class="mb-0 d-flex w-100">
