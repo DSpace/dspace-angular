@@ -5,6 +5,7 @@ import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from '../../../../shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
@@ -34,6 +35,7 @@ import { ItemComponent } from '../shared/item.component';
     AsyncPipe,
     CollectionsComponent,
     DsoEditMenuComponent,
+    DsoPublicMenuComponent,
     ExtendedFileSectionComponent,
     GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
