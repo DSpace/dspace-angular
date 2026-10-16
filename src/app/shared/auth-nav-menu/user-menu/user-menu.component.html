@@ -19,11 +19,13 @@
         [routerLink]="[mydspaceRoute]"
       routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
     </li>
-    <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
-      <a class="ds-menu-item" role="menuitem"
-        [routerLink]="[subscriptionsRoute]"
-      routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
-    </li>
+    @if (subscribeFeature$ | async) {
+      <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
+        <a class="ds-menu-item" role="menuitem"
+          [routerLink]="[subscriptionsRoute]"
+        routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
+      </li>
+    }
     @if (!inExpandableNavbar) {
       <li class="dropdown-divider" aria-hidden="true"></li>
       <li class="ds-menu-item-wrapper" role="presentation">
