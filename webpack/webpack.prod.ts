@@ -3,6 +3,8 @@ import { EnvironmentPlugin } from 'webpack';
 import { projectRoot } from './helpers';
 import { commonExports } from './webpack.common';
 
+const SSR_DEBUG = process.env.SSR_DEBUG === 'true';
+
 module.exports = Object.assign({}, commonExports, {
   plugins: [
     ...commonExports.plugins,
@@ -14,6 +16,9 @@ module.exports = Object.assign({}, commonExports, {
     }),
   ],
   mode: 'production',
+  optimization: {
+    minimize: !SSR_DEBUG,
+  },
   recordsOutputPath: projectRoot('webpack.records.json'),
   entry: projectRoot('./server.ts'),
   target: 'node',
