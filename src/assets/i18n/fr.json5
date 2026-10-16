@@ -9294,6 +9294,10 @@
   // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   "submission.sections.jisc.publisher.policy.refresh": "Rafraîchir",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "Prix ​​supplémentaire pour l'accès libre",
+
   // "submission.sections.jisc.record.information": "Record Information",
   "submission.sections.jisc.record.information": "Information",
 
