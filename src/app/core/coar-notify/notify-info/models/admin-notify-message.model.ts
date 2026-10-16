@@ -1,6 +1,5 @@
 import {
   autoserialize,
-  deserialize,
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
@@ -8,8 +7,6 @@ import { Observable } from 'rxjs';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { ADMIN_NOTIFY_MESSAGE } from '../../../shared/admin-notify-message.resource-type';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { GenericConstructor } from '../../../shared/generic-constructor';
-import { ListableObject } from '../../../shared/object-collection/listable-object.model';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 
 /**
@@ -152,20 +149,4 @@ export class AdminNotifyMessage extends DSpaceObject {
   @autoserialize
   accessStatus: Observable<AdminNotifyMessage>;
 
-
-
-  @deserialize
-  _links: {
-    self: {
-      href: string;
-    };
-  };
-
-  get self(): string {
-    return this._links.self.href;
-  }
-
-  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
-    return [this.constructor as GenericConstructor<ListableObject>];
-  }
 }
