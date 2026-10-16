@@ -64,29 +64,35 @@ Table of Contents
 -	[Requirements](#requirements)
 -	[Installing](#installing)
     - [Configuring](#configuring)
+      - [Buildtime Configuring](#buildtime-configuring)
+      - [Using environment variables in code](#using-environment-variables-in-code)
 -	[Running the app](#running-the-app)
     - [Running in production mode](#running-in-production-mode)
-    - [Deploy](#deploy)
     - [Running the application with Docker](#running-the-application-with-docker)
 -	[Cleaning](#cleaning)
 -	[Testing](#testing)
-    - [Test a Pull Request](#test-a-pull-request)
+  - [Test a Pull Request](#test-a-pull-request)
 	- [Unit Tests](#unit-tests)
 	- [E2E Tests](#e2e-tests)
 		- [Writing E2E Tests](#writing-e2e-tests)
+  - [Learning how to build tests](#learning-how-to-build-tests)
 -	[Documentation](#documentation)
+ - [Building code documentation](#building-code-documentation) 
 -	[Other commands](#other-commands)
 -	[Recommended Editors/IDEs](#recommended-editorsides)
--	[Collaborating](#collaborating)
+-	[Contributing](#contributing)
 -	[File Structure](#file-structure)
 -	[Managing Dependencies (via npm)](#managing-dependencies-via-npm)
+ - [Adding Typings for libraries](#adding-typings-for-libraries)
 -	[Frequently asked questions](#frequently-asked-questions)
+- [Getting Help](#getting-help)
+- [Issue Tracker](#issue-tracker)
 -	[License](#license)
 
 Introduction to the technology
 ------------------------------
 
-You can find more information on the technologies used in this project (Angular.io, Angular CLI, Typescript, Angular Universal, RxJS, etc) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
+You can find more information on the technologies used in this project (Angular.io, Angular CLI, TypeScript, Angular Universal, RxJS, etc) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
 
 Requirements
 ------------
@@ -148,7 +154,7 @@ cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
 auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
 ```
 
-The equavelant to the non-conventional legacy settings:
+The equivalent to the non-conventional legacy settings:
 
 ```bash
 DSPACE_UI_HOST => DSPACE_HOST
@@ -171,7 +177,7 @@ The configuration file can be externalized by using environment variable `DSPACE
 
 #### Buildtime Configuring
 
-Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
+Buildtime configuration must be defined before build to be included in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
 
 To override the default configuration values for development, create local file that override the build time parameters you need to change.
 
@@ -230,8 +236,9 @@ npm run serve:ssr
 ```
 
 ### Running the application with Docker
-NOTE: At this time, we do not have production-ready Docker images for DSpace.
-That said, we do have quick-start Docker Compose scripts for development or testing purposes.
+> [!WARNING]
+> At this time, we do not have production-ready Docker images for DSpace.
+> That said, we do have quick-start Docker Compose scripts for development or testing purposes.
 
 See [Docker Runtime Options](docker/README.md)
 
@@ -273,7 +280,8 @@ Once you have tested the Pull Request, please add a comment and/or approval to t
 
 Unit tests use the [Jasmine test framework](https://jasmine.github.io/), and are run via [Karma](https://karma-runner.github.io/).
 
-You can find the Karma configuration file at the same level of this README file:`./karma.conf.js` If you are going to use a remote test environment you need to edit the `./karma.conf.js`. Follow the instructions you will find inside it. To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'. A coverage report is also available at: http://localhost:9876/ after you run: `npm run coverage`.
+You can find the Karma configuration file at the same level as this README file: [`karma.conf.js`](karma.conf.js). If
+you are going to use a remote test environment, you need to edit `karma.conf.js` and follow the instructions inside it.
 
 The default browser is Google Chrome.
 
@@ -283,9 +291,24 @@ and run: `npm test`
 
 If you run into odd test errors, see the Angular guide to debugging tests: https://angular.io/guide/test-debugging
 
+To execute tests in watch mode (re-running them whenever a file changes), run:
+
+```shell
+npm run test:watch
+```
+
+To run tests and generate a code coverage report, run:
+
+```shell
+npm run test:headless
+```
+
+This will generate the coverage report in the `coverage/` directory. You can view it by opening
+`coverage/dspace-angular/index.html` in your browser.
+
 ### E2E Tests
 
-E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for cypress can be found in the `cypress.json` file in the root directory.
+E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for Cypress can be found in the [`cypress.config.ts`](cypress.config.ts) file in the root directory.
 
 The test files can be found in the `./cypress/e2e/` folder.
 
@@ -305,8 +328,8 @@ Before you can run e2e tests, two things are REQUIRED:
 After performing the above setup, you can run the e2e tests using
 ```
 ng e2e
-````
-NOTE: By default these tests will run against the REST API backend configured via environment variables or in `config.prod.yml`. If you'd rather it use `config.dev.yml`, just set the NODE_ENV environment variable like this:
+```
+NOTE: By default, these tests will run against the REST API backend configured via environment variables or in `config.prod.yml`. If you'd rather it use `config.dev.yml`, set the NODE_ENV environment variable like this:
 ```
 NODE_ENV=development ng e2e
 ```
@@ -315,11 +338,11 @@ The `ng e2e` command will start Cypress and allow you to select the browser you 
 
 #### Writing E2E Tests
 
-All E2E tests must be created under the `./cypress/e2e/` folder, and must end in `.spec.ts`. Subfolders are allowed.
+All E2E tests must be created under the `./cypress/e2e/` folder, and must end in `.cy.ts`. Subfolders are allowed.
 
 * The easiest way to start creating new tests is by running `ng e2e`. This builds the app and brings up Cypress.
 * From here, if you are editing an existing test file, you can either open it in your IDE or run it first to see what it already does.
-* To create a new test file, click `+ New Spec File`.  Choose a meaningful name ending in `spec.ts` (Please make sure it ends in `.ts` so that it's a Typescript file, and not plain Javascript)
+* To create a new test file, click `+ New Spec File`.  Choose a meaningful name ending in `.cy.ts` (Please make sure it ends in `.ts` so that it's a TypeScript file, and not plain Javascript)
 * Start small. Add a basic `describe` and `it` which just [cy.visit](https://docs.cypress.io/api/commands/visit) the page you want to test. For example:
    ```
    describe('Community/Collection Browse Page', () => {
@@ -329,7 +352,7 @@ All E2E tests must be created under the `./cypress/e2e/` folder, and must end in
    });
    ```
 * Run your test file from the Cypress window. This starts the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) in a new browser window.
-* In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), you'll Cypress automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
+* In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), Cypress will automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
 * From here, you can use the [Selector Playground](https://docs.cypress.io/guides/core-concepts/test-runner#Selector-Playground) in the Cypress Test Runner window to determine how to tell Cypress to interact with a specific HTML element on that page.
     * Most commands start by telling Cypress to [get()](https://docs.cypress.io/api/commands/get) a specific element, using a CSS or jQuery style selector
       * It's generally best not to rely on attributes like `class` and `id` in tests, as those are likely to change later on. Instead, you can add a `data-test` attribute to makes it clear that it's required for a test.
@@ -338,7 +361,7 @@ All E2E tests must be created under the `./cypress/e2e/` folder, and must end in
       * To work around this issue, define the attributes you use for Cypress selectors as `[attr.data-test]="'button' | ngBrowserOnly"`. This will only show the attribute in CSR HTML, forcing Cypress to wait until CSR is complete before interacting with the element.
     * Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
 * Any time you save your test file, the Cypress Test Runner will reload & rerun it. This allows you can see your results quickly as you write the tests & correct any broken tests rapidly.
-* Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve Javascript files (.js), the same examples will work in our Typescript (.ts) e2e tests.
+* Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve JavaScript files (.js), the same examples will work in our TypeScript (.ts) e2e tests.
 
 _Hint: Creating e2e tests is easiest in an IDE (like Visual Studio), as it can help prompt/autocomplete your Cypress commands._
 
@@ -357,16 +380,26 @@ Some UI specific configuration documentation is also found in the [`./docs`](doc
 
 ### Building code documentation
 
-To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects. It extracts information from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
+To build the code documentation we use [TypeDoc](http://typedoc.org). TypeDoc is a documentation generator for TypeScript projects. It extracts information from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
 
 Run:`npm run docs` to produce the documentation that will be available in the 'doc' folder.
 
 Other commands
 --------------
 
-There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
+There are many more commands in the `scripts` section of [`package.json`](package.json). Most of these are executed by one of the commands mentioned above.
 
-A command with a name that starts with `pre` or `post` will be executed automatically before or after the script with the matching name. e.g. if you type `npm run start` the `prestart` script will run first, then the `start` script will trigger.
+To view the available scripts, run:
+
+```shell
+npm run
+```
+
+To run a specific script, use:
+
+```shell
+npm run <script-name>
+```
 
 Recommended Editors/IDEs
 ------------------------
@@ -375,11 +408,12 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 
 -	Free
 	-	[Visual Studio Code](https://code.visualstudio.com/)
-		-	[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 -	Paid
 	-	[Webstorm](https://www.jetbrains.com/webstorm/download/) or [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)
 	-	[Sublime Text](http://www.sublimetext.com/3)
-		-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
+		-	[TypeScript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
+
+The repository also includes an [`.editorconfig](.editorconfig) file to help compatible editors use the project's formatting conventions.
 
 Contributing
 -------------
@@ -396,6 +430,7 @@ File Structure
 ```
 dspace-angular
 ├── config                                              *
+│   ├── config.example.yml                              * Example app config with comments
 │   └── config.yml                                      * Default app config
 ├── cypress                                             * Folder for Cypress (https://cypress.io/) / e2e tests
 │   ├── downloads                                       * (Optional) Folder for files downloaded during e2e tests
@@ -410,11 +445,13 @@ dspace-angular
 │   ├── cli.yml                                         *
 │   ├── db.entities.yml                                 *
 │   ├── docker-compose-ci.yml                           *
+│   ├── docker-compose-dist.yml                         *
 │   ├── docker-compose-rest.yml                         *
 │   ├── docker-compose.yml                              *
 │   └── README.md                                       *
 ├── docs                                                * Folder for documentation
 │   └── Configuration.md                                * Configuration documentation
+├── lint                                                * Folder for custom ESLint plugins and rules. See lint/README.md for details
 ├── scripts                                             *
 │   ├── merge-i18n-files.ts                             *
 │   ├── serve.ts                                        *
@@ -439,12 +476,11 @@ dspace-angular
 │   ├── themes                                          * Folder containing available themes
 │   │   ├── custom                                      * Template folder for creating a custom theme
 │   │   └── dspace                                      * Default 'dspace' theme
-│   ├── index.csr.html                                  * The index file for client side rendering fallback
 │   ├── index.html                                      * The index file
 │   ├── main.browser.ts                                 * The bootstrap file for the client
-│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server
+│   ├── main.server.ts                                  * The Express (https://expressjs.com/) config and bootstrap file for the server
 │   ├── polyfills.ts                                    *
-│   ├── robots.txt                                      * The robots.txt file
+│   ├── robots.txt.ejs                                  * EJS template used to generate robots.txt file
 │   ├── test.ts                                         *
 │   └── typings.d.ts                                    *
 ├── webpack                                             *
@@ -454,15 +490,16 @@ dspace-angular
 │   ├── webpack.mirador.config.ts                       * Webpack (https://webpack.github.io/) config for mirador config build
 │   ├── webpack.prod.ts                                 * Webpack (https://webpack.github.io/) config for prod build
 │   └── webpack.test.ts                                 * Webpack (https://webpack.github.io/) config for test build
+├── .eslintrc.json                                      * ESLint configuration
 ├── angular.json                                        * Angular CLI (https://angular.io/cli) configuration
-├── cypress.json                                        * Cypress Test (https://www.cypress.io/) configuration
+├── cypress.config.ts                                   * Cypress Test (https://www.cypress.io/) configuration
 ├── Dockerfile                                          *
 ├── karma.conf.js                                       * Karma configuration file for Unit Test
 ├── LICENSE                                             *
 ├── LICENSES_THIRD_PARTY                                *
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── package-lock.json                                   * npm lockfile (https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
-├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration
+├── postcss.config.js                                   * PostCSS (https://postcss.org/) configuration
 ├── README.md                                           * This document
 ├── SECURITY.md                                         *
 ├── server.ts                                           * Angular Universal Node.js Express server
@@ -471,8 +508,7 @@ dspace-angular
 ├── tsconfig.server.json                                * TypeScript config for server
 ├── tsconfig.spec.json                                  * TypeScript config for tests
 ├── tsconfig.ts-node.json                               * TypeScript config for using ts-node directly
-├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
-└── typedoc.json                                        * TYPEDOC configuration
+└── typedoc.json                                        * TypeDoc configuration
 ```
 
 Managing Dependencies (via npm)
@@ -482,7 +518,7 @@ This project makes use of [`npm`](https://docs.npmjs.com/about-npm) to ensure th
 
 * `npm` creates a [`package-lock.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via npm.
 * **Adding new dependencies**: To install/add a new dependency (third party library), use [`npm install`](https://docs.npmjs.com/cli/v10/commands/npm-install). For example: `npm install some-lib`.
-    * If you are adding a new build tool dependency (to `devDependencies`), use `npm install some-lib --save--dev`
+    * If you are adding a new build tool dependency (to `devDependencies`), use `npm install some-lib --save-dev`
 * **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`npm update`](https://docs.npmjs.com/cli/v10/commands/npm-update).  For example: `npm update some-lib` or `npm update some-lib@version`
 * **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`npm uninstall`](https://docs.npmjs.com/cli/v10/commands/npm-uninstall) to remove it.
 
@@ -530,11 +566,9 @@ Frequently asked questions
 -	How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
 	-	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
 -	What are the naming conventions for Angular?
-	-	See [the official angular style guide](https://angular.io/styleguide)
+	-	See [the official Angular style guide](https://angular.dev/style-guide)
 -	Why is the size of my app larger in development?
 	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the interest of build speed.
--	node-pre-gyp ERR in npm install (Windows)
-	-	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
 -	How do I handle merge conflicts in package-lock.json?
 	-	first check out the package-lock.json file from the branch you're merging in to yours: e.g. `git checkout --theirs package-lock.json`
 	-	now run `npm install` again. NPM will create a new lockfile that contains both sets of changes.
