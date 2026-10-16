@@ -12,7 +12,6 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../../theme-support/themed.component';
@@ -30,7 +29,7 @@ import {
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
 
   @Input() linkType: CollectionElementLinkType;
 
@@ -43,8 +42,6 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
   @Input() showThumbnails: boolean;
 
   @Input() sortConfig: SortOptions;
-
-  @Input() viewMode: ViewMode;
 
   @Input() configuration: string;
 

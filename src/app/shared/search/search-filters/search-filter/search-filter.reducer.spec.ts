@@ -182,4 +182,21 @@ describe('filterReducer', () => {
     const newState = filterReducer(state, action);
     expect(newState[filterName1].page).toEqual(1);
   });
+
+  it('should only update the state of the given search instance when the filter name is scoped by search instance', () => {
+    const instance1FilterName = `instance-1.${filterName1}`;
+    const instance2FilterName = `instance-2.${filterName1}`;
+    const state = {};
+    state[instance1FilterName] = { filterCollapsed: true, minimized: false, page: 1 };
+    state[instance2FilterName] = { filterCollapsed: false, minimized: false, page: 3 };
+    deepFreeze([state]);
+
+    const filterConfig = { isOpenByDefault: false, name: filterName1 } as any;
+    let newState = filterReducer(state, new SearchFilterInitializeAction(filterConfig, instance1FilterName));
+    newState = filterReducer(newState, new SearchFilterToggleAction(instance1FilterName));
+    newState = filterReducer(newState, new SearchFilterResetPageAction(instance1FilterName));
+
+    expect(newState[instance1FilterName]).toEqual({ filterCollapsed: false, minimized: false, page: 1 });
+    expect(newState[instance2FilterName]).toEqual({ filterCollapsed: false, minimized: false, page: 3 });
+  });
 });

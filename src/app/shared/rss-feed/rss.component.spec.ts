@@ -34,7 +34,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchConfigurationService } from '../search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { RSSComponent } from './rss.component';
 
 describe('RssComponent', () => {
@@ -95,7 +95,7 @@ describe('RssComponent', () => {
         { provide: GroupDataService, useValue: groupDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute },
