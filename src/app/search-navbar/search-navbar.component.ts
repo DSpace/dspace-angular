@@ -54,7 +54,6 @@ export class SearchNavbarComponent {
     private formBuilder: UntypedFormBuilder,
     private router: Router,
     private searchService: SearchService,
-    private cdr: ChangeDetectorRef,
   ) {
     this.searchForm = this.formBuilder.group(({
       query: '',
@@ -78,7 +77,10 @@ export class SearchNavbarComponent {
    * from the DOM by the template's `@if (!searchExpanded)` branch.
    */
   collapse() {
-    this.searchField?.nativeElement?.blur();
+    if (!this.searchExpanded) {
+      return;
+    }
+    this.searchField.nativeElement.blur();
     this.searchExpanded = false;
     this.isExpanded = 'collapsed';
   }
