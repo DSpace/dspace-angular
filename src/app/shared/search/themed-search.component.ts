@@ -10,6 +10,7 @@ import { ListableObject } from '@dspace/core/shared/object-collection/listable-o
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
+import { AlertType } from '../alert/alert-type';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchComponent } from './search.component';
@@ -54,6 +55,9 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'resultFound',
     'deselectObject',
     'selectObject',
+    'searchResultNotice',
+    'searchResultNoticeType',
+    'showSearchResultNotice',
   ];
 
   @Input() configurationList: SearchConfigurationOption[];
@@ -80,6 +84,10 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() searchFormPlaceholder: string;
 
+  @Input() searchResultNotice: string;
+
+  @Input() searchResultNoticeType: AlertType;
+
   @Input() selectable: boolean;
 
   @Input() selectionConfig: SelectionConfig;
@@ -97,6 +105,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() viewModeList: ViewMode[];
 
   @Input() showScopeSelector: boolean;
+
+  @Input() showSearchResultNotice: boolean;
 
   @Input() trackStatistics: boolean;
 

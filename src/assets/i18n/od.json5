@@ -1573,29 +1573,29 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "କ୍ୟାନଭାସ୍ ଉଚ୍ଚତା ସାଧାରଣତ ପ୍ରତିଛବି ଉଚ୍ଚତା ସହିତ ମେଳ ଖାଇବା ଉଚିତ୍।",
 
-  // "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  // "bitstream.edit.form.fileType.label": "Audio or video media type",
   // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  "bitstream.edit.form.fileType.label": "Audio or video media type",
 
-  // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  // "bitstream.edit.form.fileType.hint": "Choose how this bitstream should be interpreted.",
   // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  "bitstream.edit.form.fileType.hint": "Choose how this bitstream should be interpreted.",
 
-  // "bitstream.edit.form.mediaType.option.neither": "Neither",
+  // "bitstream.edit.form.fileType.option.neither": "Neither",
   // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.neither": "Neither",
+  "bitstream.edit.form.fileType.option.neither": "Neither",
 
-  // "bitstream.edit.form.mediaType.option.audio": "Audio",
+  // "bitstream.edit.form.fileType.option.audio": "Audio",
   // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.audio": "Audio",
+  "bitstream.edit.form.fileType.option.audio": "Audio",
 
-  // "bitstream.edit.form.mediaType.option.video": "Video",
+  // "bitstream.edit.form.fileType.option.video": "Video",
   // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.video": "Video",
+  "bitstream.edit.form.fileType.option.video": "Video",
 
-  // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  // "bitstream.edit.form.fileType.option.audio-video": "Audio and video",
   // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  "bitstream.edit.form.fileType.option.audio-video": "Audio and video",
 
   // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
   // TODO New key - Add a translation
