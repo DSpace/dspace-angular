@@ -25,6 +25,7 @@
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     }
+    <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     @if (mediaViewer.image || mediaViewer.video) {
       <div class="mb-2">
         <ds-media-viewer [item]="object"></ds-media-viewer>
@@ -81,6 +82,11 @@
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
     </ds-generic-item-page-field>
+    @if (mediaViewer.image || mediaViewer.video || mediaViewer.pdf) {
+      <div class="mb-2">
+        <ds-media-viewer [item]="object"></ds-media-viewer>
+      </div>
+    }
     @if (geospatialItemPageFieldsEnabled) {
       <ds-geospatial-item-page-field [item]="object"
                                      [label]="'item.page.places'"
