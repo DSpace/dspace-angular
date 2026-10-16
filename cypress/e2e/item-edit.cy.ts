@@ -1,14 +1,16 @@
 import { testA11y } from 'cypress/support/utils';
 import { Options } from 'cypress-axe';
 
-const ITEM_EDIT_PAGE = '/items/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION')).concat('/edit');
+const ITEM_EDIT_PAGE = '/items/'.concat(Cypress.expose('DSPACE_TEST_ENTITY_PUBLICATION')).concat('/edit');
 
 beforeEach(() => {
   // All tests start with visiting the Edit Item Page
   cy.visit(ITEM_EDIT_PAGE);
 
   // This page is restricted, so we will be shown the login form. Fill it out & submit.
-  cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+  cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+    cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+  });
 });
 
 describe('Edit Item > Edit Metadata tab', () => {

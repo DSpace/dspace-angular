@@ -15,6 +15,7 @@ import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { MAX_PAGE_SIZE } from '@dspace/core/data/find-list-options.model';
 import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
 import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
 import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
@@ -135,7 +136,7 @@ export class FilteredItemsComponent implements OnInit {
     const wholeRepo$ = this.translateService.stream('admin.reports.items.wholeRepo');
     this.collections.push(OptionVO.collectionLoc('', wholeRepo$));
 
-    this.communityService.findAll({ elementsPerPage: 10000, currentPage: 1 }).pipe(
+    this.communityService.findAll({ elementsPerPage: MAX_PAGE_SIZE, currentPage: 1 }).pipe(
       getFirstSucceededRemoteListPayload(),
     ).subscribe(
       (communitiesRest: Community[]) => {
@@ -143,7 +144,7 @@ export class FilteredItemsComponent implements OnInit {
           const commVO = OptionVO.collection(community.uuid, community.name, true);
           this.collections.push(commVO);
 
-          this.collectionService.findByParent(community.uuid, { elementsPerPage: 10000, currentPage: 1 }).pipe(
+          this.collectionService.findByParent(community.uuid, { elementsPerPage: MAX_PAGE_SIZE, currentPage: 1 }).pipe(
             getFirstSucceededRemoteListPayload(),
           ).subscribe(
             (collectionsRest: Collection[]) => {
@@ -207,12 +208,12 @@ export class FilteredItemsComponent implements OnInit {
     this.metadataFieldsWithAny = [];
     const anyField$ = this.translateService.stream('admin.reports.items.anyField');
     this.metadataFieldsWithAny.push(OptionVO.itemLoc('*', anyField$));
-    this.metadataSchemaService.findAll({ elementsPerPage: 10000, currentPage: 1 }).pipe(
+    this.metadataSchemaService.findAll({ elementsPerPage: MAX_PAGE_SIZE, currentPage: 1 }).pipe(
       getFirstSucceededRemoteListPayload(),
     ).subscribe(
       (schemasRest: MetadataSchema[]) => {
         schemasRest.forEach(schema => {
-          this.metadataFieldService.findBySchema(schema, { elementsPerPage: 10000, currentPage: 1 }).pipe(
+          this.metadataFieldService.findBySchema(schema, { elementsPerPage: MAX_PAGE_SIZE, currentPage: 1 }).pipe(
             getFirstSucceededRemoteListPayload(),
           ).subscribe(
             (fieldsRest: MetadataField[]) => {

@@ -115,12 +115,14 @@ updates:
         - "actions/*"
         - "github/*"
     ignore:
-      # For official GitHub actions, ignore minor & patch releases because we reference these actions
+      # For official GitHub & Docker actions, ignore minor & patch releases because we reference these actions
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "docker/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch" ]
   #####################
   ## dspace-10_x branch
   #####################
@@ -232,12 +234,14 @@ updates:
         - "actions/*"
         - "github/*"
     ignore:
-      # For official GitHub actions, ignore minor & patch releases because we reference these actions
+      # For official GitHub & Docker actions, ignore minor & patch releases because we reference these actions
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "docker/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch" ]
   #####################
   ## dspace-9_x branch
   #####################
@@ -349,12 +353,14 @@ updates:
         - "actions/*"
         - "github/*"
     ignore:
-      # For official GitHub actions, ignore minor & patch releases because we reference these actions
+      # For official GitHub & Docker actions, ignore minor & patch releases because we reference these actions
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "docker/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch" ]
   #####################
   ## dspace-8_x branch
   #####################
@@ -468,9 +474,11 @@ updates:
         - "actions/*"
         - "github/*"
     ignore:
-      # For official GitHub actions, ignore minor & patch releases because we reference these actions
+      # For official GitHub & Docker actions, ignore minor & patch releases because we reference these actions
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "docker/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch" ]

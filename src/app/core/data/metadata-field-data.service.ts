@@ -3,10 +3,12 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataField } from '../metadata/metadata-field.model';
+import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
@@ -38,6 +40,7 @@ import { RequestService } from './request.service';
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(METADATA_FIELD)
 export class MetadataFieldDataService extends IdentifiableDataService<MetadataField> implements CreateData<MetadataField>, PutData<MetadataField>, DeleteData<MetadataField>, SearchData<MetadataField> {
   private createData: CreateData<MetadataField>;
   private searchData: SearchData<MetadataField>;

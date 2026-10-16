@@ -19,6 +19,7 @@ import {
 } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
 import {
   SortDirection,
   SortOptions,
@@ -51,6 +52,7 @@ import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-date',
@@ -68,6 +70,7 @@ import {
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
+@rendersBrowseBy(BrowseByDataType.Date)
 export class BrowseByDateComponent extends BrowseByMetadataComponent implements OnInit {
 
   /**

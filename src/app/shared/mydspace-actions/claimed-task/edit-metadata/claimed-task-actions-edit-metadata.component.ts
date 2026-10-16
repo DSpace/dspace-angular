@@ -17,8 +17,8 @@ import {
 
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-
-export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-edit-metadata',
@@ -34,6 +34,7 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
 /**
  * Component for displaying the edit metadata action on a workflow task item
  */
+@rendersWorkflowTaskOption(ClaimedTaskType.WORKFLOW_TASK_OPTION_EDIT_METADATA)
 export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsAbstractComponent {
 
   constructor(protected injector: Injector,

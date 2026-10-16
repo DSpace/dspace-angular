@@ -1,10 +1,12 @@
+import { join } from 'node:path';
+import zlib from 'node:zlib';
+
 import { buildAppConfig } from '@dspace/config/config.server';
-import { join } from 'path';
 
 import { commonExports } from './webpack.common';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CompressionPlugin = require('compression-webpack-plugin');
-const zlib = require('zlib');
 
 module.exports = Object.assign({}, commonExports, {
   target: 'web',

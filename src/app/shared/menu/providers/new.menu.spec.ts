@@ -38,7 +38,7 @@ describe('NewMenuProvider', () => {
       },
     },
     {
-      visible: false,
+      visible: true,
       model: {
         type: MenuItemType.ONCLICK,
         text: 'menu.section.new_collection',

@@ -1,4 +1,3 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -164,7 +163,6 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -177,6 +175,8 @@ describe('TopLevelCommunityListComponent', () => {
 
 
   it('should display a list of top-communities', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
     const subComList = fixture.debugElement.queryAll(By.css('li'));
