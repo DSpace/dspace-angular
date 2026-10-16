@@ -814,6 +814,55 @@ export class DefaultAppConfig implements AppConfig {
           type: AdvancedAttachmentElementType.Attribute,
         },
       ],
+      pagination: {
+        enabled: true,
+        elementsPerPage: 2,
+      },
+    },
+    urn: [
+      {
+        name: 'doi',
+        baseUrl: 'https://doi.org/',
+      },
+      {
+        name: 'hdl',
+        baseUrl: 'https://hdl.handle.net/',
+      },
+      {
+        name: 'scopus',
+        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId=',
+      },
+      {
+        name: 'researcherid',
+        baseUrl: 'http://www.researcherid.com/rid/',
+      },
+      {
+        name: 'mailto',
+        baseUrl: 'mailto:',
+      },
+    ],
+    itemPage: {
+      OrgUnit: {
+        orientation: 'vertical',
+      },
+      Project: {
+        orientation: 'vertical',
+      },
+      default: {
+        orientation: 'horizontal',
+      },
+    },
+    metadataBox: {
+      defaultMetadataLabelColStyle: 'col-3',
+      defaultMetadataValueColStyle: 'col-9',
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 fw-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true,
+    },
+    dynamicRefStyleMetadata: {
+      default: 'dspace.entity.style',
     },
   };
 
