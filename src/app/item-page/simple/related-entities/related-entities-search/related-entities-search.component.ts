@@ -51,6 +51,11 @@ export class RelatedEntitiesSearchComponent implements OnInit {
    */
   @Input() sideBarWidth = 4;
 
+  /**
+   * Defines whether or not to show the scope selector
+   */
+  @Input() showScopeSelector = true;
+
   fixedFilter: string;
 
   ngOnInit(): void {
