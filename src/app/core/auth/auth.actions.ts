@@ -34,6 +34,7 @@ export const AuthActionTypes = {
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
   LOG_OUT_SUCCESS: type('dspace/auth/LOG_OUT_SUCCESS'),
   SET_REDIRECT_URL: type('dspace/auth/SET_REDIRECT_URL'),
+  SET_REDIRECT_URL_AND_NAVIGATE: type('dspace/auth/SET_REDIRECT_URL_AND_NAVIGATE'),
   RETRIEVE_AUTHENTICATED_EPERSON: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON'),
   RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
@@ -358,6 +359,23 @@ export class SetRedirectUrlAction implements Action {
 
   constructor(url: string) {
     this.payload = url;
+  }
+}
+
+/**
+ * Change the redirect url.
+ * @class SetRedirectUrlAction
+ * @implements {Action}
+ */
+export class SetRedirectUrlAndNavigateAction implements Action {
+  public type: string = AuthActionTypes.SET_REDIRECT_URL_AND_NAVIGATE;
+  payload: {
+    redirectUrl: string;
+    navigateUrl: string;
+  };
+
+  constructor(redirectUrl: string, navigateUrl: string) {
+    this.payload = { redirectUrl, navigateUrl };
   }
 }
 
