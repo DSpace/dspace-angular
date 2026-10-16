@@ -535,6 +535,12 @@
 
   "admin.access-control.groups.form.return": "Back",
 
+  "admin.access-control.groups.form.tabs.edit": "Edit Group",
+
+  "admin.access-control.groups.form.tabs.ePeople": "EPeople",
+
+  "admin.access-control.groups.form.tabs.groups": "Groups",
+
   "admin.quality-assurance.breadcrumbs": "Quality Assurance",
 
   "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
