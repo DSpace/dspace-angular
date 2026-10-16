@@ -385,6 +385,7 @@ export const environment: BuildConfig = {
   mediaViewer: {
     image: true,
     video: true,
+    pdf: true,
   },
   info: {
     enableEndUserAgreement: true,
