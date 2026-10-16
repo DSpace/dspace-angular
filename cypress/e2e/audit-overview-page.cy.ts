@@ -4,7 +4,9 @@ describe('Audit Overview Page', () => {
   beforeEach(() => {
     // Must login as an Admin to see the page
     cy.visit('/auditlogs');
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });;
   });
 
   it('page structure should be correct and should pass accessibility tests', () => {

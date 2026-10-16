@@ -8811,14 +8811,11 @@
   // "submission.sections.submit.progressbar.describe.owner": "Owner",
   "submission.sections.submit.progressbar.describe.owner": "Tulajdonos",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder szabályzatok",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Kiadói nyílt hozzáférési szabályzat",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Fájlok feltöltése",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Kiadói nyílt hozzáférési szabályzat",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Nem áll rendelkezésre kiadói szabályzatinformáció.\nHa művéhez tartozik ISSN, kérjük, adja meg fentebb a kapcsolódó kiadói nyílt hozzáférési szabályzatok megtekintéséhez.",

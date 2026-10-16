@@ -8848,15 +8848,11 @@
   // "submission.sections.submit.progressbar.describe.owner": "Owner",
   "submission.sections.submit.progressbar.describe.owner": "Vlastník",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Informace o politice otevřeného přístupu vydavatele",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Nahrát soubory",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Informace o politice otevřeného přístupu vydavatele",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Nejsou k dispozici žádné informace o politice vydavatele. Pokud má vaše práce přiřazené ISSN, zadejte jej výše, abyste viděli všechny související politiky otevřeného přístupu vydavatele.",

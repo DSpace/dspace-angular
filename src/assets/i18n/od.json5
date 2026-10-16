@@ -9113,15 +9113,11 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତି ସୂଚନା",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "ଫାଇଲ୍ ଅପଲୋଡ୍ କରନ୍ତୁ",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତି ସୂଚନା",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "କୌଣସି ପ୍ରକାଶକ ନୀତି ସୂଚନା ଉପଲବ୍ଧ ନାହିଁ। ଯଦି ଆପଣଙ୍କ କାର୍ଯ୍ୟରେ ଏକ ସମ୍ବନ୍ଧିତ ISSN ଅଛି, ଦୟାକରି ଉପରେ ଏହାକୁ ପ୍ରବେଶ କରନ୍ତୁ ଯେପରିକି ସମ୍ବନ୍ଧିତ ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତିଗୁଡିକ ଦେଖାଯାଇପାରିବ।",

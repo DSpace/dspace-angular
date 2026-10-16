@@ -53,3 +53,7 @@
   top: 50%;
   left: 50%;
 }
+
+tr.table-danger > * {
+  --bs-table-bg-type: var(--bs-table-bg);
+}

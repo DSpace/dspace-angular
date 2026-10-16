@@ -9110,15 +9110,11 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "പ്രസാധകരുടെ ഓപ്പൺ ആക്സസ് പോളിസി വിവരം",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "ഫയലുകൾ അപ്ലോഡ് ചെയ്യുക",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "പ്രസാധകരുടെ ഓപ്പൺ ആക്സസ് പോളിസി വിവരം",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "പ്രസാധക പോളിസി വിവരം ലഭ്യമല്ല. നിങ്ങളുടെ ജോലിയുമായി ബന്ധപ്പെട്ട ഒരു ISSN ഉണ്ടെങ്കിൽ, ബന്ധപ്പെട്ട പ്രസാധക ഓപ്പൺ ആക്സസ് പോളിസികൾ കാണാൻ ദയവായി ഇത് മുകളിൽ നൽകുക.",

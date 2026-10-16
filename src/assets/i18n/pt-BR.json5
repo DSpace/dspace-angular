@@ -8824,15 +8824,11 @@
   // "submission.sections.submit.progressbar.describe.owner": "Owner",
   "submission.sections.submit.progressbar.describe.owner": "Dono",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Informações de políticas de acesso aberto do editor",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Enviar arquivos",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Informações de políticas de acesso aberto do editor",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Nenhuma informação sobre a política da editora está disponível. Se seu trabalho tiver um ISSN associado, por favor, insira-o acima para ver quaisquer políticas de acesso aberto do editor relacionadas.",
