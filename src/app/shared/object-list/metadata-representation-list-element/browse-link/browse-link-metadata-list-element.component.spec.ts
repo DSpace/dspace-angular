@@ -63,6 +63,11 @@ describe('BrowseLinkMetadataListElementComponent', () => {
       expect(fixture.debugElement.nativeElement.textContent).toContain(mockMetadataRepresentation.value);
     });
 
+    it('should open the browse link in the current tab', () => {
+      const anchor: HTMLAnchorElement = fixture.debugElement.nativeElement.querySelector('a');
+      expect(anchor.getAttribute('target')).toBeNull();
+    });
+
     it('should NOT match isLink', () => {
       expect(comp.isLink()).toBe(false);
     });
