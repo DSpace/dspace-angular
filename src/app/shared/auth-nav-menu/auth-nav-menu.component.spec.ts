@@ -234,6 +234,12 @@ describe('AuthNavMenuComponent', () => {
           const loginDropdownMenu = deNavMenuItem.query(By.css('div#loginDropdownMenu'));
           expect(loginDropdownMenu.nativeElement).toBeDefined();
         });
+
+        it('the login toggle should declare aria-haspopup="dialog" so it matches the role of the popup it controls', () => {
+          const loginToggle = deNavMenuItem.query(By.css('button.dropdownLogin'));
+          expect(loginToggle.nativeElement.getAttribute('aria-haspopup')).toBe('dialog');
+          expect(loginToggle.nativeElement.getAttribute('aria-controls')).toBe('loginDropdownMenu');
+        });
       });
 
       describe('when user is authenticated', () => {
