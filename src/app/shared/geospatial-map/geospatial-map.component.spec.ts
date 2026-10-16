@@ -13,7 +13,9 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { GeospatialMapComponent } from './geospatial-map.component';
 
 let elRef: ElementRef;
@@ -25,7 +27,10 @@ describe('GeospatialMapComponent', () => {
   beforeEach( waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [GeospatialMapComponent, TranslateModule.forRoot()],
-      providers: [{ provide: TranslateService, useValue: getMockTranslateService() }],
+      providers: [
+        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();

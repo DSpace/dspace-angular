@@ -97,13 +97,13 @@ describe('SearchService', () => {
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       service.setViewMode(ViewMode.ListElement);
 
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('test-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement });
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('test-id', ['/search'], { page: 1 }, { 'test-id.view': ViewMode.ListElement });
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       service.setViewMode(ViewMode.GridElement);
 
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('test-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement });
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('test-id', ['/search'], { page: 1 }, { 'test-id.view': ViewMode.GridElement });
     });
   });
 
@@ -134,6 +134,33 @@ describe('SearchService', () => {
           ['view', ViewMode.GridElement],
         ])));
 
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.GridElement,
+        });
+      });
+    });
+
+    it('should ignore a legacy view mode when fallback is disabled', () => {
+      searchConfigService.useLegacySearchParamFallback = false;
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
+        ['view', ViewMode.GridElement],
+      ])));
+
+      testScheduler.run(({ expectObservable }) => {
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.ListElement,
+        });
+      });
+    });
+
+    it('should use the prefixed view mode when fallback is disabled', () => {
+      searchConfigService.useLegacySearchParamFallback = false;
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
+        [`${searchConfigService.searchInstanceId}.view`, ViewMode.GridElement],
+        ['view', ViewMode.ListElement],
+      ])));
+
+      testScheduler.run(({ expectObservable }) => {
         expectObservable(service.getViewMode()).toBe('(a|)', {
           a: ViewMode.GridElement,
         });

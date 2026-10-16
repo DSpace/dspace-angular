@@ -17,19 +17,19 @@ import { SearchFilterConfig } from '../search/models/search-filter-config.model'
  */
 export class SearchFilterServiceStub {
 
-  isFilterActiveWithValue(_paramName: string, _filterValue: string): Observable<boolean> {
+  isFilterActiveWithValue(_paramName: string, _filterValue: string, _searchInstanceId?: string, _useLegacySearchParamFallback = true): Observable<boolean> {
     return of(true);
   }
 
-  isFilterActive(_paramName: string): Observable<boolean> {
+  isFilterActive(_paramName: string, _searchInstanceId?: string, _useLegacySearchParamFallback = true): Observable<boolean> {
     return of(true);
   }
 
-  getCurrentScope(): Observable<string> {
+  getCurrentScope(_searchInstanceId?: string, _useLegacySearchParamFallback = true): Observable<string> {
     return of(undefined);
   }
 
-  getCurrentQuery(): Observable<string> {
+  getCurrentQuery(_searchInstanceId?: string, _useLegacySearchParamFallback = true): Observable<string> {
     return of(undefined);
   }
 
@@ -41,41 +41,41 @@ export class SearchFilterServiceStub {
     return of(new SortOptions('', SortDirection.ASC));
   }
 
-  getCurrentFilters(): Observable<Params> {
+  getCurrentFilters(_searchInstanceId?: string, _useLegacySearchParamFallback = true): Observable<Params> {
     return of({});
   }
 
-  getCurrentView(): Observable<string> {
+  getCurrentView(_searchInstanceId?: string, _useLegacySearchParamFallback = true): Observable<string> {
     return of(undefined);
   }
 
-  isCollapsed(_filterName: string): Observable<boolean> {
+  isCollapsed(_filterName: string, _searchInstanceId?: string): Observable<boolean> {
     return of(true);
   }
 
-  getPage(_filterName: string): Observable<number> {
+  getPage(_filterName: string, _searchInstanceId?: string): Observable<number> {
     return of(1);
   }
 
-  collapse(_filterName: string): void {
+  collapse(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  expand(_filterName: string): void {
+  expand(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  toggle(_filterName: string): void {
+  toggle(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  initializeFilter(_filter: SearchFilterConfig): void {
+  initializeFilter(_filter: SearchFilterConfig, _searchInstanceId?: string): void {
   }
 
-  decrementPage(_filterName: string): void {
+  decrementPage(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  incrementPage(_filterName: string): void {
+  incrementPage(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  resetPage(_filterName: string): void {
+  resetPage(_filterName: string, _searchInstanceId?: string): void {
   }
 
   minimizeAll(): void {

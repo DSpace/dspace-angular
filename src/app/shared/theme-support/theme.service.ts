@@ -51,6 +51,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import {
   hasNoValue,
   hasValue,
@@ -364,8 +365,10 @@ export class ThemeService {
               );
             }
           }
-          if (hasValue(activatedRouteSnapshot.queryParams) && hasValue(activatedRouteSnapshot.queryParams.scope)) {
-            const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(activatedRouteSnapshot.queryParams.scope);
+          const searchConfigurationService = this.injector.get(SearchConfigurationService);
+          const scope = searchConfigurationService.getSearchParamFromParams(activatedRouteSnapshot.queryParams, 'scope');
+          if (hasValue(scope)) {
+            const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(scope);
             // Start with the resolved dso and go recursively through its parents until you reach the top-level community
             return dsoFromScope$.pipe(
               getFirstSucceededRemoteData(),

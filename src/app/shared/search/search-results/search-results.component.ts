@@ -2,10 +2,14 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   Output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  Params,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -20,7 +24,7 @@ import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
@@ -111,11 +115,6 @@ export class SearchResultsComponent {
   @Input() sortConfig: SortOptions;
 
   /**
-   * The current view-mode of the list
-   */
-  @Input() viewMode: ViewMode;
-
-  /**
    * An optional configuration to filter the result on one type
    */
   @Input() configuration: string;
@@ -153,7 +152,7 @@ export class SearchResultsComponent {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   constructor(
-    protected searchConfigService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
     protected searchService: SearchService,
   ) {
     this.activeFilters$ = this.searchConfigService.getCurrentFilters();
@@ -186,5 +185,11 @@ export class SearchResultsComponent {
     }
 
     return result;
+  }
+
+  getExactMatchQueryParams(): Params {
+    return {
+      [this.searchConfigService.getCurrentSearchInstanceParam('query')]: this.surroundStringWithQuotes(this.searchConfig?.query),
+    };
   }
 }
