@@ -278,7 +278,6 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       {}, // @Input model.value
       this.model.submissionScope,
       this.model.readOnly,
-      null,
       true);
     const fieldId = fieldName.replace(/\./g, '_');
     const model = this.formBuilderService.findById(fieldId, formModel);
