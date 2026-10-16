@@ -28,6 +28,7 @@ import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/su
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
+import { GeoIpWarningComponent } from './geoip-warning/geoip-warning.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
@@ -39,6 +40,7 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   templateUrl: './home-page.component.html',
   imports: [
     AsyncPipe,
+    GeoIpWarningComponent,
     HomeCoarComponent,
     MarkdownViewerComponent,
     NgTemplateOutlet,
