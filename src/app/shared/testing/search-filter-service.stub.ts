@@ -49,33 +49,33 @@ export class SearchFilterServiceStub {
     return of(undefined);
   }
 
-  isCollapsed(_filterName: string): Observable<boolean> {
+  isCollapsed(_filterName: string, _searchInstanceId?: string): Observable<boolean> {
     return of(true);
   }
 
-  getPage(_filterName: string): Observable<number> {
+  getPage(_filterName: string, _searchInstanceId?: string): Observable<number> {
     return of(1);
   }
 
-  collapse(_filterName: string): void {
+  collapse(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  expand(_filterName: string): void {
+  expand(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  toggle(_filterName: string): void {
+  toggle(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  initializeFilter(_filter: SearchFilterConfig): void {
+  initializeFilter(_filter: SearchFilterConfig, _searchInstanceId?: string): void {
   }
 
-  decrementPage(_filterName: string): void {
+  decrementPage(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  incrementPage(_filterName: string): void {
+  incrementPage(_filterName: string, _searchInstanceId?: string): void {
   }
 
-  resetPage(_filterName: string): void {
+  resetPage(_filterName: string, _searchInstanceId?: string): void {
   }
 
   minimizeAll(): void {

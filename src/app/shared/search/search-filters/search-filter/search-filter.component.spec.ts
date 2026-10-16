@@ -101,7 +101,7 @@ describe('SearchFilterComponent', () => {
     });
 
     it('should call toggle with the correct filter configuration name', () => {
-      expect(searchFilterService.toggle).toHaveBeenCalledWith(mockFilterConfig.name);
+      expect(searchFilterService.toggle).toHaveBeenCalledWith(mockFilterConfig.name, 'test-id');
     });
   });
 
@@ -112,7 +112,7 @@ describe('SearchFilterComponent', () => {
     });
 
     it('should call initialCollapse with the correct filter configuration name', () => {
-      expect(searchFilterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig);
+      expect(searchFilterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig, 'test-id');
     });
   });
 
