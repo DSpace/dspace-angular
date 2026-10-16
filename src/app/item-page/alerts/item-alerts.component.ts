@@ -21,6 +21,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
@@ -59,16 +60,25 @@ export class ItemAlertsComponent implements OnChanges {
    */
   public AlertTypeEnum = AlertType;
 
+  /**
+   * Whether the current user is logged in
+   */
+  isLoggedIn$: Observable<boolean>;
+
   constructor(
     protected authService: AuthorizationDataService,
     protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
     protected correctionTypeDataService: CorrectionTypeDataService,
+    protected auth: AuthService,
   ) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.item?.currentValue.withdrawn && this.showReinstateButton$) {
-      this.showReinstateButton$ = this.shouldShowReinstateButton();
+      this.isLoggedIn$ = this.auth.isAuthenticated();
+      if ( this.isLoggedIn$ ) {
+        this.showReinstateButton$ = this.shouldShowReinstateButton();
+      }
     }
   }
 
