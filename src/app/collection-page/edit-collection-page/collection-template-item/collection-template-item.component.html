@@ -1,0 +1,34 @@
+<div class="container-fluid mb-2" *ngVar="(itemTemplateRD$ | async) as itemTemplateRD">
+  @if (!editing) {
+    <span class="d-inline-block mb-2">{{ 'collection.edit.template.label' | translate }}</span>
+    <div class="button-row space-children-mr">
+      @if (!itemTemplateRD?.payload) {
+        <button class="btn btn-success" (click)="addItemTemplate()">
+          <i class="fas fa-plus" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ 'collection.edit.template.add-button' | translate }}</span>
+        </button>
+      }
+      @if (itemTemplateRD?.payload) {
+        <button class="btn btn-danger" (click)="deleteItemTemplate()">
+          <i class="fas fa-trash-alt" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ 'collection.edit.template.delete-button' | translate }}</span>
+        </button>
+      }
+      @if (itemTemplateRD?.payload) {
+        <button class="btn btn-primary" (click)="editItemTemplate()">
+          <i class="fas fa-edit" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ 'collection.edit.template.edit-button' | translate }}</span>
+        </button>
+      }
+    </div>
+  }
+
+  @if (editing && itemTemplateRD?.payload) {
+    <h2 class="border-bottom pb-2">
+      {{ 'collection.edit.template.head' | translate: { collection: dsoNameService.getName((dsoRD$ | async)?.payload) } }}
+    </h2>
+    <ds-dso-edit-metadata [updateDataService]="itemTemplateService"
+      [dso]="itemTemplateRD?.payload"></ds-dso-edit-metadata>
+    <button (click)="cancelEdit()" class="btn btn-outline-secondary">{{ 'collection.edit.template.cancel' | translate }}</button>
+  }
+</div>
