@@ -54,9 +54,6 @@ jobs:
       CYPRESS_BASE_URL: http://127.0.0.1:4000
       # Disable the cookie consent banner in e2e tests to avoid errors because of elements hidden by it
       DSPACE_INFO_ENABLECOOKIECONSENTPOPUP: false
-      # When Chrome version is specified, we pin to a specific version of Chrome
-      # Comment this out to use the latest release
-      #CHROME_VERSION: "90.0.4430.212-1"
       # Bump Node heap size (OOM in CI after upgrading to Angular 15)
       NODE_OPTIONS: '--max-old-space-size=4096'
       # Project name to use when running "docker compose" prior to e2e tests
@@ -84,22 +81,6 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
-
-      # If CHROME_VERSION env variable specified above, then pin to that version.
-      # Otherwise, just install latest version of Chrome.
-      - name: Install Chrome (for e2e tests)
-        run: |
-          if [[ -z "${CHROME_VERSION}" ]]
-          then
-             echo "Installing latest stable version"
-             sudo apt-get update
-             sudo apt-get --only-upgrade install google-chrome-stable -y
-          else
-             echo "Installing version ${CHROME_VERSION}"
-             wget -q "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb"
-             sudo dpkg -i "google-chrome-stable_${CHROME_VERSION}_amd64.deb"
-          fi
-          google-chrome --version
 
       # https://github.com/actions/cache/blob/main/examples.md#node---npm
       - name: Get NPM cache directory
@@ -167,14 +148,23 @@ jobs:
           docker compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
           docker container ls
 
+      # Installs "Chrome for Testing" which is a version of Chrome stabilized for automated testing
+      # Cypress recommends using Chrome For Testing for reliable, reproducible runs
+      # https://docs.cypress.io/app/references/launching-browsers
+      - name: Install Chrome For Testing (for e2e tests)
+        uses: browser-actions/setup-chrome@v2
+        # To pin to a specific version of Chrome, uncomment this parameter
+        #with:
+        #  chrome-version: 154
+
       # Run integration tests via Cypress.io
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v7.4.3
+        uses: cypress-io/github-action@v7.4.4
         with:
-          # Run tests in Chrome, headless mode (default)
-          browser: chrome
+          # Run tests in Chrome for Testing
+          browser: chrome-for-testing
           # Start app before running tests (will be stopped automatically after tests finish)
           start: npm run serve:ssr
           # Wait for backend & frontend to be available
@@ -334,6 +324,22 @@ jobs:
 
       - name: Stop running app
         run: kill -9 $(lsof -t -i:4000)
+
+
+      # If any prior step errors out, export the backend logs for help with debugging issues
+      - name: Export backend logs (on failure only)
+        if: failure()
+        run: |
+          docker compose -f ./docker/docker-compose-ci.yml logs > backend-logs-${{ matrix.node-version }}.txt
+
+      # If any prior step errors out, upload backend logs to artifact
+      - name: Upload backend logs to artifact (on failure only)
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: backend-logs-${{ matrix.node-version }}
+          path: backend-logs-${{ matrix.node-version }}.txt
+          retention-days: 14
 
       - name: Shutdown Docker containers
         run: docker compose -f ./docker/docker-compose-ci.yml down
