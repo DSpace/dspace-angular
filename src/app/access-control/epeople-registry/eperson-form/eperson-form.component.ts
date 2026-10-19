@@ -33,6 +33,7 @@ import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
+  getFirstSucceededRemoteListPayload,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
@@ -44,6 +45,7 @@ import {
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicInputModel,
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import {
   TranslateModule,
@@ -78,7 +80,9 @@ import {
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 @Component({
   selector: 'ds-eperson-form',
   templateUrl: './eperson-form.component.html',
@@ -116,6 +120,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   firstName: DynamicInputModel;
   lastName: DynamicInputModel;
   email: DynamicInputModel;
+  institution: DynamicSelectModel<string>;
+  institutions: VocabularyEntry[] = [];    
   // booleans
   canLogIn: DynamicCheckboxModel;
   requireCertificate: DynamicCheckboxModel;
@@ -140,6 +146,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
     },
     email: {
+      grid: {
+        host: 'row',
+      },
+    },
+    institution: {
       grid: {
         host: 'row',
       },
@@ -260,6 +271,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     public dsoNameService: DSONameService,
     protected route: ActivatedRoute,
     protected router: Router,
+    private vocabularyService: VocabularyService,
   ) {
   }
 
@@ -318,6 +330,16 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       hint: this.translateService.instant(`${this.messagePrefix}.emailHint`),
     });
+    this.institution = new DynamicSelectModel({
+      id: 'institution',
+      label: this.translateService.instant(`${this.messagePrefix}.institution`),
+      name: 'institution',
+      validators: {
+        required: null,
+      },
+      required: true,
+      options: [],
+    });
     this.canLogIn = new DynamicCheckboxModel(
       {
         id: 'canLogIn',
@@ -336,11 +358,30 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.firstName,
       this.lastName,
       this.email,
+      this.institution,
       this.canLogIn,
       this.requireCertificate,
     ];
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-    this.subs.push(this.activeEPerson$.subscribe((eperson: EPerson) => {
+    this.subs.push(
+      this.vocabularyService.getVocabularyEntries(
+        new VocabularyOptions('rdapp-instituicoes', 'local.instituicao', null, true),
+        new PageInfo(),
+      ).pipe(
+        getFirstSucceededRemoteListPayload(),
+      ).subscribe((entries: VocabularyEntry[]) => {
+        this.institutions = entries;
+        this.institution.options = entries.map((entry) => ({
+          label: entry.display,
+          value: entry.value,
+        }));
+        if (hasValue(this.epersonInitial)) {
+          this.institution.value = this.epersonInitial.firstMetadataValue('eperson.institution');
+        }
+        this.changeDetectorRef.detectChanges();
+      }),
+    );
+      this.activeEPerson$.subscribe((eperson: EPerson) => {
       if (eperson != null) {
         this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, {
           currentPage: 1,
@@ -351,6 +392,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
         lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
         email: eperson != null ? eperson.email : '',
+        institution: eperson != null ? eperson.firstMetadataValue('eperson.institution') : '',
         canLogIn: eperson != null ? eperson.canLogIn : true,
         requireCertificate: eperson != null ? eperson.requireCertificate : false,
       });
@@ -361,7 +403,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           this.changeDetectorRef.detectChanges();
         });
       }
-    }));
+    });
 
     this.groups$ = this.activeEPerson$.pipe(
       switchMap((eperson) => {
@@ -427,6 +469,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
                 value: this.lastName.value,
               },
             ],
+            'eperson.institution': [
+              {
+                value: this.institution.value,
+              },
+            ],
           },
           email: this.email.value,
           canLogIn: this.canLogIn.value,
@@ -482,6 +529,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         'eperson.lastname': [
           {
             value: (this.lastName.value ? this.lastName.value : ePerson.firstMetadataValue('eperson.lastname')),
+          },
+        ],
+        'eperson.institution': [
+          {
+            value: (this.institution.value ? this.institution.value : ePerson.firstMetadataValue('eperson.institution')),
           },
         ],
       },
