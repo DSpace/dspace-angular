@@ -141,12 +141,15 @@
       [objects]="searchResults"
       [hideGear]="true"
       [showRSS]="false"
-      [selectable]="false" 
+      [selectable]="selectable"
+      [selectionConfig]="selectionConfig"
       [linkType]="linkType"
       [context]="context"
       [hidePaginationDetail]="hidePaginationDetail"
       [showThumbnails]="showThumbnails"
-      (contentChange)="contentChange.emit($event)">
+      (contentChange)="contentChange.emit($event)"
+      (deselectObject)="deselectObject.emit($event)"
+      (selectObject)="selectObject.emit($event)">
     </ds-viewable-collection>
   </div>
 }
