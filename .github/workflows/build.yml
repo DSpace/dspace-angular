@@ -161,7 +161,7 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v7.4.4
+        uses: cypress-io/github-action@v7.4.6
         with:
           # Run tests in Chrome for Testing
           browser: chrome-for-testing
