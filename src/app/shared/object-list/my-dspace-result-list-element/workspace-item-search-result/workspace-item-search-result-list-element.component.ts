@@ -30,7 +30,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-
+import { TranslateModule } from '@ngx-translate/core';
 /**
  * This component renders workspaceitem object for the search result in the list view.
  */
@@ -44,6 +44,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
     NgClass,
     ThemedLoadingComponent,
     WorkspaceitemActionsComponent,
+    TranslateModule
   ],
 })
 
@@ -97,5 +98,27 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
         hitHighlights: this.object.hitHighlights,
       }));
     });
+  }
+
+  getReturnReason(): string {
+    const derivedResult = this.derivedSearchResult$.value;
+    const item: Item = derivedResult?.indexableObject;
+    if (!item || !item.metadata) {
+      return '';
+    }
+
+    const provenances = item.metadata['dc.description.provenance'];
+    if (!provenances || provenances.length === 0) {
+      return '';
+    }
+
+    // Procura a proveniência mais recente que contenha o texto de devolução
+    for (let i = provenances.length - 1; i >= 0; i--) {
+      const value = provenances[i].value;
+      if (value && (value.includes('Devolvido para ajuste') || value.includes('com o seguinte motivo'))) {
+        return value;
+      }
+    }
+    return '';
   }
 }

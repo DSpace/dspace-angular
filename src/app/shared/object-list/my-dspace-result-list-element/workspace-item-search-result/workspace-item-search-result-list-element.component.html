@@ -3,6 +3,20 @@
     [viewMode]="ViewModes.ListElement"
     [object]="derivedSearchResult$ | async" [linkType]="LinkTypes.None"
   [context]="badgeContext"></ds-listable-object-component-loader>
+
+  <!-- ALERTA DE MOTIVO DE REJEIÇÃO / DEVOLUÇÃO PARA AJUSTE (D10) -->
+  @if (getReturnReason(); as reason) {
+    <div class="row my-2">
+      <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 col-9 col-md-10 ps-3' : 'col-12'">
+        <div class="alert alert-warning p-2 small mb-2" role="alert">
+          <i class="fas fa-exclamation-triangle me-1" aria-hidden="true"></i>
+          <strong>{{ 'mydspace.item.returned.reason.label' | translate }}:</strong>
+          <span class="ms-1">{{ reason }}</span>
+        </div>
+      </div>
+    </div>
+  }
+
   <div class="row">
     <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 col-9 col-md-10 ps-3' : ''">
       <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
