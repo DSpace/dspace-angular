@@ -7,7 +7,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
@@ -38,6 +41,9 @@ import {
 } from '@dspace/core/shared/operators';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { Registration } from '@dspace/core/shared/registration.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -45,13 +51,14 @@ import {
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicInputModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of,
@@ -61,6 +68,7 @@ import {
   debounceTime,
   finalize,
   map,
+  shareReplay,
   switchMap,
   take,
 } from 'rxjs/operators';
@@ -80,9 +88,7 @@ import {
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+
 @Component({
   selector: 'ds-eperson-form',
   templateUrl: './eperson-form.component.html',
@@ -90,6 +96,7 @@ import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/voc
     AsyncPipe,
     BtnDisabledDirective,
     FormComponent,
+    FormsModule,
     HasNoValuePipe,
     PaginationComponent,
     RouterLink,
@@ -121,7 +128,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   lastName: DynamicInputModel;
   email: DynamicInputModel;
   institution: DynamicSelectModel<string>;
-  institutions: VocabularyEntry[] = [];    
+  institutions: VocabularyEntry[] = [];
   // booleans
   canLogIn: DynamicCheckboxModel;
   requireCertificate: DynamicCheckboxModel;
@@ -184,7 +191,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
 
   /**
    * Observable whether or not the admin is allowed to reset the EPerson's password
-   * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
    */
   canReset$: Observable<boolean>;
 
@@ -214,15 +220,36 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   groups$: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
+   * Trigger to force refresh of the current user's groups list
+   */
+  private refreshGroups$ = new BehaviorSubject<void>(undefined);
+
+  /**
    * The pagination of the {@link groups$} list.
    */
   groupsPageInfoState$: Observable<PageInfo>;
 
   /**
-   * Pagination config used to display the list of groups
+   * D12: Controle para busca e adição de grupos diretamente na tela do usuário
+   */
+  showAddGroupSection = false;
+  groupSearchQuery = '';
+  availableGroups$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
+   * Pagination config used to display the list of current groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'gem',
+    pageSize: 5,
+    currentPage: 1,
+  });
+
+  /**
+   * Pagination config used to display the list of available groups to add
+   */
+  addGroupsConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'eperson-add-groups',
     pageSize: 5,
     currentPage: 1,
   });
@@ -246,6 +273,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * A string that indicate the label of Submit button
    */
   submitLabel = 'form.create';
+
   /**
    * Subscription to email field value change
    */
@@ -305,6 +333,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         required: null,
       },
       required: true,
+      errorMessages: {
+        required: 'error.validation.required',
+      },
     });
     this.lastName = new DynamicInputModel({
       id: 'lastName',
@@ -314,6 +345,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         required: null,
       },
       required: true,
+      errorMessages: {
+        required: 'error.validation.required',
+      },
     });
     this.email = new DynamicInputModel({
       id: 'email',
@@ -325,6 +359,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       required: true,
       errorMessages: {
+        required: 'error.validation.required',
         emailTaken: 'error.validation.emailTaken',
         email: 'error.validation.NotValidEmail',
       },
@@ -339,6 +374,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       required: true,
       options: [],
+      errorMessages: {
+        required: 'error.validation.required',
+      },
     });
     this.canLogIn = new DynamicCheckboxModel(
       {
@@ -381,13 +419,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.detectChanges();
       }),
     );
-      this.activeEPerson$.subscribe((eperson: EPerson) => {
-      if (eperson != null) {
-        this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize,
-        }, undefined, undefined, followLink('object'));
-      }
+
+    this.subs.push(this.activeEPerson$.subscribe((eperson: EPerson) => {
       this.formGroup.patchValue({
         firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
         lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
@@ -403,25 +436,34 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           this.changeDetectorRef.detectChanges();
         });
       }
-    });
+    }));
 
-    this.groups$ = this.activeEPerson$.pipe(
-      switchMap((eperson) => {
-        return observableCombineLatest([of(eperson), this.paginationService.getFindListOptions(this.config.id, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize,
-        })]);
+    // Unifica o carregamento de grupos atuais com suporte a paginação e atualização reativa
+    this.groups$ = observableCombineLatest([
+      this.activeEPerson$,
+      this.paginationService.getFindListOptions(this.config.id, {
+        currentPage: 1,
+        elementsPerPage: this.config.pageSize,
       }),
+      this.refreshGroups$,
+    ]).pipe(
       switchMap(([eperson, findListOptions]) => {
-        if (eperson != null) {
-          return this.groupsDataService.findListByHref(eperson._links.groups.href, findListOptions, true, true, followLink('object'));
+        if (hasValue(eperson)) {
+          return this.groupsDataService.findListByHref(
+            eperson._links.groups.href,
+            findListOptions,
+            true,
+            true,
+            followLink('object'),
+          );
         }
         return of(undefined);
       }),
+      shareReplay(1),
     );
 
     this.groupsPageInfoState$ = this.groups$.pipe(
-      map(groupsRD => groupsRD.payload.pageInfo),
+      map(groupsRD => groupsRD?.payload?.pageInfo),
     );
 
     this.canImpersonate$ = this.activeEPerson$.pipe(
@@ -455,6 +497,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created eperson using the EventEmitter submitForm
    */
   onSubmit() {
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      this.changeDetectorRef.detectChanges();
+      return;
+    }
+
     this.activeEPerson$.pipe(take(1)).subscribe(
       (ePerson: EPerson) => {
         const values = {
@@ -561,13 +609,107 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Event triggered when the user changes page
+   * Event triggered when the user changes page on current groups
    * @param event
    */
   onPageChange(event) {
     this.updateGroups({
       currentPage: event,
       elementsPerPage: this.config.pageSize,
+    });
+  }
+
+  /**
+   * D12: Abre/fecha a seção de busca de grupos para adição direta na tela do usuário
+   */
+  toggleAddGroupSection(): void {
+    this.showAddGroupSection = !this.showAddGroupSection;
+    if (this.showAddGroupSection) {
+      this.searchGroupsToAdd(1);
+    }
+  }
+
+  /**
+   * D12: Busca grupos disponíveis pelo termo digitado (com paginação)
+   */
+  searchGroupsToAdd(page = 1): void {
+    this.addGroupsConfig.currentPage = page;
+    this.availableGroups$ = this.groupsDataService.searchGroups(this.groupSearchQuery.trim(), {
+      currentPage: page,
+      elementsPerPage: this.addGroupsConfig.pageSize,
+    }, true, true).pipe(shareReplay(1));
+  }
+
+  /**
+   * D12: Muda de página na busca de grupos para adicionar
+   */
+  onAddGroupsPageChange(page: number): void {
+    this.searchGroupsToAdd(page);
+  }
+
+  /**
+   * D12: Verifica se o grupo já está na lista de grupos atuais para desabilitar o botão Adicionar
+   */
+  isMemberOfGroup(groupId: string, currentGroups: Group[]): boolean {
+    if (!currentGroups || !groupId) {
+      return false;
+    }
+    return currentGroups.some((g) => g.id === groupId);
+  }
+
+  /**
+   * D12: Adiciona o usuário atual ao grupo selecionado diretamente pela tela do usuário
+   * @param group Grupo ao qual o usuário será vinculado
+   */
+  addUserToGroup(group: Group): void {
+    this.activeEPerson$.pipe(take(1)).subscribe((eperson: EPerson) => {
+      if (hasValue(eperson) && hasValue(group)) {
+        this.groupsDataService.addMemberToGroup(group, eperson).pipe(
+          getFirstCompletedRemoteData(),
+        ).subscribe((rd: RemoteData<Group>) => {
+          if (rd.hasSucceeded) {
+            this.notificationsService.success(
+              this.translateService.instant('admin.access-control.groups.form.notification.members.added.success', { name: this.dsoNameService.getName(eperson) }),
+            );
+            this.groupsDataService.clearGroupsRequests();
+            this.epersonService.clearLinkRequests(eperson._links.groups.href);
+            this.refreshGroups$.next();
+            this.changeDetectorRef.detectChanges();
+          } else {
+            this.notificationsService.error(
+              this.translateService.instant('admin.access-control.groups.form.notification.members.added.failure', { name: this.dsoNameService.getName(eperson) }),
+            );
+          }
+        });
+      }
+    });
+  }
+
+  /**
+   * D12: Remove o usuário atual do grupo selecionado diretamente pela tela do usuário
+   * @param group Grupo do qual o usuário será removido
+   */
+  removeUserFromGroup(group: Group): void {
+    this.activeEPerson$.pipe(take(1)).subscribe((eperson: EPerson) => {
+      if (hasValue(eperson) && hasValue(group)) {
+        this.groupsDataService.deleteMemberFromGroup(group, eperson).pipe(
+          getFirstCompletedRemoteData(),
+        ).subscribe((rd: RemoteData<NoContent>) => {
+          if (rd.hasSucceeded) {
+            this.notificationsService.success(
+              this.translateService.instant('admin.access-control.groups.form.notification.members.removed.success', { name: this.dsoNameService.getName(eperson) }),
+            );
+            this.groupsDataService.clearGroupsRequests();
+            this.epersonService.clearLinkRequests(eperson._links.groups.href);
+            this.refreshGroups$.next();
+            this.changeDetectorRef.detectChanges();
+          } else {
+            this.notificationsService.error(
+              this.translateService.instant('admin.access-control.groups.form.notification.members.removed.failure', { name: this.dsoNameService.getName(eperson) }),
+            );
+          }
+        });
+      }
     });
   }
 
@@ -646,8 +788,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
             this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
               this.translateService.get('forgot-email.form.error.content', { email: this.epersonInitial.email }));
           }
-        },
-        );
+        });
     }
   }
 
@@ -657,6 +798,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.addGroupsConfig.id);
     if (hasValue(this.emailValueChangeSubscribe)) {
       this.emailValueChangeSubscribe.unsubscribe();
     }
@@ -669,7 +811,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param notificationSection   whether in create or edit
    */
   private showNotificationIfEmailInUse(ePerson: EPerson, notificationSection: string) {
-    // Relevant message for email in use
     this.subs.push(this.epersonService.searchByScope('email', ePerson.email, {
       currentPage: 1,
       elementsPerPage: 0,
@@ -685,12 +826,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Update the list of groups by fetching it from the rest api or cache
+   * Update the list of groups by triggering the refresh subject
    */
   private updateGroups(options) {
-    this.subs.push(this.activeEPerson$.subscribe((eperson: EPerson) => {
-      this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
-    }));
+    this.config.currentPage = options.currentPage;
+    this.refreshGroups$.next();
   }
 
 }
