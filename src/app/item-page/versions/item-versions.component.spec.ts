@@ -39,7 +39,10 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -151,9 +154,25 @@ describe('ItemVersionsComponent', () => {
     delete: createSuccessfulRemoteDataObject$({}),
   });
 
-  const routerSpy = jasmine.createSpyObj('router', {
-    navigateByUrl: null,
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
+
+  const routeStub = {
+    data: of({
+      dso: createSuccessfulRemoteDataObject(mockItem),
+    }),
+    children: [],
+  };
 
   beforeEach(waitForAsync(() => {
 
@@ -172,6 +191,7 @@ describe('ItemVersionsComponent', () => {
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ConfigurationDataService, useValue: configurationServiceSpy },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

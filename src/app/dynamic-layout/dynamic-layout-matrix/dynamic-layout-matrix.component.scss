@@ -20,7 +20,7 @@
     }
   }
 
-  .layout-connected-bottom {
-    margin-bottom: -1px;
+  .dynamic-layout-box:not(.layout-rounded-top) .accordion .accordion-item {
+    border-top: 0;
   }
 }

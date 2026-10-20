@@ -1,9 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
-  AfterViewInit,
+  afterNextRender,
   Directive,
   ElementRef,
   Inject,
+  Input,
   PLATFORM_ID,
   Renderer2,
 } from '@angular/core';
@@ -18,24 +19,26 @@ import {
   selector: '[dsRoundedDynamicLayoutMatrix]',
   standalone: true,
 })
-export class RoundedDynamicLayoutMatrixDirective implements AfterViewInit {
+export class RoundedDynamicLayoutMatrixDirective {
 
   private readonly LAYOUT_ROUNDED_TOP = 'layout-rounded-top';
   private readonly LAYOUT_ROUNDED_BOTTOM = 'layout-rounded-bottom';
-  private readonly LAYOUT_CONNECTED_BOTTOM = 'layout-connected-bottom';
+  private readonly SIBLINGS_SCOPE_SELECTOR = 'ds-dynamic-layout-matrix';
+
+  /**
+   * Optional CSS selector used to resolve the siblings of the current element.
+   */
+  @Input() roundedDynamicLayoutMatrixSiblingsSelector: string;
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly renderer: Renderer2,
     @Inject(PLATFORM_ID) private readonly platformId: object,
   ) {
-  }
-
-  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    this.updateRoundedCorners();
+    afterNextRender(() => this.updateRoundedCorners());
   }
 
   /**
@@ -56,10 +59,7 @@ export class RoundedDynamicLayoutMatrixDirective implements AfterViewInit {
     const separatedFromNext: boolean = hasOwnMarginBottom || nextHasMarginTop;
 
     this.toggleClass(element, this.LAYOUT_ROUNDED_TOP, !previous || separatedFromPrevious);
-
     this.toggleClass(element, this.LAYOUT_ROUNDED_BOTTOM, !next || separatedFromNext);
-
-    this.toggleClass(element, this.LAYOUT_CONNECTED_BOTTOM, !!next && !separatedFromNext);
   }
 
   /**
@@ -69,11 +69,39 @@ export class RoundedDynamicLayoutMatrixDirective implements AfterViewInit {
     element: Element,
     direction: 'previousElementSibling' | 'nextElementSibling',
   ): Element | null {
-    let sibling: Element | null = element[direction];
-    while (sibling && !this.isVisible(sibling)) {
-      sibling = sibling[direction];
+    const siblings: Element[] = this.getSiblings(element);
+    const step: number = direction === 'nextElementSibling' ? 1 : -1;
+    let index: number = siblings.indexOf(element) + step;
+    while (index >= 0 && index < siblings.length) {
+      const sibling: Element = siblings[index];
+      if (this.isVisible(sibling)) {
+        return sibling;
+      }
+      index += step;
     }
-    return sibling;
+    return null;
+  }
+
+  /**
+   * Return the ordered list of sibling elements the current element is compared against.
+   */
+  private getSiblings(element: Element): Element[] {
+    if (this.roundedDynamicLayoutMatrixSiblingsSelector) {
+      const scope: ParentNode = this.getSiblingsScope(element);
+      const matches: Element[] = Array.from(scope.querySelectorAll(this.roundedDynamicLayoutMatrixSiblingsSelector));
+      if (!matches.includes(element)) {
+        matches.push(element);
+      }
+      return matches;
+    }
+    return element.parentElement ? Array.from(element.parentElement.children) : [element];
+  }
+
+  /**
+   * Resolve the root node used to query the selector-based siblings.
+   */
+  private getSiblingsScope(element: Element): ParentNode {
+    return element.closest(this.SIBLINGS_SCOPE_SELECTOR) ?? element.ownerDocument ?? document;
   }
 
   /**

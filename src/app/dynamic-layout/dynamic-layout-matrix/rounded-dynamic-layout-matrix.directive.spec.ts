@@ -56,12 +56,6 @@ describe('RoundedDynamicLayoutMatrixDirective', () => {
       expect(classesOf('.middle')).not.toContain('layout-rounded-bottom');
       expect(classesOf('.last')).toContain('layout-rounded-bottom');
     });
-
-    it('should mark every box that has a following connected box as connected-bottom', () => {
-      expect(classesOf('.first')).toContain('layout-connected-bottom');
-      expect(classesOf('.middle')).toContain('layout-connected-bottom');
-      expect(classesOf('.last')).not.toContain('layout-connected-bottom');
-    });
   });
 
   describe('when the middle box is separated from its neighbours by margins', () => {
@@ -73,13 +67,11 @@ describe('RoundedDynamicLayoutMatrixDirective', () => {
     it('should round the bottom of the first box because the next sibling has a top margin', () => {
       expect(classesOf('.first')).toContain('layout-rounded-top');
       expect(classesOf('.first')).toContain('layout-rounded-bottom');
-      expect(classesOf('.first')).not.toContain('layout-connected-bottom');
     });
 
     it('should round both top and bottom of the separated middle box', () => {
       expect(classesOf('.middle')).toContain('layout-rounded-top');
       expect(classesOf('.middle')).toContain('layout-rounded-bottom');
-      expect(classesOf('.middle')).not.toContain('layout-connected-bottom');
     });
 
     it('should round the top of the last box because the previous sibling has a bottom margin', () => {
@@ -124,6 +116,5 @@ describe('RoundedDynamicLayoutMatrixDirective (server-side rendering)', () => {
     const first = fixture.debugElement.query(By.css('.first')).nativeElement as HTMLElement;
     expect(first.classList).not.toContain('layout-rounded-top');
     expect(first.classList).not.toContain('layout-rounded-bottom');
-    expect(first.classList).not.toContain('layout-connected-bottom');
   });
 });
