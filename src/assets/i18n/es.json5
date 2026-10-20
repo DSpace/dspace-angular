@@ -7937,4 +7937,26 @@
   "evidencia.favorites.retry": "Reintentar",
 
   "admin.access-control.epeople.form.institution": "Institución",
+
+  "confirmation-modal.pending-changes.header": "Cambios sin guardar",
+
+  "confirmation-modal.pending-changes.info": "Hay cambios sin guardar. ¿Desea salir de la página?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancelar",
+
+  "confirmation-modal.pending-changes.confirm": "Salir",
+
+  "error.validation.license.required": "Debe aceptar esta licencia para completar su envío. Si no puede aceptar esta licencia en este momento, puede guardar su trabajo y volver más tarde o eliminar el envío.",
+
+  "mydspace.show.otherWorkspace": "Envíos compartidos",
+
+  "submission.general.info.invalid": "El envío no es válido, revise los campos que faltan.",
+
+  "workflow-item.view.title": "Vista del ítem en flujo de trabajo",
+
+  "submission.sections.submit.progressbar.tipo-documento": "Tipo de documento",
+
+  "error.validation.upload.extension": "Hay un archivo con una extensión no aceptada para este tipo de documento. Elimínelo y suba un formato permitido.",
+
+  "error.validation.upload.emptyfile": "Hay un archivo vacío (0 bytes) adjunto. Elimínelo y vuelva a subirlo.",
 }

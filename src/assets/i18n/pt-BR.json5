@@ -8098,11 +8098,33 @@
 
   "search.filters.filter.dateIssued.placeholder": "Ano de publicação",
 
-  "item.page.statistics.description" : "Estatísticas do item",
+  "item.page.statistics.description": "Estatísticas do item",
 
-  "item.page.link.statistics" : "Estatísticas",
+  "item.page.link.statistics": "Estatísticas",
 
   "mydspace.item.returned.reason.label": "Devolvido para ajuste",
 
   "admin.access-control.epeople.form.institution": "Instituição",
+
+  "confirmation-modal.pending-changes.header": "Alterações não salvas",
+
+  "confirmation-modal.pending-changes.info": "Há alterações não salvas. Deseja sair da página?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancelar",
+
+  "confirmation-modal.pending-changes.confirm": "Sair",
+
+  "error.validation.license.required": "Você deve concordar com esta licença para completar sua submissão. Se você não estiver de acordo com esta licença neste momento você pode salvar seu trabalho para continuar depois ou remover a submissão.",
+
+  "mydspace.show.otherWorkspace": "Submissões compartilhadas",
+
+  "submission.general.info.invalid": "A submissão é inválida, verifique os campos que faltam.",
+
+  "workflow-item.view.title": "Visualização do item em curadoria",
+
+  "submission.sections.submit.progressbar.tipo-documento": "Tipo de documento",
+
+  "error.validation.upload.extension": "Há arquivo com extensão não aceita para este tipo de documento. Remova o arquivo e envie um formato permitido.",
+
+  "error.validation.upload.emptyfile": "Há arquivo vazio (0 byte) anexado. Remova o arquivo e envie novamente.",
 }
