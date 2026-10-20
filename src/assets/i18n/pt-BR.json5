@@ -8051,4 +8051,10 @@
   "search.filters.filter.dateIssued.label": "Buscar por ano de publicação",
 
   "search.filters.filter.dateIssued.placeholder": "Ano de publicação",
+
+  "item.page.statistics.description" : "Estatísticas do item",
+
+  "item.page.link.statistics" : "Estatísticas",
+
+  "mydspace.item.returned.reason.label": "Devolvido para ajuste",
 }
