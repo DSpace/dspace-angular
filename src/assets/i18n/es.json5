@@ -3670,9 +3670,9 @@
 
   "mydspace.status.mydspaceWaitingController": "Esperando curaduría",
 
-  "mydspace.status.mydspaceWorkflow": "Flujo de trabajo",
+  "mydspace.status.mydspaceWorkflow": "En curaduría",
 
-  "mydspace.status.mydspaceWorkspace": "Espacio de trabajo",
+  "mydspace.status.mydspaceWorkspace": "Borrador",
 
   "mydspace.title": "Mi DSpace",
 
@@ -4602,7 +4602,7 @@
 
   "search.filters.applied.f.subject": "Tema",
 
-  "search.filters.applied.f.submitter": "Remitente",
+  "search.filters.applied.f.submitter": "Depositante",
 
   "search.filters.applied.f.jobTitle": "Puesto de trabajo",
 
@@ -4790,11 +4790,11 @@
 
   "search.filters.filter.subject.label": "Buscar por tema",
 
-  "search.filters.filter.submitter.head": "Remitente",
+  "search.filters.filter.submitter.head": "Depositante",
 
-  "search.filters.filter.submitter.placeholder": "Remitente",
+  "search.filters.filter.submitter.placeholder": "Depositante",
 
-  "search.filters.filter.submitter.label": "Búsqueda de remitente",
+  "search.filters.filter.submitter.label": "Buscar depositante",
 
   "search.filters.filter.show-tree": "Examinar árbol {{ name }}",
 
@@ -5768,7 +5768,7 @@
 
   "submission.workflow.generic.view": "Ver",
 
-  "submission.workflow.generic.view-help": "Seleccione esta opción para ver los metadatos del ítem.",
+  "submission.workflow.generic.view-help": "Muestra los metadatos, archivos e información de la presentación en modo de solo lectura.",
 
   "submission.workflow.generic.submit_select_reviewer": "Seleccionar revisor",
 
@@ -5780,11 +5780,11 @@
 
   "submission.workflow.tasks.claimed.approve": "Aprobar",
 
-  "submission.workflow.tasks.claimed.approve_help": "Si ha revisado el ítem y es adecuado para su inclusión en la colección, seleccione \"Aprobar\".",
+  "submission.workflow.tasks.claimed.approve_help": "Aprueba la presentación y la envía para su publicación en el Repositorio.",
 
   "submission.workflow.tasks.claimed.edit": "Editar",
 
-  "submission.workflow.tasks.claimed.edit_help": "Seleccione esta opción para cambiar los metadatos del ítem.",
+  "submission.workflow.tasks.claimed.edit_help": "Edita los metadatos o la información de la presentación antes de decidir.",
 
   "submission.workflow.tasks.claimed.decline": "Rechazar",
 
@@ -5800,23 +5800,23 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Rechazar",
 
-  "submission.workflow.tasks.claimed.reject_help": "Si ha revisado el ítem y ha encontrado que <strong> no </strong> es adecuado para su inclusión en la colección, seleccione \"Rechazar\". Luego, se le pedirá que introduzca un mensaje que indique por qué el ítem no es adecuado y si el remitente debe cambiar algo y volver a enviarlo.",
+  "submission.workflow.tasks.claimed.reject_help": "Rechaza la presentación y la devuelve al depositante con justificación obligatoria.",
 
   "submission.workflow.tasks.claimed.return": "Devolver al pool",
 
-  "submission.workflow.tasks.claimed.return_help": "Devuelva la tarea al pool para que otro usuario pueda realizarla.",
+  "submission.workflow.tasks.claimed.return_help": "Devuelve la presentación a la lista de tareas y la libera para su análisis por otro curador.",
 
   "submission.workflow.tasks.generic.error": "Ocurrió un error durante la operación...",
 
   "submission.workflow.tasks.generic.processing": "Procesando...",
 
-  "submission.workflow.tasks.generic.submitter": "Remitente",
+  "submission.workflow.tasks.generic.submitter": "Depositante",
 
   "submission.workflow.tasks.generic.success": "Operación exitosa",
 
   "submission.workflow.tasks.pool.claim": "Asumir tarea",
 
-  "submission.workflow.tasks.pool.claim_help": "Asigne esta tarea a usted mismo.",
+  "submission.workflow.tasks.pool.claim_help": "Reserva esta presentación para su análisis y la deja no disponible para otros curadores.",
 
   "submission.workflow.tasks.pool.hide-detail": "Ocultar detalle",
 
@@ -7362,7 +7362,7 @@
 
   "evidencia.menu.faq": "Preguntas Frecuentes",
 
-  "evidencia.menu.about": "El EvidencIA",
+  "evidencia.menu.about": "El Evidencia",
 
   "evidencia.menu.about.presentation": "Presentación",
 
@@ -7372,16 +7372,15 @@
 
   "evidencia.menu.estatisticas": "Panel de Estadísticas",
 
-  "evidencia.header.logo-alt": "Logo del EvidencIA - Repositorio Digital de Evaluación de Políticas Públicas",
+  "evidencia.header.logo-alt": "Logo del Evidencia - Repositorio Digital de Evaluación de Políticas Públicas",
+
   "evidencia.filters.select-all": "Seleccionar todos",
-  "evidencia.home.logo-alt": "Logo del EvidencIA - Repositorio Digital de Evaluación de Políticas Públicas",
+
+  "evidencia.home.logo-alt": "Logo del Evidencia - Repositorio Digital de Evaluación de Políticas Públicas",
 
   "evidencia.header.mpo-link-aria-label": "Enlace externo al Ministerio de Planificación y Presupuesto",
 
   "evidencia.header.mpo-logo-alt": "Logo del Ministerio de Planificación y Presupuesto",
-
-
-
 
   "evidencia.home.hero.description": "Acceda al acervo de Evidencia y utilice recursos de inteligencia artificial para localizar, explorar y sintetizar evidencias sobre políticas públicas de manera rápida y eficiente.",
 
@@ -7412,6 +7411,7 @@
   "evidencia.full-item.table.language": "Idioma",
 
   "evidencia.full-item.return": "Volver a la vista estándar",
+
   "evidencia.search-result.ods": "ODS",
 
   "evidencia.footer.mpo-logo-alt": "Logo del Ministerio de Planificación y Presupuesto",
@@ -7446,9 +7446,9 @@
 
   "evidencia.faq.cta.btn": "Enviar Correo",
 
-  "evidencia.faq.0.q": "¿Qué es el EvidencIA?",
+  "evidencia.faq.0.q": "¿Qué es el Evidencia?",
 
-  "evidencia.faq.0.a": "El EvidencIA es un repositorio digital destinado a centralizar, preservar y organizar las evaluaciones de políticas públicas y la producción técnica de la institución. Su finalidad es promover la transparencia activa, garantizar el acceso público a evidencias y apoyar la cooperación entre organismos gubernamentales para una toma de decisiones más cualificada. El EvidencIA sirve tanto a servidores e investigadores como al público en general, promoviendo la transparencia sobre la eficacia de las políticas públicas nacionales.",
+  "evidencia.faq.0.a": "El Evidencia es un repositorio digital destinado a centralizar, preservar y organizar las evaluaciones de políticas públicas y la producción técnica de la institución. Su finalidad es promover la transparencia activa, garantizar el acceso público a evidencias y apoyar la cooperación entre organismos gubernamentales para una toma de decisiones más cualificada. El Evidencia sirve tanto a servidores e investigadores como al público en general, promoviendo la transparencia sobre la eficacia de las políticas públicas nacionales.",
 
   "evidencia.faq.1.q": "¿Quién ejerce la gestión del repositorio?",
 
@@ -7466,13 +7466,13 @@
 
   "evidencia.faq.4.a": "El sistema ofrece una barra de búsqueda directa con filtros específicos por Política Pública, Institución responsable, Área de actuación o Tipo de documento. Adicionalmente, es posible realizar búsquedas booleanas para refinar los resultados:<br><br>- <strong>AND (Y):</strong> Para encontrar términos que deben aparecer juntos (ej: salud AND educación).<br>- <strong>OR (O):</strong> Para ampliar la búsqueda con sinónimos (ej: evaluación OR monitoreo).<br>- <strong>NOT (NO):</strong> Para excluir términos no deseados (ej: transporte NOT carretero).<br><br>Ejemplo práctico: Una búsqueda por \"seguridad pública\" AND evaluación NOT cámaras traerá documentos sobre evaluación de seguridad pública, pero filtrará los centrados específicamente en cámaras de vigilancia.",
 
-  "evidencia.faq.5.q": "¿Qué beneficios se esperan al utilizar el EvidencIA con IA?",
+  "evidencia.faq.5.q": "¿Qué beneficios se esperan al utilizar el Evidencia con IA?",
 
-  "evidencia.faq.5.a": "Se espera un beneficio significativo en escala y eficiencia. Mientras que una extracción manual puede llevar varias horas de trabajo, el EvidencIA realiza la misma tarea en pocos segundos, optimizando el tiempo del equipo técnico y de los ciudadanos, además de abarcar un volumen de documentos mucho mayor del que sería viable procesar manualmente.",
+  "evidencia.faq.5.a": "Se espera un beneficio significativo en escala y eficiencia. Mientras que una extracción manual puede llevar varias horas de trabajo, el Evidencia realiza la misma tarea en pocos segundos, optimizando el tiempo del equipo técnico y de los ciudadanos, además de abarcar un volumen de documentos mucho mayor del que sería viable procesar manualmente.",
 
   "evidencia.about.hero.label": "INSTITUCIONAL",
 
-  "evidencia.about.hero.title": "El EvidencIA",
+  "evidencia.about.hero.title": "El Evidencia",
 
   "evidencia.about.hero.subtitle": "Conozca la iniciativa, nuestros propósitos y quiénes la hacen posible.",
 
@@ -7480,9 +7480,9 @@
 
   "evidencia.about.apresentacao.title": "Presentación",
 
-  "evidencia.about.apresentacao.p1": "El Repositorio Digital de Evaluación de Políticas Públicas (EvidencIA) es una iniciativa institucional del Ministerio de Planificación y Presupuesto (MPO), establecida en el ámbito de la Administración Pública Federal con la finalidad de centralizar, preservar, organizar y difundir evaluaciones de políticas públicas, en consonancia con los principios de transparencia, gobierno digital y uso de evidencias en la gestión pública.",
+  "evidencia.about.apresentacao.p1": "El Repositorio Digital de Evaluación de Políticas Públicas (Evidencia) es una iniciativa institucional del Ministerio de Planificación y Presupuesto (MPO), establecida en el ámbito de la Administración Pública Federal con la finalidad de centralizar, preservar, organizar y difundir evaluaciones de políticas públicas, en consonancia con los principios de transparencia, gobierno digital y uso de evidencias en la gestión pública.",
 
-  "evidencia.about.apresentacao.p2": "El EvidencIA tiene como objetivo enfrentar la dispersión y la heterogeneidad de las evaluaciones producidas en el sector público, ampliando el acceso público a las evaluaciones de políticas públicas, fortaleciendo su utilización por gestores, investigadores y la sociedad, y promoviendo mayor integración entre los órganos e instituciones productoras de evaluaciones.",
+  "evidencia.about.apresentacao.p2": "El Evidencia tiene como objetivo enfrentar la dispersión y la heterogeneidad de las evaluaciones producidas en el sector público, ampliando el acceso público a las evaluaciones de políticas públicas, fortaleciendo su utilización por gestores, investigadores y la sociedad, y promoviendo mayor integración entre los órganos e instituciones productoras de evaluaciones.",
 
   "evidencia.about.apresentacao.quote": "La iniciativa se apoya en una solución tecnológica basada en software libre e incorpora herramientas de inteligencia artificial, adoptando estándares de interoperabilidad, preservación digital y gobernanza de la información, en conformidad con la legislación vigente, especialmente en lo que se refiere a la protección de datos personales, los derechos de autor y las normas de acceso a la información.",
 
@@ -7662,7 +7662,7 @@
 
   "evidencia.about.tab.quemsomos": "QUIÉNES SOMOS",
 
-  "evidencia.about.apresentacao.finalidades.label": "FINALIDADES DEL EvidencIA",
+  "evidencia.about.apresentacao.finalidades.label": "FINALIDADES DEL Evidencia",
 
   "evidencia.about.apresentacao.finalidades.0": "Centralizar, preservar, organizar y difundir evaluaciones de políticas públicas, sus productos y metadatos;",
 
@@ -7674,13 +7674,13 @@
 
   "evidencia.about.apresentacao.finalidades.4": "Apoyar la cooperación y la integración entre órganos e instituciones productoras de evaluaciones.",
 
-  "evidencia.about.apresentacao.guia.label": "Conozca más: Acceda a la Guía de Uso del EvidencIA",
+  "evidencia.about.apresentacao.guia.label": "Conozca más: Acceda a la Guía de Uso del Evidencia",
 
   "evidencia.about.acervo.title": "Acervo y Alianzas",
 
-  "evidencia.about.acervo.p1": "El acervo del EvidencIA está compuesto por informes de evaluación, informes de recomendaciones, resúmenes ejecutivos, resúmenes de 2 páginas/<em>one-page reports</em> y notas técnicas/<em>policy briefs</em> derivados de procesos evaluativos de políticas públicas, programas, proyectos e intervenciones gubernamentales en el ámbito de la Administración Pública Federal. Nuevas colecciones podrán ser añadidas en el futuro.",
+  "evidencia.about.acervo.p1": "El acervo del Evidencia está compuesto por informes de evaluación, informes de recomendaciones, resúmenes ejecutivos, resúmenes de 2 páginas/<em>one-page reports</em> y notas técnicas/<em>policy briefs</em> derivados de procesos evaluativos de políticas públicas, programas, proyectos e intervenciones gubernamentales en el ámbito de la Administración Pública Federal. Nuevas colecciones podrán ser añadidas en el futuro.",
 
-  "evidencia.about.acervo.comunidades.label": "El EvidencIA está organizado actualmente en las siguientes comunidades:",
+  "evidencia.about.acervo.comunidades.label": "El Evidencia está organizado actualmente en las siguientes comunidades:",
 
   "evidencia.about.acervo.comunidades.0": "Consejo de Monitoreo y Evaluación de Políticas Públicas",
 
@@ -7692,7 +7692,7 @@
 
   "evidencia.about.acervo.parcerias.title": "Alianzas Institucionales",
 
-  "evidencia.about.acervo.parcerias.p1": "El EvidencIA es un repositorio institucional del Ministerio de Planificación y Presupuesto (MPO) concebido como una plataforma colaborativa, abierta a la cooperación con:",
+  "evidencia.about.acervo.parcerias.p1": "El Evidencia es un repositorio institucional del Ministerio de Planificación y Presupuesto (MPO) concebido como una plataforma colaborativa, abierta a la cooperación con:",
 
   "evidencia.about.acervo.parcerias.natureza.label": "NATURALEZA DE LOS SOCIOS",
 
@@ -7706,7 +7706,7 @@
 
   "evidencia.about.acervo.dev.label": "DESARROLLO DEL REPOSITORIO",
 
-  "evidencia.about.acervo.dev.p1": "El EvidencIA contó con la asociación institucional del MPO con el Instituto Brasileño de Información en Ciencia y Tecnología (IBICT), para el desarrollo tecnológico, implantación y operación del Repositorio, con un equipo multidisciplinario compuesto por especialistas en ciencia de la información, gestión de datos, desarrollo de sistemas, accesibilidad, experiencia del usuario, curación digital e inteligencia artificial.",
+  "evidencia.about.acervo.dev.p1": "El Evidencia contó con la asociación institucional del MPO con el Instituto Brasileño de Información en Ciencia y Tecnología (IBICT), para el desarrollo tecnológico, implantación y operación del Repositorio, con un equipo multidisciplinario compuesto por especialistas en ciencia de la información, gestión de datos, desarrollo de sistemas, accesibilidad, experiencia del usuario, curación digital e inteligencia artificial.",
 
   "evidencia.about.quemsomos.title": "Quiénes Somos",
 
@@ -7722,7 +7722,7 @@
 
   "evidencia.about.quemsomos.pilares.3": "Fomento al intercambio de datos por órganos de la administración pública federal directa e indirecta, necesarios para la gestión y evaluación de políticas públicas",
 
-  "evidencia.about.quemsomos.gestao.label": "GESTIÓN DEL EvidencIA",
+  "evidencia.about.quemsomos.gestao.label": "GESTIÓN DEL Evidencia",
 
   "evidencia.about.quemsomos.gestao.p1": "La gestión del Repositorio es responsabilidad de la Secretaría de Monitoreo y Evaluación de Políticas Públicas y Asuntos Económicos (SMA/MPO), a quien corresponde, en los términos de la <a href=\"#\">Ordenanza instituidora</a>:",
 
@@ -7738,11 +7738,11 @@
 
   "evidencia.about.acervo.p2": "Todo el acervo está organizado según estándares de curación y documentación, asegurando calidad, trazabilidad, preservación digital y posibilidad de reutilización de las evidencias por gestores públicos, investigadores, órganos de control y la sociedad civil.",
 
-  "evidencia.about.acervo.acesso": "El EvidencIA adopta el principio de acceso abierto, respetados los límites legales relativos a la protección de datos personales, los derechos de autor y la información protegida por confidencialidad, en los términos de la legislación vigente.",
+  "evidencia.about.acervo.acesso": "El Evidencia adopta el principio de acceso abierto, respetados los límites legales relativos a la protección de datos personales, los derechos de autor y la información protegida por confidencialidad, en los términos de la legislación vigente.",
 
   "evidencia.about.acervo.parcerias.p2": "Estas alianzas pueden abarcar, entre otros aspectos, el desarrollo tecnológico, la definición y adopción de estándares de metadatos, la capacitación de equipos, la curación compartida de contenidos, la interoperabilidad entre sistemas de información y el fortalecimiento de las estrategias de preservación digital y seguridad de la información.",
 
-  "evidencia.about.acervo.parcerias.p3": "Por medio de la articulación institucional y la cooperación interorganizacional, el EvidencIA busca ampliar la cobertura y la diversidad de su acervo y promover mayor integración entre los productores y usuarios de evaluaciones de políticas públicas en Brasil.",
+  "evidencia.about.acervo.parcerias.p3": "Por medio de la articulación institucional y la cooperación interorganizacional, el Evidencia busca ampliar la cobertura y la diversidad de su acervo y promover mayor integración entre los productores y usuarios de evaluaciones de políticas públicas en Brasil.",
 
   "evidencia.faq.6.q": "¿Qué precauciones se deben tomar al utilizar el repositorio y sus herramientas de IA?",
 
@@ -7750,7 +7750,7 @@
 
   "evidencia.faq.7.q": "¿Puedo subir documentos al sistema?",
 
-  "evidencia.faq.7.a": "El depósito de archivos en el EvidencIA es realizado por organismos o instituciones asociadas. La asociación se formaliza mediante un acuerdo de adhesión celebrado con el Ministerio de Planificación y Presupuesto, garantizando la integridad y el origen de las evidencias depositadas.",
+  "evidencia.faq.7.a": "El depósito de archivos en el Evidencia es realizado por organismos o instituciones asociadas. La asociación se formaliza mediante un acuerdo de adhesión celebrado con el Ministerio de Planificación y Presupuesto, garantizando la integridad y el origen de las evidencias depositadas.",
 
   "evidencia.item-download": "Descargar Documento (PDF)",
 
@@ -7935,4 +7935,6 @@
   "evidencia.favorites.load-error": "No se pudieron cargar sus favoritos.",
 
   "evidencia.favorites.retry": "Reintentar",
+
+  "admin.access-control.epeople.form.institution": "Institución",
 }

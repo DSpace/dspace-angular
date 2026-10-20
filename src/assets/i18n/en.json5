@@ -3670,9 +3670,9 @@
 
   "mydspace.status.mydspaceWaitingController": "Awaiting Curation",
 
-  "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "In curation",
 
-  "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Draft",
 
   "mydspace.title": "MyDSpace",
 
@@ -4602,7 +4602,7 @@
 
   "search.filters.applied.f.subject": "Subject",
 
-  "search.filters.applied.f.submitter": "Submitter",
+  "search.filters.applied.f.submitter": "Depositor",
 
   "search.filters.applied.f.jobTitle": "Job Title",
 
@@ -4790,11 +4790,11 @@
 
   "search.filters.filter.subject.label": "Search by subject",
 
-  "search.filters.filter.submitter.head": "Submitter",
+  "search.filters.filter.submitter.head": "Depositor",
 
-  "search.filters.filter.submitter.placeholder": "Submitter",
+  "search.filters.filter.submitter.placeholder": "Depositor",
 
-  "search.filters.filter.submitter.label": "Search submitter",
+  "search.filters.filter.submitter.label": "Search depositor",
 
   "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
@@ -5768,7 +5768,7 @@
 
   "submission.workflow.generic.view": "View",
 
-  "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workflow.generic.view-help": "Shows the metadata, files and information of the submission in read-only mode.",
 
   "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
 
@@ -5780,11 +5780,11 @@
 
   "submission.workflow.tasks.claimed.approve": "Approve",
 
-  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  "submission.workflow.tasks.claimed.approve_help": "Approves the submission and sends it for publication in the Repository.",
 
   "submission.workflow.tasks.claimed.edit": "Edit",
 
-  "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  "submission.workflow.tasks.claimed.edit_help": "Edits the metadata or information of the submission before deciding.",
 
   "submission.workflow.tasks.claimed.decline": "Decline",
 
@@ -5800,23 +5800,23 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Reject",
 
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "Refuses the submission and returns it to the depositor with a mandatory justification.",
 
   "submission.workflow.tasks.claimed.return": "Return to pool",
 
-  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  "submission.workflow.tasks.claimed.return_help": "Returns the submission to the task list and releases it for review by another curator.",
 
   "submission.workflow.tasks.generic.error": "Error occurred during operation...",
 
   "submission.workflow.tasks.generic.processing": "Processing...",
 
-  "submission.workflow.tasks.generic.submitter": "Submitter",
+  "submission.workflow.tasks.generic.submitter": "Depositor",
 
   "submission.workflow.tasks.generic.success": "Operation successful",
 
   "submission.workflow.tasks.pool.claim": "Claim",
 
-  "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  "submission.workflow.tasks.pool.claim_help": "Reserves this submission for your review and makes it unavailable to other curators.",
 
   "submission.workflow.tasks.pool.hide-detail": "Hide detail",
 
@@ -7362,7 +7362,7 @@
 
   "evidencia.menu.faq": "FAQ",
 
-  "evidencia.menu.about": "About EvidencIA",
+  "evidencia.menu.about": "About Evidencia",
 
   "evidencia.menu.about.presentation": "Presentation",
 
@@ -7392,16 +7392,15 @@
 
   "evidencia.item.meta.institution": "Institution",
 
-  "evidencia.header.logo-alt": "EvidencIA Logo - Digital Repository for Public Policy Evaluation",
+  "evidencia.header.logo-alt": "Evidencia Logo - Digital Repository for Public Policy Evaluation",
+
   "evidencia.filters.select-all": "Select all",
-  "evidencia.home.logo-alt": "EvidencIA Logo - Digital Repository for Public Policy Evaluation",
+
+  "evidencia.home.logo-alt": "Evidencia Logo - Digital Repository for Public Policy Evaluation",
 
   "evidencia.header.mpo-link-aria-label": "External link to Ministry of Planning and Budget",
 
   "evidencia.header.mpo-logo-alt": "Logo of the Ministry of Planning and Budget",
-
-
-
 
   "evidencia.home.hero.description": "Access the Evidencia collection and use artificial intelligence tools to quickly and efficiently locate, explore, and synthesize evidence on public policies.",
 
@@ -7428,6 +7427,7 @@
   "evidencia.full-item.table.value": "Metadata value",
 
   "evidencia.full-item.return": "Return to standard view",
+
   "evidencia.search-result.ods": "SDG",
 
   "evidencia.footer.mpo-logo-alt": "Logo of the Ministry of Planning and Budget",
@@ -7444,9 +7444,9 @@
 
   "evidencia.faq.cta.btn": "Send Email",
 
-  "evidencia.faq.0.q": "What is EvidencIA?",
+  "evidencia.faq.0.q": "What is Evidencia?",
 
-  "evidencia.faq.0.a": "EvidencIA is a digital repository designed to centralise, preserve and organise public policy evaluations and the institution's technical output. Its purpose is to promote active transparency, ensure public access to evidence and support cooperation between government bodies for more informed decision-making. EvidencIA serves both public servants and researchers as well as the general public, promoting transparency about the effectiveness of national public policies.",
+  "evidencia.faq.0.a": "Evidencia is a digital repository designed to centralise, preserve and organise public policy evaluations and the institution's technical output. Its purpose is to promote active transparency, ensure public access to evidence and support cooperation between government bodies for more informed decision-making. Evidencia serves both public servants and researchers as well as the general public, promoting transparency about the effectiveness of national public policies.",
 
   "evidencia.faq.1.q": "Who manages the repository?",
 
@@ -7464,9 +7464,9 @@
 
   "evidencia.faq.4.a": "The system offers a direct search bar with specific filters by Public Policy, Responsible Institution, Area of activity or Document type. Additionally, boolean searches can be used to refine results:<br><br>- <strong>AND:</strong> To find terms that must appear together (e.g. health AND education).<br>- <strong>OR:</strong> To broaden the search with synonyms (e.g. evaluation OR monitoring).<br>- <strong>NOT:</strong> To exclude unwanted terms (e.g. transport NOT road).<br><br>Practical example: A search for \"public security\" AND evaluation NOT cameras will return documents on public security evaluation, but will filter out those specifically focused on surveillance cameras.",
 
-  "evidencia.faq.5.q": "What gains are expected from using EvidencIA with AI?",
+  "evidencia.faq.5.q": "What gains are expected from using Evidencia with AI?",
 
-  "evidencia.faq.5.a": "A significant gain in scale and efficiency is expected. While a manual extraction may take several hours of work, EvidencIA performs the same task in a few seconds, optimising the time of technical staff and citizens, while covering a much larger volume of documents than would be feasible to process manually.",
+  "evidencia.faq.5.a": "A significant gain in scale and efficiency is expected. While a manual extraction may take several hours of work, Evidencia performs the same task in a few seconds, optimising the time of technical staff and citizens, while covering a much larger volume of documents than would be feasible to process manually.",
 
   "evidencia.home.hero.stats-value": "+1.2k",
 
@@ -7474,7 +7474,7 @@
 
   "evidencia.about.hero.label": "INSTITUTIONAL",
 
-  "evidencia.about.hero.title": "About EvidencIA",
+  "evidencia.about.hero.title": "About Evidencia",
 
   "evidencia.about.hero.subtitle": "Learn about the initiative, our goals and the people behind it.",
 
@@ -7482,9 +7482,9 @@
 
   "evidencia.about.apresentacao.title": "Presentation",
 
-  "evidencia.about.apresentacao.p1": "The Digital Repository for Public Policy Evaluation (EvidencIA) is an institutional initiative of the Ministry of Planning and Budget (MPO), established within the Federal Public Administration with the purpose of centralising, preserving, organising and disseminating public policy evaluations, in line with the principles of transparency, digital government and the use of evidence in public management.",
+  "evidencia.about.apresentacao.p1": "The Digital Repository for Public Policy Evaluation (Evidencia) is an institutional initiative of the Ministry of Planning and Budget (MPO), established within the Federal Public Administration with the purpose of centralising, preserving, organising and disseminating public policy evaluations, in line with the principles of transparency, digital government and the use of evidence in public management.",
 
-  "evidencia.about.apresentacao.p2": "EvidencIA aims to address the dispersion and heterogeneity of evaluations produced in the public sector, broadening public access to public policy evaluations, strengthening their use by managers, researchers and society, and promoting greater integration among bodies and institutions that produce evaluations.",
+  "evidencia.about.apresentacao.p2": "Evidencia aims to address the dispersion and heterogeneity of evaluations produced in the public sector, broadening public access to public policy evaluations, strengthening their use by managers, researchers and society, and promoting greater integration among bodies and institutions that produce evaluations.",
 
   "evidencia.about.apresentacao.quote": "The initiative relies on a technology solution based on free software and incorporates artificial intelligence tools, adopting interoperability standards, digital preservation and information governance, in compliance with current legislation, especially regarding the protection of personal data, copyright and rules on access to information.",
 
@@ -7656,7 +7656,7 @@
 
   "evidencia.about.tab.quemsomos": "WHO WE ARE",
 
-  "evidencia.about.apresentacao.finalidades.label": "PURPOSES OF EvidencIA",
+  "evidencia.about.apresentacao.finalidades.label": "PURPOSES OF Evidencia",
 
   "evidencia.about.apresentacao.finalidades.0": "Centralise, preserve, organise and disseminate public policy evaluations, their products and metadata;",
 
@@ -7668,13 +7668,13 @@
 
   "evidencia.about.apresentacao.finalidades.4": "Support cooperation and integration among bodies and institutions that produce evaluations.",
 
-  "evidencia.about.apresentacao.guia.label": "Learn more: Access the EvidencIA User Guide",
+  "evidencia.about.apresentacao.guia.label": "Learn more: Access the Evidencia User Guide",
 
   "evidencia.about.acervo.title": "Collection & Partnerships",
 
-  "evidencia.about.acervo.p1": "The EvidencIA collection is composed of evaluation reports, recommendation reports, executive summaries, 2-page summaries/<em>one-page reports</em> and technical notes/<em>policy briefs</em> derived from evaluative processes of public policies, programmes, projects and government interventions within the Federal Public Administration. New collections may be added in the future.",
+  "evidencia.about.acervo.p1": "The Evidencia collection is composed of evaluation reports, recommendation reports, executive summaries, 2-page summaries/<em>one-page reports</em> and technical notes/<em>policy briefs</em> derived from evaluative processes of public policies, programmes, projects and government interventions within the Federal Public Administration. New collections may be added in the future.",
 
-  "evidencia.about.acervo.comunidades.label": "EvidencIA is currently organised in the following communities:",
+  "evidencia.about.acervo.comunidades.label": "Evidencia is currently organised in the following communities:",
 
   "evidencia.about.acervo.comunidades.0": "Council for Monitoring and Evaluation of Public Policies",
 
@@ -7686,7 +7686,7 @@
 
   "evidencia.about.acervo.parcerias.title": "Institutional Partnerships",
 
-  "evidencia.about.acervo.parcerias.p1": "EvidencIA is an institutional repository of the Ministry of Planning and Budget (MPO) conceived as a collaborative platform, open to cooperation with:",
+  "evidencia.about.acervo.parcerias.p1": "Evidencia is an institutional repository of the Ministry of Planning and Budget (MPO) conceived as a collaborative platform, open to cooperation with:",
 
   "evidencia.about.acervo.parcerias.natureza.label": "NATURE OF PARTNERS",
 
@@ -7700,7 +7700,7 @@
 
   "evidencia.about.acervo.dev.label": "REPOSITORY DEVELOPMENT",
 
-  "evidencia.about.acervo.dev.p1": "EvidencIA was developed through an institutional partnership between MPO and the Brazilian Institute of Information in Science and Technology (IBICT), for the technological development, deployment and operation of the Repository, with a multidisciplinary team of specialists in information science, data management, systems development, accessibility, user experience, digital curation and artificial intelligence.",
+  "evidencia.about.acervo.dev.p1": "Evidencia was developed through an institutional partnership between MPO and the Brazilian Institute of Information in Science and Technology (IBICT), for the technological development, deployment and operation of the Repository, with a multidisciplinary team of specialists in information science, data management, systems development, accessibility, user experience, digital curation and artificial intelligence.",
 
   "evidencia.about.quemsomos.title": "Who We Are",
 
@@ -7716,7 +7716,7 @@
 
   "evidencia.about.quemsomos.pilares.3": "Promotion of data sharing by direct and indirect federal public administration bodies, necessary for public policy management and evaluation",
 
-  "evidencia.about.quemsomos.gestao.label": "EvidencIA MANAGEMENT",
+  "evidencia.about.quemsomos.gestao.label": "Evidencia MANAGEMENT",
 
   "evidencia.about.quemsomos.gestao.p1": "Repository management is the responsibility of the Secretariat for Monitoring and Evaluation of Public Policies and Economic Affairs (SMA/MPO), which is responsible, pursuant to the <a href=\"#\">founding Ordinance</a>, for:",
 
@@ -7732,11 +7732,11 @@
 
   "evidencia.about.acervo.p2": "The entire collection is organised according to curation and documentation standards, ensuring quality, traceability, digital preservation and the possibility of reusing evidence by public managers, researchers, oversight bodies and civil society.",
 
-  "evidencia.about.acervo.acesso": "EvidencIA adopts the principle of open access, subject to legal limits regarding the protection of personal data, copyright and information protected by confidentiality, under current legislation.",
+  "evidencia.about.acervo.acesso": "Evidencia adopts the principle of open access, subject to legal limits regarding the protection of personal data, copyright and information protected by confidentiality, under current legislation.",
 
   "evidencia.about.acervo.parcerias.p2": "These partnerships may cover, among other aspects, technological development, the definition and adoption of metadata standards, team training, shared content curation, interoperability between information systems and the strengthening of digital preservation and information security strategies.",
 
-  "evidencia.about.acervo.parcerias.p3": "Through institutional articulation and interorganisational cooperation, EvidencIA seeks to expand the coverage and diversity of its collection and promote greater integration among producers and users of public policy evaluations in Brazil.",
+  "evidencia.about.acervo.parcerias.p3": "Through institutional articulation and interorganisational cooperation, Evidencia seeks to expand the coverage and diversity of its collection and promote greater integration among producers and users of public policy evaluations in Brazil.",
 
   "evidencia.faq.6.q": "What precautions should be taken when using the repository and its AI tools?",
 
@@ -7744,7 +7744,7 @@
 
   "evidencia.faq.7.q": "Can I upload documents to the system?",
 
-  "evidencia.faq.7.a": "The deposit of files in EvidencIA is carried out by partner bodies or institutions. The partnership is formalised through an accession agreement signed with the Ministry of Planning and Budget, guaranteeing the integrity and origin of the deposited evidence.",
+  "evidencia.faq.7.a": "The deposit of files in Evidencia is carried out by partner bodies or institutions. The partnership is formalised through an accession agreement signed with the Ministry of Planning and Budget, guaranteeing the integrity and origin of the deposited evidence.",
 
   "evidencia.item-download": "Download Document (PDF)",
 
@@ -7929,4 +7929,6 @@
   "evidencia.favorites.load-error": "Could not load your favorites.",
 
   "evidencia.favorites.retry": "Try again",
+
+  "admin.access-control.epeople.form.institution": "Institution",
 }

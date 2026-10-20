@@ -324,8 +324,6 @@
 
   "admin.access-control.epeople.form.lastName": "Sobrenome",
 
-  "admin.access-control.epeople.form.institution": "Instituição",
-
   "admin.access-control.epeople.form.email": "E-mail",
 
   "admin.access-control.epeople.form.emailHint": "Deve ter um e-mail válido",
@@ -4614,7 +4612,7 @@
 
   "search.filters.applied.f.subject": "Assunto",
 
-  "search.filters.applied.f.submitter": "Submetedor",
+  "search.filters.applied.f.submitter": "Depositante",
 
   "search.filters.applied.f.jobTitle": "Título do trabalho",
 
@@ -4802,11 +4800,11 @@
 
   "search.filters.filter.subject.label": "Buscar por assunto",
 
-  "search.filters.filter.submitter.head": "Submetedor",
+  "search.filters.filter.submitter.head": "Depositante",
 
-  "search.filters.filter.submitter.placeholder": "Submetedor",
+  "search.filters.filter.submitter.placeholder": "Depositante",
 
-  "search.filters.filter.submitter.label": "Pesquisar submetedor",
+  "search.filters.filter.submitter.label": "Pesquisar depositante",
 
   "search.filters.filter.show-tree": "Navegar na árvore {{ name }}",
 
@@ -5780,7 +5778,7 @@
 
   "submission.workflow.generic.view": "Visualizar",
 
-  "submission.workflow.generic.view-help": "Selecione esta opção para ver o metadados do item.",
+  "submission.workflow.generic.view-help": "Visualiza os metadados, arquivos e informações da submissão em modo de leitura.",
 
   "submission.workflow.generic.submit_select_reviewer": "Selecione Revisor",
 
@@ -5792,11 +5790,11 @@
 
   "submission.workflow.tasks.claimed.approve": "Aprovar",
 
-  "submission.workflow.tasks.claimed.approve_help": "Se você revisou o item e este está adequado para inclusão na coleção, selecione \"Aprovar\".",
+  "submission.workflow.tasks.claimed.approve_help": "Aprova a submissão e a encaminha para publicação no Repositório.",
 
   "submission.workflow.tasks.claimed.edit": "Editar",
 
-  "submission.workflow.tasks.claimed.edit_help": "Selecione esta opção para modificar os metadados do item.",
+  "submission.workflow.tasks.claimed.edit_help": "Edita os metadados ou informações da submissão antes de decidir.",
 
   "submission.workflow.tasks.claimed.decline": "Recusar",
 
@@ -5812,23 +5810,23 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Rejeitar",
 
-  "submission.workflow.tasks.claimed.reject_help": "Se você revisou o item e achou que ele <strong>não</strong> é adequado para inclusão na coleção, selecione \"Rejeitar\".  Você será questionado a informar uma mensagem indicando porque o item está inadequado e se o submetedor deve modificar algo e reenviar.",
+  "submission.workflow.tasks.claimed.reject_help": "Recusa a submissão e a devolve ao depositante com justificativa obrigatória.",
 
   "submission.workflow.tasks.claimed.return": "Retornar para o conjunto",
 
-  "submission.workflow.tasks.claimed.return_help": "Retornar a tarefa para o conjunto para que outra pessoa possa a fazer.",
+  "submission.workflow.tasks.claimed.return_help": "Devolve a submissão para a lista de tarefas e libera para análise por outro curador.",
 
   "submission.workflow.tasks.generic.error": "Ocorreu um erro durante a operação...",
 
   "submission.workflow.tasks.generic.processing": "Processando...",
 
-  "submission.workflow.tasks.generic.submitter": "Submetedor",
+  "submission.workflow.tasks.generic.submitter": "Depositante",
 
   "submission.workflow.tasks.generic.success": "Operação realizada com sucesso",
 
   "submission.workflow.tasks.pool.claim": "Requerer",
 
-  "submission.workflow.tasks.pool.claim_help": "Atribua esta tarefa a si mesmo.",
+  "submission.workflow.tasks.pool.claim_help": "Reserva esta submissão para sua análise e a torna indisponível para outros curadores.",
 
   "submission.workflow.tasks.pool.hide-detail": "Ocultar detalhes",
 
@@ -7409,15 +7407,14 @@
   "evidencia.item-download": "Baixar Documento (PDF)",
 
   "evidencia.header.logo-alt": "Logo do Evidencia - Repositório Digital de Avaliação de Políticas Públicas",
+
   "evidencia.filters.select-all": "Selecionar todos",
+
   "evidencia.home.logo-alt": "Logo do Evidencia - Repositório Digital de Avaliação de Políticas Públicas",
 
   "evidencia.header.mpo-link-aria-label": "Link externo para Ministério do Planejamento e Orçamento",
 
   "evidencia.header.mpo-logo-alt": "Logo do Ministério do Planejamento e Orçamento",
-
-
-
 
   "evidencia.home.hero.description": "Acesse o acervo do Evidencia e utilize recursos de inteligência artificial para localizar, explorar e sintetizar evidências de políticas públicas de forma rápida e eficiente.",
 
@@ -7444,58 +7441,111 @@
   "evidencia.full-item.table.value": "Valor do metadado",
 
   "evidencia.full-item.return": "Retornar à visualização padrão",
+
   "evidencia.full-item.field.dc.contributor": "Colaborador",
+
   "evidencia.full-item.field.dc.contributor.author": "Autor",
+
   "evidencia.full-item.field.dc.contributor.advisor": "Orientador",
+
   "evidencia.full-item.field.dc.contributor.editor": "Editor",
+
   "evidencia.full-item.field.dc.creator": "Criador",
+
   "evidencia.full-item.field.dc.coverage": "Cobertura",
+
   "evidencia.full-item.field.dc.coverage.spatial": "Cobertura espacial",
+
   "evidencia.full-item.field.dc.coverage.temporal": "Cobertura temporal",
+
   "evidencia.full-item.field.dc.date": "Data",
+
   "evidencia.full-item.field.dc.date.accessioned": "Data de registro no repositório",
+
   "evidencia.full-item.field.dc.date.available": "Data de disponibilização",
+
   "evidencia.full-item.field.dc.date.created": "Data de criação",
+
   "evidencia.full-item.field.dc.date.issued": "Data de publicação",
+
   "evidencia.full-item.field.dc.date.submitted": "Data de submissão",
+
   "evidencia.full-item.field.dc.description": "Descrição",
+
   "evidencia.full-item.field.dc.description.abstract": "Resumo",
+
   "evidencia.full-item.field.dc.description.provenance": "Procedência",
+
   "evidencia.full-item.field.dc.description.sponsorship": "Financiador",
+
   "evidencia.full-item.field.dc.description.statementofresponsibility": "Declaração de responsabilidade",
+
   "evidencia.full-item.field.dc.format": "Formato",
+
   "evidencia.full-item.field.dc.format.extent": "Extensão",
+
   "evidencia.full-item.field.dc.format.mimetype": "Tipo de arquivo (MIME)",
+
   "evidencia.full-item.field.dc.identifier": "Identificador",
+
   "evidencia.full-item.field.dc.identifier.citation": "Citação",
+
   "evidencia.full-item.field.dc.identifier.doi": "DOI",
+
   "evidencia.full-item.field.dc.identifier.isbn": "ISBN",
+
   "evidencia.full-item.field.dc.identifier.issn": "ISSN",
+
   "evidencia.full-item.field.dc.identifier.other": "Outro identificador",
+
   "evidencia.full-item.field.dc.identifier.uri": "URI",
+
   "evidencia.full-item.field.dc.language": "Idioma",
+
   "evidencia.full-item.field.dc.language.iso": "Idioma (código ISO)",
+
   "evidencia.full-item.field.dc.publisher": "Editora",
+
   "evidencia.full-item.field.dc.relation": "Relação",
+
   "evidencia.full-item.field.dc.relation.ispartofseries": "Parte da série",
+
   "evidencia.full-item.field.dc.relation.uri": "URI relacionada",
+
   "evidencia.full-item.field.dc.rights": "Direitos",
+
   "evidencia.full-item.field.dc.rights.uri": "URI dos direitos",
+
   "evidencia.full-item.field.dc.source": "Fonte",
+
   "evidencia.full-item.field.dc.subject": "Assunto",
+
   "evidencia.full-item.field.dc.subject.other": "Outro assunto",
+
   "evidencia.full-item.field.dc.title": "Título",
+
   "evidencia.full-item.field.dc.title.alternative": "Título alternativo",
+
   "evidencia.full-item.field.dc.type": "Tipo",
+
   "evidencia.full-item.field.local.abrangencia": "Abrangência",
+
   "evidencia.full-item.field.local.areatematica": "Área temática",
+
   "evidencia.full-item.field.local.cidade": "Cidade",
+
   "evidencia.full-item.field.local.instituicao": "Instituição",
+
   "evidencia.full-item.field.local.ods": "Objetivo de Desenvolvimento Sustentável (ODS)",
+
   "evidencia.full-item.field.local.politicapublica": "Política pública",
+
   "evidencia.full-item.field.local.tipoavaliacao": "Tipo de avaliação",
+
   "evidencia.full-item.field.local.tipodocumento": "Tipo de documento",
+
   "evidencia.full-item.field.local.uf": "UF",
+
   "evidencia.search-result.ods": "ODS",
 
   "evidencia.footer.mpo-logo-alt": "Logo do Ministério do Planejamento e Orçamento",
@@ -7533,7 +7583,7 @@
   "evidencia.faq.4.a": "A Pesquisa com IA combina recursos de busca por palavras-chave e inteligência artificial para compreender o significado da consulta realizada pelo usuário. Além dos termos digitados, a ferramenta pode identificar conceitos relacionados, sinônimos e diferentes formas de expressar uma mesma ideia, ampliando a recuperação de conteúdos relevantes.<br><br>O usuário deve descrever o tema, os conceitos e/ou os termos mais relevantes para sua pesquisa, podendo utilizar perguntas ou frases completas. Exemplo: \"Quais são as evidências sobre o uso de remédios para hipertensão em adultos?\"<br><br>Nesse caso, a busca também poderá considerar termos relacionados, como medicamentos, fármacos, anti-hipertensivos e outras expressões semelhantes, ampliando a recuperação de conteúdos relevantes.",
 
   "evidencia.faq.5.q": "Qual a diferença entre Pesquisa Exata e Pesquisa com IA?",
-  
+
   "evidencia.faq.5.a": "A Pesquisa Exata procura correspondências diretas com as palavras-chave informadas pelo usuário, podendo utilizar operadores booleanos para refinar os resultados.<br><br>Já a Pesquisa com IA busca compreender o contexto e o significado da consulta, considerando também sinônimos, termos relacionados e conceitos semanticamente semelhantes.",
 
   "evidencia.faq.6.q": "Como a Inteligência Artificial é utilizada na busca?",
@@ -7552,9 +7602,9 @@
 
   "evidencia.faq.9.a": "O depósito de arquivos no Evidencia é realizado por órgãos ou instituições parceiras. A parceria é formalizada por meio de termo de adesão celebrado com o Ministério do Planejamento e Orçamento, garantindo a integridade e a origem das evidências depositadas.",
 
-  "evidencia.faq.10.q" : "Minha instituição tem interesse em ser parceira do Evidencia. Como proceder?",
+  "evidencia.faq.10.q": "Minha instituição tem interesse em ser parceira do Evidencia. Como proceder?",
 
-  "evidencia.faq.10.a" : "Os representantes dos órgãos ou entidades da administração pública federal, estadual, distrital ou municipal, direta ou indireta, podem entrar em contato com a equipe do Evidencia pelos canais informados no portal, apresentando o interesse da instituição em estabelecer uma parceria. A equipe analisará a proposta e orientará sobre os próximos passos para construção e formalização da colaboração.",
+  "evidencia.faq.10.a": "Os representantes dos órgãos ou entidades da administração pública federal, estadual, distrital ou municipal, direta ou indireta, podem entrar em contato com a equipe do Evidencia pelos canais informados no portal, apresentando o interesse da instituição em estabelecer uma parceria. A equipe analisará a proposta e orientará sobre os próximos passos para construção e formalização da colaboração.",
 
   "evidencia.home.hero.stats-value": "+1.2k",
 
@@ -7764,13 +7814,9 @@
 
   "evidencia.about.acervo.comunidades.label": "O Evidencia está organizado atualmente nas seguintes comunidades:",
 
-
-
   "evidencia.about.acervo.comunidades.0": "Ministério do Planejamento e Orçamento",
 
   "evidencia.about.acervo.comunidades.1": "Órgãos Públicos Parceiros",
-
-
 
   "evidencia.about.acervo.parcerias.title": "Parcerias Institucionais",
 
@@ -8057,4 +8103,6 @@
   "item.page.link.statistics" : "Estatísticas",
 
   "mydspace.item.returned.reason.label": "Devolvido para ajuste",
+
+  "admin.access-control.epeople.form.institution": "Instituição",
 }
