@@ -264,19 +264,19 @@
 
   "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o papel do EPerson",
 
-  "admin.access-control.epeople.breadcrumbs": "EPeople",
+  "admin.access-control.epeople.breadcrumbs": "EPerson",
 
-  "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "EPerson",
 
-  "admin.access-control.epeople.edit.breadcrumbs": "Nova EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Editar EPerson",
 
-  "admin.access-control.epeople.edit.title": "Nova EPerson",
+  "admin.access-control.epeople.edit.title": "Editar EPerson",
 
   "admin.access-control.epeople.add.breadcrumbs": "Adicionar EPerson",
 
   "admin.access-control.epeople.add.title": "Adicionar EPerson",
 
-  "admin.access-control.epeople.head": "EPeople",
+  "admin.access-control.epeople.head": "EPerson",
 
   "admin.access-control.epeople.search.head": "Pesquisar",
 

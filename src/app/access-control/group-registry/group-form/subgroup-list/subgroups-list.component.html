@@ -16,7 +16,7 @@
               <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
               <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
               <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
-              <th>{{messagePrefix + '.table.edit' | translate}}</th>
+              <th scope="col" class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
             </tr>
           </thead>
           <tbody>
@@ -32,10 +32,12 @@
                 <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload)}}</td>
                 <td class="align-middle">
                   <div class="btn-group edit-field">
-                    <button (click)="deleteSubgroupFromGroup(group)"
+                    <button type="button"
+                      (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
+                      [attr.aria-label]="messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) }"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) } }}">
-                      <i class="fas fa-trash-alt fa-fw"></i>
+                      <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
                     </button>
                   </div>
                 </td>
@@ -54,33 +56,39 @@
     </div>
   }
 
-  <h4 id="search" class="border-bottom pb-2">
+  <h4 id="search-subgroups" class="border-bottom pb-2">
     <span *dsContextHelp="{
             content: 'admin.access-control.groups.form.tooltip.editGroup.addSubgroups',
             id: 'edit-group-add-subgroups',
             iconPlacement: 'right',
             tooltipPlacement: ['top', 'right', 'bottom']
-          }"
-      >
+          }">
       {{messagePrefix + '.search.head' | translate}}
     </span>
-
   </h4>
-  <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
+
+  <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between flex-wrap">
     <div class="flex-grow-1 me-3">
       <div class="mb-3 input-group me-3">
-        <input type="text" name="query" id="query" formControlName="query"
-          class="form-control" aria-label="Search input">
+        <label for="subgroups-search-query" class="sr-only visually-hidden">
+          {{ messagePrefix + '.search.head' | translate }}
+        </label>
+        <input type="text"
+          name="query"
+          id="subgroups-search-query"
+          formControlName="query"
+          class="form-control"
+          [attr.aria-label]="messagePrefix + '.search.head' | translate"
+          [placeholder]="messagePrefix + '.search.head' | translate">
         <span class="input-group-append">
           <button type="submit" class="search-button btn btn-primary">
-            <i class="fas fa-search"></i> {{ messagePrefix + '.search.button' | translate }}
+            <i class="fas fa-search" aria-hidden="true"></i> {{ messagePrefix + '.search.button' | translate }}
           </button>
         </span>
-
       </div>
     </div>
     <div>
-      <button (click)="clearFormAndResetResult();" class="btn btn-secondary float-end">
+      <button type="button" (click)="clearFormAndResetResult();" class="btn btn-secondary float-end">
         {{messagePrefix + '.button.see-all' | translate}}
       </button>
     </div>
@@ -99,7 +107,7 @@
               <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
               <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
               <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
-              <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
+              <th scope="col" class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
             </tr>
           </thead>
           <tbody>
@@ -115,10 +123,12 @@
                 <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload) }}</td>
                 <td class="align-middle">
                   <div class="btn-group edit-field">
-                    <button (click)="addSubgroupToGroup(group)"
+                    <button type="button"
+                      (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
+                      [attr.aria-label]="messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) }"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) } }}">
-                      <i class="fas fa-plus fa-fw"></i>
+                      <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
                     </button>
                   </div>
                 </td>
