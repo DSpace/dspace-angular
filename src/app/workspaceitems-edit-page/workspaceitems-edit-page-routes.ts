@@ -3,6 +3,7 @@ import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
+import { pendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
@@ -25,6 +26,7 @@ export const ROUTES: Route[] = [
         canActivate: [authenticatedGuard],
         path: 'edit',
         component: ThemedSubmissionEditComponent,
+        canDeactivate: [pendingChangesGuard],
         resolve: {
           breadcrumb: i18nBreadcrumbResolver,
         },
