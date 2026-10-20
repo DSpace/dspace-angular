@@ -61,3 +61,16 @@ ds-search-facet-option .break-facet,
 ds-search-facet-selected-option .break-facet {
   text-transform: capitalize;
 }
+
+// HU012 D10 (WCAG 1.4.3): badge "Em Avaliação" com texto branco sobre âmbar escuro (2,25:1 antes, 5,9:1 agora)
+.badge-validation {
+  background-color: #8a5a00;
+}
+
+// HU011 D15 (WCAG 1.4.10): a barra de ações do formulário de submissão deixa de ficar fixa em telas
+// estreitas (320 px) e com zoom alto, onde cobria campos e botões
+@media (max-width: 575.98px), (max-height: 500px) {
+  .submission-form-footer {
+    position: static !important;
+  }
+}

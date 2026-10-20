@@ -114,15 +114,16 @@
   --bs-btn-disabled-border-color: #28408b;
 }
 
+// Cinza escurecido para contraste mínimo de 4,5:1 com o texto branco (WCAG 1.4.3). Era #778899, a 3,64:1.
 .btn-secondary {
-  --bs-btn-bg: #778899;
-  --bs-btn-border-color: #778899;
+  --bs-btn-bg: #5b6b7b;
+  --bs-btn-border-color: #5b6b7b;
 
-  --bs-btn-hover-bg: #6b7f91;
-  --bs-btn-hover-border-color: #637789;
+  --bs-btn-hover-bg: #51606f;
+  --bs-btn-hover-border-color: #4a5967;
 
-  --bs-btn-active-bg: #637789;
-  --bs-btn-active-border-color: #5b6f81;
+  --bs-btn-active-bg: #4a5967;
+  --bs-btn-active-border-color: #435261;
 
   --bs-btn-disabled-bg: #778899;
   --bs-btn-disabled-border-color: #778899;

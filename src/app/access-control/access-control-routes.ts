@@ -14,7 +14,7 @@ import {
 } from './access-control-routing-paths';
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
-import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
+import { ThemedEPersonFormComponent } from './epeople-registry/eperson-form/themed-eperson-form.component';
 import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { groupPageGuard } from './group-registry/group-page.guard';
@@ -47,7 +47,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: `${EPERSON_PATH}/create`,
-    component: EPersonFormComponent,
+    component: ThemedEPersonFormComponent,
     resolve: {
       breadcrumb: i18nBreadcrumbResolver,
     },
@@ -57,7 +57,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: `${EPERSON_PATH}/:id/edit`,
-    component: EPersonFormComponent,
+    component: ThemedEPersonFormComponent,
     resolve: {
       breadcrumb: i18nBreadcrumbResolver,
       ePerson: EPersonResolver,

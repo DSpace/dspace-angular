@@ -333,12 +333,30 @@
 
   // Campo "Institución" en el perfil del usuario (HU013 CA09)
   "profile.metadata.form.label.institution": "Institución",
+  "admin.access-control.epeople.form.institution": "Institución",
   "profile.metadata.form.error.institution.required": "Institución es obligatorio",
 
   // Etiquetas de estado amigables en la pantalla de curaduría (HU010 CA11)
   "mydspace.status.mydspaceWaitingController": "Esperando curaduría",
   "mydspace.status.mydspaceValidation": "En evaluación",
   "mydspace.status.mydspaceArchived": "Disponible en la búsqueda general",
+  "mydspace.status.mydspaceWorkflow": "En curaduría",
+  "mydspace.status.mydspaceWorkspace": "Borrador",
+
+  // Tooltips de los botones de decisión en la pantalla del curador (HU012 CA13)
+  "submission.workflow.tasks.pool.claim_help": "Reserva esta presentación para su análisis y la deja no disponible para otros curadores.",
+  "submission.workflow.generic.view-help": "Muestra los metadatos, archivos e información de la presentación en modo de solo lectura.",
+  "submission.workflow.tasks.claimed.approve_help": "Aprueba la presentación y la envía para su publicación en el Repositorio.",
+  "submission.workflow.tasks.claimed.reject_help": "Rechaza la presentación y la devuelve al depositante con justificación obligatoria.",
+  "submission.workflow.tasks.claimed.edit_help": "Edita los metadatos o la información de la presentación antes de decidir.",
+  "submission.workflow.tasks.claimed.return_help": "Devuelve la presentación a la lista de tareas y la libera para su análisis por otro curador.",
+
+  // "Remitente" pasa a "Depositante" en la pantalla del curador (HU012 CA02, CA03)
+  "submission.workflow.tasks.generic.submitter": "Depositante",
+  "search.filters.applied.f.submitter": "Depositante",
+  "search.filters.filter.submitter.head": "Depositante",
+  "search.filters.filter.submitter.placeholder": "Depositante",
+  "search.filters.filter.submitter.label": "Buscar depositante",
 
   // HU009 CA01 — columna de descripción en el listado de grupos
   "admin.access-control.groups.table.description": "Descripción",

@@ -386,6 +386,7 @@
 
   // Campo "Instituição" no perfil do usuário (HU013 CA09)
   "profile.metadata.form.label.institution": "Instituição",
+  "admin.access-control.epeople.form.institution": "Instituição",
   "profile.metadata.form.error.institution.required": "Instituição é obrigatório",
 
   // Rótulos de status amigáveis na tela de curadoria (HU010 CA11)
@@ -395,6 +396,21 @@
   "mydspace.status.mydspaceArchived": "Disponível na busca geral",
   "mydspace.status.mydspaceWorkflow": "Em Curadoria",
   "mydspace.status.mydspaceWorkspace": "Rascunho",
+
+  // Tooltips dos botões de decisão da tela do curador (HU012 CA13)
+  "submission.workflow.tasks.pool.claim_help": "Reserva esta submissão para sua análise e a torna indisponível para outros curadores.",
+  "submission.workflow.generic.view-help": "Visualiza os metadados, arquivos e informações da submissão em modo de leitura.",
+  "submission.workflow.tasks.claimed.approve_help": "Aprova a submissão e a encaminha para publicação no Repositório.",
+  "submission.workflow.tasks.claimed.reject_help": "Recusa a submissão e a devolve ao depositante com justificativa obrigatória.",
+  "submission.workflow.tasks.claimed.edit_help": "Edita os metadados ou informações da submissão antes de decidir.",
+  "submission.workflow.tasks.claimed.return_help": "Devolve a submissão para a lista de tarefas e libera para análise por outro curador.",
+
+  // "Submetedor" passa a "Depositante" na tela do curador (HU012 CA02, CA03)
+  "submission.workflow.tasks.generic.submitter": "Depositante",
+  "search.filters.applied.f.submitter": "Depositante",
+  "search.filters.filter.submitter.head": "Depositante",
+  "search.filters.filter.submitter.placeholder": "Depositante",
+  "search.filters.filter.submitter.label": "Pesquisar depositante",
 
   // HU009 CA01 — coluna de descrição na listagem de grupos
   "admin.access-control.groups.table.description": "Descrição",

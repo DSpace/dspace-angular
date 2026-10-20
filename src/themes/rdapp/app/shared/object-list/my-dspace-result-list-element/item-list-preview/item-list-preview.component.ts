@@ -1,0 +1,43 @@
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { fadeInOut } from '../../../../../../../app/shared/animations/fade';
+import { MetadataDirective } from '../../../../../../../app/shared/metadata.directive';
+import { MetadataLinkViewComponent } from '../../../../../../../app/shared/metadata-link-view/metadata-link-view.component';
+import { ThemedBadgesComponent } from '../../../../../../../app/shared/object-collection/shared/badges/themed-badges.component';
+import { ItemCollectionComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-collection/item-collection.component';
+import { ItemSubmitterComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import { ItemListPreviewComponent as BaseComponent } from '../../../../../../../app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
+import { TruncatableComponent } from '../../../../../../../app/shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
+
+/**
+ * Card do item nas listas do MyDSpace (tarefas do curador e submissões do depositante).
+ * A citação mostra a instituição (local.instituicao) no lugar do editor, como pede a HU012 CA02.
+ */
+@Component({
+  selector: 'ds-themed-item-list-preview',
+  styleUrls: ['../../../../../../../app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component.scss'],
+  templateUrl: './item-list-preview.component.html',
+  animations: [fadeInOut],
+  imports: [
+    AsyncPipe,
+    ItemCollectionComponent,
+    ItemSubmitterComponent,
+    MetadataDirective,
+    MetadataLinkViewComponent,
+    NgClass,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
+})
+export class ItemListPreviewComponent extends BaseComponent {
+}

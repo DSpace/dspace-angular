@@ -327,12 +327,30 @@
 
   // "Institution" field in the user profile (HU013 CA09)
   "profile.metadata.form.label.institution": "Institution",
+  "admin.access-control.epeople.form.institution": "Institution",
   "profile.metadata.form.error.institution.required": "Institution is required",
 
   // Friendly status labels in the curation screen (HU010 CA11)
   "mydspace.status.mydspaceWaitingController": "Awaiting Curation",
   "mydspace.status.mydspaceValidation": "Under Review",
   "mydspace.status.mydspaceArchived": "Available in general search",
+  "mydspace.status.mydspaceWorkflow": "In curation",
+  "mydspace.status.mydspaceWorkspace": "Draft",
+
+  // Decision button tooltips on the curator screen (HU012 CA13)
+  "submission.workflow.tasks.pool.claim_help": "Reserves this submission for your review and makes it unavailable to other curators.",
+  "submission.workflow.generic.view-help": "Shows the metadata, files and information of the submission in read-only mode.",
+  "submission.workflow.tasks.claimed.approve_help": "Approves the submission and sends it for publication in the Repository.",
+  "submission.workflow.tasks.claimed.reject_help": "Refuses the submission and returns it to the depositor with a mandatory justification.",
+  "submission.workflow.tasks.claimed.edit_help": "Edits the metadata or information of the submission before deciding.",
+  "submission.workflow.tasks.claimed.return_help": "Returns the submission to the task list and releases it for review by another curator.",
+
+  // "Submitter" becomes "Depositor" on the curator screen (HU012 CA02, CA03)
+  "submission.workflow.tasks.generic.submitter": "Depositor",
+  "search.filters.applied.f.submitter": "Depositor",
+  "search.filters.filter.submitter.head": "Depositor",
+  "search.filters.filter.submitter.placeholder": "Depositor",
+  "search.filters.filter.submitter.label": "Search depositor",
 
   // HU009 CA01 — description column in the groups listing
   "admin.access-control.groups.table.description": "Description",

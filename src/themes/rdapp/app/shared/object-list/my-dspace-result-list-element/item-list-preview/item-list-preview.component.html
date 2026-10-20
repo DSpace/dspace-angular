@@ -1,0 +1,65 @@
+<div class="row">
+  @if (showThumbnails) {
+    <div class="col-3 col-md-2">
+      <ds-thumbnail [thumbnail]="item?.thumbnail | async" [limitWidth]="true">
+      </ds-thumbnail>
+    </div>
+  }
+  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
+    @if (item) {
+      <div @fadeInOut>
+        <div class="d-flex">
+          <ds-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
+        </div>
+        <ds-truncatable [id]="item.id">
+          <h2 [dsMetadata]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.hasMetadata('dc.title')}"></h2>
+          <div>
+            <span class="text-muted">
+              <ds-truncatable-part [id]="item.id" [minLines]="1">
+                (@if (item.hasMetadata('local.instituicao')) {
+                <span class="item-list-institution"
+                      [dsMetadata]="item.firstMetadata('local.instituicao', undefined, true)"></span><span>, </span>
+              }
+                @if (item.hasMetadata('dc.date.issued')) {
+                  <span class="item-list-date"
+                        [dsMetadata]="item.firstMetadata('dc.date.issued', undefined, true)"></span>
+                } @else {
+                  <span class="item-list-date">{{ 'mydspace.results.no-date' | translate }}</span>
+                })
+                @if (item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);) {
+                <span
+                  class="item-list-authors">
+                  @if (item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0) {
+                    <span
+                      >{{'mydspace.results.no-authors'
+                    | translate}}</span>
+                  }
+                  @for (author of authorMetadataList; track author.uuid; let last = $last) {
+                    <span class="item-list-authors">
+                      <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
+                      @if (!last) {
+                        <span>; </span>
+                      }
+                    </span>
+                  }
+                </span>
+              }
+            </ds-truncatable-part>
+          </span>
+          <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
+            @if (item.firstMetadata('dc.description.abstract'); as abstract) {
+              <span [dsMetadata]="abstract"></span>
+            } @else {
+              <span class="text-muted">{{ 'mydspace.results.no-abstract' | translate }}</span>
+            }
+          </ds-truncatable-part>
+        </div>
+      </ds-truncatable>
+      @if (showSubmitter) {
+        <ds-item-submitter [object]="object.indexableObject"></ds-item-submitter>
+      }
+      <ds-item-collection [object]="object.indexableObject"></ds-item-collection>
+    </div>
+  }
+</div>
+</div>
