@@ -66,7 +66,7 @@ const NOMES_ODS: { [n: number]: string } = {
   6: 'Água Potável e Saneamento', 7: 'Energia Limpa e Acessível',
   8: 'Trabalho Decente e Crescimento Econômico', 9: 'Indústria, Inovação e Infraestrutura',
   10: 'Redução das Desigualdades', 11: 'Cidades e Comunidades Sustentáveis',
-  12: 'Consumo e Produção Responsáveis', 13: 'Ação Contra a Mudança Global do Clima',
+  12: 'Consumo e Produção Responsáveis', 13: 'Ação contra a Mudança Global do Clima',
   14: 'Vida na Água', 15: 'Vida Terrestre', 16: 'Paz, Justiça e Instituições Eficazes',
   17: 'Parcerias e Meios de Implementação', 18: 'Igualdade Étnico-Racial',
 };
