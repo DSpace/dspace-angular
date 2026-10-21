@@ -6,6 +6,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -27,26 +28,28 @@ import {
 } from 'rxjs/operators';
 import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
-import { ThemeConfig } from '../../../../config/theme.config';
-import { environment } from '../../../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../../../../app/admin/admin-sidebar/themed-admin-sidebar.component';
-import { getPageInternalServerErrorRoute } from '../../../../app/core/router/core-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../../../../app/breadcrumbs/themed-breadcrumbs.component';
+import { getPageInternalServerErrorRoute } from '../../../../app/core/router/core-routing-paths';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../../../../app/core/services/window.service';
 import { ThemedFooterComponent } from '../../../../app/footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../../../../app/header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { NotificationsBoardComponent } from '../../../../app/notification-system/notifications-board/notifications-board.component';
 import { slideSidebarPadding } from '../../../../app/shared/animations/slide';
 import { HostWindowService } from '../../../../app/shared/host-window.service';
 import { LiveRegionComponent } from '../../../../app/shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { MenuService } from '../../../../app/shared/menu/menu.service';
 import { MenuID } from '../../../../app/shared/menu/menu-id.model';
-import { NotificationsBoardComponent } from '../../../../app/notification-system/notifications-board/notifications-board.component';
 import { CSSVariableService } from '../../../../app/shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-alert/alert-banner/system-wide-alert-banner.component';
+import { ThemeConfig } from '../../../../config/theme.config';
+import { environment } from '../../../../environments/environment';
+import { attachCharCounter } from '../shared/form/char-counter';
+import { attachTypingChange } from '../shared/form/typing-change';
 import { ScrollToTopComponent } from '../shared/scroll-to-top/scroll-to-top.component';
 
 @Component({
@@ -69,7 +72,7 @@ import { ScrollToTopComponent } from '../shared/scroll-to-top/scroll-to-top.comp
     TranslateModule,
   ],
 })
-export class RootComponent implements OnInit {
+export class RootComponent implements OnInit, OnDestroy {
   theme: Observable<ThemeConfig> = of({} as any);
   isSidebarVisible$: Observable<boolean>;
   slideSidebarOver$: Observable<boolean>;
@@ -79,6 +82,9 @@ export class RootComponent implements OnInit {
   models: any;
 
   browserOsClasses = new BehaviorSubject<string[]>([]);
+
+  /** Desligam os ouvintes do formulário de submissão: texto em digitação na fila e contador de caracteres. */
+  private detachFormListeners: (() => void)[] = [];
 
   @Input() shouldShowFullscreenLoader: boolean;
   @Input() shouldShowRouteLoader: boolean;
@@ -94,6 +100,12 @@ export class RootComponent implements OnInit {
   }
 
   ngOnInit() {
+    // O texto digitado só entra na fila de alterações do formulário quando o campo perde o foco. O primeiro ouvinte o
+    // enfileira na pausa da digitação, e o segundo mostra o contador de caracteres dos campos com limite.
+    if (typeof document !== 'undefined') {
+      this.detachFormListeners = [attachTypingChange(document), attachCharCounter(document)];
+    }
+
     const browserName = this.getBrowserName();
     if (browserName) {
       const browserOsClasses = new Array<string>();
@@ -126,6 +138,10 @@ export class RootComponent implements OnInit {
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.detachFormListeners.forEach((detach) => detach());
   }
 
   skipToMainContent() {
