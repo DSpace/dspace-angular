@@ -1928,7 +1928,7 @@
 
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
 
-  "error.validation.pattern": "Este campo está restrito ao seguinte padrão: {{ pattern }}.",
+  "error.validation.pattern": "O texto ultrapassa o limite de caracteres permitido para este campo.",
 
   "error.validation.filerequired": "O arquivo para upload é obrigatório",
 
@@ -5518,7 +5518,7 @@
 
   "submission.sections.general.deposit_error_notice": "Houve um problema durante a submissão do item, por favor, tente novamente mais tarde.",
 
-  "submission.sections.general.deposit_success_notice": "Submissão depositada com sucesso.",
+  "submission.sections.general.deposit_success_notice": "Depósito encaminhado para a curadoria com sucesso.",
 
   "submission.sections.general.discard_error_notice": "Houve um problema ao descartar o item, por favor, tente novamente mais tarde.",
 
@@ -8127,4 +8127,30 @@
   "error.validation.upload.extension": "Há arquivo com extensão não aceita para este tipo de documento. Remova o arquivo e envie um formato permitido.",
 
   "error.validation.upload.emptyfile": "Há arquivo vazio (0 byte) anexado. Remova o arquivo e envie novamente.",
+
+  "evidencia.workflow-view.files.title": "Arquivos",
+
+  "evidencia.workflow-view.files.package": "Pacote original",
+
+  "evidencia.workflow-view.files.caption": "Arquivos do pacote original do item",
+
+  "evidencia.workflow-view.files.name": "Nome",
+
+  "evidencia.workflow-view.files.size": "Tamanho",
+
+  "evidencia.workflow-view.files.format": "Formato",
+
+  "evidencia.workflow-view.files.action": "Ação",
+
+  "evidencia.workflow-view.files.download": "Baixar",
+
+  "evidencia.workflow-view.files.empty": "Nenhum arquivo anexado a este item.",
+
+  "evidencia.workflow-view.license.title": "Licença do pacote",
+
+  "evidencia.workflow-view.license.empty": "Este item não tem licença registrada.",
+
+  "evidencia.workflow-view.license.error": "Não foi possível carregar a licença do pacote.",
+
+  "error.validation.regex": "O texto ultrapassa o limite de caracteres permitido para este campo.",
 }

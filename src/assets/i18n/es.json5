@@ -1928,7 +1928,7 @@
 
   "error.validation.cclicense.required": "Debe conceder esta licencia CC para completar su envío. Si no puede conceder esta licencia CC en este momento, puede guardar su trabajo y regresar más tarde o bien eliminar el envío.",
 
-  "error.validation.pattern": "Esta entrada está restringida por este patrón: {{ pattern }}.",
+  "error.validation.pattern": "El texto supera el límite de caracteres permitido para este campo.",
 
   "error.validation.filerequired": "La carga de un archivo es obligatoria",
 
@@ -5508,7 +5508,7 @@
 
   "submission.sections.general.deposit_error_notice": "Hubo un problema al enviar el ítem. Vuelva a intentarlo más tarde.",
 
-  "submission.sections.general.deposit_success_notice": "Envío depositado con éxito.",
+  "submission.sections.general.deposit_success_notice": "Depósito enviado a la curaduría con éxito.",
 
   "submission.sections.general.discard_error_notice": "Hubo un problema al descartar el ítem. Vuelva a intentarlo más tarde.",
 
@@ -7959,4 +7959,30 @@
   "error.validation.upload.extension": "Hay un archivo con una extensión no aceptada para este tipo de documento. Elimínelo y suba un formato permitido.",
 
   "error.validation.upload.emptyfile": "Hay un archivo vacío (0 bytes) adjunto. Elimínelo y vuelva a subirlo.",
+
+  "evidencia.workflow-view.files.title": "Archivos",
+
+  "evidencia.workflow-view.files.package": "Paquete original",
+
+  "evidencia.workflow-view.files.caption": "Archivos del paquete original del ítem",
+
+  "evidencia.workflow-view.files.name": "Nombre",
+
+  "evidencia.workflow-view.files.size": "Tamaño",
+
+  "evidencia.workflow-view.files.format": "Formato",
+
+  "evidencia.workflow-view.files.action": "Acción",
+
+  "evidencia.workflow-view.files.download": "Descargar",
+
+  "evidencia.workflow-view.files.empty": "Ningún archivo adjunto a este ítem.",
+
+  "evidencia.workflow-view.license.title": "Licencia del paquete",
+
+  "evidencia.workflow-view.license.empty": "Este ítem no tiene licencia registrada.",
+
+  "evidencia.workflow-view.license.error": "No fue posible cargar la licencia del paquete.",
+
+  "error.validation.regex": "El texto supera el límite de caracteres permitido para este campo.",
 }
