@@ -256,27 +256,27 @@
 
   "admin.access-control.bulk-access-settings.header": "Passo 2: Operação a ser Realizada",
 
-  "admin.access-control.epeople.actions.delete": "Excluir EPerson",
+  "admin.access-control.epeople.actions.delete": "Excluir usuário",
 
-  "admin.access-control.epeople.actions.impersonate": "Assumir o papel do EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Assumir o papel do usuário",
 
   "admin.access-control.epeople.actions.reset": "Redefinir senha",
 
-  "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o papel do EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o papel do usuário",
 
-  "admin.access-control.epeople.breadcrumbs": "EPerson",
+  "admin.access-control.epeople.breadcrumbs": "Usuários",
 
-  "admin.access-control.epeople.title": "EPerson",
+  "admin.access-control.epeople.title": "Usuários",
 
-  "admin.access-control.epeople.edit.breadcrumbs": "Editar EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Editar usuário",
 
-  "admin.access-control.epeople.edit.title": "Editar EPerson",
+  "admin.access-control.epeople.edit.title": "Editar usuário",
 
-  "admin.access-control.epeople.add.breadcrumbs": "Adicionar EPerson",
+  "admin.access-control.epeople.add.breadcrumbs": "Adicionar usuário",
 
-  "admin.access-control.epeople.add.title": "Adicionar EPerson",
+  "admin.access-control.epeople.add.title": "Adicionar usuário",
 
-  "admin.access-control.epeople.head": "EPerson",
+  "admin.access-control.epeople.head": "Usuários",
 
   "admin.access-control.epeople.search.head": "Pesquisar",
 
@@ -290,7 +290,7 @@
 
   "admin.access-control.epeople.search.placeholder": "Pesquisar pessoas...",
 
-  "admin.access-control.epeople.button.add": "Adicionar EPerson",
+  "admin.access-control.epeople.button.add": "Adicionar usuário",
 
   "admin.access-control.epeople.table.id": "ID",
 
@@ -306,19 +306,19 @@
 
   "admin.access-control.epeople.table.edit.buttons.remove": "Excluir \"{{name}}\"",
 
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Excluir usuário \"{{ dsoName }}\"",
 
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Tem certeza de que deseja excluir o usuário \"{{ dsoName }}\" e todas as suas políticas associadas?",
 
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancelar",
 
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Excluir",
 
-  "admin.access-control.epeople.no-items": "Nenhuma EPeople para mostrar.",
+  "admin.access-control.epeople.no-items": "Nenhum usuário para mostrar.",
 
-  "admin.access-control.epeople.form.create": "Criar EPerson",
+  "admin.access-control.epeople.form.create": "Criar usuário",
 
-  "admin.access-control.epeople.form.edit": "Editar EPerson",
+  "admin.access-control.epeople.form.edit": "Editar usuário",
 
   "admin.access-control.epeople.form.firstName": "Primeiro nome",
 
@@ -334,21 +334,21 @@
 
   "admin.access-control.epeople.form.return": "Voltar",
 
-  "admin.access-control.epeople.form.notification.created.success": "EPerson \"{{name}}\" criada com sucesso",
+  "admin.access-control.epeople.form.notification.created.success": "Usuário \"{{name}}\" criado com sucesso",
 
-  "admin.access-control.epeople.form.notification.created.failure": "Falha ao criar EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Falha ao criar usuário \"{{name}}\"",
 
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar EPerson \"{{name}}\", email \"{{email}}\" já em uso.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar usuário \"{{name}}\", email \"{{email}}\" já em uso.",
 
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar EPerson \"{{name}}\", email \"{{email}}\" já em uso.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar usuário \"{{name}}\", email \"{{email}}\" já em uso.",
 
-  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" editada com sucesso.",
+  "admin.access-control.epeople.form.notification.edited.success": "Usuário \"{{name}}\" editado com sucesso.",
 
-  "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editar EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editar usuário \"{{name}}\"",
 
-  "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" excluído com sucesso",
+  "admin.access-control.epeople.form.notification.deleted.success": "Usuário \"{{name}}\" excluído com sucesso",
 
-  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao excluir EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao excluir usuário \"{{name}}\"",
 
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro destes grupos:",
 
@@ -358,13 +358,13 @@
 
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Coleção/Comunidade",
 
-  "admin.access-control.epeople.form.memberOfNoGroups": "Esta EPerson não é membro de nenhum grupo",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Este usuário não é membro de nenhum grupo",
 
   "admin.access-control.epeople.form.goToGroups": "Adicionar aos grupos",
 
-  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar excluir a EPerson com o ID \"{{id}}\" com código: \"{{statusCode}}\" e mensagem: \"{{restResponse.errorMessage}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar excluir o usuário com o ID \"{{id}}\" com código: \"{{statusCode}}\" e mensagem: \"{{restResponse.errorMessage}}\"",
 
-  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" apagada com sucesso",
+  "admin.access-control.epeople.notification.deleted.success": "Usuário \"{{name}}\" apagado com sucesso",
 
   "admin.access-control.groups.title": "Grupos",
 
@@ -454,9 +454,9 @@
 
   "admin.access-control.groups.form.notification.deleted.failure.content": "Causa: \"{{ cause }}\"",
 
-  "admin.access-control.groups.form.members-list.head": "EPeople",
+  "admin.access-control.groups.form.members-list.head": "Usuários",
 
-  "admin.access-control.groups.form.members-list.search.head": "Adicionar EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Adicionar usuários",
 
   "admin.access-control.groups.form.members-list.button.see-all": "Pesquisar Todos",
 
@@ -492,7 +492,7 @@
 
   "admin.access-control.groups.form.members-list.no-members-yet": "Nenhum membro no grupo ainda, procurar e adicionar.",
 
-  "admin.access-control.groups.form.members-list.no-items": "Nenhuma EPeople encontrada nesta pesquisa",
+  "admin.access-control.groups.form.members-list.no-items": "Nenhum usuário encontrado nesta pesquisa",
 
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Alguma coisa deu errado: \"{{cause}}\"",
 
@@ -854,9 +854,9 @@
 
   "advanced-workflow-action.select-reviewer.description-multiple": "Selecione um ou mais revisores abaixo antes de enviar",
 
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "Usuários",
 
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Adicione EPeople",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Adicione usuários",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Ver Todos",
 
@@ -892,7 +892,7 @@
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "Ainda não há membros no grupo, pesquise e adicione.",
 
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "Nenhuma EPeople encontrada nesta pesquisa",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "Nenhum usuário encontrado nesta pesquisa",
 
   "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "Nenhum revisor selecionado.",
 
@@ -1550,11 +1550,11 @@
 
   "comcol-role.edit.submitters.name": "Remetentes",
 
-  "comcol-role.edit.submitters.description": "As EPeople e Grupos que têm permissão para enviar novos itens para esta coleção.",
+  "comcol-role.edit.submitters.description": "Os usuários e grupos que têm permissão para enviar novos itens para esta coleção.",
 
   "comcol-role.edit.item_read.name": "Acesso padrão de leitura de itens",
 
-  "comcol-role.edit.item_read.description": "EPeople e Grupos que podem ler novos itens enviados para esta coleção. As alterações nesta função não são retroativas. Os itens existentes no sistema ainda poderão ser visualizados por aqueles que tinham acesso de leitura no momento de sua adição.",
+  "comcol-role.edit.item_read.description": "Usuários e grupos que podem ler novos itens enviados para esta coleção. As alterações nesta função não são retroativas. Os itens existentes no sistema ainda poderão ser visualizados por aqueles que tinham acesso de leitura no momento de sua adição.",
 
   "comcol-role.edit.item_read.anonymous-group": "A leitura padrão dos itens recebidos está atualmente definida como Anônima.",
 
@@ -1852,9 +1852,9 @@
 
   "confirmation-modal.export-batch.confirm": "Exportar",
 
-  "confirmation-modal.delete-eperson.header": "Excluir EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": "Excluir usuário \"{{ dsoName }}\"",
 
-  "confirmation-modal.delete-eperson.info": "Tem certeza de que deseja excluir a EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Tem certeza de que deseja excluir o usuário \"{{ dsoName }}\"",
 
   "confirmation-modal.delete-eperson.cancel": "Cancelar",
 
@@ -3720,7 +3720,7 @@
 
   "nav.statistics.header": "Estatísticas",
 
-  "nav.stop-impersonating": "Deixar de assumir o papel do EPerson",
+  "nav.stop-impersonating": "Deixar de assumir o papel do usuário",
 
   "nav.subscriptions": "Assinaturas",
 
@@ -4478,9 +4478,9 @@
 
   "resource-policies.edit.page.failure.content": "Ocorreu um erro ao editar a política de recursos.",
 
-  "resource-policies.edit.page.target-failure.content": "Ocorreu um erro ao editar o destino (EPerson ou grupo) da política de recursos.",
+  "resource-policies.edit.page.target-failure.content": "Ocorreu um erro ao editar o destino (usuário ou grupo) da política de recursos.",
 
-  "resource-policies.edit.page.other-failure.content": "Ocorreu um erro ao editar a política de recursos. O destino (EPerson ou grupo) foi atualizado com sucesso.",
+  "resource-policies.edit.page.other-failure.content": "Ocorreu um erro ao editar a política de recursos. O destino (usuário ou grupo) foi atualizado com sucesso.",
 
   "resource-policies.edit.page.success.content": "Operação realizada com sucesso",
 
@@ -4490,11 +4490,11 @@
 
   "resource-policies.form.action-type.required": "Você deve selecionar a ação de política de recursos.",
 
-  "resource-policies.form.eperson-group-list.label": "A EPerson ou grupo que receberá a permissão",
+  "resource-policies.form.eperson-group-list.label": "O usuário ou grupo que receberá a permissão",
 
   "resource-policies.form.eperson-group-list.select.btn": "Selecione",
 
-  "resource-policies.form.eperson-group-list.tab.eperson": "Procurar por uma EPerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Procurar por um usuário",
 
   "resource-policies.form.eperson-group-list.tab.group": "Procurar por um grupo",
 
@@ -4506,9 +4506,9 @@
 
   "resource-policies.form.eperson-group-list.modal.header": "Não é possível alterar o tipo",
 
-  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Não é possível substituir uma EPerson por um grupo.",
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Não é possível substituir um usuário por um grupo.",
 
-  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Não é possível substituir um grupo por uma EPerson.",
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Não é possível substituir um grupo por um usuário.",
 
   "resource-policies.form.eperson-group-list.modal.text2": "Exclua a política de recursos atual e crie uma nova com o tipo desejado.",
 
@@ -4540,7 +4540,7 @@
 
   "resource-policies.table.headers.edit.policy": "Editar política",
 
-  "resource-policies.table.headers.eperson": "EPerson",
+  "resource-policies.table.headers.eperson": "Usuário",
 
   "resource-policies.table.headers.group": "Grupo",
 
@@ -4848,15 +4848,15 @@
 
   "search.filters.discoverable.false": "Sim",
 
-  "search.filters.namedresourcetype.Archived": "Arquivado",
+  "search.filters.namedresourcetype.Archived": "Disponível na busca geral",
 
-  "search.filters.namedresourcetype.Validation": "Validação",
+  "search.filters.namedresourcetype.Validation": "Em Avaliação",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "Esperando por curador",
+  "search.filters.namedresourcetype.Waiting for Controller": "Aguardando Curadoria",
 
-  "search.filters.namedresourcetype.Workflow": "Fluxo de trabalho",
+  "search.filters.namedresourcetype.Workflow": "Em Curadoria",
 
-  "search.filters.namedresourcetype.Workspace": "Área de trabalho",
+  "search.filters.namedresourcetype.Workspace": "Rascunho",
 
   "search.filters.withdrawn.true": "Sim",
 
@@ -5912,7 +5912,7 @@
 
   "subscriptions.table.empty.message": "Você não tem nenhuma assinatura no momento. Para se inscrever em atualizações por e-mail para uma comunidade ou coleção, use o botão de assinatura na página do objeto.",
 
-  "thumbnail.default.alt": "Imagem de Miniatura",
+  "thumbnail.default.alt": "Capa da publicação",
 
   "thumbnail.default.placeholder": "Nenhuma Miniatura Disponível",
 
@@ -8153,4 +8153,26 @@
   "evidencia.workflow-view.license.error": "Não foi possível carregar a licença do pacote.",
 
   "error.validation.regex": "O texto ultrapassa o limite de caracteres permitido para este campo.",
+
+  "evidencia.search-scope.label": "Escopo da pesquisa",
+
+  "evidencia.search-input.label": "Campo de pesquisa",
+
+  "submission.sections.submit.progressbar.rdapp-identificacao": "Identificação",
+
+  "submission.sections.submit.progressbar.rdapp-institucional": "Informações institucionais",
+
+  "submission.sections.submit.progressbar.rdapp-caracterizacao": "Caracterização",
+
+  "submission.sections.submit.progressbar.rdapp-complementar": "Informações complementares",
+
+  "search.filters.namedresourcetype.waitingforcontroller": "Aguardando Curadoria",
+
+  "search.filters.namedresourcetype.validation": "Em Avaliação",
+
+  "search.filters.namedresourcetype.workflow": "Em Curadoria",
+
+  "search.filters.namedresourcetype.workspace": "Rascunho",
+
+  "search.filters.namedresourcetype.archived": "Disponível na busca geral",
 }
