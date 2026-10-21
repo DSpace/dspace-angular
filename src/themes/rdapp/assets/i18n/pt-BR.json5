@@ -466,5 +466,20 @@
   "workflow-item.view.title": "Visualização do item em curadoria",
   "submission.sections.submit.progressbar.tipo-documento": "Tipo de documento",
   "error.validation.upload.extension": "Há arquivo com extensão não aceita para este tipo de documento. Remova o arquivo e envie um formato permitido.",
-  "error.validation.upload.emptyfile": "Há arquivo vazio (0 byte) anexado. Remova o arquivo e envie novamente."
+  "error.validation.upload.emptyfile": "Há arquivo vazio (0 byte) anexado. Remova o arquivo e envie novamente.",
+  "evidencia.workflow-view.files.title": "Arquivos",
+  "evidencia.workflow-view.files.package": "Pacote original",
+  "evidencia.workflow-view.files.caption": "Arquivos do pacote original do item",
+  "evidencia.workflow-view.files.name": "Nome",
+  "evidencia.workflow-view.files.size": "Tamanho",
+  "evidencia.workflow-view.files.format": "Formato",
+  "evidencia.workflow-view.files.action": "Ação",
+  "evidencia.workflow-view.files.download": "Baixar",
+  "evidencia.workflow-view.files.empty": "Nenhum arquivo anexado a este item.",
+  "evidencia.workflow-view.license.title": "Licença do pacote",
+  "evidencia.workflow-view.license.empty": "Este item não tem licença registrada.",
+  "evidencia.workflow-view.license.error": "Não foi possível carregar a licença do pacote.",
+  "submission.sections.general.deposit_success_notice": "Depósito encaminhado para a curadoria com sucesso.",
+  "error.validation.pattern": "O texto ultrapassa o limite de caracteres permitido para este campo.",
+  "error.validation.regex": "O texto ultrapassa o limite de caracteres permitido para este campo."
 }
