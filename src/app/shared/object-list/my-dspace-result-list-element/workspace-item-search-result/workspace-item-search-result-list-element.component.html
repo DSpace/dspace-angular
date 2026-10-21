@@ -5,7 +5,7 @@
   [context]="badgeContext"></ds-listable-object-component-loader>
 
   <!-- ALERTA DE MOTIVO DE REJEIÇÃO / DEVOLUÇÃO PARA AJUSTE (D10) -->
-@if (getReturnInfo(); as returnInfo) {
+ @if (getReturnInfo(); as returnInfo) {
     <div class="row my-2">
       <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 col-9 col-md-10 ps-3' : 'col-12'">
         <div class="alert p-2 small mb-2"
@@ -22,7 +22,6 @@
       </div>
     </div>
   }
-
   <div class="row">
     <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 col-9 col-md-10 ps-3' : ''">
       <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>

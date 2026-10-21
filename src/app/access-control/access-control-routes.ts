@@ -13,9 +13,9 @@ import {
   GROUP_PATH,
 } from './access-control-routing-paths';
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
-import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { ThemedEPersonFormComponent } from './epeople-registry/eperson-form/themed-eperson-form.component';
 import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
+import { ThemedEPeopleRegistryComponent } from './epeople-registry/themed-epeople-registry.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { groupPageGuard } from './group-registry/group-page.guard';
 import { ThemedGroupsRegistryComponent } from './group-registry/themed-groups-registry.component';
@@ -37,7 +37,7 @@ const providers = [
 export const ROUTES: Route[] = [
   {
     path: EPERSON_PATH,
-    component: EPeopleRegistryComponent,
+    component: ThemedEPeopleRegistryComponent,
     resolve: {
       breadcrumb: i18nBreadcrumbResolver,
     },

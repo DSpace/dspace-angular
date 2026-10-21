@@ -25,6 +25,10 @@
     pointer-events: auto;
   }
 
+  &.above-form-footer {
+    bottom: 6rem;
+  }
+
   &:hover {
     background-color: var(--rdapp-bg-color-accent);
     transform: translateY(-3px);
@@ -51,6 +55,10 @@
     padding: 0 1rem;
     bottom: 1.25rem;
     right: 1.25rem;
+
+    &.above-form-footer {
+      bottom: 5rem;
+    }
 
     .scroll-to-top-label {
       display: none;

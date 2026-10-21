@@ -268,9 +268,9 @@
 
   "admin.access-control.epeople.title": "EPeople",
 
-  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Edit user",
 
-  "admin.access-control.epeople.edit.title": "New EPerson",
+  "admin.access-control.epeople.edit.title": "Edit user",
 
   "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
 
@@ -4838,15 +4838,15 @@
 
   "search.filters.discoverable.false": "Yes",
 
-  "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Available in general search",
 
-  "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Under Review",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.Waiting for Controller": "Awaiting Curation",
 
-  "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "In curation",
 
-  "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Draft",
 
   "search.filters.withdrawn.true": "Yes",
 
@@ -5902,7 +5902,7 @@
 
   "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
 
-  "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Publication cover",
 
   "thumbnail.default.placeholder": "No Thumbnail Available",
 
@@ -7979,4 +7979,28 @@
   "evidencia.workflow-view.license.error": "The package license could not be loaded.",
 
   "error.validation.regex": "The text exceeds the character limit allowed for this field.",
+
+  "mydspace.item.returned.reason.label": "Returned for adjustment",
+
+  "evidencia.search-scope.label": "Search scope",
+
+  "evidencia.search-input.label": "Search field",
+
+  "submission.sections.submit.progressbar.rdapp-identificacao": "Identification",
+
+  "submission.sections.submit.progressbar.rdapp-institucional": "Institutional information",
+
+  "submission.sections.submit.progressbar.rdapp-caracterizacao": "Characterization",
+
+  "submission.sections.submit.progressbar.rdapp-complementar": "Additional information",
+
+  "search.filters.namedresourcetype.waitingforcontroller": "Awaiting Curation",
+
+  "search.filters.namedresourcetype.validation": "Under Review",
+
+  "search.filters.namedresourcetype.workflow": "In curation",
+
+  "search.filters.namedresourcetype.workspace": "Draft",
+
+  "search.filters.namedresourcetype.archived": "Available in general search",
 }

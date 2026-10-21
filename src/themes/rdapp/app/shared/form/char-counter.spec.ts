@@ -94,13 +94,26 @@ describe('char-counter', () => {
     expect(counterOf(field).classList).not.toContain('text-danger');
   });
 
-  it('não mostra contador em campo sem limite, fora do formulário ou de busca com sugestão', () => {
+  it('não mostra contador em campo sem limite ou fora do formulário', () => {
     type(create(null), 'abc');
     expect(host.querySelector(`.${CHAR_COUNTER_CLASS}`)).toBeNull();
     type(create('Limite de 300 caracteres.', '<input type="text">', false), 'abc');
     expect(host.querySelector(`.${CHAR_COUNTER_CLASS}`)).toBeNull();
-    type(create('Limite de 300 caracteres.', '<input type="text" role="combobox">'), 'abc');
-    expect(host.querySelector(`.${CHAR_COUNTER_CLASS}`)).toBeNull();
+  });
+
+  it('mostra contador também em campo com sugestão (combobox)', () => {
+    const field = create('Limite de 300 caracteres.', '<input type="text" role="combobox" aria-autocomplete="list">');
+    type(field, 'abc');
+    expect(counterOf(field).textContent).toBe('3 / 300');
+  });
+
+  it('nas palavras-chave coloca o contador depois da caixa de chips, com o limite por termo', () => {
+    const field = create('Limite de 300 caracteres por termo.', '<ds-chips><input type="text" role="textbox"></ds-chips>');
+    type(field, 'abcd');
+    const chips = host.querySelector('ds-chips') as HTMLElement;
+    expect(counterOf(chips).textContent).toBe('4 / 300');
+    type(field, 'abcde');
+    expect(host.querySelectorAll(`.${CHAR_COUNTER_CLASS}`).length).toBe(1);
   });
 
   it('refaz o contador, ainda em vermelho, quando o Angular o remove ao sair do campo', fakeAsync(() => {

@@ -58,7 +58,7 @@ enum SubKey {
 }
 
 @Component({
-  selector: 'ds-subgroups-list',
+  selector: 'ds-base-subgroups-list',
   templateUrl: './subgroups-list.component.html',
   imports: [
     AsyncPipe,

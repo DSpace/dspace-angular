@@ -268,9 +268,9 @@
 
   "admin.access-control.epeople.title": "Usuarios",
 
-  "admin.access-control.epeople.edit.breadcrumbs": "Nuevo usuario",
+  "admin.access-control.epeople.edit.breadcrumbs": "Editar usuario",
 
-  "admin.access-control.epeople.edit.title": "Nuevo usuario",
+  "admin.access-control.epeople.edit.title": "Editar usuario",
 
   "admin.access-control.epeople.add.breadcrumbs": "Agregar usuario",
 
@@ -4838,15 +4838,15 @@
 
   "search.filters.discoverable.false": "Sí",
 
-  "search.filters.namedresourcetype.Archived": "Archivado",
+  "search.filters.namedresourcetype.Archived": "Disponible en la búsqueda general",
 
-  "search.filters.namedresourcetype.Validation": "Validación",
+  "search.filters.namedresourcetype.Validation": "En evaluación",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "A la espera del revisor",
+  "search.filters.namedresourcetype.Waiting for Controller": "Esperando curaduría",
 
-  "search.filters.namedresourcetype.Workflow": "Flujo de trabajo",
+  "search.filters.namedresourcetype.Workflow": "En curaduría",
 
-  "search.filters.namedresourcetype.Workspace": "Espacio de trabajo",
+  "search.filters.namedresourcetype.Workspace": "Borrador",
 
   "search.filters.withdrawn.true": "Sí",
 
@@ -5902,7 +5902,7 @@
 
   "subscriptions.table.empty.message": "Usted no tiene suscripciones. Para subscribirse a las actualizaciones por correo electrónico de una Comunidad o Colección, utilice el botón de suscripción en la página del objeto.",
 
-  "thumbnail.default.alt": "Miniatura",
+  "thumbnail.default.alt": "Portada de la publicación",
 
   "thumbnail.default.placeholder": "No hay miniatura disponible",
 
@@ -7985,4 +7985,28 @@
   "evidencia.workflow-view.license.error": "No fue posible cargar la licencia del paquete.",
 
   "error.validation.regex": "El texto supera el límite de caracteres permitido para este campo.",
+
+  "mydspace.item.returned.reason.label": "Devuelto para ajuste",
+
+  "evidencia.search-scope.label": "Ámbito de la búsqueda",
+
+  "evidencia.search-input.label": "Campo de búsqueda",
+
+  "submission.sections.submit.progressbar.rdapp-identificacao": "Identificación",
+
+  "submission.sections.submit.progressbar.rdapp-institucional": "Información institucional",
+
+  "submission.sections.submit.progressbar.rdapp-caracterizacao": "Caracterización",
+
+  "submission.sections.submit.progressbar.rdapp-complementar": "Información complementaria",
+
+  "search.filters.namedresourcetype.waitingforcontroller": "Esperando curaduría",
+
+  "search.filters.namedresourcetype.validation": "En evaluación",
+
+  "search.filters.namedresourcetype.workflow": "En curaduría",
+
+  "search.filters.namedresourcetype.workspace": "Borrador",
+
+  "search.filters.namedresourcetype.archived": "Disponible en la búsqueda general",
 }

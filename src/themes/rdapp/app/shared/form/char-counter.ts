@@ -1,4 +1,20 @@
-import { isPlainTextControl } from './typing-change';
+/**
+ * Campo de texto de uma seção do formulário de submissão que pode ganhar contador. Diferente do ouvinte de digitação,
+ * aceita também os campos com sugestão (combobox) e as palavras-chave, onde o limite vale para o texto que a
+ * pessoa digita antes de escolher ou confirmar o termo.
+ */
+export function isCountableControl(target: EventTarget | null): target is HTMLInputElement | HTMLTextAreaElement {
+  if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLTextAreaElement)) {
+    return false;
+  }
+  if (target instanceof HTMLInputElement && target.type !== 'text') {
+    return false;
+  }
+  if (target.readOnly || target.disabled) {
+    return false;
+  }
+  return target.closest('ds-submission-section-form') !== null;
+}
 
 /**
  * A dica de cada campo do formulário de submissão traz o limite ("Limite de 300 caracteres."), e o mesmo limite é
@@ -49,12 +65,14 @@ export function attachCharCounter(doc: Document): () => void {
     if (limit === null) {
       return;
     }
-    let counter = target.nextElementSibling as HTMLElement | null;
+    // Nas palavras-chave o input fica dentro da caixa de chips, e o contador vai logo depois dela.
+    const anchor: HTMLElement = target.closest('ds-chips') ?? target;
+    let counter = anchor.nextElementSibling as HTMLElement | null;
     if (!counter?.classList.contains(CHAR_COUNTER_CLASS)) {
       counter = doc.createElement('small');
       counter.className = `${CHAR_COUNTER_CLASS} form-text text-muted d-block text-end`;
       counter.setAttribute('aria-live', 'off');
-      target.insertAdjacentElement('afterend', counter);
+      anchor.insertAdjacentElement('afterend', counter);
     }
     const length = target.value.length;
     const exceeded = length > limit;
@@ -65,20 +83,20 @@ export function attachCharCounter(doc: Document): () => void {
   };
 
   const update = (event: Event) => {
-    if (isPlainTextControl(event.target)) {
+    if (isCountableControl(event.target)) {
       render(event.target);
     }
   };
 
   const redrawAfterBlur = (event: Event) => {
     const target = event.target;
-    if (!isPlainTextControl(target)) {
+    if (!isCountableControl(target)) {
       return;
     }
     setTimeout(() => {
       // O campo pode ter sido recriado pelo Angular: procura o atual pelo id.
       const current = target.isConnected ? target : (target.id ? doc.getElementById(target.id) : null);
-      if (isPlainTextControl(current)) {
+      if (isCountableControl(current)) {
         render(current);
       }
     }, CHAR_COUNTER_REDRAW_MS);

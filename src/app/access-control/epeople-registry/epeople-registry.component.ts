@@ -64,7 +64,7 @@ import {
 import { EpeopleRegistryService } from './epeople-registry.service';
 
 @Component({
-  selector: 'ds-epeople-registry',
+  selector: 'ds-base-epeople-registry',
   templateUrl: './epeople-registry.component.html',
   imports: [
     AsyncPipe,

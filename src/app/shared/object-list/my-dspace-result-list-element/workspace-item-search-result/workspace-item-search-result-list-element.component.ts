@@ -30,7 +30,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-import { TranslateModule } from '@ngx-translate/core';
+
 /**
  * This component renders workspaceitem object for the search result in the list view.
  */
@@ -44,7 +44,6 @@ import { TranslateModule } from '@ngx-translate/core';
     NgClass,
     ThemedLoadingComponent,
     WorkspaceitemActionsComponent,
-    TranslateModule
   ],
 })
 
@@ -100,7 +99,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
     });
   }
 
- getReturnInfo(): { type: 'ADJUSTMENT' | 'REJECTED'; reason: string } | null {
+getReturnInfo(): { type: 'ADJUSTMENT' | 'REJECTED'; reason: string } | null {
     const derivedResult = this.derivedSearchResult$.value;
     const item: Item = derivedResult?.indexableObject;
     if (!item || !item.metadata) {
