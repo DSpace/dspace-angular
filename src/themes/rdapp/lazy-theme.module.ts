@@ -14,10 +14,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { RootModule } from '../../app/root.module';
+import { EPeopleRegistryComponent } from './app/access-control/epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './app/access-control/epeople-registry/eperson-form/eperson-form.component';
+import { MembersListComponent } from './app/access-control/group-registry/group-form/members-list/members-list.component';
+import { SubgroupsListComponent } from './app/access-control/group-registry/group-form/subgroup-list/subgroups-list.component';
 import { AuditTableComponent } from './app/audit-page/audit-table/audit-table.component';
 import { AuditOverviewComponent } from './app/audit-page/overview/audit-overview.component';
 import { FullItemPageComponent } from './app/item-page/full/full-item-page.component';
+import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
 import { ItemListPreviewComponent } from './app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
@@ -29,11 +33,15 @@ const DECLARATIONS = [
 const IMPORTS = [
   AuditOverviewComponent,
   AuditTableComponent,
+  CollectionDropdownComponent,
+  EPeopleRegistryComponent,
   EPersonFormComponent,
   FullItemPageComponent,
   ItemListPreviewComponent,
+  MembersListComponent,
   ResultsBackButtonComponent,
   SearchFormComponent,
+  SubgroupsListComponent,
   TypeBadgeComponent,
 ];
 

@@ -101,7 +101,7 @@ export interface EPersonListActionConfig {
 }
 
 @Component({
-  selector: 'ds-members-list',
+  selector: 'ds-base-members-list',
   templateUrl: './members-list.component.html',
   imports: [
     AsyncPipe,

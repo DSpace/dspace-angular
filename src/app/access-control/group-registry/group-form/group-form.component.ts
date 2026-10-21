@@ -80,8 +80,8 @@ import {
   getGroupsRoute,
 } from '../../access-control-routing-paths';
 import { GroupRegistryService } from '../group-registry.service';
-import { MembersListComponent } from './members-list/members-list.component';
-import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
+import { ThemedMembersListComponent } from './members-list/themed-members-list.component';
+import { ThemedSubgroupsListComponent } from './subgroup-list/themed-subgroups-list.component';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 
 @Component({
@@ -92,8 +92,8 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
     AsyncPipe,
     ContextHelpDirective,
     FormComponent,
-    MembersListComponent,
-    SubgroupsListComponent,
+    ThemedMembersListComponent,
+    ThemedSubgroupsListComponent,
     TranslateModule,
   ],
 })
