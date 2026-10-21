@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -35,9 +36,7 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
   getFirstSucceededRemoteListPayload,
-  getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { Registration } from '@dspace/core/shared/registration.model';
@@ -107,7 +106,7 @@ import { HasNoValuePipe } from '../../../../../../app/shared/utils/has-no-value.
 /**
  * A form used for creating and editing EPeople
  */
-export class EPersonFormComponent implements OnInit, OnDestroy {
+export class EPersonFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   labelPrefix = 'admin.access-control.epeople.form.';
 
@@ -316,13 +315,26 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     this.initialisePage();
   }
 
+  ngAfterViewInit(): void {
+    if (this.formGroup) {
+      this.subs.push(
+        this.formGroup.statusChanges.pipe(debounceTime(50)).subscribe(() => {
+          this.syncFormAriaAttributes();
+        }),
+      );
+    }
+  }
+
   /**
    * This method will initialise the page
    */
   initialisePage() {
     if (this.route.snapshot.params.id) {
       this.subs.push(this.epersonService.findById(this.route.snapshot.params.id).subscribe((ePersonRD: RemoteData<EPerson>) => {
-        this.epeopleRegistryService.editEPerson(ePersonRD.payload);
+        if (hasValue(ePersonRD?.payload)) {
+          this.epersonInitial = ePersonRD.payload;
+          this.epeopleRegistryService.editEPerson(ePersonRD.payload);
+        }
       }));
     }
     this.firstName = new DynamicInputModel({
@@ -334,7 +346,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       required: true,
       errorMessages: {
-        required: 'error.validation.required',
+        required: 'admin.access-control.epeople.form.firstName.error.required',
       },
     });
     this.lastName = new DynamicInputModel({
@@ -346,7 +358,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       required: true,
       errorMessages: {
-        required: 'error.validation.required',
+        required: 'admin.access-control.epeople.form.lastName.error.required',
       },
     });
     this.email = new DynamicInputModel({
@@ -356,12 +368,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       validators: {
         required: null,
         email: null,
+        pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
       },
       required: true,
       errorMessages: {
-        required: 'error.validation.required',
+        required: 'admin.access-control.epeople.form.email.error.required',
         emailTaken: 'error.validation.emailTaken',
         email: 'error.validation.NotValidEmail',
+        pattern: 'error.validation.NotValidEmail',
       },
       hint: this.translateService.instant(`${this.messagePrefix}.emailHint`),
     });
@@ -375,7 +389,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       required: true,
       options: [],
       errorMessages: {
-        required: 'error.validation.required',
+        required: 'admin.access-control.epeople.form.institution.error.required',
       },
     });
     this.canLogIn = new DynamicCheckboxModel(
@@ -434,6 +448,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.formGroup.controls.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.epersonService));
         this.emailValueChangeSubscribe = this.email.valueChanges.pipe(debounceTime(300)).subscribe(() => {
           this.changeDetectorRef.detectChanges();
+          this.syncFormAriaAttributes();
         });
       }
     }));
@@ -497,9 +512,18 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created eperson using the EventEmitter submitForm
    */
   onSubmit() {
+    // D7: Validação manual de e-mail vazio ou inválido antes de submeter
+    const emailControl = this.formGroup.controls.email;
+    const rawEmail = (this.email?.value || emailControl?.value || '').trim();
+    if (!rawEmail) {
+      emailControl?.setErrors({ required: true });
+    }
+
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
+      Object.values(this.formGroup.controls).forEach((control) => control.markAsDirty());
       this.changeDetectorRef.detectChanges();
+      this.syncFormAriaAttributes(true);
       return;
     }
 
@@ -523,7 +547,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
               },
             ],
           },
-          email: this.email.value,
+          email: rawEmail,
           canLogIn: this.canLogIn.value,
           requireCertificate: this.requireCertificate.value,
         };
@@ -537,27 +561,46 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Creates new EPerson based on given values from form
+   * D5: Creates new EPerson based on given values from form.
+   * Valida previamente se o e-mail já está em uso para evitar o erro 500 ("Server Error")
+   * e apontar diretamente o campo de e-mail e a causa em português.
    * @param values
    */
   createNewEPerson(values) {
     const ePersonToCreate = Object.assign(new EPerson(), values);
+    const emailToCheck = (values.email || '').trim();
 
-    const response = this.epersonService.create(ePersonToCreate);
-    response.pipe(
+    this.epersonService.getEPersonByEmail(emailToCheck).pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe((rd: RemoteData<EPerson>) => {
-      if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: this.dsoNameService.getName(ePersonToCreate) }));
-        this.submitForm.emit(ePersonToCreate);
-        this.epersonService.clearEPersonRequests();
-        void this.router.navigateByUrl(getEPersonsRoute());
-      } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: this.dsoNameService.getName(ePersonToCreate) }));
-        this.cancelForm.emit();
+    ).subscribe((checkRD: RemoteData<EPerson>) => {
+      if (checkRD.hasSucceeded && hasValue(checkRD.payload)) {
+        this.markEmailAsDuplicate(ePersonToCreate, 'created');
+        return;
       }
+
+      const response = this.epersonService.create(ePersonToCreate);
+      response.pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((rd: RemoteData<EPerson>) => {
+        if (rd.hasSucceeded) {
+          this.notificationsService.success(
+            this.translateService.get(this.labelPrefix + 'notification.created.success', { name: this.dsoNameService.getName(ePersonToCreate) }),
+          );
+          this.submitForm.emit(ePersonToCreate);
+          this.epersonService.clearEPersonRequests();
+          void this.router.navigateByUrl(getEPersonsRoute());
+        } else {
+          // D5: Se falhou por duplicidade (422, 409 ou 500 com e-mail repetido), aponta o campo email sem limpar o form
+          if (rd.statusCode === 422 || rd.statusCode === 409 || rd.statusCode === 500) {
+            this.markEmailAsDuplicate(ePersonToCreate, 'created');
+          } else {
+            this.notificationsService.error(
+              this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: this.dsoNameService.getName(ePersonToCreate) }),
+            );
+          }
+        }
+      });
     });
-    this.showNotificationIfEmailInUse(ePersonToCreate, 'created');
   }
 
   /**
@@ -598,14 +641,13 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.submitForm.emit(editedEperson);
         void this.router.navigateByUrl(getEPersonsRoute());
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: this.dsoNameService.getName(editedEperson) }));
-        this.cancelForm.emit();
+        if (values.email != null && values.email !== ePerson.email) {
+          this.markEmailAsDuplicate(editedEperson, 'edited');
+        } else {
+          this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: this.dsoNameService.getName(editedEperson) }));
+        }
       }
     });
-
-    if (values.email != null && values.email !== ePerson.email) {
-      this.showNotificationIfEmailInUse(editedEperson, 'edited');
-    }
   }
 
   /**
@@ -774,22 +816,36 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sends an email to current eperson address with the information
-   * to reset password
+   * D6: Sends an email to current eperson address with the information
+   * to reset password, garantindo feedback visual em tela em qualquer cenário.
    */
   resetPassword() {
-    if (hasValue(this.epersonInitial.email)) {
-      this.epersonRegistrationService.registerEmail(this.epersonInitial.email, null, TYPE_REQUEST_FORGOT).pipe(getFirstCompletedRemoteData())
-        .subscribe((response: RemoteData<Registration>) => {
-          if (response.hasSucceeded) {
-            this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
-              this.translateService.get('forgot-email.form.success.content', { email: this.epersonInitial.email }));
-          } else {
-            this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
-              this.translateService.get('forgot-email.form.error.content', { email: this.epersonInitial.email }));
-          }
-        });
+    const targetEmail = this.epersonInitial?.email || this.email?.value || this.formGroup?.controls?.email?.value;
+
+    if (!hasValue(targetEmail)) {
+      this.notificationsService.error(
+        this.translateService.instant('admin.access-control.epeople.actions.reset'),
+        this.translateService.instant('admin.access-control.epeople.form.email.error.required'),
+      );
+      return;
     }
+
+    this.epersonRegistrationService.registerEmail(targetEmail, null, TYPE_REQUEST_FORGOT).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((response: RemoteData<Registration>) => {
+      if (response.hasSucceeded) {
+        this.notificationsService.success(
+          this.translateService.instant('admin.access-control.epeople.actions.reset'),
+          this.translateService.instant('forgot-email.form.success.content', { email: targetEmail }),
+        );
+      } else {
+        this.notificationsService.error(
+          this.translateService.instant('forgot-email.form.error.head'),
+          this.translateService.instant('forgot-email.form.error.content', { email: targetEmail }),
+        );
+      }
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   /**
@@ -805,24 +861,60 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Checks for the given ePerson if there is already an ePerson in the system with that email
-   * and shows notification if this is the case
-   * @param ePerson               ePerson values to check
-   * @param notificationSection   whether in create or edit
+   * D5: Marca o campo de e-mail como duplicado no FormGroup, atualiza os atributos ARIA
+   * e exibe notificação em português apontando o campo e a causa.
    */
-  private showNotificationIfEmailInUse(ePerson: EPerson, notificationSection: string) {
-    this.subs.push(this.epersonService.searchByScope('email', ePerson.email, {
-      currentPage: 1,
-      elementsPerPage: 0,
-    }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
-      .subscribe((list: PaginatedList<EPerson>) => {
-        if (list.totalElements > 0) {
-          this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.' + notificationSection + '.failure.emailInUse', {
-            name: this.dsoNameService.getName(ePerson),
-            email: ePerson.email,
-          }));
+  private markEmailAsDuplicate(ePerson: EPerson, notificationSection: string): void {
+    const emailControl = this.formGroup?.controls?.email;
+    if (emailControl) {
+      emailControl.setErrors({ emailTaken: true });
+      emailControl.markAsTouched();
+      emailControl.markAsDirty();
+    }
+    this.notificationsService.error(
+      this.translateService.instant('error.validation.emailTaken'),
+      this.translateService.instant(this.labelPrefix + 'notification.' + notificationSection + '.failure.emailInUse', {
+        name: this.dsoNameService.getName(ePerson),
+        email: ePerson.email,
+      }),
+    );
+    this.changeDetectorRef.detectChanges();
+    this.syncFormAriaAttributes(true);
+  }
+
+  /**
+   * D7: Vincula programaticamente aria-invalid e aria-describedby nos inputs do formulário
+   */
+  private syncFormAriaAttributes(focusFirstInvalid = false): void {
+    if (!this.formGroup || typeof document === 'undefined') {
+      return;
+    }
+    let firstInvalidFocused = false;
+    ['firstName', 'lastName', 'email', 'institution'].forEach((fieldId) => {
+      const control = this.formGroup.controls[fieldId];
+      const inputEl = document.getElementById(fieldId);
+      if (control && inputEl) {
+        const isInvalid = control.invalid && (control.touched || control.dirty);
+        inputEl.setAttribute('aria-invalid', isInvalid ? 'true' : 'false');
+
+        // Procura o elemento de feedback de erro próximo ao input para vincular via aria-describedby
+        const wrapper = inputEl.closest('.form-group, .mb-3, ds-dynamic-form-control-container');
+        const errorEl = wrapper?.querySelector('.invalid-feedback, .text-danger') as HTMLElement;
+        if (isInvalid && errorEl) {
+          const errorId = `${fieldId}-error-feedback`;
+          errorEl.id = errorId;
+          errorEl.setAttribute('role', 'alert');
+          inputEl.setAttribute('aria-describedby', errorId);
+        } else if (!isInvalid) {
+          inputEl.removeAttribute('aria-describedby');
         }
-      }));
+
+        if (focusFirstInvalid && isInvalid && !firstInvalidFocused) {
+          inputEl.focus();
+          firstInvalidFocused = true;
+        }
+      }
+    });
   }
 
   /**

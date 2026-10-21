@@ -8183,4 +8183,28 @@
   "mydspace.item.returned.adjustment.label": "Motivo da solicitação de ajuste",
 
   "mydspace.item.returned.rejected.label": "Motivo da rejeição",
+
+  "error.validation.emailTaken": "Este endereço de e-mail já está cadastrado no sistema. Informe outro e-mail ou edite o usuário existente.",
+  
+  "error.validation.NotValidEmail": "Formato de e-mail inválido. Informe um endereço completo no formato nome@dominio.com.br.",
+  
+  "admin.access-control.epeople.form.firstName.error.required": "O campo Nome é obrigatório. Informe o primeiro nome da pessoa.",
+  
+  "admin.access-control.epeople.form.lastName.error.required": "O campo Sobrenome é obrigatório. Informe o sobrenome da pessoa.",
+  
+  "admin.access-control.epeople.form.email.error.required": "O campo E-mail é obrigatório. Informe um endereço válido (ex.: usuario@email.com).",
+  
+  "admin.access-control.epeople.form.institution.error.required": "A seleção da Instituição é obrigatória.",
+  
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Não foi possível cadastrar \"{{name}}\" porque o e-mail \"{{email}}\" já está em uso por outro usuário.",
+  
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Não foi possível atualizar \"{{name}}\" porque o e-mail \"{{email}}\" já pertence a outro usuário.",
+  
+  "admin.access-control.epeople.actions.reset": "Redefinição de senha",
+  
+  "forgot-email.form.success.content": "Um e-mail com o link para redefinição de senha foi enviado para {{email}}.",
+  
+  "forgot-email.form.error.head": "Não foi possível enviar o e-mail de redefinição",
+  
+  "forgot-email.form.error.content": "Ocorreu uma falha ao enviar as instruções de redefinição de senha para {{email}}. Verifique se o e-mail é válido e se o servidor de e-mail está ativo."
 }
