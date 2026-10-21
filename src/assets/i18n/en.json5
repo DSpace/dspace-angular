@@ -2499,6 +2499,10 @@
 
   "item.withdrawn.field.title": "Title",
 
+  "item.withdrawn.form.header": "Withdrawal details",
+
+  "item.withdrawn.form.required-legend": "Required field",
+
   "item.withdrawn.form.reason": "Reason for withdrawal",
 
   "item.withdrawn.form.reason.hint": "Shown on the page of the withdrawn item, explain why it is no longer available.",

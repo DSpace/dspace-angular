@@ -1,18 +1,23 @@
-<form [formGroup]="formGroup" class="withdrawn-metadata-form">
-  @for (field of fields; track field.metadata) {
-    <div class="mb-3">
+<form [formGroup]="formGroup" class="withdrawn-metadata-form card mb-4">
+  <div class="card-header">
+    <span class="withdrawn-metadata-form-title">
+      <i class="fas fa-file-circle-exclamation me-2" aria-hidden="true"></i>{{ 'item.withdrawn.form.header' | translate }}
+    </span>
+  </div>
+  <div class="card-body">
+    @for (field of fields; track field.metadata) {
       @switch (field.type) {
         @case ('boolean') {
-          <div class="form-check">
+          <div class="withdrawn-metadata-form-flag form-check mb-3">
             <input type="checkbox"
                    class="form-check-input"
                    [id]="controlId(field)"
                    [formControlName]="controlName(field)">
-            <label class="form-check-label" [for]="controlId(field)">
-              {{ field.label | translate }}@if (field.required) {<span aria-hidden="true">&nbsp;*</span>}
+            <label class="form-check-label fw-semibold" [for]="controlId(field)">
+              {{ field.label | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
             </label>
             @if (field.hint) {
-              <small class="form-text text-muted d-block">{{ field.hint | translate }}</small>
+              <small class="form-text text-muted d-block mt-0">{{ field.hint | translate }}</small>
             }
             @if (hasError(field)) {
               <div class="invalid-feedback d-block">{{ 'item.withdrawn.form.error.required-flag' | translate }}</div>
@@ -20,42 +25,56 @@
           </div>
         }
         @case ('textarea') {
-          <label class="form-label" [for]="controlId(field)">
-            {{ field.label | translate }}@if (field.required) {<span aria-hidden="true">&nbsp;*</span>}
-          </label>
-          <textarea class="form-control"
-                    rows="4"
-                    [id]="controlId(field)"
-                    [attr.aria-required]="field.required"
-                    [class.is-invalid]="hasError(field)"
-                    [formControlName]="controlName(field)"></textarea>
-          @if (field.hint) {
-            <small class="form-text text-muted">{{ field.hint | translate }}</small>
-          }
-          @if (hasError(field)) {
-            <div class="invalid-feedback d-block">{{ 'item.withdrawn.form.error.required' | translate }}</div>
-          }
+          <div class="mb-3">
+            <label class="form-label fw-semibold" [for]="controlId(field)">
+              {{ field.label | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
+            </label>
+            @if (field.hint) {
+              <small class="form-text text-muted d-block mt-0 mb-2">{{ field.hint | translate }}</small>
+            }
+            <textarea class="form-control"
+                      rows="3"
+                      [id]="controlId(field)"
+                      [attr.aria-required]="field.required"
+                      [class.is-invalid]="hasError(field)"
+                      [formControlName]="controlName(field)"></textarea>
+            @if (hasError(field)) {
+              <div class="invalid-feedback d-block">{{ 'item.withdrawn.form.error.required' | translate }}</div>
+            }
+          </div>
         }
         @default {
-          <label class="form-label" [for]="controlId(field)">
-            {{ field.label | translate }}@if (field.required) {<span aria-hidden="true">&nbsp;*</span>}
-          </label>
-          <input [type]="field.type === 'url' ? 'url' : 'text'"
-                 class="form-control"
-                 [id]="controlId(field)"
-                 [attr.aria-required]="field.required"
-                 [class.is-invalid]="hasError(field)"
-                 [formControlName]="controlName(field)">
-          @if (field.hint) {
-            <small class="form-text text-muted">{{ field.hint | translate }}</small>
-          }
-          @if (hasError(field)) {
-            <div class="invalid-feedback d-block">
-              {{ (field.type === 'url' ? 'item.withdrawn.form.error.url' : 'item.withdrawn.form.error.required') | translate }}
+          <div class="mb-3">
+            <label class="form-label fw-semibold" [for]="controlId(field)">
+              {{ field.label | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
+            </label>
+            @if (field.hint) {
+              <small class="form-text text-muted d-block mt-0 mb-2">{{ field.hint | translate }}</small>
+            }
+            <div class="input-group">
+              @if (field.type === 'url') {
+                <span class="input-group-text"><i class="fas fa-link" aria-hidden="true"></i></span>
+              }
+              <input [type]="field.type === 'url' ? 'url' : 'text'"
+                     class="form-control"
+                     [id]="controlId(field)"
+                     [attr.aria-required]="field.required"
+                     [class.is-invalid]="hasError(field)"
+                     [formControlName]="controlName(field)">
             </div>
-          }
+            @if (hasError(field)) {
+              <div class="invalid-feedback d-block">
+                {{ (field.type === 'url' ? 'item.withdrawn.form.error.url' : 'item.withdrawn.form.error.required') | translate }}
+              </div>
+            }
+          </div>
         }
       }
-    </div>
-  }
+    }
+    @if (hasRequiredFields()) {
+      <small class="form-text text-muted d-block mt-0">
+        <span class="text-danger" aria-hidden="true">*</span> {{ 'item.withdrawn.form.required-legend' | translate }}
+      </small>
+    }
+  </div>
 </form>

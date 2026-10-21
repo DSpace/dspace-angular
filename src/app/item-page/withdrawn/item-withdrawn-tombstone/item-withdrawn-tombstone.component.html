@@ -1,16 +1,19 @@
 @if (hasEntries()) {
-  <div class="withdrawn-tombstone mt-2">
-    <dl class="row mb-0">
-      @for (entry of entries; track entry.label) {
-        <dt class="col-sm-3 text-sm-end">{{ entry.label | translate }}</dt>
-        <dd class="col-sm-9 mb-1">
+  <dl class="withdrawn-tombstone">
+    @for (entry of entries; track entry.label) {
+      <div class="withdrawn-tombstone-entry row">
+        <dt class="col-sm-3">{{ entry.label | translate }}</dt>
+        <dd class="col-sm-9">
           @if (entry.url) {
-            <a [href]="entry.url" rel="noopener">{{ entry.value }}</a>
+            <a class="withdrawn-tombstone-link" [href]="entry.url" rel="noopener">
+              <span>{{ entry.value }}</span>
+              <i class="fas fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i>
+            </a>
           } @else {
             {{ entry.value }}
           }
         </dd>
-      }
-    </dl>
-  </div>
+      </div>
+    }
+  </dl>
 }

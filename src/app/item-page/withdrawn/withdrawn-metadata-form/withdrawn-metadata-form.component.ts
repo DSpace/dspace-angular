@@ -46,6 +46,7 @@ export interface WithdrawnMetadataFormState {
 @Component({
   selector: 'ds-withdrawn-metadata-form',
   templateUrl: './withdrawn-metadata-form.component.html',
+  styleUrls: ['./withdrawn-metadata-form.component.scss'],
   imports: [
     ReactiveFormsModule,
     TranslateModule,
@@ -103,6 +104,14 @@ export class WithdrawnMetadataFormComponent implements OnInit {
    */
   controlId(field: WithdrawnFieldConfig): string {
     return `withdrawn-${field.metadata.replace(/\./g, '-')}`;
+  }
+
+  /**
+   * Whether at least one of the rendered fields is required, so that the meaning of the
+   * asterisk marking them is spelled out only when there is an asterisk to explain
+   */
+  hasRequiredFields(): boolean {
+    return this.fields.some((field: WithdrawnFieldConfig) => field.required);
   }
 
   /**
