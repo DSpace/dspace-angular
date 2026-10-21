@@ -17,6 +17,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -36,17 +37,17 @@ import { LinkHeadService } from '../../../../../app/core/services/link-head.serv
 import { ServerResponseService } from '../../../../../app/core/services/server-response.service';
 import { Item } from '../../../../../app/core/shared/item.model';
 import { MetadataMap } from '../../../../../app/core/shared/metadata.models';
+import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../../../../../app/item-page/field-components/collections/collections.component';
+import { FullItemPageComponent as BaseComponent } from '../../../../../app/item-page/full/full-item-page.component';
+import { ItemVersionsComponent } from '../../../../../app/item-page/versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../../../../../app/item-page/versions/notice/item-versions-notice.component';
 import { fadeInOut } from '../../../../../app/shared/animations/fade';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { CollectionsComponent } from '../../../../../app/item-page/field-components/collections/collections.component';
-import { FullItemPageComponent as BaseComponent } from '../../../../../app/item-page/full/full-item-page.component';
-import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
-import { ItemVersionsComponent } from '../../../../../app/item-page/versions/item-versions.component';
-import { ItemVersionsNoticeComponent } from '../../../../../app/item-page/versions/notice/item-versions-notice.component';
-import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { WorkflowItemPackageComponent } from './workflow-item-package/workflow-item-package.component';
 
 @Component({
   selector: 'ds-themed-full-item-page',
@@ -67,6 +68,7 @@ import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edi
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
+    WorkflowItemPackageComponent,
   ],
 })
 export class FullItemPageComponent extends BaseComponent implements OnInit, OnDestroy {

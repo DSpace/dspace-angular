@@ -64,6 +64,7 @@
               <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
 
               @if (fromSubmissionObject) {
+                <ds-workflow-item-package [item]="item"></ds-workflow-item-package>
                 <div class="button-row bottom">
                   <div class="text-end">
                     <button class="btn btn-outline-secondary me-1" (click)="back()">

@@ -1,0 +1,59 @@
+<section class="workflow-package mt-4" aria-labelledby="workflow-files-title">
+  <h2 id="workflow-files-title" class="h5">{{ 'evidencia.workflow-view.files.title' | translate }}</h2>
+  @if (files$ | async; as files) {
+    @if (files.length > 0) {
+      <p class="text-muted mb-2">{{ 'evidencia.workflow-view.files.package' | translate }}</p>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle workflow-files">
+          <caption class="visually-hidden">{{ 'evidencia.workflow-view.files.caption' | translate }}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{{ 'evidencia.workflow-view.files.name' | translate }}</th>
+              <th scope="col">{{ 'evidencia.workflow-view.files.size' | translate }}</th>
+              <th scope="col">{{ 'evidencia.workflow-view.files.format' | translate }}</th>
+              <th scope="col"><span class="visually-hidden">{{ 'evidencia.workflow-view.files.action' | translate }}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of files; track row.bitstream.id) {
+              <tr>
+                <th scope="row" class="fw-normal">{{ row.name }}</th>
+                <td>{{ row.bitstream.sizeBytes | dsFileSize }}</td>
+                <td>{{ row.format }}</td>
+                <td class="text-end">
+                  <ds-file-download-link [bitstream]="row.bitstream" [item]="item" [showIcon]="true" [showAccessStatusBadge]="false" [enableRequestACopy]="false">
+                    {{ 'evidencia.workflow-view.files.download' | translate }}<span class="visually-hidden"> {{ row.name }}</span>
+                  </ds-file-download-link>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="text-muted">{{ 'evidencia.workflow-view.files.empty' | translate }}</p>
+    }
+  } @else {
+    <ds-loading [showMessage]="false"></ds-loading>
+  }
+</section>
+
+<section class="workflow-package mt-4" aria-labelledby="workflow-license-title">
+  <h2 id="workflow-license-title" class="h5">{{ 'evidencia.workflow-view.license.title' | translate }}</h2>
+  @if (license$ | async; as license) {
+    @switch (license.state) {
+      @case ('ok') {
+        <pre class="workflow-license border rounded p-3" tabindex="0">{{ license.text }}</pre>
+      }
+      @case ('empty') {
+        <p class="text-muted">{{ 'evidencia.workflow-view.license.empty' | translate }}</p>
+      }
+      @case ('error') {
+        <p class="text-danger" role="alert">{{ 'evidencia.workflow-view.license.error' | translate }}</p>
+      }
+      @default {
+        <ds-loading [showMessage]="false"></ds-loading>
+      }
+    }
+  }
+</section>

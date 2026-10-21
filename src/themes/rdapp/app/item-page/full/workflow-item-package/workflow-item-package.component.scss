@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.workflow-license {
+  max-height: 18rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+  background-color: var(--bs-light);
+}
