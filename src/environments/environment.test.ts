@@ -15,14 +15,8 @@ export const environment: BuildConfig = {
     transferState: true,
     replaceRestUrl: false,
     excludePathPatterns: [
-      {
-        pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
-        flag: 'i',
-      },
-      {
-        pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
-        flag: 'i',
-      },
+      { pattern: '^/communities/[a-fA-F0-9-]{36}/browse(/.*)?$' },
+      { pattern: '^/collections/[a-fA-F0-9-]{36}/browse(/.*)?$' },
       { pattern: '^/browse/' },
       { pattern: '^/search' },
       { pattern: '^/community-list$' },
