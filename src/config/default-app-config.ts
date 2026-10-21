@@ -437,6 +437,69 @@ export class DefaultAppConfig implements AppConfig {
     // If true, the search result in item page will display relations based on authority.
     // If false,the search result in item page will display default DSpace relations.
     showAuthorityRelations: false,
+    // Withdrawal form and tombstone page of a withdrawn item.
+    // The metadata fields listed here must also be configured on the REST side through
+    // the "item.withdrawn.publicField" property, otherwise they stay hidden to anyone
+    // but the administrators.
+    withdrawn: {
+      // Definitions of the metadata fields handled when an item is withdrawn. A definition
+      // on its own does nothing: the "form" and "itemView" lists below decide where each
+      // field is used, and in which order. Nothing is rendered or collected outside them.
+      fields: [
+        {
+          metadata: 'dc.title',
+          type: 'text',
+          required: false,
+          label: 'item.withdrawn.field.title',
+        },
+        {
+          metadata: 'dspace.withdrawn.reason',
+          type: 'textarea',
+          required: true,
+          label: 'item.withdrawn.form.reason',
+          hint: 'item.withdrawn.form.reason.hint',
+        },
+        {
+          metadata: 'dcterms.isReplacedBy',
+          type: 'url',
+          required: false,
+          label: 'item.withdrawn.form.replaced-by',
+          hint: 'item.withdrawn.form.replaced-by.hint',
+        },
+        {
+          metadata: 'dspace.withdrawn.redirect',
+          type: 'boolean',
+          required: false,
+          label: 'item.withdrawn.form.redirect',
+          hint: 'item.withdrawn.form.redirect.hint',
+        },
+      ],
+      // Fields collected by the withdrawal form, in the order they are rendered
+      form: [
+        'dspace.withdrawn.reason',
+        'dcterms.isReplacedBy',
+        'dspace.withdrawn.redirect',
+      ],
+      // Fields shown on the tombstone page of the withdrawn item, in the order they are
+      // rendered. A field listed here must also be exposed by the REST layer through
+      // "item.withdrawn.publicField", otherwise only administrators can read it
+      itemView: [
+        'dc.title',
+        'dspace.withdrawn.reason',
+        'dcterms.isReplacedBy',
+      ],
+      // Metadata field holding the URL, or the handle, of the record replacing the item
+      replacementField: 'dcterms.isReplacedBy',
+      // Metadata field holding the flag (true/false) enabling the automatic redirect
+      redirectField: 'dspace.withdrawn.redirect',
+      // Whether the tombstone page can be skipped, redirecting to the replacement record
+      redirectEnabled: true,
+      // Whether the administrators are redirected too. Keep it false to let them read and
+      // fix the item from its page; when true they can only reach it through the edit pages
+      redirectAdmins: false,
+      // HTTP status code used by the automatic redirect when rendered server side
+      redirectStatusCode: 301,
+    },
   };
 
   // Community Page Config

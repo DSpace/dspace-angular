@@ -1,0 +1,61 @@
+<form [formGroup]="formGroup" class="withdrawn-metadata-form">
+  @for (field of fields; track field.metadata) {
+    <div class="mb-3">
+      @switch (field.type) {
+        @case ('boolean') {
+          <div class="form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   [id]="controlId(field)"
+                   [formControlName]="controlName(field)">
+            <label class="form-check-label" [for]="controlId(field)">
+              {{ field.label | translate }}@if (field.required) {<span aria-hidden="true">&nbsp;*</span>}
+            </label>
+            @if (field.hint) {
+              <small class="form-text text-muted d-block">{{ field.hint | translate }}</small>
+            }
+            @if (hasError(field)) {
+              <div class="invalid-feedback d-block">{{ 'item.withdrawn.form.error.required-flag' | translate }}</div>
+            }
+          </div>
+        }
+        @case ('textarea') {
+          <label class="form-label" [for]="controlId(field)">
+            {{ field.label | translate }}@if (field.required) {<span aria-hidden="true">&nbsp;*</span>}
+          </label>
+          <textarea class="form-control"
+                    rows="4"
+                    [id]="controlId(field)"
+                    [attr.aria-required]="field.required"
+                    [class.is-invalid]="hasError(field)"
+                    [formControlName]="controlName(field)"></textarea>
+          @if (field.hint) {
+            <small class="form-text text-muted">{{ field.hint | translate }}</small>
+          }
+          @if (hasError(field)) {
+            <div class="invalid-feedback d-block">{{ 'item.withdrawn.form.error.required' | translate }}</div>
+          }
+        }
+        @default {
+          <label class="form-label" [for]="controlId(field)">
+            {{ field.label | translate }}@if (field.required) {<span aria-hidden="true">&nbsp;*</span>}
+          </label>
+          <input [type]="field.type === 'url' ? 'url' : 'text'"
+                 class="form-control"
+                 [id]="controlId(field)"
+                 [attr.aria-required]="field.required"
+                 [class.is-invalid]="hasError(field)"
+                 [formControlName]="controlName(field)">
+          @if (field.hint) {
+            <small class="form-text text-muted">{{ field.hint | translate }}</small>
+          }
+          @if (hasError(field)) {
+            <div class="invalid-feedback d-block">
+              {{ (field.type === 'url' ? 'item.withdrawn.form.error.url' : 'item.withdrawn.form.error.required') | translate }}
+            </div>
+          }
+        }
+      }
+    </div>
+  }
+</form>

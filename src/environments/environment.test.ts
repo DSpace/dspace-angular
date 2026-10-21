@@ -338,6 +338,49 @@ export const environment: BuildConfig = {
       identifierSubtypes: [],
     },
     showAuthorityRelations: false,
+    withdrawn: {
+      fields: [
+        {
+          metadata: 'dc.title',
+          type: 'text',
+          required: false,
+          label: 'item.withdrawn.field.title',
+        },
+        {
+          metadata: 'dspace.withdrawn.reason',
+          type: 'textarea',
+          required: true,
+          label: 'item.withdrawn.form.reason',
+        },
+        {
+          metadata: 'dcterms.isReplacedBy',
+          type: 'url',
+          required: false,
+          label: 'item.withdrawn.form.replaced-by',
+        },
+        {
+          metadata: 'dspace.withdrawn.redirect',
+          type: 'boolean',
+          required: false,
+          label: 'item.withdrawn.form.redirect',
+        },
+      ],
+      form: [
+        'dspace.withdrawn.reason',
+        'dcterms.isReplacedBy',
+        'dspace.withdrawn.redirect',
+      ],
+      itemView: [
+        'dc.title',
+        'dspace.withdrawn.reason',
+        'dcterms.isReplacedBy',
+      ],
+      replacementField: 'dcterms.isReplacedBy',
+      redirectField: 'dspace.withdrawn.redirect',
+      redirectEnabled: true,
+      redirectAdmins: false,
+      redirectStatusCode: 301,
+    },
   },
   community: {
     defaultBrowseTab: 'search',

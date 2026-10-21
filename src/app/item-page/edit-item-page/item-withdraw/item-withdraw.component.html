@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{headerMessage | translate: {id: item.handle} }}</h1>
+      <p>{{descriptionMessage | translate}}</p>
+      <ds-modify-item-overview [item]="item"></ds-modify-item-overview>
+      <ds-withdrawn-metadata-form (formChange)="onFormChange($event)"></ds-withdrawn-metadata-form>
+      <div class="space-children-mr">
+        <button (click)="performAction()"
+                [dsBtnDisabled]="!formState?.valid"
+                class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
+        </button>
+        <button [routerLink]="[itemPageRoute, 'edit']" class="btn btn-outline-secondary cancel">
+          {{cancelMessage| translate}}
+        </button>
+      </div>
+      @if (formState && !formState.valid) {
+        <small class="form-text text-muted">{{ 'item.withdrawn.form.incomplete' | translate }}</small>
+      }
+    </div>
+  </div>
+</div>
