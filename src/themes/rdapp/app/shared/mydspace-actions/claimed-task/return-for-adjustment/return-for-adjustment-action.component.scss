@@ -1,10 +1,11 @@
 .btn-adjustment {
-  background-color: #d97706; /* Âmbar escuro */
+  // HU012 CA06: âmbar escuro com texto branco. O #d97706 anterior dava 3,19:1; #8a5a00 dá 5,9:1 (WCAG 1.4.3).
+  background-color: #8a5a00;
   color: #ffffff;
-  border-color: #b45309;
-  
+  border-color: #6e4800;
+
   &:hover, &:focus {
-    background-color: #b45309;
+    background-color: #6e4800;
     color: #ffffff;
   }
 

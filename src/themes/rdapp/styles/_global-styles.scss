@@ -74,3 +74,30 @@ ds-search-facet-selected-option .break-facet {
     position: static !important;
   }
 }
+
+// HU012 CA05 e CA06: cores dos botões de decisão do curador conforme a HU. Requerer laranja e Editar roxo, para que
+// Requerer, Visualizar e Editar deixem de parecer iguais. Devolver para ajuste (âmbar escuro) tem o estilo no próprio
+// componente, em return-for-adjustment-action.component.scss. Aprovar (verde), Rejeitar (vermelho), Retornar (cinza) e
+// Visualizar (azul) já saem do tema. Todas com texto branco e contraste acima de 4,5:1 (laranja 5,0:1, roxo 6,5:1).
+@mixin rdapp-decision-button($bg, $hover, $active) {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #{$bg};
+  --bs-btn-border-color: #{$bg};
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #{$hover};
+  --bs-btn-hover-border-color: #{$hover};
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #{$active};
+  --bs-btn-active-border-color: #{$active};
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #{$bg};
+  --bs-btn-disabled-border-color: #{$bg};
+}
+
+ds-pool-task-actions .btn.btn-info {
+  @include rdapp-decision-button(#b35400, #8f4300, #7a3a00);
+}
+
+ds-claimed-task-actions-edit-metadata .btn.btn-primary {
+  @include rdapp-decision-button(#6f42c1, #5a35a0, #4d2d8a);
+}
