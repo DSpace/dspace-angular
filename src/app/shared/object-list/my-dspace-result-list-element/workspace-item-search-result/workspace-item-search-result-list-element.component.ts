@@ -100,25 +100,51 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
     });
   }
 
-  getReturnReason(): string {
+ getReturnInfo(): { type: 'ADJUSTMENT' | 'REJECTED'; reason: string } | null {
     const derivedResult = this.derivedSearchResult$.value;
     const item: Item = derivedResult?.indexableObject;
     if (!item || !item.metadata) {
-      return '';
+      return null;
     }
 
-    const provenances = item.metadata['dc.description.provenance'];
-    if (!provenances || provenances.length === 0) {
-      return '';
-    }
-
-    // Procura a proveniência mais recente que contenha o texto de devolução
-    for (let i = provenances.length - 1; i >= 0; i--) {
-      const value = provenances[i].value;
-      if (value && (value.includes('Devolvido para ajuste') || value.includes('com o seguinte motivo'))) {
-        return value;
+    // 1. Lê do metadado público dc.description (visível para o depositante comum)
+    const descriptions = item.metadata['dc.description'] || [];
+    for (let i = descriptions.length - 1; i >= 0; i--) {
+      const val = descriptions[i].value || '';
+      if (val.startsWith('[DEVOLVIDO_AJUSTE] ')) {
+        return {
+          type: 'ADJUSTMENT',
+          reason: val.replace('[DEVOLVIDO_AJUSTE] ', '').trim(),
+        };
+      }
+      if (val.startsWith('[REJEITADO] ')) {
+        return {
+          type: 'REJECTED',
+          reason: val.replace('[REJEITADO] ', '').trim(),
+        };
       }
     }
-    return '';
+
+    // 2. Fallback para dc.description.provenance (caso o usuário logado seja Admin)
+    const provenances = item.metadata['dc.description.provenance'] || [];
+    for (let i = provenances.length - 1; i >= 0; i--) {
+      const value = provenances[i].value || '';
+      if (value.includes('Devolvido para ajuste')) {
+        const parts = value.split('com o seguinte motivo:');
+        return {
+          type: 'ADJUSTMENT',
+          reason: parts.length > 1 ? parts[1].trim() : value,
+        };
+      }
+      if (value.includes('Rejected by') && value.includes(', reason:')) {
+        const parts = value.split(', reason:');
+        return {
+          type: 'REJECTED',
+          reason: parts.length > 1 ? parts[1].trim() : value,
+        };
+      }
+    }
+
+    return null;
   }
 }

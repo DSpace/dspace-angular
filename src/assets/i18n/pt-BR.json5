@@ -8153,4 +8153,13 @@
   "evidencia.workflow-view.license.error": "Não foi possível carregar a licença do pacote.",
 
   "error.validation.regex": "O texto ultrapassa o limite de caracteres permitido para este campo.",
+
+  "mydspace.status.returned-for-adjustment": "Devolvido para ajuste",
+  
+  "mydspace.status.rejected": "Rejeitado",
+  
+  "mydspace.item.returned.adjustment.label": "Motivo da solicitação de ajuste",
+  
+  "mydspace.item.returned.rejected.label": "Motivo da rejeição",
+
 }

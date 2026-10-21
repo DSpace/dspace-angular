@@ -5,13 +5,19 @@
   [context]="badgeContext"></ds-listable-object-component-loader>
 
   <!-- ALERTA DE MOTIVO DE REJEIÇÃO / DEVOLUÇÃO PARA AJUSTE (D10) -->
-  @if (getReturnReason(); as reason) {
+@if (getReturnInfo(); as returnInfo) {
     <div class="row my-2">
       <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 col-9 col-md-10 ps-3' : 'col-12'">
-        <div class="alert alert-warning p-2 small mb-2" role="alert">
+        <div class="alert p-2 small mb-2"
+             [ngClass]="returnInfo.type === 'ADJUSTMENT' ? 'alert-warning' : 'alert-danger'"
+             role="alert">
+          <span class="badge me-2"
+                [ngClass]="returnInfo.type === 'ADJUSTMENT' ? 'bg-warning text-dark' : 'bg-danger'">
+            {{ (returnInfo.type === 'ADJUSTMENT' ? 'mydspace.status.returned-for-adjustment' : 'mydspace.status.rejected') | translate }}
+          </span>
           <i class="fas fa-exclamation-triangle me-1" aria-hidden="true"></i>
-          <strong>{{ 'mydspace.item.returned.reason.label' | translate }}:</strong>
-          <span class="ms-1">{{ reason }}</span>
+          <strong>{{ (returnInfo.type === 'ADJUSTMENT' ? 'mydspace.item.returned.adjustment.label' : 'mydspace.item.returned.rejected.label') | translate }}:</strong>
+          <span class="ms-1">{{ returnInfo.reason }}</span>
         </div>
       </div>
     </div>
