@@ -75,6 +75,36 @@ ds-search-facet-selected-option .break-facet {
   }
 }
 
+// HU009 D13 (WCAG 1.4.10): em telas estreitas as tabelas de usuários e grupos cortavam a coluna de ações. A tabela
+// continua rolando na horizontal, mas a última coluna (ações) fica presa à direita e sempre visível. O botão de
+// pesquisar passa para a linha de baixo em vez de cobrir o campo.
+@media (max-width: 767.98px) {
+  #epeople,
+  #groups,
+  #group-governance,
+  #ePeopleMembersOfGroup,
+  #epersonsSearch,
+  #subgroupsOfGroup,
+  #groupsSearch,
+  #available-groups,
+  ds-resource-policies table {
+    > thead > tr > :last-child,
+    > tbody > tr > :last-child {
+      position: sticky;
+      right: 0;
+      background-color: var(--bs-body-bg, #ffffff);
+      box-shadow: -6px 0 6px -6px rgba(0, 0, 0, 0.35);
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  form.d-flex.justify-content-between {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
 // HU012 CA05 e CA06: cores dos botões de decisão do curador conforme a HU. Requerer laranja e Editar roxo, para que
 // Requerer, Visualizar e Editar deixem de parecer iguais. Devolver para ajuste (âmbar escuro) tem o estilo no próprio
 // componente, em return-for-adjustment-action.component.scss. Aprovar (verde), Rejeitar (vermelho), Retornar (cinza) e
