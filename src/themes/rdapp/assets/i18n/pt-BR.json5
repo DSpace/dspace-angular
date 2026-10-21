@@ -546,5 +546,9 @@
   "search.filters.namedresourcetype.Workspace": "Rascunho",
   "search.filters.namedresourcetype.workspace": "Rascunho",
   "search.filters.namedresourcetype.Archived": "Disponível na busca geral",
-  "search.filters.namedresourcetype.archived": "Disponível na busca geral"
+  "search.filters.namedresourcetype.archived": "Disponível na busca geral",
+  "mydspace.status.returned-for-adjustment": "Devolvido para ajuste",
+  "mydspace.status.rejected": "Rejeitado",
+  "mydspace.item.returned.adjustment.label": "Motivo da solicitação de ajuste",
+  "mydspace.item.returned.rejected.label": "Motivo da rejeição"
 }

@@ -423,5 +423,9 @@
   "search.filters.namedresourcetype.Archived": "Available in general search",
   "search.filters.namedresourcetype.archived": "Available in general search",
   "admin.access-control.epeople.edit.breadcrumbs": "Edit user",
-  "admin.access-control.epeople.edit.title": "Edit user"
+  "admin.access-control.epeople.edit.title": "Edit user",
+  "mydspace.status.returned-for-adjustment": "Returned for adjustment",
+  "mydspace.status.rejected": "Rejected",
+  "mydspace.item.returned.adjustment.label": "Reason for the adjustment request",
+  "mydspace.item.returned.rejected.label": "Reason for the rejection"
 }

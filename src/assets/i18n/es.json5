@@ -8009,4 +8009,12 @@
   "search.filters.namedresourcetype.workspace": "Borrador",
 
   "search.filters.namedresourcetype.archived": "Disponible en la búsqueda general",
+
+  "mydspace.status.returned-for-adjustment": "Devuelto para ajuste",
+
+  "mydspace.status.rejected": "Rechazado",
+
+  "mydspace.item.returned.adjustment.label": "Motivo de la solicitud de ajuste",
+
+  "mydspace.item.returned.rejected.label": "Motivo del rechazo",
 }

@@ -35,23 +35,39 @@ import { WorkspaceItemSearchResultListElementComponent as BaseComponent } from '
 export class WorkspaceItemSearchResultListElementComponent extends BaseComponent {
 
   /**
-   * Motivo da devolução, lido da proveniência mais recente do item.
+   * Tipo e motivo da última rejeição ou devolução para ajuste. Lê primeiro o `dc.description` público (marcado com
+   * [DEVOLVIDO_AJUSTE] ou [REJEITADO], que o depositante comum consegue ler) e, se não achar, a proveniência
+   * (que só administradores leem).
    */
-  getReturnReason(): string {
-    const derivedResult = this.derivedSearchResult$.value;
-    const item: Item = derivedResult?.indexableObject;
-    const provenances = item?.metadata?.['dc.description.provenance'];
-    if (!provenances || provenances.length === 0) {
-      return '';
+  getReturnInfo(): { type: 'ADJUSTMENT' | 'REJECTED'; reason: string } | null {
+    const item: Item = this.derivedSearchResult$.value?.indexableObject;
+    if (!item?.metadata) {
+      return null;
     }
 
-    // Procura a proveniência mais recente que contenha o texto de devolução
-    for (let i = provenances.length - 1; i >= 0; i--) {
-      const value = provenances[i].value;
-      if (value && (value.includes('Devolvido para ajuste') || value.includes('com o seguinte motivo'))) {
-        return value;
+    const descriptions = item.metadata['dc.description'] || [];
+    for (let i = descriptions.length - 1; i >= 0; i--) {
+      const value = descriptions[i].value || '';
+      if (value.startsWith('[DEVOLVIDO_AJUSTE] ')) {
+        return { type: 'ADJUSTMENT', reason: value.replace('[DEVOLVIDO_AJUSTE] ', '').trim() };
+      }
+      if (value.startsWith('[REJEITADO] ')) {
+        return { type: 'REJECTED', reason: value.replace('[REJEITADO] ', '').trim() };
       }
     }
-    return '';
+
+    const provenances = item.metadata['dc.description.provenance'] || [];
+    for (let i = provenances.length - 1; i >= 0; i--) {
+      const value = provenances[i].value || '';
+      if (value.includes('Devolvido para ajuste')) {
+        const parts = value.split('com o seguinte motivo:');
+        return { type: 'ADJUSTMENT', reason: parts.length > 1 ? parts[1].trim() : value };
+      }
+      if (value.includes('Rejected by') && value.includes(', reason:')) {
+        const parts = value.split(', reason:');
+        return { type: 'REJECTED', reason: parts.length > 1 ? parts[1].trim() : value };
+      }
+    }
+    return null;
   }
 }

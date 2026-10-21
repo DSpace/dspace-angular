@@ -8003,4 +8003,12 @@
   "search.filters.namedresourcetype.workspace": "Draft",
 
   "search.filters.namedresourcetype.archived": "Available in general search",
+
+  "mydspace.status.returned-for-adjustment": "Returned for adjustment",
+
+  "mydspace.status.rejected": "Rejected",
+
+  "mydspace.item.returned.adjustment.label": "Reason for the adjustment request",
+
+  "mydspace.item.returned.rejected.label": "Reason for the rejection",
 }

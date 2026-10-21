@@ -30,7 +30,6 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.
@@ -45,7 +44,6 @@ import { TranslateModule } from '@ngx-translate/core';
     NgClass,
     ThemedLoadingComponent,
     WorkspaceitemActionsComponent,
-    TranslateModule
   ],
 })
 
@@ -99,53 +97,5 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
         hitHighlights: this.object.hitHighlights,
       }));
     });
-  }
-
-getReturnInfo(): { type: 'ADJUSTMENT' | 'REJECTED'; reason: string } | null {
-    const derivedResult = this.derivedSearchResult$.value;
-    const item: Item = derivedResult?.indexableObject;
-    if (!item || !item.metadata) {
-      return null;
-    }
-
-    // 1. Lê do metadado público dc.description (visível para o depositante comum)
-    const descriptions = item.metadata['dc.description'] || [];
-    for (let i = descriptions.length - 1; i >= 0; i--) {
-      const val = descriptions[i].value || '';
-      if (val.startsWith('[DEVOLVIDO_AJUSTE] ')) {
-        return {
-          type: 'ADJUSTMENT',
-          reason: val.replace('[DEVOLVIDO_AJUSTE] ', '').trim(),
-        };
-      }
-      if (val.startsWith('[REJEITADO] ')) {
-        return {
-          type: 'REJECTED',
-          reason: val.replace('[REJEITADO] ', '').trim(),
-        };
-      }
-    }
-
-    // 2. Fallback para dc.description.provenance (caso o usuário logado seja Admin)
-    const provenances = item.metadata['dc.description.provenance'] || [];
-    for (let i = provenances.length - 1; i >= 0; i--) {
-      const value = provenances[i].value || '';
-      if (value.includes('Devolvido para ajuste')) {
-        const parts = value.split('com o seguinte motivo:');
-        return {
-          type: 'ADJUSTMENT',
-          reason: parts.length > 1 ? parts[1].trim() : value,
-        };
-      }
-      if (value.includes('Rejected by') && value.includes(', reason:')) {
-        const parts = value.split(', reason:');
-        return {
-          type: 'REJECTED',
-          reason: parts.length > 1 ? parts[1].trim() : value,
-        };
-      }
-    }
-
-    return null;
   }
 }
