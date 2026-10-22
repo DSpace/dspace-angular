@@ -16,7 +16,7 @@ export const environment: Partial<BuildConfig> = {
     transferState: true,
     replaceRestUrl: false,
     excludePathPatterns: [
-      { pattern: '^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)(/.*)?$' },
+      { pattern: '^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)' },
       { pattern: '^/browse/' },
       { pattern: '^/search' },
       { pattern: '^/community-list$' },
