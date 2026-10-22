@@ -427,5 +427,20 @@
   "mydspace.status.returned-for-adjustment": "Returned for adjustment",
   "mydspace.status.rejected": "Rejected",
   "mydspace.item.returned.adjustment.label": "Reason for the adjustment request",
-  "mydspace.item.returned.rejected.label": "Reason for the rejection"
+  "mydspace.item.returned.rejected.label": "Reason for the rejection",
+
+  // Validação das HUs 009 e 010 (Gabriel, 21 e 22/10/2026), mantidas aqui para o merge-i18n
+  "error.validation.emailTaken": "This email address is already registered. Enter a different email or edit the existing user.",
+  "error.validation.NotValidEmail": "Invalid email format. Enter a complete address such as name@domain.com.",
+  "admin.access-control.epeople.form.firstName.error.required": "First name is required. Enter the person's first name.",
+  "admin.access-control.epeople.form.lastName.error.required": "Last name is required. Enter the person's last name.",
+  "admin.access-control.epeople.form.email.error.required": "Email is required. Enter a valid address (e.g. user@email.com).",
+  "admin.access-control.epeople.form.institution.error.required": "Selecting an institution is required.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Could not create \"{{name}}\" because the email \"{{email}}\" is already in use by another user.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Could not update \"{{name}}\" because the email \"{{email}}\" already belongs to another user.",
+  "admin.access-control.epeople.actions.reset": "Reset password",
+  "forgot-email.form.success.content": "An email with the password reset link was sent to {{email}}.",
+  "forgot-email.form.error.head": "Could not send the reset email",
+  "forgot-email.form.error.content": "Sending the password reset instructions to {{email}} failed. Check that the email is valid and that the mail server is running.",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Rejection reason"
 }

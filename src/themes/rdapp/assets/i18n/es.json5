@@ -433,5 +433,20 @@
   "mydspace.status.returned-for-adjustment": "Devuelto para ajuste",
   "mydspace.status.rejected": "Rechazado",
   "mydspace.item.returned.adjustment.label": "Motivo de la solicitud de ajuste",
-  "mydspace.item.returned.rejected.label": "Motivo del rechazo"
+  "mydspace.item.returned.rejected.label": "Motivo del rechazo",
+
+  // Validação das HUs 009 e 010 (Gabriel, 21 e 22/10/2026), mantidas aqui para o merge-i18n
+  "error.validation.emailTaken": "Esta dirección de correo electrónico ya está registrada. Indique otra o edite el usuario existente.",
+  "error.validation.NotValidEmail": "Formato de correo electrónico inválido. Indique una dirección completa como nombre@dominio.com.",
+  "admin.access-control.epeople.form.firstName.error.required": "El nombre es obligatorio. Indique el nombre de la persona.",
+  "admin.access-control.epeople.form.lastName.error.required": "El apellido es obligatorio. Indique el apellido de la persona.",
+  "admin.access-control.epeople.form.email.error.required": "El correo electrónico es obligatorio. Indique una dirección válida (p. ej.: usuario@correo.com).",
+  "admin.access-control.epeople.form.institution.error.required": "La selección de la institución es obligatoria.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "No se pudo registrar a \"{{name}}\" porque el correo \"{{email}}\" ya está en uso por otro usuario.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "No se pudo actualizar a \"{{name}}\" porque el correo \"{{email}}\" ya pertenece a otro usuario.",
+  "admin.access-control.epeople.actions.reset": "Restablecer la contraseña",
+  "forgot-email.form.success.content": "Se envió un correo con el enlace para restablecer la contraseña a {{email}}.",
+  "forgot-email.form.error.head": "No se pudo enviar el correo de restablecimiento",
+  "forgot-email.form.error.content": "Falló el envío de las instrucciones para restablecer la contraseña a {{email}}. Compruebe que el correo es válido y que el servidor de correo está activo.",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo del rechazo"
 }
