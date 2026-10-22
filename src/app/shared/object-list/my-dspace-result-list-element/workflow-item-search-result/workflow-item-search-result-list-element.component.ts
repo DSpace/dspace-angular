@@ -30,7 +30,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 /**
  * This component renders workflowitem object for the search result in the list view.
  */
@@ -44,6 +44,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
     NgClass,
     ThemedLoadingComponent,
     WorkflowitemActionsComponent,
+    ThemedItemListPreviewComponent
   ],
 })
 

@@ -5806,7 +5806,7 @@
 
   "submission.workflow.tasks.claimed.reject.reason.submit": "Rejeitar item",
 
-  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo da rejeição",
 
   "submission.workflow.tasks.claimed.reject.submit": "Rejeitar",
 
@@ -8206,5 +8206,21 @@
   
   "forgot-email.form.error.head": "Não foi possível enviar o e-mail de redefinição",
   
-  "forgot-email.form.error.content": "Ocorreu uma falha ao enviar as instruções de redefinição de senha para {{email}}. Verifique se o e-mail é válido e se o servidor de e-mail está ativo."
+  "forgot-email.form.error.content": "Ocorreu uma falha ao enviar as instruções de redefinição de senha para {{email}}. Verifique se o e-mail é válido e se o servidor de e-mail está ativo.",
+
+  "mydspace.status.workflow": "Em Curadoria",
+  
+  "mydspace.status.validation": "Em Validação",
+  
+  "mydspace.status.waiting-for-controller": "Aguardando Curadoria",
+  
+  "mydspace.status.workspace": "Rascunho",
+  
+  "mydspace.status.archived": "Disponível na busca geral",
+  
+  "mydspace.status.declined": "Rejeitado",
+  
+  "mydspace.status.approved": "Aprovado",
+  
+  "mydspace.status.declined-task": "Devolvido para ajuste",
 }
