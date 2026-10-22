@@ -56,7 +56,22 @@
         </div>
       </ds-truncatable>
       @if (showSubmitter) {
-        <ds-item-submitter [object]="object.indexableObject"></ds-item-submitter>
+        @if (submitter$) {
+          <div class="mt-2 mb-2">
+            <span class="text-muted">
+              {{ 'submission.workflow.tasks.generic.submitter' | translate }}:
+              <span class="badge bg-info">
+                @if (submitter$ | async; as submitter) {
+                  {{ dsoNameService.getName(submitter) }}
+                } @else {
+                  {{ 'submitter.empty' | translate }}
+                }
+              </span>
+            </span>
+          </div>
+        } @else {
+          <ds-item-submitter [object]="object.indexableObject"></ds-item-submitter>
+        }
       }
       <ds-item-collection [object]="object.indexableObject"></ds-item-collection>
     </div>
