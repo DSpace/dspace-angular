@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Inject,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -20,9 +21,17 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
-import { resolveWithdrawnFields } from '../item-withdrawn-metadata';
+import {
+  resolveWithdrawnFields,
+  withdrawnFieldHintKey,
+  withdrawnFieldLabelKey,
+} from '../item-withdrawn-metadata';
 
 /**
  * The state of the withdrawal form, emitted on every change.
@@ -42,6 +51,8 @@ export interface WithdrawnMetadataFormState {
  *
  * The fields are driven by the `item.withdrawn.fields` configuration, so that they can be
  * made required or optional, and new ones can be added, without touching this component.
+ * Their label and hint are read from the `item.withdrawn.<metadata>.label` and
+ * `item.withdrawn.<metadata>.hint` i18n keys.
  */
 @Component({
   selector: 'ds-withdrawn-metadata-form',
@@ -52,7 +63,7 @@ export interface WithdrawnMetadataFormState {
     TranslateModule,
   ],
 })
-export class WithdrawnMetadataFormComponent implements OnInit {
+export class WithdrawnMetadataFormComponent implements OnInit, OnDestroy {
 
   /**
    * Emits the state of the form on every change, and once on initialization.
@@ -71,12 +82,26 @@ export class WithdrawnMetadataFormComponent implements OnInit {
    */
   formGroup: FormGroup;
 
-  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig) {
+  /**
+   * The i18n keys of the hints to render, by metadata field. A field whose hint is not
+   * translated is left out, so that an untranslated key is never shown to the reader.
+   */
+  protected hintKeys: { [field: string]: string } = {};
+
+  protected subs: Subscription[] = [];
+
+  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig,
+              protected translateService: TranslateService) {
   }
 
   ngOnInit(): void {
     const config = this.appConfig.item.withdrawn;
     this.fields = resolveWithdrawnFields(config?.form, config?.fields);
+    this.hintKeys = this.resolveHintKeys();
+    // the translations may still be loading, or the reader may switch language while the
+    // form is open: either way the hints have to be looked up again
+    this.subs.push(this.translateService.onLangChange.subscribe(() => this.hintKeys = this.resolveHintKeys()));
+    this.subs.push(this.translateService.onTranslationChange.subscribe(() => this.hintKeys = this.resolveHintKeys()));
     this.formGroup = new FormGroup(this.fields.reduce((controls, field) => {
       controls[this.controlName(field)] = new FormControl(
         field.type === 'boolean' ? false : '',
@@ -85,8 +110,12 @@ export class WithdrawnMetadataFormComponent implements OnInit {
       return controls;
     }, {} as { [field: string]: FormControl }));
 
-    this.formGroup.valueChanges.subscribe(() => this.emitState());
+    this.subs.push(this.formGroup.valueChanges.subscribe(() => this.emitState()));
     this.emitState();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter((sub: Subscription) => hasValue(sub)).forEach((sub: Subscription) => sub.unsubscribe());
   }
 
   /**
@@ -107,6 +136,20 @@ export class WithdrawnMetadataFormComponent implements OnInit {
   }
 
   /**
+   * The i18n key of the label of the given field
+   */
+  labelKey(field: WithdrawnFieldConfig): string {
+    return withdrawnFieldLabelKey(field.metadata);
+  }
+
+  /**
+   * The i18n key of the hint of the given field, or undefined when it has no hint
+   */
+  hintKey(field: WithdrawnFieldConfig): string {
+    return this.hintKeys[field.metadata];
+  }
+
+  /**
    * Whether at least one of the rendered fields is required, so that the meaning of the
    * asterisk marking them is spelled out only when there is an asterisk to explain
    */
@@ -120,6 +163,20 @@ export class WithdrawnMetadataFormComponent implements OnInit {
   hasError(field: WithdrawnFieldConfig): boolean {
     const control = this.formGroup.get(this.controlName(field));
     return hasValue(control) && control.invalid && (control.dirty || control.touched);
+  }
+
+  /**
+   * Keeps the hint keys which are actually translated: ngx-translate echoes back the key
+   * it cannot resolve, so a field with no hint would otherwise render its own key.
+   */
+  protected resolveHintKeys(): { [field: string]: string } {
+    return this.fields.reduce((keys, field: WithdrawnFieldConfig) => {
+      const key = withdrawnFieldHintKey(field.metadata);
+      if (this.translateService.instant(key) !== key) {
+        keys[field.metadata] = key;
+      }
+      return keys;
+    }, {} as { [field: string]: string });
   }
 
   protected getValidators(field: WithdrawnFieldConfig) {

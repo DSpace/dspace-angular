@@ -2497,23 +2497,26 @@
 
   "item.alerts.reinstate-request": "Request reinstate",
 
-  "item.withdrawn.field.title": "Title",
+  // Label and hint of the metadata fields configured in item.withdrawn.fields: the keys
+  // are built as "item.withdrawn." + the metadata field + ".label" or ".hint". A field
+  // with no translated hint is rendered without one
+  "item.withdrawn.dc.title.label": "Title",
+
+  "item.withdrawn.dspace.withdrawn.reason.label": "Reason for withdrawal",
+
+  "item.withdrawn.dspace.withdrawn.reason.hint": "Shown on the page of the withdrawn item, explain why it is no longer available.",
+
+  "item.withdrawn.dcterms.isReplacedBy.label": "Replaced by",
+
+  "item.withdrawn.dcterms.isReplacedBy.hint": "Full URL of the record replacing this item, in this or in another repository.",
+
+  "item.withdrawn.dspace.withdrawn.redirect.label": "Redirect visitors to the replacement record",
+
+  "item.withdrawn.dspace.withdrawn.redirect.hint": "When checked, visitors are sent straight to the replacement record instead of seeing this page.",
 
   "item.withdrawn.form.header": "Withdrawal details",
 
   "item.withdrawn.form.required-legend": "Required field",
-
-  "item.withdrawn.form.reason": "Reason for withdrawal",
-
-  "item.withdrawn.form.reason.hint": "Shown on the page of the withdrawn item, explain why it is no longer available.",
-
-  "item.withdrawn.form.replaced-by": "Replaced by",
-
-  "item.withdrawn.form.replaced-by.hint": "Full URL of the record replacing this item, in this or in another repository.",
-
-  "item.withdrawn.form.redirect": "Redirect visitors to the replacement record",
-
-  "item.withdrawn.form.redirect.hint": "When checked, visitors are sent straight to the replacement record instead of seeing this page.",
 
   "item.withdrawn.form.error.required": "This field is required.",
 

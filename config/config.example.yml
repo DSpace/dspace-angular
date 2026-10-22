@@ -466,39 +466,36 @@ item:
   # administrators.
   withdrawn:
     # Definitions of the metadata fields handled when an item is withdrawn.
-    # type can be text, url, textarea or boolean; label and hint are i18n keys.
+    # type can be text, url, textarea or boolean.
     # required blocks the withdrawal until the field is filled in, and on a boolean field
     # it means the checkbox has to be ticked; it only applies to the fields listed in form.
+    # The label and the hint are not configured here: they are read from the i18n keys
+    # "item.withdrawn.<metadata>.label" and "item.withdrawn.<metadata>.hint", and a field
+    # with no translated hint is rendered without one.
     # A definition on its own does nothing: the form and itemView lists below decide where
     # each field is used, and in which order. A field can be in one of them or in both,
-    # so a value the item already carries can be shown without being asked for again:
+    # so a value the item already carries can be shown without being asked for again.
+    # Adding a field means adding its definition, a reference in form or itemView, and the
+    # "item.withdrawn.dc.date.issued.label" translation:
     #   fields:
     #     - metadata: dc.date.issued
     #       type: text
     #       required: false
-    #       label: item.withdrawn.form.issued
     #   itemView:
     #     - dc.date.issued
     fields:
       - metadata: dc.title
         type: text
         required: false
-        label: item.withdrawn.field.title
       - metadata: dspace.withdrawn.reason
         type: textarea
         required: true
-        label: item.withdrawn.form.reason
-        hint: item.withdrawn.form.reason.hint
       - metadata: dcterms.isReplacedBy
         type: url
         required: false
-        label: item.withdrawn.form.replaced-by
-        hint: item.withdrawn.form.replaced-by.hint
       - metadata: dspace.withdrawn.redirect
         type: boolean
         required: false
-        label: item.withdrawn.form.redirect
-        hint: item.withdrawn.form.redirect.hint
     # Fields collected by the withdrawal form, in the order they are rendered
     form:
       - dspace.withdrawn.reason

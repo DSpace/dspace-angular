@@ -10,6 +10,11 @@ export type WithdrawnFieldType = 'text' | 'url' | 'textarea' | 'boolean';
  *
  * A definition on its own does nothing: it is the `form` and `itemView` lists that decide
  * whether the field is collected on withdrawal, shown on the tombstone page, or both.
+ *
+ * The label and the hint are not configured here: they are read from the i18n keys
+ * `item.withdrawn.<metadata>.label` and `item.withdrawn.<metadata>.hint`, so a field only
+ * has to declare where its value lives and how it behaves. The hint is optional: when its
+ * key is not translated, nothing is rendered below the input.
  */
 export interface WithdrawnFieldConfig extends Config {
   // The metadata field the value is stored in, e.g. dspace.withdrawn.reason
@@ -22,12 +27,6 @@ export interface WithdrawnFieldConfig extends Config {
   // On a boolean field it means the checkbox has to be ticked.
   // It is only meaningful for a field listed in `form`
   required: boolean;
-
-  // i18n key of the label shown next to the input, and of the row on the tombstone page
-  label: string;
-
-  // Optional i18n key of the hint shown below the input
-  hint?: string;
 }
 
 /**

@@ -344,25 +344,21 @@ export const environment: BuildConfig = {
           metadata: 'dc.title',
           type: 'text',
           required: false,
-          label: 'item.withdrawn.field.title',
         },
         {
           metadata: 'dspace.withdrawn.reason',
           type: 'textarea',
           required: true,
-          label: 'item.withdrawn.form.reason',
         },
         {
           metadata: 'dcterms.isReplacedBy',
           type: 'url',
           required: false,
-          label: 'item.withdrawn.form.replaced-by',
         },
         {
           metadata: 'dspace.withdrawn.redirect',
           type: 'boolean',
           required: false,
-          label: 'item.withdrawn.form.redirect',
         },
       ],
       form: [

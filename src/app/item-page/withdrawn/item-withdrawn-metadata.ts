@@ -33,6 +33,31 @@ export function isAbsoluteUrl(value: string): boolean {
 }
 
 /**
+ * The i18n key of the label of a withdrawal metadata field, shown next to its input on the
+ * withdrawal form and in front of its value on the tombstone page.
+ *
+ * It is derived from the metadata field instead of being configured, so that adding a field
+ * to `item.withdrawn.fields` only means adding its translations, e.g. the label of
+ * dspace.withdrawn.reason is read from item.withdrawn.dspace.withdrawn.reason.label
+ *
+ * @param metadata the metadata field, e.g. dspace.withdrawn.reason
+ */
+export function withdrawnFieldLabelKey(metadata: string): string {
+  return `item.withdrawn.${metadata}.label`;
+}
+
+/**
+ * The i18n key of the hint of a withdrawal metadata field, shown below its input on the
+ * withdrawal form. The hint is optional: a field with no translation for this key is
+ * rendered without one.
+ *
+ * @param metadata the metadata field, e.g. dspace.withdrawn.reason
+ */
+export function withdrawnFieldHintKey(metadata: string): string {
+  return `item.withdrawn.${metadata}.hint`;
+}
+
+/**
  * Resolves a list of metadata fields against the available definitions, keeping the order
  * of the list and dropping the entries which have no definition, so that a typo in the
  * configuration leaves a field out instead of breaking the page.

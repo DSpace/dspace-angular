@@ -19,12 +19,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   isAbsoluteUrl,
   resolveWithdrawnFields,
+  withdrawnFieldLabelKey,
 } from '../item-withdrawn-metadata';
 
 /**
  * A value shown on the tombstone page of a withdrawn item.
  */
 interface WithdrawnTombstoneEntry {
+  // i18n key of the label shown in front of the value
   label: string;
   value: string;
   // When set, the value is rendered as a link pointing to this url
@@ -93,7 +95,7 @@ export class ItemWithdrawnTombstoneComponent implements OnChanges {
         }
         const isLink = field.type === 'url' && isAbsoluteUrl(value);
         return {
-          label: field.label,
+          label: withdrawnFieldLabelKey(field.metadata),
           value: value,
           url: isLink ? value : undefined,
         } as WithdrawnTombstoneEntry;

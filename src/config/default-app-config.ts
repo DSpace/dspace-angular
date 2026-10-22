@@ -445,33 +445,28 @@ export class DefaultAppConfig implements AppConfig {
       // Definitions of the metadata fields handled when an item is withdrawn. A definition
       // on its own does nothing: the "form" and "itemView" lists below decide where each
       // field is used, and in which order. Nothing is rendered or collected outside them.
+      // The label and the hint of a field are read from the i18n keys
+      // "item.withdrawn.<metadata>.label" and "item.withdrawn.<metadata>.hint"
       fields: [
         {
           metadata: 'dc.title',
           type: 'text',
           required: false,
-          label: 'item.withdrawn.field.title',
         },
         {
           metadata: 'dspace.withdrawn.reason',
           type: 'textarea',
           required: true,
-          label: 'item.withdrawn.form.reason',
-          hint: 'item.withdrawn.form.reason.hint',
         },
         {
           metadata: 'dcterms.isReplacedBy',
           type: 'url',
           required: false,
-          label: 'item.withdrawn.form.replaced-by',
-          hint: 'item.withdrawn.form.replaced-by.hint',
         },
         {
           metadata: 'dspace.withdrawn.redirect',
           type: 'boolean',
           required: false,
-          label: 'item.withdrawn.form.redirect',
-          hint: 'item.withdrawn.form.redirect.hint',
         },
       ],
       // Fields collected by the withdrawal form, in the order they are rendered

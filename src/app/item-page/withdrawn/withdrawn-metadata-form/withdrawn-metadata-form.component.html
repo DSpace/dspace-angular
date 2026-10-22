@@ -14,10 +14,10 @@
                    [id]="controlId(field)"
                    [formControlName]="controlName(field)">
             <label class="form-check-label fw-semibold" [for]="controlId(field)">
-              {{ field.label | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
+              {{ labelKey(field) | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
             </label>
-            @if (field.hint) {
-              <small class="form-text text-muted d-block mt-0">{{ field.hint | translate }}</small>
+            @if (hintKey(field)) {
+              <small class="form-text text-muted d-block mt-0">{{ hintKey(field) | translate }}</small>
             }
             @if (hasError(field)) {
               <div class="invalid-feedback d-block">{{ 'item.withdrawn.form.error.required-flag' | translate }}</div>
@@ -27,10 +27,10 @@
         @case ('textarea') {
           <div class="mb-3">
             <label class="form-label fw-semibold" [for]="controlId(field)">
-              {{ field.label | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
+              {{ labelKey(field) | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
             </label>
-            @if (field.hint) {
-              <small class="form-text text-muted d-block mt-0 mb-2">{{ field.hint | translate }}</small>
+            @if (hintKey(field)) {
+              <small class="form-text text-muted d-block mt-0 mb-2">{{ hintKey(field) | translate }}</small>
             }
             <textarea class="form-control"
                       rows="3"
@@ -46,10 +46,10 @@
         @default {
           <div class="mb-3">
             <label class="form-label fw-semibold" [for]="controlId(field)">
-              {{ field.label | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
+              {{ labelKey(field) | translate }}@if (field.required) {<span class="text-danger" aria-hidden="true">&nbsp;*</span>}
             </label>
-            @if (field.hint) {
-              <small class="form-text text-muted d-block mt-0 mb-2">{{ field.hint | translate }}</small>
+            @if (hintKey(field)) {
+              <small class="form-text text-muted d-block mt-0 mb-2">{{ hintKey(field) | translate }}</small>
             }
             <div class="input-group">
               @if (field.type === 'url') {
