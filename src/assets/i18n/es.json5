@@ -338,9 +338,9 @@
 
   "admin.access-control.epeople.form.notification.created.failure": "Error al crear usuario \"{{ name }}\"",
 
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Error al crear usuario \"{{ name }}\", el correo electrónico \"{{ email }}\" ya está en uso.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "No se pudo registrar a \"{{name}}\" porque el correo \"{{email}}\" ya está en uso por otro usuario.",
 
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Error al editar usuario \"{{ name }}\", el correo electrónico \"{{ email }}\" ya está en uso.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "No se pudo actualizar a \"{{name}}\" porque el correo \"{{email}}\" ya pertenece a otro usuario.",
 
   "admin.access-control.epeople.form.notification.edited.success": "Usuario \"{{ name }}\" editado correctamente",
 
@@ -1934,9 +1934,9 @@
 
   "error.validation.required": "Se requiere este campo",
 
-  "error.validation.NotValidEmail": "Este no es un correo electrónico válido",
+  "error.validation.NotValidEmail": "Formato de correo electrónico inválido. Indique una dirección completa como nombre@dominio.com.",
 
-  "error.validation.emailTaken": "Este correo electrónico ya está en uso",
+  "error.validation.emailTaken": "Esta dirección de correo electrónico ya está registrada. Indique otra o edite el usuario existente.",
 
   "error.validation.groupExists": "Este grupo ya existe",
 
@@ -1996,11 +1996,11 @@
 
   "forgot-email.form.success.head": "Se ha enviado el mensaje de restablecemieto de contraseña",
 
-  "forgot-email.form.success.content": "Se ha enviado un correo a {{ email }} que contiene una URL especial e instrucciones adicionales.",
+  "forgot-email.form.success.content": "Se envió un correo con el enlace para restablecer la contraseña a {{email}}.",
 
-  "forgot-email.form.error.head": "Error al intentar restablecer la contraseña",
+  "forgot-email.form.error.head": "No se pudo enviar el correo de restablecimiento",
 
-  "forgot-email.form.error.content": "Se produjo un error al intentar restablecer la contraseña de la cuenta asociada con la siguiente dirección de correo electrónico: {{ email }}",
+  "forgot-email.form.error.content": "Falló el envío de las instrucciones para restablecer la contraseña a {{email}}. Compruebe que el correo es válido y que el servidor de correo está activo.",
 
   "forgot-password.title": "Olvido de contraseña",
 
@@ -5796,7 +5796,7 @@
 
   "submission.workflow.tasks.claimed.reject.reason.submit": "Rechazar el ítem",
 
-  "submission.workflow.tasks.claimed.reject.reason.title": "Razón",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo del rechazo",
 
   "submission.workflow.tasks.claimed.reject.submit": "Rechazar",
 
@@ -8017,4 +8017,12 @@
   "mydspace.item.returned.adjustment.label": "Motivo de la solicitud de ajuste",
 
   "mydspace.item.returned.rejected.label": "Motivo del rechazo",
+
+  "admin.access-control.epeople.form.firstName.error.required": "El nombre es obligatorio. Indique el nombre de la persona.",
+
+  "admin.access-control.epeople.form.lastName.error.required": "El apellido es obligatorio. Indique el apellido de la persona.",
+
+  "admin.access-control.epeople.form.email.error.required": "El correo electrónico es obligatorio. Indique una dirección válida (p. ej.: usuario@correo.com).",
+
+  "admin.access-control.epeople.form.institution.error.required": "La selección de la institución es obligatoria.",
 }

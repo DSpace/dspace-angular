@@ -338,9 +338,9 @@
 
   "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
 
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Could not create \"{{name}}\" because the email \"{{email}}\" is already in use by another user.",
 
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Could not update \"{{name}}\" because the email \"{{email}}\" already belongs to another user.",
 
   "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
 
@@ -1934,9 +1934,9 @@
 
   "error.validation.required": "This field is required",
 
-  "error.validation.NotValidEmail": "This is not a valid email",
+  "error.validation.NotValidEmail": "Invalid email format. Enter a complete address such as name@domain.com.",
 
-  "error.validation.emailTaken": "This email is already taken",
+  "error.validation.emailTaken": "This email address is already registered. Enter a different email or edit the existing user.",
 
   "error.validation.groupExists": "This group already exists",
 
@@ -1996,11 +1996,11 @@
 
   "forgot-email.form.success.head": "Password reset email sent",
 
-  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "forgot-email.form.success.content": "An email with the password reset link was sent to {{email}}.",
 
-  "forgot-email.form.error.head": "Error when trying to reset password",
+  "forgot-email.form.error.head": "Could not send the reset email",
 
-  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "Sending the password reset instructions to {{email}} failed. Check that the email is valid and that the mail server is running.",
 
   "forgot-password.title": "Forgot Password",
 
@@ -5796,7 +5796,7 @@
 
   "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
 
-  "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Rejection reason",
 
   "submission.workflow.tasks.claimed.reject.submit": "Reject",
 
@@ -8011,4 +8011,12 @@
   "mydspace.item.returned.adjustment.label": "Reason for the adjustment request",
 
   "mydspace.item.returned.rejected.label": "Reason for the rejection",
+
+  "admin.access-control.epeople.form.firstName.error.required": "First name is required. Enter the person's first name.",
+
+  "admin.access-control.epeople.form.lastName.error.required": "Last name is required. Enter the person's last name.",
+
+  "admin.access-control.epeople.form.email.error.required": "Email is required. Enter a valid address (e.g. user@email.com).",
+
+  "admin.access-control.epeople.form.institution.error.required": "Selecting an institution is required.",
 }
