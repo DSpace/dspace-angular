@@ -87,4 +87,29 @@ describe('LinkMenuItemComponent', () => {
     expect(routerParamsQuery.length).toBe(1);
     expect(routerParamsQuery[0].queryParams).toBe(queryParams);
   });
+
+  describe('icon rendering', () => {
+    beforeEach(() => {
+      component.item.icon = undefined;
+      fixture.detectChanges();
+    });
+
+    it('should render the icon when item.icon is provided', () => {
+      component.item.icon = 'cog';
+      fixture.detectChanges();
+
+      const icon = debugElement.query(By.css('i.fa-cog'));
+
+      expect(icon).toBeTruthy();
+      expect(icon.nativeElement.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('should not render the icon when item.icon is not provided', () => {
+      fixture.detectChanges();
+
+      const icon = debugElement.query(By.css('i.fas'));
+
+      expect(icon).toBeFalsy();
+    });
+  });
 });
