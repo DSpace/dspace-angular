@@ -37,11 +37,10 @@
 
 @if (getSelectedCcLicense()) {
   @for (field of getSelectedCcLicense().fields; track field) {
-    <div
-      class="mb-4">
+    <div class="mb-4">
       <div class="d-flex flex-row">
         <div class="fw-bold {{ field.id }}">
-          {{ field.label }}
+          {{ field.label | translate }}
         </div>
         <button
           class="btn btn-outline-info btn-sm ms-2"
@@ -51,12 +50,12 @@
       </div>
       <ng-template #infoModal>
         <div>
-          <div class="modal-header mb-4 ">
+          <div class="modal-header mb-4">
             <div>
               <h4>
-                {{ field.label }}
+                {{ field.label | translate }}
               </h4>
-              <div [innerHTML]="field.description"></div>
+              <div [innerHTML]="field.description | translate"></div>
             </div>
             <button type="button" class="btn-close"
               (click)="closeInfoModal()" aria-label="Close">
@@ -64,12 +63,11 @@
           </div>
           <div class="modal-body">
             @for (value of field.enums; track value) {
-              <div
-                class="mb-4">
+              <div class="mb-4">
                 <h5>
-                  {{ value.label }}
+                  {{ value.label | translate }}
                 </h5>
-                <div [innerHTML]="value.description" class="fw-light"></div>
+                <div [innerHTML]="value.description | translate" class="fw-light"></div>
               </div>
             }
           </div>
@@ -80,7 +78,7 @@
           <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
             @if (option) {
               <span>
-                {{ option.label }}
+                {{ option.label | translate }}
               </span>
             }
             @if (!option) {
@@ -95,7 +93,7 @@
                 <button
                   class="dropdown-item"
                   (click)="selectOption(getSelectedCcLicense(), field, option)">
-                  {{ option.label }}
+                  {{ option.label | translate }}
                 </button>
               }
             </div>
@@ -104,14 +102,13 @@
       }
       @if (field.enums?.length <= 5) {
         @for (option of field.enums; track option) {
-          <div
-            class="d-flex flex-row m-1">
+          <div class="d-flex flex-row m-1">
             <div (click)="selectOption(getSelectedCcLicense(), field, option)">
               <input type="radio"
-                title="{{ option.label }}"
+                title="{{ option.label | translate }}"
                 class="me-1"
                 [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
-              <span>{{ option.label }}</span>
+              <span>{{ option.label | translate }}</span>
             </div>
           </div>
         }
@@ -123,8 +120,7 @@
 @if (ccLicenseLink$) {
   @let licenseLink = (ccLicenseLink$ | async);
   @if (licenseLink) {
-    <div
-      class="mt-2 p-4 bg-light text-dark">
+    <div class="mt-2 p-4 bg-light text-dark">
       <div>
         {{ 'submission.sections.ccLicense.link' | translate }}
       </div>
