@@ -5,6 +5,7 @@ import {
   Injectable,
   OnDestroy,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
@@ -23,6 +24,7 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  filter,
   map,
   mergeMap,
   take,
@@ -66,8 +68,10 @@ export class LocaleService implements OnDestroy {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
-    @Inject(DOCUMENT) protected document: any,
+    private router?: Router,
+    @Inject(DOCUMENT) protected document?: any,
   ) {
+    this.checkQueryParamLanguage();
   }
 
   /**
@@ -92,6 +96,77 @@ export class LocaleService implements OnDestroy {
         );
     }
     return of(lang);
+  }
+
+  /**
+ * Checks if a "lang" query parameter exists in the current route.
+ *
+ * If present and non-empty, it will attempt to apply it as the current language.
+ * Uses take(1) to avoid multiple executions on route changes.
+ */
+  private checkQueryParamLanguage(): void {
+    this.subs.push(
+      this.routeService
+        .getQueryParameterValue('lang')
+        .pipe(
+          filter((lang: string | null) => typeof lang === 'string' && lang.trim().length > 0),
+          take(1),
+        )
+        .subscribe({
+          next: (lang: string) => {
+            this.applyLangIfValid(lang);
+          },
+          error: (error: unknown) => {
+            console.warn(
+              '[LocaleService] error reading query param value',
+              error,
+            );
+          },
+        }),
+    );
+  }
+
+  /**
+ * Applies the provided language if it is valid and active in appConfig.
+ *
+ * - Normalizes the language code to lowercase.
+ * - Verifies it exists and is active.
+ * - Sets it as current language.
+ * - Cleans the "lang" query param from the URL to avoid reapplying it.
+ */
+  private applyLangIfValid(lang: string): void {
+    if (!lang) {
+      return;
+    }
+
+    const normalizedLang = lang.toLowerCase();
+
+    const isValid = this.appConfig.languages.some(
+      (l) => l.code.toLowerCase() === normalizedLang && l.active,
+    );
+
+    if (!isValid) {
+      return;
+    }
+    this.setCurrentLanguageCode(normalizedLang);
+    try {
+      if (this.router) {
+        this.router.navigate([], {
+          queryParams: { lang: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        }).catch(() => {});
+      }
+      const currentUrl = this._window.nativeWindow.location.href;
+      if (currentUrl.includes('lang=')) {
+        const cleanUrl = currentUrl
+          .replace(/([?&])lang=[^&]+&?/, '$1')
+          .replace(/[?&]$/, '');
+        this._window.nativeWindow.history.replaceState({}, '', cleanUrl);
+      }
+    } catch (error: unknown) {
+      console.warn('[LocaleService] error cleaning URL', error);
+    }
   }
 
   /**
