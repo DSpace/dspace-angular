@@ -7,11 +7,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
 
+import { environment } from '../../../../../environments/environment';
 import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { AuthorityLinkMetadataListElementComponent } from './authority-link-metadata-list-element.component';
 
@@ -38,6 +40,7 @@ describe('AuthorityLinkMetadataListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: ItemDataService, useValue: itemService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     }).overrideComponent(AuthorityLinkMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
