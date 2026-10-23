@@ -32,4 +32,13 @@ export const initialMenusState: MenusState = {
       sections: {},
       sectionToSubsectionIndex: {},
     },
+  [MenuID.DSO_PUBLIC]:
+    {
+      id: MenuID.DSO_PUBLIC,
+      collapsed: true,
+      previewCollapsed: true,
+      visible: true,
+      sections: {},
+      sectionToSubsectionIndex: {},
+    },
 };

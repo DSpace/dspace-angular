@@ -52,6 +52,7 @@ import {
 
 import { environment } from '../../../../../environments/environment.test';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from '../../../../shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { SearchService } from '../../../../shared/search/search.service';
@@ -152,6 +153,7 @@ describe('UntypedItemComponent', () => {
           MiradorViewerComponent,
           ThemedItemPageTitleFieldComponent,
           DsoEditMenuComponent,
+          DsoPublicMenuComponent,
           MetadataFieldWrapperComponent,
           ThemedThumbnailComponent,
           ThemedMediaViewerComponent,
