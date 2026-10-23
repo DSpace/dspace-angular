@@ -20,12 +20,12 @@
 </div>
 <div class="row">
   <div class="col-12 col-md-4">
-    @if (!(mediaViewer.image || mediaViewer.video)) {
+    @if (!(mediaViewer.image || mediaViewer.video || mediaViewer.pdf)) {
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     }
-    @if (mediaViewer.image || mediaViewer.video) {
+    @if (mediaViewer.image || mediaViewer.video || mediaViewer.pdf) {
       <div class="mb-2">
         <ds-media-viewer [item]="object"></ds-media-viewer>
       </div>

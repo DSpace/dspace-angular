@@ -1,0 +1,23 @@
+@if (pdfs?.length > 1) {
+  <div class="mb-2">
+    <label class="form-label" for="media-viewer-pdf-select">{{ 'media-viewer.pdf.select' | translate }}</label>
+    <select #pdfSelect id="media-viewer-pdf-select" class="form-select form-select-sm" (change)="selectPdf(+pdfSelect.value)">
+      @for (pdf of pdfs; track pdf.bitstream.id; let i = $index) {
+        <option [value]="i" [selected]="i === currentIndex">{{ dsoNameService.getName(pdf.bitstream) }}</option>
+      }
+    </select>
+  </div>
+}
+@if (isBrowser && src) {
+  <div class="pdf-viewer">
+    <ng2-pdfjs-viewer
+      [pdfSrc]="src"
+      [httpHeaders]="httpHeaders"
+      [viewerFolder]="viewerFolder"
+      [downloadFileName]="dsoNameService.getName(pdfs[currentIndex].bitstream)"
+      [iframeTitle]="'media-viewer.pdf.title' | translate"
+      [showOpenFile]="false"
+      [showViewBookmark]="false">
+    </ng2-pdfjs-viewer>
+  </div>
+}
