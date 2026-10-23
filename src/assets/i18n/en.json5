@@ -2071,6 +2071,8 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.filesize": "The file is larger than the maximum upload size.",
+
   "error.validation.required": "This field is required",
 
   "error.validation.NotValidEmail": "This is not a valid email",
@@ -3955,6 +3957,8 @@
   "mydspace.title": "MyDSpace",
 
   "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
+
+  "mydspace.upload.upload-failed-max-size": "The file is larger than the maximum upload size.",
 
   "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
 
@@ -6005,6 +6009,10 @@
   "submission.sections.upload.undo": "Cancel",
 
   "submission.sections.upload.upload-failed": "Upload failed",
+
+  "submission.sections.upload.upload-failed-max-size": "The file is larger than the maximum upload size of {{size}}.",
+
+  "submission.sections.upload.upload-failed-max-size-unknown": "The file is larger than the maximum upload size.",
 
   "submission.sections.upload.upload-successful": "Upload successful",
 

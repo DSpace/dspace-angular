@@ -23,6 +23,12 @@ export class UploaderOptions {
   maxFileNumber: number;
 
   /**
+   * The largest file accepted, in bytes. Larger files are rejected before any data is sent.
+   * Undefined or zero means no client-side limit.
+   */
+  maxFileSize?: number;
+
+  /**
    * Impersonating user uuid
    */
   impersonatingID: string;
