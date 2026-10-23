@@ -170,7 +170,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call incrementPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name);
+      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name, 'test-id');
     });
   });
 
@@ -181,7 +181,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call resetPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.resetPage).toHaveBeenCalledWith(mockFilterConfig.name);
+      expect(filterService.resetPage).toHaveBeenCalledWith(mockFilterConfig.name, 'test-id');
     });
   });
 
@@ -192,7 +192,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call getPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name);
+      expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name, 'test-id');
     });
   });
 

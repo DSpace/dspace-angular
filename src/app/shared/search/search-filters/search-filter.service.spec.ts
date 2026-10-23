@@ -138,6 +138,34 @@ describe('SearchFilterService', () => {
     });
   });
 
+  describe('when a search instance id is provided', () => {
+    const searchInstanceId = 'test-instance';
+    const scopedFilterName = `${searchInstanceId}.${filterName1}`;
+
+    it('should scope the filter state key to the search instance', () => {
+      expect(service.getFilterStateKey(filterName1, searchInstanceId)).toEqual(scopedFilterName);
+      expect(service.getFilterStateKey(filterName1)).toEqual(filterName1);
+    });
+
+    it('should dispatch the filter state actions for the scoped filter state key', () => {
+      service.initializeFilter(mockFilterConfig, searchInstanceId);
+      service.collapse(filterName1, searchInstanceId);
+      service.expand(filterName1, searchInstanceId);
+      service.toggle(filterName1, searchInstanceId);
+      service.decrementPage(filterName1, searchInstanceId);
+      service.incrementPage(filterName1, searchInstanceId);
+      service.resetPage(filterName1, searchInstanceId);
+
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterInitializeAction(mockFilterConfig, scopedFilterName));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterCollapseAction(scopedFilterName));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterExpandAction(scopedFilterName));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterToggleAction(scopedFilterName));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterDecrementPageAction(scopedFilterName));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterIncrementPageAction(scopedFilterName));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterResetPageAction(scopedFilterName));
+    });
+  });
+
   describe('when the isFilterActiveWithValue method is called', () => {
     beforeEach(() => {
       spyOn(routeServiceStub, 'hasQueryParamWithValue');
@@ -252,6 +280,41 @@ describe('SearchFilterService', () => {
 
     it('should call getQueryParameterValue on the route service with view', () => {
       expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('view');
+    });
+  });
+
+  describe('when legacy fallback is disabled for a search instance', () => {
+    const searchInstanceId = 'spc1';
+
+    it('should check only the prefixed filter value', (done: DoneFn) => {
+      const hasQueryParamWithValue = spyOn(routeServiceStub, 'hasQueryParamWithValue').and.returnValue(of(true));
+
+      service.isFilterActiveWithValue('f.author', value1, searchInstanceId, false).subscribe((active: boolean) => {
+        expect(active).toBeTrue();
+        expect(hasQueryParamWithValue).toHaveBeenCalledOnceWith(`${searchInstanceId}.f.author`, value1);
+        done();
+      });
+    });
+
+    it('should read only the prefixed query', (done: DoneFn) => {
+      const getQueryParameterValue = spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(of('instance query'));
+
+      service.getCurrentQuery(searchInstanceId, false).subscribe((query: string) => {
+        expect(query).toBe('instance query');
+        expect(getQueryParameterValue).toHaveBeenCalledOnceWith(`${searchInstanceId}.query`);
+        done();
+      });
+    });
+
+    it('should read only the prefixed filters', (done: DoneFn) => {
+      const instanceFilters = { [`${searchInstanceId}.f.author`]: [value1] };
+      const getQueryParamsWithPrefix = spyOn(routeServiceStub, 'getQueryParamsWithPrefix').and.returnValue(of(instanceFilters));
+
+      service.getCurrentFilters(searchInstanceId, false).subscribe((filters) => {
+        expect(filters).toEqual(instanceFilters);
+        expect(getQueryParamsWithPrefix).toHaveBeenCalledOnceWith(`${searchInstanceId}.f.`);
+        done();
+      });
     });
   });
 

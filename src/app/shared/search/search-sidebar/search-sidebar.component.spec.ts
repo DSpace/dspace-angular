@@ -14,8 +14,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
-import { SearchConfigurationService } from '../search-configuration.service';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchSidebarComponent } from './search-sidebar.component';
@@ -36,7 +36,7 @@ describe('SearchSidebarComponent', () => {
         SearchSidebarComponent,
       ],
       providers: [
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideProvider(APP_CONFIG, {

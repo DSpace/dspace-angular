@@ -12,6 +12,8 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
@@ -93,6 +95,9 @@ describe('SearchConfigurationService', () => {
   } as AppConfig;
 
   beforeEach(() => {
+    routeService.getQueryParameterValue.and.returnValue(of(value1));
+    routeService.getQueryParamsWithPrefix.and.returnValue(of(prefixFilter));
+    routeService.getRouteParameterValue.and.returnValue(of(''));
     paginationService = new PaginationServiceStub(Object.assign(new PaginationComponentOptions(), {
       id: defaults.pagination.id,
       currentPage: 1,
@@ -100,6 +105,7 @@ describe('SearchConfigurationService', () => {
     }));
 
     service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, envConfig);
+    service.searchInstanceId = defaults.pagination.id;
   });
 
   describe('when the scope is called', () => {
@@ -178,6 +184,53 @@ describe('SearchConfigurationService', () => {
     });
   });
 
+  describe('when setViewMode is called', () => {
+    beforeEach(() => {
+      service.searchInstanceId = 'custom-search';
+      paginationService.getCurrentPagination.and.returnValue(of(
+        Object.assign(new PaginationComponentOptions(), { pageSize: 20 }),
+      ));
+      paginationService.updateRouteWithUrl.calls.reset();
+    });
+
+    it('should update the scoped view parameter and reset the page', () => {
+      service.setViewMode(ViewMode.GridElement, ['search']);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'custom-search',
+        ['search'],
+        { page: 1 },
+        { 'custom-search.view': ViewMode.GridElement },
+      );
+    });
+
+    it('should use a page size of one for the detailed list view', () => {
+      service.setViewMode(ViewMode.DetailedListElement, []);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'custom-search',
+        [],
+        { page: 1, pageSize: 1 },
+        { 'custom-search.view': ViewMode.DetailedListElement },
+      );
+    });
+
+    it('should restore the default page size when leaving the detailed list view', () => {
+      paginationService.getCurrentPagination.and.returnValue(of(
+        Object.assign(new PaginationComponentOptions(), { pageSize: 1 }),
+      ));
+
+      service.setViewMode(ViewMode.ListElement, []);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'custom-search',
+        [],
+        { page: 1, pageSize: 10 },
+        { 'custom-search.view': ViewMode.ListElement },
+      );
+    });
+  });
+
   describe('when subscribeToSearchOptions or subscribeToPaginatedSearchOptions is called', () => {
     beforeEach(() => {
       spyOn(service, 'getCurrentPagination').and.callThrough();
@@ -191,7 +244,7 @@ describe('SearchConfigurationService', () => {
 
     describe('when subscribeToSearchOptions is called', () => {
       beforeEach(() => {
-        (service as any).subscribeToSearchOptions(defaults);
+        (service as any).subscribeToSearchOptions(defaults.pagination.id, defaults);
       });
       it('should call all getters it needs, but not call any others', () => {
         expect(service.getCurrentPagination).not.toHaveBeenCalled();
@@ -208,14 +261,14 @@ describe('SearchConfigurationService', () => {
       beforeEach(() => {
         (service as any).subscribeToPaginatedSearchOptions(defaults.pagination.id, defaults);
       });
-      it('should call all getters it needs', () => {
+      it('should call the pagination-specific getters it needs', () => {
         expect(service.getCurrentPagination).toHaveBeenCalled();
         expect(service.getCurrentSort).toHaveBeenCalled();
-        expect(service.getCurrentScope).toHaveBeenCalled();
-        expect(service.getCurrentConfiguration).toHaveBeenCalled();
-        expect(service.getCurrentQuery).toHaveBeenCalled();
-        expect(service.getCurrentDSOType).toHaveBeenCalled();
-        expect(service.getCurrentFilters).toHaveBeenCalled();
+        expect(service.getCurrentScope).not.toHaveBeenCalled();
+        expect(service.getCurrentConfiguration).not.toHaveBeenCalled();
+        expect(service.getCurrentQuery).not.toHaveBeenCalled();
+        expect(service.getCurrentDSOType).not.toHaveBeenCalled();
+        expect(service.getCurrentFilters).not.toHaveBeenCalled();
       });
     });
   });
@@ -309,6 +362,123 @@ describe('SearchConfigurationService', () => {
     });
   });
 
+  describe('isLegacySearchParam', () => {
+    it('should return true for unprefixed scoped search params', () => {
+      ['configuration', 'scope', 'query', 'dsoType', 'view'].forEach((param: string) => {
+        expect(service.isLegacySearchParam(param)).toBeTrue();
+      });
+    });
+
+    it('should return true for unprefixed filter params', () => {
+      expect(service.isLegacySearchParam('f.author')).toBeTrue();
+      expect(service.isLegacySearchParam('f.dateIssued.max')).toBeTrue();
+    });
+
+    it('should return false for params that are already prefixed with a search instance id', () => {
+      expect(service.isLegacySearchParam(`${defaults.pagination.id}.query`)).toBeFalse();
+      expect(service.isLegacySearchParam(`${defaults.pagination.id}.f.author`)).toBeFalse();
+    });
+
+    it('should return false for unrelated params', () => {
+      expect(service.isLegacySearchParam('page')).toBeFalse();
+      expect(service.isLegacySearchParam('spc.page')).toBeFalse();
+    });
+  });
+
+  describe('getSearchParamFromParams', () => {
+    it('should prefer the search-instance-prefixed value', () => {
+      const params: Params = {
+        [`${defaults.pagination.id}.scope`]: 'prefixed scope',
+        scope: 'legacy scope',
+      };
+
+      expect(service.getSearchParamFromParams(params, 'scope')).toBe('prefixed scope');
+    });
+
+    it('should fall back to the legacy unprefixed value', () => {
+      expect(service.getSearchParamFromParams({ scope: 'legacy scope' }, 'scope')).toBe('legacy scope');
+    });
+
+    it('should return undefined when the parameter is absent', () => {
+      expect(service.getSearchParamFromParams({}, 'scope')).toBeUndefined();
+    });
+  });
+
+  describe('with legacy search parameter fallback disabled', () => {
+    beforeEach(() => {
+      service.useLegacySearchParamFallback = false;
+      routeService.getQueryParameterValue.calls.reset();
+      routeService.getQueryParamsWithPrefix.calls.reset();
+      routeService.getRouteParameterValue.calls.reset();
+    });
+
+    it('should read only the prefixed query parameter', (done: DoneFn) => {
+      routeService.getQueryParameterValue.and.callFake((param: string) =>
+        of(param === `${defaults.pagination.id}.query` ? 'instance query' : 'legacy query'));
+
+      service.getCurrentQuery('').subscribe((query: string) => {
+        expect(query).toBe('instance query');
+        expect(routeService.getQueryParameterValue).not.toHaveBeenCalledWith('query');
+        done();
+      });
+    });
+
+    it('should read only prefixed configuration parameters', (done: DoneFn) => {
+      routeService.getQueryParameterValue.and.callFake((param: string) =>
+        of(param === `${defaults.pagination.id}.configuration` ? 'instance configuration' : 'legacy configuration'));
+      routeService.getRouteParameterValue.and.returnValue(of(undefined));
+
+      service.getCurrentConfiguration('default').subscribe((configuration: string) => {
+        expect(configuration).toBe('instance configuration');
+        expect(routeService.getQueryParameterValue).not.toHaveBeenCalledWith('configuration');
+        expect(routeService.getRouteParameterValue).not.toHaveBeenCalledWith('configuration');
+        done();
+      });
+    });
+
+    it('should read only prefixed frontend filters', (done: DoneFn) => {
+      const instanceFilters = {
+        [`${defaults.pagination.id}.f.author`]: ['instance author'],
+      };
+      routeService.getQueryParamsWithPrefix.and.callFake((prefix: string) =>
+        of(prefix === `${defaults.pagination.id}.f.` ? instanceFilters : prefixFilter));
+
+      service.getCurrentFrontendFilters().subscribe((filters: Params) => {
+        expect(filters).toEqual(instanceFilters);
+        expect(routeService.getQueryParamsWithPrefix).not.toHaveBeenCalledWith('f.');
+        done();
+      });
+    });
+
+    it('should read only the prefixed fixed filter route parameter', (done: DoneFn) => {
+      routeService.getRouteParameterValue.and.callFake((param: string) =>
+        of(param === `${defaults.pagination.id}.fixedFilterQuery` ? 'instance fixed filter' : 'legacy fixed filter'));
+
+      service.getCurrentFixedFilter().subscribe((fixedFilter: string) => {
+        expect(fixedFilter).toBe('instance fixed filter');
+        expect(routeService.getRouteParameterValue).not.toHaveBeenCalledWith('fixedFilterQuery');
+        done();
+      });
+    });
+
+    it('should discard state previously derived from legacy parameters when changing instance id', () => {
+      service.searchOptions.next(Object.assign(new SearchOptions({}), service.searchOptions.value, { query: 'legacy query' }));
+      service.paginatedSearchOptions.next(Object.assign(
+        new PaginatedSearchOptions({}),
+        service.paginatedSearchOptions.value,
+        { query: 'legacy query' },
+      ));
+      routeService.getQueryParameterValue.and.returnValue(of(undefined));
+      routeService.getQueryParamsWithPrefix.and.returnValue(of({}));
+      routeService.getRouteParameterValue.and.returnValue(of(undefined));
+
+      service.setSearchInstanceId('strict-id');
+
+      expect(service.searchOptions.value.query).toBe('');
+      expect(service.paginatedSearchOptions.value.query).toBe('');
+    });
+  });
+
   describe('unselectAppliedFilterParams', () => {
     let appliedFilter: AppliedFilter;
 
@@ -324,13 +494,13 @@ describe('SearchConfigurationService', () => {
     it('should return all params except the applied filter', () => {
       service.unselectAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
 
-      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.author`, '1282121b-5394-4689-ab93-78d537764052,authority');
     });
 
     it('should be able to remove AppliedFilter without operator', () => {
       service.unselectAppliedFilterParams('dateIssued.max', '2000');
 
-      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.dateIssued.max`, '2000');
     });
 
     it('should reset the page to 1', (done: DoneFn) => {
@@ -356,13 +526,13 @@ describe('SearchConfigurationService', () => {
     it('should return all params with the applied filter', () => {
       service.selectNewAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
 
-      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
+      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.author`, '1282121b-5394-4689-ab93-78d537764052,authority');
     });
 
     it('should be able to add AppliedFilter without operator', () => {
       service.selectNewAppliedFilterParams('dateIssued.max', '2000');
 
-      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
+      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.dateIssued.max`, '2000');
     });
 
     it('should reset the page to 1', (done: DoneFn) => {

@@ -2,12 +2,16 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnChanges,
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -26,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../search/search.service';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 import { SearchFilterService } from '../search/search-filters/search-filter.service';
@@ -103,7 +108,7 @@ export class SearchFormComponent implements OnChanges {
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
-    protected searchConfig: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
     protected dsoService: DSpaceObjectDataService,
     public dsoNameService: DSONameService,
@@ -146,17 +151,15 @@ export class SearchFormComponent implements OnChanges {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-    const goToFirstPage = { 'spc.page': 1 };
-
-    const queryParams = Object.assign(
-      {
-        ...goToFirstPage,
-      },
-      data,
-    );
-    if (hasValue(data.scope) && this.hideScopeInUrl) {
-      delete queryParams.scope;
-    }
+    const queryParams: Params = {
+      [this.paginationService.getPageParam(this.searchConfig.searchInstanceId)]: 1,
+    };
+    Object.keys(data).forEach((key) => {
+      if (key === 'scope' && hasValue(data.scope) && this.hideScopeInUrl) {
+        return;
+      }
+      queryParams[this.searchConfig.getCurrentSearchInstanceParam(key)] = data[key];
+    });
 
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,

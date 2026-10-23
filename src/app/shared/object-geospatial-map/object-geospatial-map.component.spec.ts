@@ -10,6 +10,7 @@ import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
@@ -22,6 +23,7 @@ import {
 
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { ObjectGeospatialMapComponent } from './object-geospatial-map.component';
 
 describe('ObjectGeospatialMapComponent', () => {
@@ -70,7 +72,13 @@ describe('ObjectGeospatialMapComponent', () => {
           provide: TranslateLoader,
         },
       })],
-      providers: [TranslateService, TranslateStore, TranslateLoader, TranslateLoaderMock],
+      providers: [
+        TranslateService,
+        TranslateStore,
+        TranslateLoader,
+        TranslateLoaderMock,
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectGeospatialMapComponent, {
       remove: {
