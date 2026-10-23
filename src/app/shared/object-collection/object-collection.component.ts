@@ -4,20 +4,16 @@ import {
   NgClass,
 } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Inject,
   Input,
   OnInit,
+  Optional,
   Output,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
 import {
   SortDirection,
   SortOptions,
@@ -29,19 +25,19 @@ import { Context } from '@dspace/core/shared/context.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
-import { Observable } from 'rxjs';
 import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+  Observable,
+  of,
+} from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { CollectionElementLinkType } from './collection-element-link.type';
 
 /**
@@ -209,30 +205,18 @@ export class ObjectCollectionComponent implements OnInit {
 
 
   /**
-   * @param cdRef
-   *    ChangeDetectorRef service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
    * @param elementRef
    *    Used only to read DOM for the element width
    */
   constructor(
-    private cdRef: ChangeDetectorRef,
-    private route: ActivatedRoute,
-    private router: Router,
     private elementRef: ElementRef,
-    @Inject(PLATFORM_ID) private platformId: any) {
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional() @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
+  ) {
   }
 
   ngOnInit(): void {
-    this.currentMode$ = this.route
-      .queryParams
-      .pipe(
-        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
-        distinctUntilChanged(),
-      );
+    this.currentMode$ = this.searchConfigService?.getCurrentViewMode(ViewMode.ListElement) ?? of(ViewMode.ListElement);
     if (isPlatformBrowser(this.platformId)) {
       const width = this.elementRef.nativeElement.offsetWidth;
       this.placeholderFontClass = setPlaceHolderAttributes(width);

@@ -65,6 +65,7 @@ import {
 import { environment } from '../../../environments/environment';
 import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import {
   SetThemeAction,
   ThemeActionTypes,
@@ -367,8 +368,10 @@ export class ThemeService {
               );
             }
           }
-          if (hasValue(activatedRouteSnapshot.queryParams) && hasValue(activatedRouteSnapshot.queryParams.scope)) {
-            const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(activatedRouteSnapshot.queryParams.scope);
+          const searchConfigurationService = this.injector.get(SearchConfigurationService);
+          const scope = searchConfigurationService.getSearchParamFromParams(activatedRouteSnapshot.queryParams, 'scope');
+          if (hasValue(scope)) {
+            const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(scope);
             // Start with the resolved dso and go recursively through its parents until you reach the top-level community
             return dsoFromScope$.pipe(
               getFirstSucceededRemoteData(),

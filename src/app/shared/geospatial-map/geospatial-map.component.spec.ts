@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import {
   TranslateModule,
@@ -14,6 +15,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { GeospatialMapComponent } from './geospatial-map.component';
 
 let elRef: ElementRef;
@@ -25,7 +27,10 @@ describe('GeospatialMapComponent', () => {
   beforeEach( waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [GeospatialMapComponent, TranslateModule.forRoot()],
-      providers: [{ provide: TranslateService, useValue: getMockTranslateService() }],
+      providers: [
+        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();

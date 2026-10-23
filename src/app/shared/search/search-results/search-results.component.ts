@@ -2,10 +2,14 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   Output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  Params,
+  RouterLink,
+} from '@angular/router';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -16,7 +20,6 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   isNotEmpty,
@@ -28,6 +31,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
@@ -111,11 +115,6 @@ export class SearchResultsComponent {
   @Input() sortConfig: SortOptions;
 
   /**
-   * The current view-mode of the list
-   */
-  @Input() viewMode: ViewMode;
-
-  /**
    * An optional configuration to filter the result on one type
    */
   @Input() configuration: string;
@@ -153,7 +152,7 @@ export class SearchResultsComponent {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   constructor(
-    protected searchConfigService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
     protected searchService: SearchService,
   ) {
     this.activeFilters$ = this.searchConfigService.getCurrentFilters();
@@ -186,5 +185,11 @@ export class SearchResultsComponent {
     }
 
     return result;
+  }
+
+  getExactMatchQueryParams(): Params {
+    return {
+      [this.searchConfigService.getCurrentSearchInstanceParam('query')]: this.surroundStringWithQuotes(this.searchConfig?.query),
+    };
   }
 }
