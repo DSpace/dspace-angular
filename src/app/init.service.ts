@@ -25,7 +25,10 @@ import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import {
+  DYNAMIC_ERROR_MESSAGES_MATCHER,
+  DYNAMIC_FORM_CONTROL_MAP_FN,
+} from '@ng-dynamic-forms/core';
 import {
   select,
   Store,
@@ -42,6 +45,7 @@ import { DATA_SERVICE_MAP } from '../decorator-registries/data-service-registry'
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { dsDynamicErrorMessagesMatcher } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-error-messages-matcher';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
@@ -116,6 +120,10 @@ export abstract class InitService {
       {
         provide: DYNAMIC_FORM_CONTROL_MAP_FN,
         useValue: dsDynamicFormControlMapFn,
+      },
+      {
+        provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+        useValue: dsDynamicErrorMessagesMatcher,
       },
     ];
   }
