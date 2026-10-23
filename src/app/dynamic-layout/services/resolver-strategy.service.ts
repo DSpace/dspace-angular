@@ -1,0 +1,65 @@
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+
+/**
+ * Service that maps URN (Uniform Resource Name) identifiers (e.g., DOI, HANDLE, SCOPUS)
+ * to their resolver base URLs, as defined in the environment configuration.
+ * Also provides utility methods to detect whether a metadata value is a link.
+ */
+@Injectable({
+  providedIn: 'root',
+})
+export class ResolverStrategyService {
+
+  /**
+   * List of managed URN
+   */
+  private urn2baseurl: Map<string, string>;
+
+  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig) {
+    /**
+     * Set the list of managed URN
+     */
+    this.urn2baseurl = new Map();
+    const urnList = this.appConfig.layout.urn;
+    if (hasValue(urnList)) {
+      for (const urn of urnList) {
+        this.urn2baseurl.set(urn.name, urn.baseUrl);
+      }
+    }
+  }
+
+  /**
+   * Returns the list of managed URN
+   */
+  get managedUrn(): IterableIterator<string> {
+    return this.urn2baseurl.keys();
+  }
+
+  /**
+   * Returns base url for a given URN
+   * @param key string that represents the URN (DOI, HANDLE, EMAIL)
+   */
+  getBaseUrl(key: string): string {
+    return this.urn2baseurl.get(key);
+  }
+
+  /**
+   * Check if the give parameter is a link
+   * @param value metadata value
+   */
+  checkLink(value: string): boolean {
+    return hasValue(value) && (
+      value.toLowerCase().startsWith('http://') ||
+      value.toLowerCase().startsWith('https://') ||
+      value.toLowerCase().startsWith('ftp://') ||
+      value.toLowerCase().startsWith('ftps://') ) ;
+  }
+}
