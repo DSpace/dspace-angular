@@ -37,8 +37,8 @@
     </div>
   }
   @if (fileCheckSum) {
-    <div class="mt-1">
-      Checksum {{fileCheckSum.checkSumAlgorithm}}: {{fileCheckSum.value}}
+    <div class="text-break mt-1">
+      {{ 'submission.sections.upload.checksum' | translate : { algorithm: fileCheckSum.checkSumAlgorithm, value: fileCheckSum.value } }}
     </div>
   }
   <span class="clearfix"></span>
