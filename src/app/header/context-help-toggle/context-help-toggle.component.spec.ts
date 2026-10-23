@@ -56,10 +56,17 @@ describe('ContextHelpToggleComponent', () => {
     });
 
     it('clicking the button should toggle context help icon visibility', fakeAsync(() => {
-      fixture.debugElement.query(By.css('a')).nativeElement.click();
+      fixture.debugElement.query(By.css('button')).nativeElement.click();
       tick();
       expect(contextHelpService.toggleIcons).toHaveBeenCalled();
     }));
+
+    it('the toggle should be a real <button> without an orphan role="menuitem"', () => {
+      const toggle = fixture.debugElement.query(By.css('button')).nativeElement;
+      expect(toggle.tagName).toBe('BUTTON');
+      expect(toggle.getAttribute('role')).toBeNull();
+      expect(toggle.getAttribute('type')).toBe('button');
+    });
   });
 
 });
