@@ -8191,4 +8191,6 @@
   "admin.access-control.epeople.form.email.error.required": "O campo E-mail é obrigatório. Informe um endereço válido (ex.: usuario@email.com).",
 
   "admin.access-control.epeople.form.institution.error.required": "A seleção da Instituição é obrigatória.",
+
+  "otherWorkspace.search.results.head" : "Submissões compartilhadas",
 }
