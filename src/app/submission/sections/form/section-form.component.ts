@@ -341,7 +341,6 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         sectionData,
         this.submissionService.getSubmissionScope(),
         SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope()),
-        null,
         false,
         this.metadataSecurityConfiguration,
       );
