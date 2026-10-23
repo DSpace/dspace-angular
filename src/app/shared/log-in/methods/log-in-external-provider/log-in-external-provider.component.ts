@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -32,6 +33,7 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
   imports: [
+    NgClass,
     TranslateModule,
   ],
 })
@@ -120,4 +122,9 @@ export class LogInExternalProviderComponent implements OnInit {
   getButtonLabel() {
     return `login.form.${this.authMethod.authMethodType}`;
   }
+
+  get isOrcid(): boolean {
+    return this.authMethod.authMethodType === AuthMethodType.Orcid;
+  }
+
 }
