@@ -67,8 +67,12 @@
   "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
   // TODO New key - Add a translation
   "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.lease.listelement.badge": "Lease until {{ date }}",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
   // TODO New key - Add a translation
@@ -13587,8 +13591,12 @@
   "search.filters.access_status.restricted": "Restricted access",
 
   // "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
   // TODO New key - Add a translation
   "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.lease": "Temporary access (lease)",
 
   // "search.filters.access_status.metadata.only": "Metadata only",
   // TODO New key - Add a translation
