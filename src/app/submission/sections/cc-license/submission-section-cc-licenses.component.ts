@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -41,7 +45,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   Observable,
-  of,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
@@ -53,12 +57,13 @@ import {
 } from 'rxjs/operators';
 
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
+import { TranslateService } from '@ngx-translate/core';
+import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -68,15 +73,18 @@ import { renderSectionFor } from '../sections-decorator';
   templateUrl: './submission-section-cc-licenses.component.html',
   styleUrls: ['./submission-section-cc-licenses.component.scss'],
   imports: [
+    TranslateModule,
+    NgIf,
     AsyncPipe,
+    VarDirective,
+    NgForOf,
     DsSelectComponent,
+    NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
-    NgbDropdownModule,
-    ThemedLoadingComponent,
-    TranslateModule,
-    VarDirective,
+    MarkdownDirective,
   ],
+  standalone: true,
 })
 @renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
@@ -108,6 +116,18 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * Cache of the available Creative Commons licenses.
    */
   submissionCcLicenses: SubmissionCcLicence[] = [];
+
+  /**
+   * Map of licence uris to names
+   */
+  public licenseMap: Record<string, string> = {
+    'http://creativecommons.org/licenses/by/4.0/'       : 'CC BY 4.0 (Attribution 4.0 International)',
+    'http://creativecommons.org/licenses/by-sa/4.0/'    : 'CC BY-SA 4.0 (Attribution-ShareAlike 4.0 International)',
+    'http://creativecommons.org/licenses/by-nc/4.0/'    : 'CC BY-NC 4.0 (Attribution-NonCommercial 4.0 International)',
+    'http://creativecommons.org/licenses/by-nc-sa/4.0/' : 'CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0 International)',
+    'http://creativecommons.org/licenses/by-nd/4.0/'    : 'CC BY-ND 4.0 (Attribution-NoDerivatives 4.0 International)',
+    'http://creativecommons.org/licenses/by-nc-nd/4.0/' : 'CC BY-NC-ND 4.0 (Attribution-NonCommercial-NoDerivatives 4.0 International)'
+  };
 
   /**
    * Reference to NgbModal
@@ -170,6 +190,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     protected operationsBuilder: JsonPatchOperationsBuilder,
     protected configService: ConfigurationDataService,
     protected ref: ChangeDetectorRef,
+    private translate: TranslateService,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
     @Inject('submissionIdProvider') public injectedSubmissionId: string,
@@ -212,10 +233,18 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     }
     this.selectedCcLicense = ccLicense;
     this.setAccepted(false);
+
+    // Generate the defaults options for selected ccLicense
+    const defaults = {};
+    ccLicense.fields.forEach(field => {
+      const defaultEnumOption = field.enums.find(enumOption => enumOption.default);
+      if (defaultEnumOption) { defaults[field.id] = defaultEnumOption; }
+    });
+
     this.updateSectionData({
       ccLicense: {
         id: ccLicense.id,
-        fields: {},
+        fields: defaults
       },
       uri: undefined,
     });
@@ -255,6 +284,25 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   }
 
   /**
+   * Update value for a given license field.
+   * @param ccLicense   the related Creative Commons license.
+   * @param field       the field for which to set a value.
+   */
+  updateInput(ccLicense: SubmissionCcLicence, field: Field) {
+     this.updateSectionData({
+      ccLicense: {
+        id: ccLicense.id,
+        fields: Object.assign({}, this.data.ccLicense.fields, {
+          [field.id]: this.data.ccLicense.fields[field.id]
+        }),
+      },
+      accepted: false,
+      uri: this.data.uri
+    });
+    this.ccLicenseLink$ = this.getCcLicenseLink$();
+  }
+
+  /**
    * Get the selected option for a given license field.
    * @param ccLicense   the related Creative Commons license.
    * @param field       the field for which to get the selected option value.
@@ -282,7 +330,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   getCcLicenseLink$(): Observable<string> {
 
     if (this.storedCcLicenseLink) {
-      return of(this.storedCcLicenseLink);
+      return observableOf(this.storedCcLicenseLink);
     }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
       (field) => !this.getSelectedOption(this.getSelectedCcLicense(), field))) {
@@ -348,12 +396,18 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         if (this.data.accepted !== data.accepted) {
           const path = this.pathCombiner.getPath('uri');
           if (data.accepted) {
-            this.getCcLicenseLink$().pipe(
-              take(1),
-            ).subscribe((link) => {
-              this.operationsBuilder.add(path, link.toString(), false, true);
-            });
-          } else if (this.data.uri) {
+            if (data.ccLicense.id === 'other') {
+              this.operationsBuilder.add(path, { 'uri': data.ccLicense.fields.dc_rights_uri, 'rights': data.ccLicense.fields.dc_rights }, false, true);
+            } else if (data.ccLicense.id === 'none') {
+              this.operationsBuilder.add(path, { 'uri': '', 'rights': this.translate.instant('submission.sections.ccLicense.copyrighted') }, false, true);
+            } else {
+              this.getCcLicenseLink$().pipe(
+                take(1),
+              ).subscribe((link) => {
+                this.operationsBuilder.add(path, link.toString(), false, true);
+              });
+            }
+          } else if (!!this.data.uri) {
             this.operationsBuilder.remove(path);
           }
         }
