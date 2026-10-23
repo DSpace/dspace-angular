@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { rerunGuardsAndResolversOnPathChange } from '@dspace/core/router/utils/route.utils';
 
 import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
@@ -52,7 +53,7 @@ export const ROUTES: Route[] = [
       dso: communityPageResolver,
       breadcrumb: communityBreadcrumbResolver,
     },
-    runGuardsAndResolvers: 'always',
+    runGuardsAndResolvers: rerunGuardsAndResolversOnPathChange,
     children: [
       {
         path: COMMUNITY_EDIT_PATH,
