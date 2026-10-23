@@ -93,3 +93,15 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
       }),
       map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID.valueOf()).length > 0),
     );
+
+/** Resolve the feature links once and retain their IDs for checking multiple features. */
+export const authorizationFeatureIds = (source: Observable<Authorization[]>): Observable<Set<string>> =>
+  source.pipe(
+    switchMap((authorizations: Authorization[]) => {
+      const featureLinks = (authorizations || [])
+        .filter((authorization: Authorization) => hasValue(authorization.feature))
+        .map((authorization: Authorization) => authorization.feature.pipe(getFirstSucceededRemoteDataPayload()));
+      return featureLinks.length ? observableCombineLatest(featureLinks) : of([]);
+    }),
+    map((features: Feature[]) => new Set(features.map((feature) => feature.id))),
+  );

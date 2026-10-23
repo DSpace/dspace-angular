@@ -7,15 +7,23 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
+  defer,
+  EMPTY,
   Observable,
   of,
 } from 'rxjs';
 import {
   catchError,
+  expand,
+  filter,
   map,
+  reduce,
+  shareReplay,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
+import { AuthService } from '../../auth/auth.service';
 import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -38,7 +46,10 @@ import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import { oneAuthorizationMatchesFeature } from './authorization-utils';
+import {
+  authorizationFeatureIds,
+  oneAuthorizationMatchesFeature,
+} from './authorization-utils';
 import { FeatureID } from './feature-id';
 
 /**
@@ -52,6 +63,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   protected searchByObjectPath = 'object';
 
   private searchData: SearchDataImpl<Authorization>;
+  private anonymousFeatureIds = new Map<string, { expiresAt: number; features: Observable<Set<string>> }>();
 
   constructor(
     protected requestService: RequestService,
@@ -59,6 +71,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected siteService: SiteDataService,
+    protected authService: AuthService,
   ) {
     super('authorizations', requestService, rdbService, objectCache, halService);
 
@@ -69,6 +82,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    * Set all authorization requests to stale
    */
   invalidateAuthorizationsRequestCache() {
+    this.anonymousFeatureIds.clear();
     this.requestService.setStaleByHrefSubstring(this.linkPath);
   }
 
@@ -85,6 +99,87 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    *                                    requested after the response becomes stale
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<boolean> {
+    if (hasValue(featureId) && hasNoValue(ePersonUuid)) {
+      // An unresolved authentication state must never be mistaken for an anonymous visitor.
+      return this.authService.isAuthenticationReady().pipe(
+        filter((ready: boolean) => ready),
+        take(1),
+        switchMap(() => this.authService.isAuthenticated().pipe(take(1))),
+        switchMap((authenticated: boolean) => authenticated
+          ? this.checkAuthorization(featureId, objectUrl, ePersonUuid, useCachedVersionIfAvailable, reRequestOnStale)
+          : this.checkAnonymousAuthorization(featureId, objectUrl, useCachedVersionIfAvailable, reRequestOnStale)),
+      );
+    }
+    return this.checkAuthorization(featureId, objectUrl, ePersonUuid, useCachedVersionIfAvailable, reRequestOnStale);
+  }
+
+  /**
+   * Anonymous feature checks for the same object share the existing unfiltered REST search.
+   * The request cache deduplicates pending requests and retains its normal expiry, dependency
+   * invalidation and SSR transfer behavior. No permissions are cached separately here.
+   * Follow every page before deciding a feature is absent. A failed batch (including a custom
+   * feature throwing on the backend) falls back to the original individual feature check.
+   */
+  private checkAnonymousAuthorization(featureId: FeatureID, objectUrl: string, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean): Observable<boolean> {
+    const objectUrl$ = hasValue(objectUrl) ? of(objectUrl) : this.siteService.find().pipe(map((site) => site.self));
+    return objectUrl$.pipe(
+      take(1),
+      switchMap((url: string) => {
+        const readPage = (response$: Observable<RemoteData<PaginatedList<Authorization>>>) => response$.pipe(
+          getFirstCompletedRemoteData(),
+          map((response) => {
+            if (!response.hasSucceeded || !Array.isArray(response.payload?.page)) {
+              throw new Error('Unable to retrieve object authorizations');
+            }
+            return response.payload;
+          }),
+        );
+        const cacheKey = `${url}|${reRequestOnStale}`;
+        let cached = useCachedVersionIfAvailable ? this.anonymousFeatureIds.get(cacheKey) : undefined;
+        if (cached && cached.expiresAt <= Date.now()) {
+          this.anonymousFeatureIds.delete(cacheKey);
+          cached = undefined;
+        }
+        if (!cached) {
+          const features = defer(() => readPage(this.searchByObject(undefined, url, undefined, { elementsPerPage: 100 },
+            useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')))).pipe(
+            expand((page) => {
+              if (!page.next) {
+                return EMPTY;
+              }
+              const next$ = this.findListByHref(page.next, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature'));
+              this.addDependency(next$, of(url));
+              return readPage(next$);
+            }),
+            reduce((authorizations, page) => [...authorizations, ...page.page], [] as Authorization[]),
+            authorizationFeatureIds,
+            shareReplay({ bufferSize: 1, refCount: false }),
+          );
+          // BaseDataService may leave this unset, in which case RequestService uses its
+          // 15-minute default response lifetime as well.
+          cached = { expiresAt: Date.now() + (this.responseMsToLive ?? 15 * 60 * 1000), features };
+          if (useCachedVersionIfAvailable) {
+            this.anonymousFeatureIds.set(cacheKey, cached);
+          }
+        }
+        return cached.features.pipe(
+          map((featureIds) => featureIds.has(featureId.valueOf())),
+          catchError(() => {
+            if (this.anonymousFeatureIds.get(cacheKey) === cached) {
+              this.anonymousFeatureIds.delete(cacheKey);
+            }
+            return this.checkAuthorization(featureId, url, undefined, useCachedVersionIfAvailable, reRequestOnStale);
+          }),
+        );
+      }),
+      catchError(() => this.checkAuthorization(featureId, objectUrl, undefined, useCachedVersionIfAvailable, reRequestOnStale)),
+    );
+  }
+
+  /**
+   * Perform the actual authorization lookup for a single feature against the REST API.
+   */
+  private checkAuthorization(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<boolean> {
     return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {
