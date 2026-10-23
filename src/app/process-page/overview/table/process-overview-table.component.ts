@@ -17,7 +17,6 @@ import {
 } from '@angular/router';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
@@ -43,6 +42,7 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   from as observableFrom,
   mergeMap,
   Observable,
@@ -121,6 +121,21 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
    * {@Link ProcessOverviewService} contains some predefined functions.
    */
   @Input() getInfoValueMethod: (process: Process) => string;
+
+  private searchQuery$ = new BehaviorSubject<string>('');
+
+  @Input()
+  set searchQuery(query: string) {
+    const normalizedQuery = query ?? '';
+
+    if (this.searchQuery$.value !== normalizedQuery) {
+      if (this.paginationId) {
+        this.paginationService.resetPage(this.paginationId);
+      }
+
+      this.searchQuery$.next(normalizedQuery);
+    }
+  }
 
   /**
    * List of processes and their info to be shown in this table
@@ -204,50 +219,58 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     // between the update of the paginatedList and the entryArray. This results in the processOverviewPage showing
     // no processes for a split second every time the processes are updated which in turn causes the different
     // sections of the page to jump around. By combining these and causing the page to update only once this is avoided.
-    this.subs.push(this.paginationOptions$
-      .pipe(
-        // Map the paginationOptions to findListOptions
-        map((paginationOptions: PaginationComponentOptions) =>
-          this.processOverviewService.getFindListOptions(paginationOptions, this.sortField)),
-        // Use the findListOptions to retrieve the relevant processes every interval
-        switchMap((findListOptions: FindListOptions) =>
-          this.processOverviewService.getProcessesByProcessStatus(
-            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null),
-        ),
-        // Redirect the user when he is logged out
-        redirectOn4xx(this.router, this.auth),
-        getAllCompletedRemoteData(),
-        // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
-        switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
-          // Create observable emitting all processes one by one
-          return observableFrom(processesRD.payload.page).pipe(
-            // Map every Process to ProcessOverviewTableEntry
-            mergeMap((process: Process) => {
-              return this.getEPersonName(process.userId).pipe(
-                map((name) => {
-                  return {
-                    process: process,
-                    user: name,
-                    info: this.getInfoValueMethod(process),
-                  };
-                }),
-              );
-            }),
-            // Collect processOverviewTableEntries into array
-            toArray(),
-            // Create RemoteData<PaginatedList<ProcessOverviewTableEntry>>
-            map((entries: ProcessOverviewTableEntry[]) => {
-              const entriesPL: PaginatedList<ProcessOverviewTableEntry> =
-                Object.assign(new PaginatedList(), processesRD.payload, { page: entries });
-              const entriesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>> =
-                Object.assign({}, processesRD, { payload: entriesPL });
-              return entriesRD;
-            }),
+    this.subs.push(combineLatest([
+      this.paginationOptions$,
+      this.searchQuery$,
+    ]).pipe(
+      switchMap(([paginationOptions, searchQuery]) => {
+        if (isNotEmpty(searchQuery)) {
+          return this.processOverviewService.getProcessesBySearch(
+            this.processStatus,
+            searchQuery,
+            paginationOptions,
           );
-        }),
-      ).subscribe((next: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
-        this.processesRD$.next(next);
-      }));
+        }
+        // Map the paginationOptions to findListOptions
+        const findListOptions = this.processOverviewService.getFindListOptions(paginationOptions, this.sortField);
+        // Use the findListOptions to retrieve the relevant processes every interval
+        return this.processOverviewService.getProcessesByProcessStatus(
+          this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null);
+      }),
+      // Redirect the user when he is logged out
+      redirectOn4xx(this.router, this.auth),
+      getAllCompletedRemoteData(),
+      // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
+      switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
+        // Create observable emitting all processes one by one
+        return observableFrom(processesRD.payload.page).pipe(
+          // Map every Process to ProcessOverviewTableEntry
+          mergeMap((process: Process) => {
+            return this.getEPersonName(process.userId).pipe(
+              map((name) => {
+                return {
+                  process: process,
+                  user: name,
+                  info: this.getInfoValueMethod(process),
+                };
+              }),
+            );
+          }),
+          // Collect processOverviewTableEntries into array
+          toArray(),
+          // Create RemoteData<PaginatedList<ProcessOverviewTableEntry>>
+          map((entries: ProcessOverviewTableEntry[]) => {
+            const entriesPL: PaginatedList<ProcessOverviewTableEntry> =
+              Object.assign(new PaginatedList(), processesRD.payload, { page: entries });
+            const entriesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>> =
+              Object.assign({}, processesRD, { payload: entriesPL });
+            return entriesRD;
+          }),
+        );
+      }),
+    ).subscribe((next: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
+      this.processesRD$.next(next);
+    }));
 
     // Collapse this section when the number of processes is zero the first time processes are retrieved
     this.subs.push(this.processesRD$.pipe(
@@ -255,7 +278,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
       take(1),
     ).subscribe(
       (processesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
-        if (!(processesRD.payload.totalElements > 0)) {
+        if (!( processesRD.payload.totalElements > 0 )) {
           this.isCollapsed = true;
         }
       },
