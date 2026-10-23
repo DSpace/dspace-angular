@@ -11,6 +11,7 @@ import {
 
 import { RouteService } from '../../../../core/services/route.service';
 import { Item } from '../../../../core/shared/item.model';
+import { hasValue } from '../../../../shared/empty.util';
 
 export const isIiifEnabled = (item: Item) => {
   return String(item.firstMetadataValue('dspace.iiif.enabled')?.valueOf?.() || '').trim().toLowerCase() === 'true';
@@ -37,7 +38,13 @@ export const getDSpaceQuery = (item: Item, routeService: RouteService): Observab
     }),
     map((r: string) => {
       const url: UrlTree = new DefaultUrlSerializer().parse(r);
-      return url.queryParamMap.get('query');
+      const queryParamMap = url.queryParamMap;
+      const unprefixedQuery = queryParamMap.get('query');
+      if (hasValue(unprefixedQuery)) {
+        return unprefixedQuery;
+      }
+      const prefixedKey = queryParamMap.keys.find((key: string) => key.endsWith('.query'));
+      return hasValue(prefixedKey) ? queryParamMap.get(prefixedKey) : null;
     }),
     take(1),
   );

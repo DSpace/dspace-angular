@@ -206,21 +206,21 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Show the next page as well
    */
   showMore() {
-    this.filterService.incrementPage(this.filterConfig.name);
+    this.filterService.incrementPage(this.filterConfig.name, this.searchConfigService.searchInstanceId);
   }
 
   /**
    * Make sure only the first page is shown
    */
   showFirstPageOnly() {
-    this.filterService.resetPage(this.filterConfig.name);
+    this.filterService.resetPage(this.filterConfig.name, this.searchConfigService.searchInstanceId);
   }
 
   /**
    * @returns {Observable<number>} The current page of this filter
    */
   getCurrentPage(): Observable<number> {
-    return this.filterService.getPage(this.filterConfig.name);
+    return this.filterService.getPage(this.filterConfig.name, this.searchConfigService.searchInstanceId);
   }
 
   /**

@@ -21,6 +21,7 @@ import { COMMUNITY } from '../../core/shared/community.resource-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { RouterMock } from '../mocks/router.mock';
 import { NoOpAction } from '../ngrx/no-op.action';
 import {
@@ -29,6 +30,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
 import { ConfigurationDataServiceStub } from '../testing/configuration-data.service.stub';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';
 import { ThemeService } from './theme.service';
@@ -58,6 +60,7 @@ describe('ThemeService', () => {
   let themeService: ThemeService;
   let linkService: LinkService;
   let configurationService: ConfigurationDataServiceStub;
+  let searchConfigService: SearchConfigurationServiceStub;
   let initialState;
 
   let ancestorDSOs: DSpaceObject[];
@@ -95,6 +98,8 @@ describe('ThemeService', () => {
     const mockDsoService = {
       findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
     };
+    searchConfigService = new SearchConfigurationServiceStub();
+    searchConfigService.searchInstanceId = 'spc';
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -107,6 +112,7 @@ describe('ThemeService', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: ConfigurationDataService, useValue: configurationService },
+        { provide: SearchConfigurationService, useValue: searchConfigService },
       ],
     });
 
@@ -238,6 +244,7 @@ describe('ThemeService', () => {
           }),
         );
         spyOnPrivateMethods();
+        spyOn(searchConfigService, 'getSearchParamFromParams').and.callThrough();
         snapshot = Object.assign({
           queryParams: {
             scope: mockCommunity.uuid,
@@ -248,11 +255,56 @@ describe('ThemeService', () => {
       it('should match the theme to the dso found through the scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).matchThemeToDSOs).toHaveBeenCalled();
+          expect(searchConfigService.getSearchParamFromParams).toHaveBeenCalledWith(snapshot.queryParams, 'scope');
           done();
         });
       });
 
       it('should set the theme it receives from the dso found through the scope', (done) => {
+        themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
+          expect((themeService as any).store.dispatch).toHaveBeenCalledWith(new SetThemeAction('custom') as any);
+          done();
+        });
+      });
+
+      it('should return true', (done) => {
+        themeService.updateThemeOnRouteChange$(url, snapshot).subscribe((result) => {
+          expect(result).toEqual(true);
+          done();
+        });
+      });
+    });
+
+    describe('when a prefixed scope is present in the snapshot\'s parameters', () => {
+      let snapshot;
+
+      beforeEach(() => {
+        setupServiceWithActions(
+          hot('--a-', {
+            a: {
+              type: ROUTER_NAVIGATED,
+              payload: { routerState: { url } },
+            },
+          }),
+        );
+        spyOnPrivateMethods();
+        spyOn(searchConfigService, 'getSearchParamFromParams').and.callThrough();
+        snapshot = Object.assign({
+          queryParams: {
+            'spc.scope': mockCommunity.uuid,
+          },
+        });
+      });
+
+      it('should match the theme to the dso found through the prefixed scope', (done) => {
+        themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
+          expect((themeService as any).matchThemeToDSOs).toHaveBeenCalled();
+          expect(searchConfigService.getSearchParamFromParams).toHaveBeenCalledWith(snapshot.queryParams, 'scope');
+          done();
+        });
+      });
+
+      it('should set the theme it receives from the dso found through the prefixed scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).store.dispatch).toHaveBeenCalledWith(new SetThemeAction('custom') as any);
           done();
@@ -408,6 +460,8 @@ describe('ThemeService', () => {
         findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
       };
       configurationService = new ConfigurationDataServiceStub();
+      searchConfigService = new SearchConfigurationServiceStub();
+      searchConfigService.searchInstanceId = 'spc';
 
       TestBed.configureTestingModule({
         imports: [
@@ -420,6 +474,7 @@ describe('ThemeService', () => {
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
           { provide: ConfigurationDataService, useValue: configurationService },
+          { provide: SearchConfigurationService, useValue: searchConfigService },
         ],
       });
 

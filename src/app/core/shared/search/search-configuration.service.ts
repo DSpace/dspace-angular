@@ -85,9 +85,23 @@ export class SearchConfigurationService implements OnDestroy {
   private facetLinkPathPrefix = 'discover/facets/';
 
   /**
-   * Default pagination id
+   * Default search instance id
    */
-  public paginationID = 'spc';
+  public searchInstanceId = 'spc';
+
+  /**
+   * Whether unprefixed search parameters should be used when this search instance has no
+   * corresponding prefixed parameter. Unique search instances disable this fallback so they
+   * cannot consume parameters that belong to another search on the same page.
+   */
+  public useLegacySearchParamFallback = true;
+
+  /**
+   * The names of the query parameters that are scoped to a search instance, but that still accept a
+   * legacy (unprefixed) value for backwards compatibility. Filter parameters (prefixed with `f.`) are
+   * handled separately, see {@link isLegacySearchParam}.
+   */
+  protected readonly legacyScopedQueryParams: string[] = ['configuration', 'scope', 'query', 'dsoType', 'view'];
 
   /**
    * Emits the current search options
@@ -103,7 +117,7 @@ export class SearchConfigurationService implements OnDestroy {
    * Default pagination settings
    */
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
-    id: this.paginationID,
+    id: this.searchInstanceId,
     pageSize: 10,
     currentPage: 1,
   });
@@ -122,6 +136,12 @@ export class SearchConfigurationService implements OnDestroy {
    * Emits the current default values
    */
   protected _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
+
+  /**
+   * The original unmodified defaults, used to clear any legacy-derived state when an instance
+   * switches to strict prefixed parameters.
+   */
+  protected initialSearchOptions: PaginatedSearchOptions;
 
   /**
    * A map of subscriptions to unsubscribe from on destroy
@@ -158,13 +178,30 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current configuration string
    */
-  getCurrentConfiguration(defaultConfiguration: string) {
+  getCurrentConfiguration(defaultConfiguration: string, searchInstanceId = this.searchInstanceId) {
+    const instanceQueryConfiguration$ = this.routeService
+      .getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, 'configuration'));
+    const instanceRouteConfiguration$ = this.routeService
+      .getRouteParameterValue(this.getSearchInstanceParam(searchInstanceId, 'configuration'));
+    const instanceConfiguration$ = observableCombineLatest([
+      instanceQueryConfiguration$,
+      instanceRouteConfiguration$,
+    ]);
+    if (!this.useLegacySearchParamFallback) {
+      return instanceConfiguration$.pipe(
+        map(([instanceQueryConfig, instanceRouteConfig]) => instanceQueryConfig || instanceRouteConfig || defaultConfiguration),
+      );
+    }
     return observableCombineLatest([
+      observableCombineLatest([
+        instanceQueryConfiguration$.pipe(startWith(undefined)),
+        instanceRouteConfiguration$.pipe(startWith(undefined)),
+      ]),
       this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
       this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined)),
     ]).pipe(
-      map(([queryConfig, routeConfig]) => {
-        return queryConfig || routeConfig || defaultConfiguration;
+      map(([[instanceQueryConfig, instanceRouteConfig], queryConfig, routeConfig]) => {
+        return instanceQueryConfig || instanceRouteConfig || queryConfig || routeConfig || defaultConfiguration;
       }),
     );
   }
@@ -172,8 +209,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current scope's identifier
    */
-  getCurrentScope(defaultScope: string) {
-    return this.routeService.getQueryParameterValue('scope').pipe(map((scope) => {
+  getCurrentScope(defaultScope: string, searchInstanceId = this.searchInstanceId) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'scope').pipe(map((scope) => {
       return scope || defaultScope;
     }));
   }
@@ -181,17 +218,17 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current query string
    */
-  getCurrentQuery(defaultQuery: string) {
-    return this.routeService.getQueryParameterValue('query').pipe(map((query) => {
-      return query !== null ? query : defaultQuery; // Allow querying when the value is empty
+  getCurrentQuery(defaultQuery: string, searchInstanceId = this.searchInstanceId) {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'query').pipe(map((query) => {
+      return hasValue(query) ? query : defaultQuery; // Allow querying when the value is empty
     }));
   }
 
   /**
    * @returns {Observable<number>} Emits the current DSpaceObject type as a number
    */
-  getCurrentDSOType(): Observable<DSpaceObjectType> {
-    return this.routeService.getQueryParameterValue('dsoType').pipe(
+  getCurrentDSOType(searchInstanceId = this.searchInstanceId): Observable<DSpaceObjectType> {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'dsoType').pipe(
       filter((type) => isNotEmpty(type) && hasValue(DSpaceObjectType[type.toUpperCase()])),
       map((type) => DSpaceObjectType[type.toUpperCase()]));
   }
@@ -213,20 +250,21 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
    */
-  getCurrentFilters(): Observable<SearchFilter[]> {
-    return this.routeService.getQueryParamsWithPrefix('f.').pipe(map((filterParams) => {
+  getCurrentFilters(searchInstanceId = this.searchInstanceId): Observable<SearchFilter[]> {
+    return this.getCurrentFrontendFilters(searchInstanceId).pipe(map((filterParams) => {
       if (isNotEmpty(filterParams)) {
         const filters = [];
-        Object.keys(filterParams).forEach((key) => {
+        const backendFilterParams = this.getBackendFilterParams(filterParams, searchInstanceId);
+        Object.keys(backendFilterParams).forEach((key) => {
           if (key.endsWith('.min') || key.endsWith('.max')) {
             const realKey = key.slice(0, -4);
             if (hasNoValue(filters.find((f) => f.key === realKey))) {
-              const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
-              const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
+              const min = backendFilterParams[realKey + '.min'] ? backendFilterParams[realKey + '.min'][0] : '*';
+              const max = backendFilterParams[realKey + '.max'] ? backendFilterParams[realKey + '.max'][0] : '*';
               filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']'], 'equals'));
             }
           } else {
-            filters.push(new SearchFilter(key, filterParams[key]));
+            filters.push(new SearchFilter(key, backendFilterParams[key]));
           }
         });
         return filters;
@@ -238,24 +276,63 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current fixed filter as a string
    */
-  getCurrentFixedFilter(): Observable<string> {
-    return this.routeService.getRouteParameterValue('fixedFilterQuery');
+  getCurrentFixedFilter(searchInstanceId = this.searchInstanceId): Observable<string> {
+    const instanceFixedFilter$ = this.routeService
+      .getRouteParameterValue(this.getSearchInstanceParam(searchInstanceId, 'fixedFilterQuery'));
+    if (!this.useLegacySearchParamFallback) {
+      return instanceFixedFilter$;
+    }
+    return observableCombineLatest([
+      instanceFixedFilter$.pipe(startWith(undefined)),
+      this.routeService.getRouteParameterValue('fixedFilterQuery').pipe(startWith(undefined)),
+    ]).pipe(
+      map(([instanceFixedFilter, fixedFilter]) => instanceFixedFilter || fixedFilter),
+    );
   }
 
   /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
-  getCurrentFrontendFilters(): Observable<Params> {
-    return this.routeService.getQueryParamsWithPrefix('f.');
+  getCurrentFrontendFilters(searchInstanceId = this.searchInstanceId): Observable<Params> {
+    const instanceFilters$ = this.routeService
+      .getQueryParamsWithPrefix(this.getSearchInstanceFilterParamPrefix(searchInstanceId));
+    if (!this.useLegacySearchParamFallback) {
+      return instanceFilters$;
+    }
+    return observableCombineLatest([
+      instanceFilters$.pipe(startWith({})),
+      this.routeService.getQueryParamsWithPrefix('f.').pipe(startWith({})),
+    ]).pipe(map(([instanceFilters, legacyFilters]) => {
+      return isNotEmpty(instanceFilters) ? instanceFilters : legacyFilters;
+    }));
   }
 
   /**
    * @returns {Observable<string>} Emits the current view mode
    */
-  getCurrentViewMode(defaultViewMode: ViewMode) {
-    return this.routeService.getQueryParameterValue('view').pipe(map((viewMode) => {
-      return viewMode || defaultViewMode;
+  getCurrentViewMode(defaultViewMode: ViewMode, searchInstanceId = this.searchInstanceId): Observable<ViewMode> {
+    return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'view').pipe(map((viewMode) => {
+      return (viewMode as ViewMode) || defaultViewMode;
     }));
+  }
+
+  /**
+   * Changes the current view mode in the current URL
+   * @param viewMode Mode to switch to
+   * @param searchLinkParts Route segments used for the navigation
+   */
+  setViewMode(viewMode: ViewMode, searchLinkParts: string[]): void {
+    this.paginationService.getCurrentPagination(this.searchInstanceId, new PaginationComponentOptions()).pipe(take(1))
+      .subscribe((config) => {
+        let pageParams = { page: 1 };
+        const queryParams = { [this.getCurrentSearchInstanceParam('view')]: viewMode };
+        if (viewMode === ViewMode.DetailedListElement) {
+          pageParams = Object.assign(pageParams, { pageSize: 1 });
+        } else if (config.pageSize === 1) {
+          pageParams = Object.assign(pageParams, { pageSize: 10 });
+        }
+        this.paginationService.updateRouteWithUrl(this.searchInstanceId, searchLinkParts, pageParams, queryParams);
+      });
   }
 
   /**
@@ -296,22 +373,103 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
-  setPaginationId(paginationId): void {
-    if (isNotEmpty(paginationId)) {
+  setSearchInstanceId(searchInstanceId): void {
+    if (isNotEmpty(searchInstanceId)) {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, {
-        pagination: Object.assign({}, currentValue.pagination, {
-          id: paginationId,
+      const defaults = this.useLegacySearchParamFallback ? currentValue : this.initialSearchOptions;
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), defaults, {
+        pagination: Object.assign({}, defaults.pagination, {
+          id: searchInstanceId,
         }),
       });
-      // unsubscribe from subscription related to old pagination id
-      this.unsubscribeFromSearchOptions(this.paginationID);
+      // unsubscribe from subscription related to old search instance id
+      this.unsubscribeFromSearchOptions(this.searchInstanceId);
 
-      // change to the new pagination id
-      this.paginationID = paginationId;
+      // change to the new search instance id
+      this.searchInstanceId = searchInstanceId;
+      if (!this.useLegacySearchParamFallback) {
+        this.searchOptions.next(Object.assign(new SearchOptions({}), updatedValue));
+      }
       this.paginatedSearchOptions.next(updatedValue);
-      this.setSearchSubscription(this.paginationID, this.paginatedSearchOptions.value);
+      this.setSearchSubscription(this.searchInstanceId, this.paginatedSearchOptions.value);
     }
+  }
+
+  getSearchInstanceParam(searchInstanceId: string, parameterName: string): string {
+    return `${searchInstanceId}.${parameterName}`;
+  }
+
+  getCurrentSearchInstanceParam(parameterName: string): string {
+    return this.getSearchInstanceParam(this.searchInstanceId, parameterName);
+  }
+
+  /**
+   * Resolve a search parameter from a Params object, preferring the search-instance-prefixed
+   * value and falling back to the legacy unprefixed value.
+   *
+   * @param params The parameters to read from
+   * @param parameterName The search parameter name
+   * @param searchInstanceId The search instance identifier
+   */
+  getSearchParamFromParams(params: Params, parameterName: string, searchInstanceId = this.searchInstanceId): string {
+    if (hasNoValue(params)) {
+      return undefined;
+    }
+    const instanceValue = params[this.getSearchInstanceParam(searchInstanceId, parameterName)];
+    return hasValue(instanceValue) ? instanceValue : params[parameterName];
+  }
+
+  getSearchInstanceFilterParam(filterName: string, searchInstanceId = this.searchInstanceId): string {
+    const filterParamName = filterName.startsWith('f.') ? filterName : `f.${filterName}`;
+    return this.getSearchInstanceParam(searchInstanceId, filterParamName);
+  }
+
+  getCurrentSearchInstanceFilterParam(filterName: string): string {
+    return this.getSearchInstanceFilterParam(filterName, this.searchInstanceId);
+  }
+
+  getSearchInstanceFilterParamPrefix(searchInstanceId = this.searchInstanceId): string {
+    return this.getSearchInstanceParam(searchInstanceId, 'f.');
+  }
+
+  /**
+   * Whether the given query parameter is a legacy (unprefixed) search parameter that has a
+   * search-instance-prefixed equivalent (e.g. `query`, `scope` or a `f.xxx` filter). These
+   * parameters are still read for backwards compatibility, but should be migrated to their
+   * prefixed form so they don't get mixed with newly added prefixed parameters.
+   *
+   * @param paramName The query parameter name
+   */
+  isLegacySearchParam(paramName: string): boolean {
+    return this.legacyScopedQueryParams.includes(paramName) || paramName.startsWith('f.');
+  }
+
+  getCurrentPageParam(): string {
+    return this.paginationService.getPageParam(this.searchInstanceId);
+  }
+
+  private getCurrentSearchInstanceQueryParam(searchInstanceId: string, parameterName: string): Observable<string> {
+    const instanceValue$ = this.routeService
+      .getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, parameterName));
+    if (!this.useLegacySearchParamFallback) {
+      return instanceValue$;
+    }
+    return observableCombineLatest([
+      instanceValue$.pipe(startWith(undefined)),
+      this.routeService.getQueryParameterValue(parameterName).pipe(startWith(undefined)),
+    ]).pipe(
+      map(([instanceValue, legacyValue]) => hasValue(instanceValue) ? instanceValue : legacyValue),
+    );
+  }
+
+  private getBackendFilterParams(filterParams: Params, searchInstanceId: string): Params {
+    const backendFilterParams = {};
+    const instancePrefix = `${searchInstanceId}.`;
+    Object.keys(filterParams).forEach((key) => {
+      const backendKey = key.startsWith(instancePrefix) ? key.substring(instancePrefix.length) : key;
+      backendFilterParams[backendKey] = filterParams[key];
+    });
+    return backendFilterParams;
   }
 
   /**
@@ -335,19 +493,21 @@ export class SearchConfigurationService implements OnDestroy {
       .pipe(getFirstSucceededRemoteData())
       .subscribe((defRD: RemoteData<PaginatedSearchOptions>) => {
         const defs = defRD.payload;
+        this.initialSearchOptions = defs;
         this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
         this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
-        this.setSearchSubscription(this.paginationID, defs);
+        this.setSearchSubscription(this.searchInstanceId, defs);
       });
   }
 
-  private setSearchSubscription(paginationID: string, defaults: PaginatedSearchOptions) {
-    this.unsubscribeFromSearchOptions(paginationID);
+  private setSearchSubscription(searchInstanceId: string, defaults: PaginatedSearchOptions) {
+    const instanceId = searchInstanceId || defaults.pagination.id;
+    this.unsubscribeFromSearchOptions(instanceId);
     const subs = [
-      this.subscribeToSearchOptions(defaults),
-      this.subscribeToPaginatedSearchOptions(paginationID || defaults.pagination.id, defaults),
+      this.subscribeToSearchOptions(instanceId, defaults),
+      this.subscribeToPaginatedSearchOptions(instanceId, defaults),
     ];
-    this.subs.set(this.paginationID, subs);
+    this.subs.set(instanceId, subs);
   }
 
   /**
@@ -355,39 +515,38 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {SearchOptions} defaults Default values for when no parameters are available
    * @returns {Subscription} The subscription to unsubscribe from
    */
-  private subscribeToSearchOptions(defaults: SearchOptions): Subscription {
+  private subscribeToSearchOptions(searchInstanceId: string, defaults: SearchOptions): Subscription {
     return observableMerge(
-      this.getConfigurationPart(defaults.configuration),
-      this.getScopePart(defaults.scope),
-      this.getQueryPart(defaults.query),
-      this.getDSOTypePart(),
-      this.getFiltersPart(),
-      this.getFixedFilterPart(),
-      this.getViewModePart(defaults.view),
+      this.getConfigurationPart(searchInstanceId, defaults.configuration),
+      this.getScopePart(searchInstanceId, defaults.scope),
+      this.getQueryPart(searchInstanceId, defaults.query),
+      this.getDSOTypePart(searchInstanceId),
+      this.getFiltersPart(searchInstanceId),
+      this.getFixedFilterPart(searchInstanceId),
+      this.getViewModePart(searchInstanceId, defaults.view),
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
-      const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const updatedValue: SearchOptions = Object.assign(new SearchOptions({}), currentValue, update);
       this.searchOptions.next(updatedValue);
     });
   }
 
   /**
    * Sets up a subscription to all necessary parameters to make sure the paginatedSearchOptions emits a new value every time they update
-   * @param {string} paginationId The pagination ID
+   * @param {string} searchInstanceId The search instance id
    * @param {PaginatedSearchOptions} defaults Default values for when no parameters are available
    * @returns {Subscription} The subscription to unsubscribe from
    */
-  private subscribeToPaginatedSearchOptions(paginationId: string, defaults: PaginatedSearchOptions): Subscription {
+  private subscribeToPaginatedSearchOptions(searchInstanceId: string, defaults: PaginatedSearchOptions): Subscription {
     return observableMerge(
-      this.getConfigurationPart(defaults.configuration),
-      this.getPaginationPart(paginationId, defaults.pagination),
-      this.getSortPart(paginationId, defaults.sort),
-      this.getScopePart(defaults.scope),
-      this.getQueryPart(defaults.query),
-      this.getDSOTypePart(),
-      this.getFiltersPart(),
-      this.getFixedFilterPart(),
-      this.getViewModePart(defaults.view),
+      this.searchOptions.pipe(map((searchOptions: any) => {
+        const update = Object.assign({}, searchOptions);
+        delete update.pagination;
+        delete update.sort;
+        return update;
+      })),
+      this.getPaginationPart(searchInstanceId, defaults.pagination),
+      this.getSortPart(searchInstanceId, defaults.sort),
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -396,23 +555,23 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Unsubscribe from all subscriptions related to the given paginationID
-   * @param paginationId The pagination id
+   * Unsubscribe from all subscriptions related to the given search instance id
+   * @param searchInstanceId The search instance id
    */
-  private unsubscribeFromSearchOptions(paginationId: string): void {
-    if (this.subs.has(this.paginationID)) {
-      this.subs.get(this.paginationID)
+  private unsubscribeFromSearchOptions(searchInstanceId: string): void {
+    if (this.subs.has(searchInstanceId)) {
+      this.subs.get(searchInstanceId)
         .filter((sub) => hasValue(sub))
         .forEach((sub) => sub.unsubscribe());
-      this.subs.delete(paginationId);
+      this.subs.delete(searchInstanceId);
     }
   }
 
   /**
    * @returns {Observable<string>} Emits the current configuration settings as a partial SearchOptions object
    */
-  private getConfigurationPart(defaultConfiguration: string): Observable<any> {
-    return this.getCurrentConfiguration(defaultConfiguration).pipe(map((configuration) => {
+  private getConfigurationPart(searchInstanceId: string, defaultConfiguration: string): Observable<any> {
+    return this.getCurrentConfiguration(defaultConfiguration, searchInstanceId).pipe(map((configuration) => {
       return { configuration };
     }));
   }
@@ -420,8 +579,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current scope's identifier
    */
-  private getScopePart(defaultScope: string): Observable<any> {
-    return this.getCurrentScope(defaultScope).pipe(map((scope) => {
+  private getScopePart(searchInstanceId: string, defaultScope: string): Observable<any> {
+    return this.getCurrentScope(defaultScope, searchInstanceId).pipe(map((scope) => {
       return { scope };
     }));
   }
@@ -429,8 +588,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current query string as a partial SearchOptions object
    */
-  private getQueryPart(defaultQuery: string): Observable<any> {
-    return this.getCurrentQuery(defaultQuery).pipe(map((query) => {
+  private getQueryPart(searchInstanceId: string, defaultQuery: string): Observable<any> {
+    return this.getCurrentQuery(defaultQuery, searchInstanceId).pipe(map((query) => {
       return { query };
     }));
   }
@@ -438,8 +597,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current query string as a partial SearchOptions object
    */
-  private getDSOTypePart(): Observable<any> {
-    return this.getCurrentDSOType().pipe(map((dsoType) => {
+  private getDSOTypePart(searchInstanceId: string): Observable<any> {
+    return this.getCurrentDSOType(searchInstanceId).pipe(map((dsoType) => {
       return { dsoType };
     }));
   }
@@ -465,8 +624,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<Params>} Emits the current active filters as a partial SearchOptions object
    */
-  private getFiltersPart(): Observable<any> {
-    return this.getCurrentFilters().pipe(map((filters) => {
+  private getFiltersPart(searchInstanceId: string): Observable<any> {
+    return this.getCurrentFilters(searchInstanceId).pipe(map((filters) => {
       return { filters };
     }));
   }
@@ -474,8 +633,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current fixed filter as a partial SearchOptions object
    */
-  private getFixedFilterPart(): Observable<any> {
-    return this.getCurrentFixedFilter().pipe(
+  private getFixedFilterPart(searchInstanceId: string): Observable<any> {
+    return this.getCurrentFixedFilter(searchInstanceId).pipe(
       isNotEmptyOperator(),
       map((fixedFilter) => {
         return { fixedFilter };
@@ -579,9 +738,11 @@ export class SearchConfigurationService implements OnDestroy {
    * @param operator The {@link AppliedFilter}'s optional operator
    */
   unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
-    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+    const filterParam: string = this.getCurrentSearchInstanceFilterParam(filterName);
+    return this.routeService.getParamsExceptValue(filterParam, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
       map((params: Params) => Object.assign(params, {
-        [this.paginationService.getPageParam(this.paginationID)]: 1,
+        [`f.${filterName}`]: null,
+        [this.paginationService.getPageParam(this.searchInstanceId)]: 1,
       })),
     );
   }
@@ -594,9 +755,11 @@ export class SearchConfigurationService implements OnDestroy {
    * @param operator The {@link AppliedFilter}'s optional operator
    */
   selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
-    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+    const filterParam: string = this.getCurrentSearchInstanceFilterParam(filterName);
+    return this.routeService.getParamsWithAdditionalValue(filterParam, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
       map((params: Params) => Object.assign(params, {
-        [this.paginationService.getPageParam(this.paginationID)]: 1,
+        [`f.${filterName}`]: null,
+        [this.paginationService.getPageParam(this.searchInstanceId)]: 1,
       })),
     );
   }
@@ -604,8 +767,8 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object
    */
-  private getViewModePart(defaultViewMode: ViewMode): Observable<any> {
-    return this.getCurrentViewMode(defaultViewMode).pipe(map((view) => {
+  private getViewModePart(searchInstanceId: string, defaultViewMode: ViewMode): Observable<any> {
+    return this.getCurrentViewMode(defaultViewMode, searchInstanceId).pipe(map((view) => {
       return { view };
     }));
   }

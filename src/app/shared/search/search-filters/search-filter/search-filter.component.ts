@@ -147,7 +147,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.push(
       this.appliedFilters$.subscribe((selectedValues: AppliedFilter[]) => {
         if (isNotEmpty(selectedValues)) {
-          this.filterService.expand(this.filter.name);
+          this.filterService.expand(this.filter.name, this.searchConfigService.searchInstanceId);
         }
       }),
       this.getIsActive().subscribe(() => {
@@ -170,7 +170,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    *  Changes the state for this filter to collapsed when it's expanded and to expanded it when it's collapsed
    */
   toggle() {
-    this.filterService.toggle(this.filter.name);
+    this.filterService.toggle(this.filter.name, this.searchConfigService.searchInstanceId);
   }
 
   /**
@@ -178,14 +178,14 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    * @returns {Observable<boolean>} Emits true when the current state of the filter is collapsed, false when it's expanded
    */
   private isCollapsed(): Observable<boolean> {
-    return this.filterService.isCollapsed(this.filter.name);
+    return this.filterService.isCollapsed(this.filter.name, this.searchConfigService.searchInstanceId);
   }
 
   /**
    *  Sets the initial state of the filter
    */
   initializeFilter() {
-    this.filterService.initializeFilter(this.filter);
+    this.filterService.initializeFilter(this.filter, this.searchConfigService.searchInstanceId);
   }
 
   /**

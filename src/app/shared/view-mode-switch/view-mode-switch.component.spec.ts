@@ -18,7 +18,9 @@ import {
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
@@ -32,6 +34,7 @@ describe('ViewModeSwitchComponent', () => {
   let comp: ViewModeSwitchComponent;
   let fixture: ComponentFixture<ViewModeSwitchComponent>;
   const searchService = new SearchServiceStub();
+  const searchConfigurationService = new SearchConfigurationServiceStub();
   let listButton: HTMLElement;
   let gridButton: HTMLElement;
   let detailButton: HTMLElement;
@@ -52,6 +55,7 @@ describe('ViewModeSwitchComponent', () => {
       ],
       providers: [
         { provide: SearchService, useValue: searchService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
       ],
     }).overrideComponent(ViewModeSwitchComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
@@ -68,7 +72,7 @@ describe('ViewModeSwitchComponent', () => {
     beforeEach(fakeAsync(() => {
       comp.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
       comp.currentMode = ViewMode.ListElement;
-      searchService.setViewMode(ViewMode.ListElement);
+      searchConfigurationService.setViewMode(ViewMode.ListElement);
       tick();
       fixture.detectChanges();
       const debugElements = fixture.debugElement.queryAll(By.css('button'));
@@ -103,7 +107,7 @@ describe('ViewModeSwitchComponent', () => {
     beforeEach(fakeAsync(() => {
       comp.viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
       comp.currentMode = ViewMode.ListElement;
-      searchService.setViewMode(ViewMode.ListElement);
+      searchConfigurationService.setViewMode(ViewMode.ListElement);
       tick();
       fixture.detectChanges();
       const debugElements = fixture.debugElement.queryAll(By.css('button'));
