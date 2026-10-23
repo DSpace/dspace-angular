@@ -93,6 +93,9 @@ const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 // Please note, that regex flags (like "i") are no longer supported.
 const SSR_EXCLUDE_PATTERNS: RegExp[] = environment.ssr.excludePathPatterns.map((p: SsrExcludePatterns) => new RegExp(p.pattern));
 
+// Create CommonEngine only once at startup instead of per request.
+const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
@@ -251,7 +254,6 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
