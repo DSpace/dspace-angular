@@ -3,7 +3,7 @@
 }
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" [trackBy]="trackBy">
   <!-- This is the tree node template for show more node -->
-  <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
+  <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding [cdkTreeNodePaddingIndent]="24"
     class="example-tree-node show-more-node">
     <div class="btn-group">
       <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
@@ -27,7 +27,7 @@
     </div>
   </cdk-tree-node>
   <!-- This is the tree node template for expandable nodes (coms and subcoms with children) -->
-  <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
+  <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding [cdkTreeNodePaddingIndent]="24"
     class="example-tree-node expandable-node">
     <div class="btn-group">
       @if (hasChild(null, node) | async) {
@@ -85,7 +85,7 @@
     }
   </cdk-tree-node>
   <!-- This is the tree node template for leaf nodes (collections and (sub)coms without children) -->
-  <cdk-tree-node *cdkTreeNodeDef="let node; when: !(hasChild && isShowMore)" cdkTreeNodePadding
+  <cdk-tree-node *cdkTreeNodeDef="let node; when: !(hasChild && isShowMore)" cdkTreeNodePadding [cdkTreeNodePaddingIndent]="24"
     class="example-tree-node childless-node">
     <div class="btn-group">
       <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
