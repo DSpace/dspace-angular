@@ -5,7 +5,8 @@
 }
 
 .audit-overview__filter {
-  #audit-subject-type-filter:focus {
+  .form-select:focus,
+  .form-control:focus {
     border-color: var(--rdapp-bg-color-primary);
     box-shadow: 0 0 0 0.2rem rgba(var(--rdapp-bg-color-primary-rgb), 0.25);
   }

@@ -5,22 +5,64 @@
         {{ 'audit.overview.title' | translate }}
       </h1>
 
-      <div class="audit-overview__filter row align-items-center mb-3">
-        <label for="audit-subject-type-filter" class="col-auto col-form-label">
-          {{ 'rdapp.audit-overview.filter.label' | translate }}
-        </label>
-        <div class="col-auto">
-          <select
-            id="audit-subject-type-filter"
-            class="form-select form-select-sm"
-            [(ngModel)]="selectedType"
-            (ngModelChange)="onFilterChange()">
-            @for (option of subjectTypeOptions; track option.value) {
-              <option [value]="option.value">{{ option.labelKey | translate }}</option>
-            }
-          </select>
+      <form class="audit-overview__filter mb-3" (ngSubmit)="applyFilters()">
+        <div class="row g-2 align-items-end">
+          <div class="col-12 col-md-auto">
+            <label for="audit-subject-type-filter" class="form-label mb-1">
+              {{ 'rdapp.audit-overview.filter.label' | translate }}
+            </label>
+            <select
+              id="audit-subject-type-filter"
+              name="subjectType"
+              class="form-select form-select-sm"
+              [(ngModel)]="selectedType"
+              (ngModelChange)="onFilterChange()">
+              @for (option of subjectTypeOptions; track option.value) {
+                <option [value]="option.value">{{ option.labelKey | translate }}</option>
+              }
+            </select>
+          </div>
+          <div class="col-12 col-md">
+            <label for="audit-eperson-filter" class="form-label mb-1">
+              {{ 'rdapp.audit-overview.filter.eperson-email' | translate }}
+            </label>
+            <input id="audit-eperson-filter" name="email" type="email" class="form-control form-control-sm"
+                   autocomplete="off" [(ngModel)]="form.email">
+          </div>
+          <div class="col-12 col-md">
+            <label for="audit-object-filter" class="form-label mb-1">
+              {{ 'rdapp.audit-overview.filter.object' | translate }}
+            </label>
+            <input id="audit-object-filter" name="object" type="text" class="form-control form-control-sm"
+                   autocomplete="off" [(ngModel)]="form.object">
+          </div>
+          <div class="col-6 col-md-auto">
+            <label for="audit-date-from-filter" class="form-label mb-1">
+              {{ 'rdapp.audit-overview.filter.date-from' | translate }}
+            </label>
+            <input id="audit-date-from-filter" name="dateFrom" type="date" class="form-control form-control-sm"
+                   [(ngModel)]="form.dateFrom">
+          </div>
+          <div class="col-6 col-md-auto">
+            <label for="audit-date-to-filter" class="form-label mb-1">
+              {{ 'rdapp.audit-overview.filter.date-to' | translate }}
+            </label>
+            <input id="audit-date-to-filter" name="dateTo" type="date" class="form-control form-control-sm"
+                   [(ngModel)]="form.dateTo">
+          </div>
+          <div class="col-12 col-md-auto d-flex gap-2">
+            <button type="submit" class="btn btn-primary btn-sm">
+              {{ 'rdapp.audit-overview.filter.submit' | translate }}
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="clearFilters()">
+              {{ 'rdapp.audit-overview.filter.clear' | translate }}
+            </button>
+          </div>
         </div>
-      </div>
+        @if (filterError) {
+          <div class="text-danger small mt-2" role="alert">{{ filterError | translate }}</div>
+        }
+      </form>
 
       @if ((auditsRD$ | async)?.payload; as audits) {
         <ds-themed-audit-table
