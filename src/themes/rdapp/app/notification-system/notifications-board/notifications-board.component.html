@@ -2,8 +2,8 @@
   [ngClass]="position"
   (mouseenter)="pause()"
   (mouseleave)="resume()"
-  (focusin)="pause()"
-  (focusout)="resume()"
+  (focusin)="focusIn()"
+  (focusout)="focusOut()"
   (click)="pin($event)">
   @for (a of notifications; track a; let i = $index) {
     <ds-notification
