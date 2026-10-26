@@ -1,8 +1,9 @@
+@let label = (label$ | async) ?? appliedFilter.label;
 <a class="rdapp-filter-chip"
-   [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter) | translate, value: appliedFilter.label }"
+   [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter) | translate, value: label }"
    [routerLink]="searchLink"
    [queryParams]="(removeParameters$ | async)"
    (click)="searchFilterService.minimizeAll()">
-  <span class="rdapp-filter-chip__label">{{ ('search.filters.applied.f.' + appliedFilter.filter) | translate}}{{'search.filters.applied.operator.' + appliedFilter.operator | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: { default: appliedFilter.label } }}</span>
+  <span class="rdapp-filter-chip__label">{{ ('search.filters.applied.f.' + appliedFilter.filter) | translate}}{{'search.filters.applied.operator.' + appliedFilter.operator | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + label | translate: { default: label } }}</span>
   <span class="rdapp-filter-chip__remove" aria-hidden="true">×</span>
 </a>
