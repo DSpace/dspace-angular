@@ -62,6 +62,16 @@ export class StatisticsMapComponent implements OnInit {
   @Input() report: UsageReport;
 
   /**
+   * The start date filter currently selected on the statistics page (optional)
+   */
+  @Input() startDate: string;
+
+  /**
+   * The end date filter currently selected on the statistics page (optional)
+   */
+  @Input() endDate: string;
+
+  /**
    * Geo Chart Object that is utilized by the google chart component, of type GoogleChartInterface
    */
   public geoChart: GoogleChartInterface;
@@ -121,7 +131,7 @@ export class StatisticsMapComponent implements OnInit {
     if (this.report.points?.length > 0) {
       this.getData();
     } else {
-      this.usageReportService.findById(this.report.id, false, true).pipe(
+      this.usageReportService.findReport(this.report.id, this.startDate, this.endDate).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         take(1),

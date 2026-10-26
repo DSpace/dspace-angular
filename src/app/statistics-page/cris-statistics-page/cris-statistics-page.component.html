@@ -56,7 +56,9 @@
             @if (reports) {
               <ng-container>
                 @for (report of (reports | dsFilterMap : true); track report) {
-                  <ds-statistics-map [report]="report"></ds-statistics-map>
+                  <ds-statistics-map [report]="report"
+                                     [startDate]="parseDate(dateFrom)"
+                                     [endDate]="parseDate(dateTo)"></ds-statistics-map>
                 }
               </ng-container>
               <div>

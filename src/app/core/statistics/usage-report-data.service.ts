@@ -18,6 +18,7 @@ import { RequestService } from '../data/request.service';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
@@ -79,6 +80,41 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
     }, true, false).pipe(
       getRemoteDataPayload(),
       map((list) => list.page),
+    );
+  }
+
+  /**
+   * Retrieve a single {@link UsageReport} by id, applying the selected startDate/endDate
+   * filters. This uses the `findReport` search method which (unlike the plain `findById`/self
+   * link lookup) correctly honours the date range filter server-side.
+   *
+   * @param reportId the report id (e.g. `{dsoUuid}_{reportType}`)
+   * @param startDate the start date filter (optional)
+   * @param endDate the end date filter (optional)
+   */
+  findReport(reportId: string, startDate?: string, endDate?: string): Observable<RemoteData<UsageReport>> {
+    const params = [
+      new RequestParam('id', reportId),
+    ];
+
+    if (startDate !== undefined && startDate !== null) {
+      params.push(
+        new RequestParam('startDate', startDate),
+      );
+    }
+
+    if (endDate !== undefined && endDate !== null) {
+      params.push(
+        new RequestParam('endDate', endDate),
+      );
+    }
+
+    const href$ = this.searchData.getSearchByHref('report', {
+      searchParams: params,
+    });
+
+    return this.findByHref(href$, false, true).pipe(
+      getFirstCompletedRemoteData(),
     );
   }
 

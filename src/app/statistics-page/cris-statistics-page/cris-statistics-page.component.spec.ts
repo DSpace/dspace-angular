@@ -254,21 +254,21 @@ describe('CrisStatisticsPageComponent', () => {
       const reportId = '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits';
       const cachedReport = { id: reportId } as UsageReport;
       (component as any).fullReportCache.set(reportId, cachedReport);
-      spyOn(usageReportServiceStub, 'findById').and.callThrough();
+      spyOn(usageReportServiceStub, 'findReport').and.callThrough();
 
       component.loadFullReport(reportId).subscribe((result) => {
         expect(result).toBe(cachedReport);
-        expect(usageReportServiceStub.findById).not.toHaveBeenCalled();
+        expect(usageReportServiceStub.findReport).not.toHaveBeenCalled();
         done();
       });
     });
 
-    it('should call usageReportService.findById when the report is not cached', (done: DoneFn) => {
+    it('should call usageReportService.findReport when the report is not cached', (done: DoneFn) => {
       const reportId = '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits';
-      spyOn(usageReportServiceStub, 'findById').and.callThrough();
+      spyOn(usageReportServiceStub, 'findReport').and.callThrough();
 
       component.loadFullReport(reportId).subscribe((result) => {
-        expect(usageReportServiceStub.findById).toHaveBeenCalledWith(reportId, false, true);
+        expect(usageReportServiceStub.findReport).toHaveBeenCalledWith(reportId, null, null);
         expect(result.id).toBe(reportId);
         expect((component as any).currentReportId).toBe(reportId);
         done();
@@ -277,13 +277,13 @@ describe('CrisStatisticsPageComponent', () => {
 
     it('should reuse the same observable for concurrent requests of the same reportId', () => {
       const reportId = '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits';
-      spyOn(usageReportServiceStub, 'findById').and.callThrough();
+      spyOn(usageReportServiceStub, 'findReport').and.callThrough();
 
       const first$ = component.loadFullReport(reportId);
       const second$ = component.loadFullReport(reportId);
 
       expect(first$).toBe(second$);
-      expect(usageReportServiceStub.findById).toHaveBeenCalledTimes(1);
+      expect(usageReportServiceStub.findReport).toHaveBeenCalledTimes(1);
     });
 
   });

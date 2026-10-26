@@ -9,6 +9,12 @@ export class UsageReportServiceStub {
     return createSuccessfulRemoteDataObject$(report);
   }
 
+  findReport(reportId: string, ...args: any[]) {
+    const allReports = this._getReports();
+    const report = allReports.find(r => r.id === reportId) || allReports[0];
+    return createSuccessfulRemoteDataObject$(report);
+  }
+
   searchStatistics(uri: string, page: number, size: number, categoryId?: string, startDate?: string, endDate?: string) {
     return of(this._getReports());
   }

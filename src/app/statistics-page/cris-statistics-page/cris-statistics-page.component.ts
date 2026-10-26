@@ -352,7 +352,8 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load the full report (with points) for the given report id via findOne.
+   * Load the full report (with points) for the given report id via the `findReport` search
+   * method, applying the currently selected date range filter.
    * @param reportId the composite id (uuid_reportKey)
    */
   loadFullReport(reportId: string): Observable<UsageReport|null> {
@@ -368,7 +369,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
 
     let fullReport$: Observable<UsageReport> = this.inFlightRequests.get(reportId);
     if (!fullReport$) {
-      fullReport$ = this.usageReportService.findById(reportId, false, true).pipe(
+      fullReport$ = this.usageReportService.findReport(reportId, this.parseDate(this.dateFrom), this.parseDate(this.dateTo)).pipe(
         getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
         shareReplay({ bufferSize: 1, refCount: true }),
