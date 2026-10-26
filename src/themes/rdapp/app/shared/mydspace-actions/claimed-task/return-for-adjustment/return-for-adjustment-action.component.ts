@@ -1,5 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Injector, OnInit } from '@angular/core';
+import {
+  Component,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -13,13 +17,23 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
-import { NgbModal, NgbModalRef, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
+import {
+  NgbModal,
+  NgbModalRef,
+  NgbTooltip,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../../../../../app/shared/btn-disabled.directive';
-import { SearchService } from '../../../../../../../app/shared/search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../../../../../../../app/shared/mydspace-actions/claimed-task/abstract/claimed-task-actions-abstract.component';
+import { SearchService } from '../../../../../../../app/shared/search/search.service';
 
 export const WORKFLOW_TASK_OPTION_RETURN_FOR_ADJUSTMENT =
   'submit_returnForAdjustmentAction';
@@ -27,7 +41,6 @@ export const WORKFLOW_TASK_OPTION_RETURN_FOR_ADJUSTMENT =
   selector: 'ds-return-for-adjustment-action',
   styleUrls: ['./return-for-adjustment-action.component.scss'],
   templateUrl: './return-for-adjustment-action.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
@@ -39,8 +52,7 @@ export const WORKFLOW_TASK_OPTION_RETURN_FOR_ADJUSTMENT =
 })
 export class ReturnForAdjustmentActionComponent
   extends ClaimedTaskActionsAbstractComponent
-  implements OnInit
-{
+  implements OnInit {
   public adjustmentForm: UntypedFormGroup;
   public modalRef: NgbModalRef;
   public option = WORKFLOW_TASK_OPTION_RETURN_FOR_ADJUSTMENT;
@@ -90,6 +102,14 @@ export class ReturnForAdjustmentActionComponent
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
     return of(this.object);
+  }
+
+  /**
+   * Como no aprovar e no rejeitar do tema: refaz a busca para o card sair da lista e o contador atualizar sem
+   * recarregar a página (HU012 CA01.1, melhoria M1).
+   */
+  public handleReloadableActionResponse(result: boolean, dso: DSpaceObject): void {
+    super.handleReloadableActionResponse(result, null);
   }
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {

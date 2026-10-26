@@ -1,5 +1,7 @@
 import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
+import { ClaimedTaskActionsApproveComponent } from '../../../../../themes/rdapp/app/shared/mydspace-actions/claimed-task/approve/claimed-task-actions-approve.component';
+import { ClaimedTaskActionsRejectComponent } from '../../../../../themes/rdapp/app/shared/mydspace-actions/claimed-task/reject/claimed-task-actions-reject.component';
 import {
   ReturnForAdjustmentActionComponent,
   WORKFLOW_TASK_OPTION_RETURN_FOR_ADJUSTMENT,
@@ -14,10 +16,7 @@ import {
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import {
-  ClaimedTaskActionsApproveComponent,
-  WORKFLOW_TASK_OPTION_APPROVE,
-} from '../approve/claimed-task-actions-approve.component';
+import { WORKFLOW_TASK_OPTION_APPROVE } from '../approve/claimed-task-actions-approve.component';
 import {
   ClaimedTaskActionsDeclineTaskComponent,
   WORKFLOW_TASK_OPTION_DECLINE_TASK,
@@ -27,10 +26,7 @@ import {
   WORKFLOW_TASK_OPTION_EDIT_METADATA,
 } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { AdvancedClaimedTaskActionRatingComponent } from '../rating/advanced-claimed-task-action-rating.component';
-import {
-  ClaimedTaskActionsRejectComponent,
-  WORKFLOW_TASK_OPTION_REJECT,
-} from '../reject/claimed-task-actions-reject.component';
+import { WORKFLOW_TASK_OPTION_REJECT } from '../reject/claimed-task-actions-reject.component';
 import {
   ClaimedTaskActionsReturnToPoolComponent,
   WORKFLOW_TASK_OPTION_RETURN_TO_POOL,
