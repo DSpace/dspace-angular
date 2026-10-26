@@ -33,7 +33,7 @@
   "evidencia.search.placeholder.title": "¿Listo para explorar?",
   "evidencia.search.placeholder.subtitle": "Escriba un término en la barra de búsqueda o seleccione un filtro al lado para ver los resultados.",
   "search.sidebar.section.filter": "Filtros",
-  "search.filters.reset": "Restablecer filtros",
+  "search.filters.reset": "Limpiar filtros",
   "search.filters.filter.title.head": "Título",
   "search.filters.filter.title.placeholder": "Título",
   "search.filters.filter.title.label": "Buscar por título",
@@ -330,6 +330,16 @@
   "rdapp.audit-overview.filter.all": "Todos los eventos",
   "rdapp.audit-overview.filter.eperson": "Usuarios",
   "rdapp.audit-overview.filter.group": "Grupos",
+  // HU009 D9: filtros por usuário, objeto e período na trilha de auditoria
+  "rdapp.audit-overview.filter.eperson-email": "Correo electrónico del usuario",
+  "rdapp.audit-overview.filter.object": "ID del objeto",
+  "rdapp.audit-overview.filter.date-from": "Desde",
+  "rdapp.audit-overview.filter.date-to": "Hasta",
+  "rdapp.audit-overview.filter.submit": "Filtrar",
+  "rdapp.audit-overview.filter.clear": "Limpiar filtros",
+  "rdapp.audit-overview.filter.error.eperson-not-found": "No hay ningún usuario registrado con este correo. Revise la dirección e inténtelo de nuevo.",
+  "rdapp.audit-overview.filter.error.object-invalid": "Indique el ID completo del objeto, tal como aparece en la columna \"ID del objeto\" (p. ej.: 3f2a9c1e-5b7d-4e8f-9a0b-1c2d3e4f5a6b).",
+  "rdapp.audit-overview.filter.error.date-range": "La fecha inicial debe ser igual o anterior a la fecha final.",
 
   // Campo "Institución" en el perfil del usuario (HU013 CA09)
   "profile.metadata.form.label.institution": "Institución",
@@ -381,6 +391,7 @@
   "evidencia.group-governance.type.item": "Ítem",
   "evidencia.group-governance.type.bitstream": "Archivo",
   "evidencia.group-governance.type.bundle": "Paquete de archivos",
+  "evidencia.group-governance.type.site": "Repositorio",
   "evidencia.group-governance.no-items": "Este grupo no tiene ninguna política de acceso asociada.",
   "evidencia.group-governance.notification.deleted.success": "Política eliminada con éxito.",
   "evidencia.group-governance.notification.deleted.failure": "No fue posible eliminar la política.",
@@ -448,5 +459,19 @@
   "forgot-email.form.success.content": "Se envió un correo con el enlace para restablecer la contraseña a {{email}}.",
   "forgot-email.form.error.head": "No se pudo enviar el correo de restablecimiento",
   "forgot-email.form.error.content": "Falló el envío de las instrucciones para restablecer la contraseña a {{email}}. Compruebe que el correo es válido y que el servidor de correo está activo.",
-  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo del rechazo"
+  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo del rechazo",
+
+  // Pente fino das HUs 009 a 012 (26/10/2026): "submetedor" vira "depositante" (HU012 CA08.1, D11),
+  // "Limpar filtros" (HU012 CA03.1), estatísticas e governança nos três idiomas (HU009 D11, CA01.3)
+  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor, indique el motivo del rechazo del envío en el cuadro a continuación.",
+  "mydspace.messages.controller-help": "Seleccione esta opción para enviar un mensaje al depositante del ítem.",
+  "mydspace.messages.submitter-help": "Seleccione esta opción para enviar un mensaje al curador.",
+  "workflow-item.send-back.notification.success.title": "Devuelto al depositante",
+  "workflow-item.send-back.notification.success.content": "Este ítem del flujo de trabajo se devolvió correctamente al depositante.",
+  "workflow-item.send-back.notification.error.content": "El ítem del flujo de trabajo no se pudo devolver al depositante.",
+  "workflow-item.send-back.title": "Devolver el ítem del flujo de trabajo al depositante",
+  "workflow-item.send-back.header": "Devolver el ítem del flujo de trabajo al depositante",
+  "item.page.statistics.description": "Estadísticas del ítem",
+  "item.page.link.statistics": "Estadísticas",
+  "otherWorkspace.search.results.head": "Envíos compartidos"
 }

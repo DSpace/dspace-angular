@@ -56,7 +56,7 @@
   "evidencia.search.toolbar.export-pdf": "Export PDF",
   "evidencia.search.toolbar.export-pdf-desc": "Printable report",
   "search.sidebar.section.filter": "Filters",
-  "search.filters.reset": "Reset filters",
+  "search.filters.reset": "Clear filters",
   "search.filters.filter.title.head": "Title",
   "search.filters.filter.title.placeholder": "Title",
   "search.filters.filter.title.label": "Search by title",
@@ -324,6 +324,16 @@
   "rdapp.audit-overview.filter.all": "All events",
   "rdapp.audit-overview.filter.eperson": "Users",
   "rdapp.audit-overview.filter.group": "Groups",
+  // HU009 D9: filtros por usuário, objeto e período na trilha de auditoria
+  "rdapp.audit-overview.filter.eperson-email": "User email",
+  "rdapp.audit-overview.filter.object": "Object ID",
+  "rdapp.audit-overview.filter.date-from": "From",
+  "rdapp.audit-overview.filter.date-to": "To",
+  "rdapp.audit-overview.filter.submit": "Filter",
+  "rdapp.audit-overview.filter.clear": "Clear filters",
+  "rdapp.audit-overview.filter.error.eperson-not-found": "No user is registered with this email. Check the address and try again.",
+  "rdapp.audit-overview.filter.error.object-invalid": "Enter the full object ID as shown in the \"Object ID\" column (e.g. 3f2a9c1e-5b7d-4e8f-9a0b-1c2d3e4f5a6b).",
+  "rdapp.audit-overview.filter.error.date-range": "The start date must be on or before the end date.",
 
   // "Institution" field in the user profile (HU013 CA09)
   "profile.metadata.form.label.institution": "Institution",
@@ -375,6 +385,7 @@
   "evidencia.group-governance.type.item": "Item",
   "evidencia.group-governance.type.bitstream": "File",
   "evidencia.group-governance.type.bundle": "File bundle",
+  "evidencia.group-governance.type.site": "Repository",
   "evidencia.group-governance.no-items": "This group has no access policies associated with it.",
   "evidencia.group-governance.notification.deleted.success": "Policy removed successfully.",
   "evidencia.group-governance.notification.deleted.failure": "Unable to remove the policy.",
@@ -442,5 +453,19 @@
   "forgot-email.form.success.content": "An email with the password reset link was sent to {{email}}.",
   "forgot-email.form.error.head": "Could not send the reset email",
   "forgot-email.form.error.content": "Sending the password reset instructions to {{email}} failed. Check that the email is valid and that the mail server is running.",
-  "submission.workflow.tasks.claimed.reject.reason.title": "Rejection reason"
+  "submission.workflow.tasks.claimed.reject.reason.title": "Rejection reason",
+
+  // Pente fino das HUs 009 a 012 (26/10/2026): "submetedor" vira "depositante" (HU012 CA08.1, D11),
+  // "Limpar filtros" (HU012 CA03.1), estatísticas e governança nos três idiomas (HU009 D11, CA01.3)
+  "submission.workflow.tasks.claimed.reject.reason.info": "Please enter the reason for rejecting the submission in the box below.",
+  "mydspace.messages.controller-help": "Select this option to send a message to the item's depositor.",
+  "mydspace.messages.submitter-help": "Select this option to send a message to the curator.",
+  "workflow-item.send-back.notification.success.title": "Sent back to depositor",
+  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the depositor",
+  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the depositor",
+  "workflow-item.send-back.title": "Send workflow item back to depositor",
+  "workflow-item.send-back.header": "Send workflow item back to depositor",
+  "item.page.statistics.description": "Item statistics",
+  "item.page.link.statistics": "Statistics",
+  "otherWorkspace.search.results.head": "Shared submissions"
 }
