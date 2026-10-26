@@ -1,0 +1,14 @@
+<div class="notifications-wrapper position-fixed"
+  [ngClass]="position"
+  (mouseenter)="pause()"
+  (mouseleave)="resume()"
+  (focusin)="pause()"
+  (focusout)="resume()"
+  (click)="pin($event)">
+  @for (a of notifications; track a; let i = $index) {
+    <ds-notification
+      class="notification"
+      [notification]="a" [isPaused$]="isPaused$">
+    </ds-notification>
+  }
+</div>

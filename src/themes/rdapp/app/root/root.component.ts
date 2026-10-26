@@ -37,7 +37,6 @@ import {
 } from '../../../../app/core/services/window.service';
 import { ThemedFooterComponent } from '../../../../app/footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../../../../app/header-nav-wrapper/themed-header-navbar-wrapper.component';
-import { NotificationsBoardComponent } from '../../../../app/notification-system/notifications-board/notifications-board.component';
 import { slideSidebarPadding } from '../../../../app/shared/animations/slide';
 import { HostWindowService } from '../../../../app/shared/host-window.service';
 import { LiveRegionComponent } from '../../../../app/shared/live-region/live-region.component';
@@ -48,6 +47,7 @@ import { CSSVariableService } from '../../../../app/shared/sass-helper/css-varia
 import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-alert/alert-banner/system-wide-alert-banner.component';
 import { ThemeConfig } from '../../../../config/theme.config';
 import { environment } from '../../../../environments/environment';
+import { NotificationsBoardComponent } from '../notification-system/notifications-board/notifications-board.component';
 import { attachCharCounter } from '../shared/form/char-counter';
 import { attachTypingChange } from '../shared/form/typing-change';
 import { ScrollToTopComponent } from '../shared/scroll-to-top/scroll-to-top.component';
