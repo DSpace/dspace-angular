@@ -58,24 +58,24 @@
   "private": true,
   "overrides": {
     "@kolkov/ngx-gallery": {
-      "@angular/animations": "^20.3.30",
-      "@angular/common": "^20.3.30",
-      "@angular/core": "^20.3.30"
+      "@angular/animations": "^20.3.34",
+      "@angular/common": "^20.3.34",
+      "@angular/core": "^20.3.34"
     },
     "@ng-bootstrap/ng-bootstrap": {
-      "@angular/common": "^20.3.30",
-      "@angular/core": "^20.3.30",
-      "@angular/forms": "^20.3.30",
-      "@angular/localize": "^20.3.30"
+      "@angular/common": "^20.3.34",
+      "@angular/core": "^20.3.34",
+      "@angular/forms": "^20.3.34",
+      "@angular/localize": "^20.3.34"
     },
     "@4science_ng-dynamic-forms/core": {
-      "@angular/common": "^20.3.30",
-      "@angular/core": "^20.3.30",
-      "@angular/forms": "^20.3.30"
+      "@angular/common": "^20.3.34",
+      "@angular/core": "^20.3.34",
+      "@angular/forms": "^20.3.34"
     },
     "@nicky-lenaers/ngx-scroll-to": {
-      "@angular/common": "^20.3.30",
-      "@angular/core": "^20.3.30"
+      "@angular/common": "^20.3.34",
+      "@angular/core": "^20.3.34"
     },
     "react": "16.14.0",
     "react-dom": "16.14.0",
@@ -89,18 +89,18 @@
   "dependencies": {
     "@4science_ng-dynamic-forms/core": "^19.1.0",
     "@4science_ng-dynamic-forms/ui-ng-bootstrap": "^19.1.0",
-    "@angular/animations": "^20.3.30",
+    "@angular/animations": "^20.3.34",
     "@angular/cdk": "^20.2.14",
-    "@angular/common": "^20.3.30",
-    "@angular/compiler": "^20.3.30",
-    "@angular/core": "^20.3.30",
-    "@angular/forms": "^20.3.30",
-    "@angular/localize": "^20.3.30",
-    "@angular/platform-browser": "^20.3.30",
-    "@angular/platform-browser-dynamic": "^20.3.30",
-    "@angular/platform-server": "^20.3.30",
-    "@angular/router": "^20.3.30",
-    "@angular/ssr": "^20.3.36",
+    "@angular/common": "^20.3.34",
+    "@angular/compiler": "^20.3.34",
+    "@angular/core": "^20.3.34",
+    "@angular/forms": "^20.3.34",
+    "@angular/localize": "^20.3.34",
+    "@angular/platform-browser": "^20.3.34",
+    "@angular/platform-browser-dynamic": "^20.3.34",
+    "@angular/platform-server": "^20.3.34",
+    "@angular/router": "^20.3.34",
+    "@angular/ssr": "^20.3.40",
     "@kolkov/ngx-gallery": "^2.0.1",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@ngrx/effects": "^20.1.0",
@@ -163,7 +163,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~20.0.0",
-    "@angular-devkit/build-angular": "^20.3.36",
+    "@angular-devkit/build-angular": "^20.3.40",
     "@angular-eslint/builder": "^20.7.0",
     "@angular-eslint/bundled-angular-compiler": "^20.7.0",
     "@angular-eslint/eslint-plugin": "^20.7.0",
@@ -171,12 +171,12 @@
     "@angular-eslint/schematics": "^20.7.0",
     "@angular-eslint/template-parser": "^20.6.0",
     "@angular-eslint/utils": "^20.7.0",
-    "@angular/cli": "^20.3.36",
-    "@angular/compiler-cli": "^20.3.30",
+    "@angular/cli": "^20.3.40",
+    "@angular/compiler-cli": "^20.3.34",
     "@cypress/schematic": "^1.5.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@ngrx/store-devtools": "^20.1.0",
-    "@ngtools/webpack": "^20.3.30",
+    "@ngtools/webpack": "^20.3.34",
     "@smarttools/eslint-plugin-rxjs": "^1.0.22",
     "@stylistic/eslint-plugin": "^3.1.0",
     "@types/deep-freeze": "0.1.5",
