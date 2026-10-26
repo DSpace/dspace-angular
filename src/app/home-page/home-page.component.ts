@@ -160,13 +160,15 @@ export class HomePageComponent implements OnInit {
       this.site$.next(site);
     });
 
-    this.homeHeaderMetadataValue$ = combineLatest({
-      site: this.site$,
-      language: this.locale.getCurrentLanguageCode(),
-    }).pipe(
-      take(1),
-      map(({ site, language }) => site?.firstMetadataValue('dspace.cms.home-header', { language })),
-    );
+    if (this.appConfig.homePage.editHomeHeader) {
+      this.homeHeaderMetadataValue$ = combineLatest({
+        site: this.site$,
+        language: this.locale.getCurrentLanguageCode(),
+      }).pipe(
+        take(1),
+        map(({ site, language }) => site?.firstMetadataValue('dspace.cms.home-header', { language })),
+      );
+    }
 
     if (this.isDynamicHomePageEnabled) {
       this.sectionComponents = this.sectionDataService.findById('site').pipe(
