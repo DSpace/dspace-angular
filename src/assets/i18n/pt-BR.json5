@@ -3604,7 +3604,7 @@
 
   "mydspace.description": "",
 
-  "mydspace.messages.controller-help": "Selecione esta opção para enviar uma mensagem para o submetedor do item.",
+  "mydspace.messages.controller-help": "Selecione esta opção para enviar uma mensagem ao depositante do item.",
 
   "mydspace.messages.description-placeholder": "Insira sua mensagem aqui...",
 
@@ -3624,7 +3624,7 @@
 
   "mydspace.messages.subject-placeholder": "Assunto...",
 
-  "mydspace.messages.submitter-help": "Selecione esta opção para enviar uma mensagem ao controlador.",
+  "mydspace.messages.submitter-help": "Selecione esta opção para enviar uma mensagem ao curador.",
 
   "mydspace.messages.title": "Mensagens",
 
@@ -4864,7 +4864,7 @@
 
   "search.filters.head": "Filtros",
 
-  "search.filters.reset": "Redefinir filtros",
+  "search.filters.reset": "Limpar filtros",
 
   "search.filters.search.submit": "Submeter",
 
@@ -5800,7 +5800,7 @@
 
   "submission.workflow.tasks.claimed.decline_help": "",
 
-  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor, informe o motivo pela rejeição da submissão na caixa abaixo, indicando se o submetedor pode corrigir um problema e reenviar.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor, informe o motivo pela rejeição da submissão na caixa abaixo.",
 
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Descreva o motivo da rejeição",
 
@@ -5996,17 +5996,17 @@
 
   "workflow-item.delete.button.confirm": "Excluir",
 
-  "workflow-item.send-back.notification.success.title": "Enviado de volta ao submetedor",
+  "workflow-item.send-back.notification.success.title": "Enviado de volta ao depositante",
 
-  "workflow-item.send-back.notification.success.content": "Este item do fluxo de trabalho foi enviado de volta ao submetedor",
+  "workflow-item.send-back.notification.success.content": "Este item do fluxo de trabalho foi enviado de volta ao depositante",
 
   "workflow-item.send-back.notification.error.title": "Algo deu errado",
 
-  "workflow-item.send-back.notification.error.content": "O item do fluxo de trabalho não pôde ser enviado de volta ao submetedor",
+  "workflow-item.send-back.notification.error.content": "O item do fluxo de trabalho não pôde ser enviado de volta ao depositante",
 
-  "workflow-item.send-back.title": "Enviar este item do fluxo de trabalho de volta ao submetedor",
+  "workflow-item.send-back.title": "Enviar este item do fluxo de trabalho de volta ao depositante",
 
-  "workflow-item.send-back.header": "Enviar este item do fluxo de trabalho de volta ao submetedor",
+  "workflow-item.send-back.header": "Enviar este item do fluxo de trabalho de volta ao depositante",
 
   "workflow-item.send-back.button.cancel": "Cancelar",
 
@@ -8192,5 +8192,25 @@
 
   "admin.access-control.epeople.form.institution.error.required": "A seleção da Instituição é obrigatória.",
 
-  "otherWorkspace.search.results.head" : "Submissões compartilhadas",
+  "otherWorkspace.search.results.head": "Submissões compartilhadas",
+
+  "evidencia.group-governance.type.site": "Repositório",
+
+  "rdapp.audit-overview.filter.eperson-email": "E-mail do usuário",
+
+  "rdapp.audit-overview.filter.object": "ID do objeto",
+
+  "rdapp.audit-overview.filter.date-from": "De",
+
+  "rdapp.audit-overview.filter.date-to": "Até",
+
+  "rdapp.audit-overview.filter.submit": "Filtrar",
+
+  "rdapp.audit-overview.filter.clear": "Limpar filtros",
+
+  "rdapp.audit-overview.filter.error.eperson-not-found": "Nenhum usuário cadastrado com este e-mail. Confira o endereço e tente de novo.",
+
+  "rdapp.audit-overview.filter.error.object-invalid": "Informe o ID completo do objeto, como aparece na coluna \"ID do Objeto\" (ex.: 3f2a9c1e-5b7d-4e8f-9a0b-1c2d3e4f5a6b).",
+
+  "rdapp.audit-overview.filter.error.date-range": "A data inicial deve ser igual ou anterior à data final.",
 }

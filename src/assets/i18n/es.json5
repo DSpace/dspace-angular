@@ -3604,7 +3604,7 @@
 
   "mydspace.description": "",
 
-  "mydspace.messages.controller-help": "Seleccione esta opción para enviar un mensaje al remitente del ítem.",
+  "mydspace.messages.controller-help": "Seleccione esta opción para enviar un mensaje al depositante del ítem.",
 
   "mydspace.messages.description-placeholder": "Inserta tu mensaje aquí...",
 
@@ -3624,7 +3624,7 @@
 
   "mydspace.messages.subject-placeholder": "Asunto...",
 
-  "mydspace.messages.submitter-help": "Seleccione esta opción para enviar un mensaje al controlador.",
+  "mydspace.messages.submitter-help": "Seleccione esta opción para enviar un mensaje al curador.",
 
   "mydspace.messages.title": "Mensajes",
 
@@ -4854,7 +4854,7 @@
 
   "search.filters.head": "Filtros",
 
-  "search.filters.reset": "Restablecer filtros",
+  "search.filters.reset": "Limpiar filtros",
 
   "search.filters.search.submit": "Enviar",
 
@@ -5790,7 +5790,7 @@
 
   "submission.workflow.tasks.claimed.decline_help": "",
 
-  "submission.workflow.tasks.claimed.reject.reason.info": "Introduzca su motivo para rechazar el envío en el cuadro a continuación, indicando si el remitente puede solucionar un problema y volver a enviarlo.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor, indique el motivo del rechazo del envío en el cuadro a continuación.",
 
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describa el motivo del rechazo.",
 
@@ -5986,17 +5986,17 @@
 
   "workflow-item.delete.button.confirm": "Borrar",
 
-  "workflow-item.send-back.notification.success.title": "Devolver al remitente",
+  "workflow-item.send-back.notification.success.title": "Devuelto al depositante",
 
-  "workflow-item.send-back.notification.success.content": "Este ítem del flujo de trabajo se devolvió correctamente al remitente.",
+  "workflow-item.send-back.notification.success.content": "Este ítem del flujo de trabajo se devolvió correctamente al depositante.",
 
   "workflow-item.send-back.notification.error.title": "Algo salió mal",
 
-  "workflow-item.send-back.notification.error.content": "El ítem del flujo de trabajo no se pudo devolver al remitente.",
+  "workflow-item.send-back.notification.error.content": "El ítem del flujo de trabajo no se pudo devolver al depositante.",
 
-  "workflow-item.send-back.title": "Enviar el ítem del flujo de trabajo al remitente",
+  "workflow-item.send-back.title": "Devolver el ítem del flujo de trabajo al depositante",
 
-  "workflow-item.send-back.header": "Enviar el ítem del flujo de trabajo al remitente",
+  "workflow-item.send-back.header": "Devolver el ítem del flujo de trabajo al depositante",
 
   "workflow-item.send-back.button.cancel": "Cancelar",
 
@@ -8025,4 +8025,30 @@
   "admin.access-control.epeople.form.email.error.required": "El correo electrónico es obligatorio. Indique una dirección válida (p. ej.: usuario@correo.com).",
 
   "admin.access-control.epeople.form.institution.error.required": "La selección de la institución es obligatoria.",
+
+  "evidencia.group-governance.type.site": "Repositorio",
+
+  "item.page.statistics.description": "Estadísticas del ítem",
+
+  "item.page.link.statistics": "Estadísticas",
+
+  "otherWorkspace.search.results.head": "Envíos compartidos",
+
+  "rdapp.audit-overview.filter.eperson-email": "Correo electrónico del usuario",
+
+  "rdapp.audit-overview.filter.object": "ID del objeto",
+
+  "rdapp.audit-overview.filter.date-from": "Desde",
+
+  "rdapp.audit-overview.filter.date-to": "Hasta",
+
+  "rdapp.audit-overview.filter.submit": "Filtrar",
+
+  "rdapp.audit-overview.filter.clear": "Limpiar filtros",
+
+  "rdapp.audit-overview.filter.error.eperson-not-found": "No hay ningún usuario registrado con este correo. Revise la dirección e inténtelo de nuevo.",
+
+  "rdapp.audit-overview.filter.error.object-invalid": "Indique el ID completo del objeto, tal como aparece en la columna \"ID del objeto\" (p. ej.: 3f2a9c1e-5b7d-4e8f-9a0b-1c2d3e4f5a6b).",
+
+  "rdapp.audit-overview.filter.error.date-range": "La fecha inicial debe ser igual o anterior a la fecha final.",
 }

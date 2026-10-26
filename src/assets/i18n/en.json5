@@ -3604,7 +3604,7 @@
 
   "mydspace.description": "",
 
-  "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
+  "mydspace.messages.controller-help": "Select this option to send a message to the item's depositor.",
 
   "mydspace.messages.description-placeholder": "Insert your message here...",
 
@@ -3624,7 +3624,7 @@
 
   "mydspace.messages.subject-placeholder": "Subject...",
 
-  "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
+  "mydspace.messages.submitter-help": "Select this option to send a message to the curator.",
 
   "mydspace.messages.title": "Messages",
 
@@ -4854,7 +4854,7 @@
 
   "search.filters.head": "Filters",
 
-  "search.filters.reset": "Reset filters",
+  "search.filters.reset": "Clear filters",
 
   "search.filters.search.submit": "Submit",
 
@@ -5790,7 +5790,7 @@
 
   "submission.workflow.tasks.claimed.decline_help": "",
 
-  "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Please enter the reason for rejecting the submission in the box below.",
 
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
 
@@ -5986,17 +5986,17 @@
 
   "workflow-item.delete.button.confirm": "Delete",
 
-  "workflow-item.send-back.notification.success.title": "Sent back to submitter",
+  "workflow-item.send-back.notification.success.title": "Sent back to depositor",
 
-  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
+  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the depositor",
 
   "workflow-item.send-back.notification.error.title": "Something went wrong",
 
-  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
+  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the depositor",
 
-  "workflow-item.send-back.title": "Send workflow item back to submitter",
+  "workflow-item.send-back.title": "Send workflow item back to depositor",
 
-  "workflow-item.send-back.header": "Send workflow item back to submitter",
+  "workflow-item.send-back.header": "Send workflow item back to depositor",
 
   "workflow-item.send-back.button.cancel": "Cancel",
 
@@ -8019,4 +8019,30 @@
   "admin.access-control.epeople.form.email.error.required": "Email is required. Enter a valid address (e.g. user@email.com).",
 
   "admin.access-control.epeople.form.institution.error.required": "Selecting an institution is required.",
+
+  "evidencia.group-governance.type.site": "Repository",
+
+  "item.page.statistics.description": "Item statistics",
+
+  "item.page.link.statistics": "Statistics",
+
+  "otherWorkspace.search.results.head": "Shared submissions",
+
+  "rdapp.audit-overview.filter.eperson-email": "User email",
+
+  "rdapp.audit-overview.filter.object": "Object ID",
+
+  "rdapp.audit-overview.filter.date-from": "From",
+
+  "rdapp.audit-overview.filter.date-to": "To",
+
+  "rdapp.audit-overview.filter.submit": "Filter",
+
+  "rdapp.audit-overview.filter.clear": "Clear filters",
+
+  "rdapp.audit-overview.filter.error.eperson-not-found": "No user is registered with this email. Check the address and try again.",
+
+  "rdapp.audit-overview.filter.error.object-invalid": "Enter the full object ID as shown in the \"Object ID\" column (e.g. 3f2a9c1e-5b7d-4e8f-9a0b-1c2d3e4f5a6b).",
+
+  "rdapp.audit-overview.filter.error.date-range": "The start date must be on or before the end date.",
 }
