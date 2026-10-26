@@ -30,6 +30,11 @@ file. A theme also does not have to provide a file for every language.
 The build copies these files to `assets/<theme>/i18n/<lang>.json5` in the output, where the
 translate loaders pick them up.
 
+The build also records which themes provide a file for which language, so the browser only
+requests override files that exist; a theme without overrides is not requested at all. That
+list is collected at build time, so adding or removing a theme translation file takes effect
+on the next build - as was already the case for the files themselves.
+
 ## How keys are resolved
 
 Translations are merged key by key. Later sources win:

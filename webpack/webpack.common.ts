@@ -6,6 +6,7 @@ import { EnvironmentPlugin } from 'webpack';
 import {
   calculateFileHash,
   getFileHashes,
+  getThemeLanguages,
   globalCSSImports,
   projectRoot,
 } from './helpers';
@@ -86,6 +87,7 @@ export const commonExports = {
     new GenerateDecoratorRegistriesPlugin(),
     new EnvironmentPlugin({
       languageHashes: getFileHashes(join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
+      themeLanguages: getThemeLanguages(join(__dirname, '..', 'src', 'themes')),
     }),
     new CopyWebpackPlugin(copyWebpackOptions),
   ],

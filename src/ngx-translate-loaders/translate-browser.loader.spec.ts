@@ -14,6 +14,7 @@ describe('TranslateBrowserLoader', () => {
   let http: { get: jasmine.Spy };
   let loader: TranslateBrowserLoader;
   let originalThemes: typeof environment.themes;
+  let themeLanguages: jasmine.Spy;
 
   /** Match the base i18n request regardless of the production content hash. */
   const isBaseRequest = (url: string): boolean => url.startsWith(`${PREFIX}en`) && url.endsWith(SUFFIX);
@@ -25,6 +26,15 @@ describe('TranslateBrowserLoader', () => {
     };
     http = { get: jasmine.createSpy('get') };
     loader = new TranslateBrowserLoader(transferState as any, http as any, PREFIX, SUFFIX);
+    // Default to every configured theme having an override, so the merge expectations
+    // below need no setup; tests that check which files are requested override this.
+    themeLanguages = spyOn(loader as any, 'themeLanguages').and.callFake(() => {
+      const declared: Record<string, string[]> = {};
+      (environment.themes ?? []).forEach((theme: any) => {
+        declared[theme.name] = ['en'];
+      });
+      return declared;
+    });
     originalThemes = environment.themes;
   });
 
@@ -168,6 +178,52 @@ describe('TranslateBrowserLoader', () => {
     loader.getTranslation('en').subscribe((messages) => {
       expect(messages['key.a']).toBe('parent-a');  // inherited from parent-theme
       expect(messages['key.b']).toBe('child-b');   // overridden by child-theme
+      done();
+    });
+  });
+
+  it('does not request any theme override file when the build contains none for the language', (done) => {
+    // Requesting a file that was never built costs a 404 and delays the first render.
+    environment.themes = [{ name: 'dspace' }];
+    themeLanguages.and.returnValue({});
+    transferState.get.and.returnValue({});
+    http.get.and.callFake((url: string) => {
+      if (isBaseRequest(url)) {
+        return of(JSON.stringify({ 'home.title': 'Base' }));
+      }
+      return throwError(() => new Error('404'));
+    });
+
+    loader.getTranslation('en').subscribe((messages) => {
+      expect(messages).toEqual({ 'home.title': 'Base' });
+      expect(http.get).toHaveBeenCalledTimes(1);
+      expect(http.get).not.toHaveBeenCalledWith('assets/dspace/i18n/en.json5', jasmine.anything());
+      done();
+    });
+  });
+
+  it('only requests the themes that actually ship a file for the language', (done) => {
+    environment.themes = [
+      { name: 'child-theme', extends: 'parent-theme' },
+      { name: 'parent-theme' },
+    ];
+    // Only the ancestor ships an override, so the active child theme must not be requested.
+    themeLanguages.and.returnValue({ 'parent-theme': ['en'] });
+    transferState.get.and.returnValue({});
+    http.get.and.callFake((url: string) => {
+      if (isBaseRequest(url)) {
+        return of(JSON.stringify({ key: 'base' }));
+      }
+      if (url === 'assets/parent-theme/i18n/en.json5') {
+        return of('{ key: "parent" }');
+      }
+      return throwError(() => new Error('404'));
+    });
+
+    loader.getTranslation('en').subscribe((messages) => {
+      expect(messages.key).toBe('parent');
+      expect(http.get).toHaveBeenCalledWith('assets/parent-theme/i18n/en.json5', jasmine.anything());
+      expect(http.get).not.toHaveBeenCalledWith('assets/child-theme/i18n/en.json5', jasmine.anything());
       done();
     });
   });

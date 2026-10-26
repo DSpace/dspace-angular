@@ -61,7 +61,14 @@ export class TranslateBrowserLoader implements TranslateLoader {
     // Only the active theme's inheritance chain is loaded; sibling themes are excluded.
     const base$ = this.fetchBase(lang);
     const activeName = getDefaultThemeConfig(environment as unknown as AppConfig).name;
-    const orderedThemes = resolveActiveThemeChain(environment.themes ?? [], activeName);
+    const orderedThemes = resolveActiveThemeChain(environment.themes ?? [], activeName)
+      .filter((name: string) => this.hasThemeOverride(name, lang));
+
+    // Nothing to override for this language, so return the base translations as-is.
+    if (orderedThemes.length === 0) {
+      return base$;
+    }
+
     const themeStreams = orderedThemes.map((name: string) => this.fetchThemeOverride(name, lang));
 
     return forkJoin([base$, ...themeStreams]).pipe(
@@ -91,5 +98,20 @@ export class TranslateBrowserLoader implements TranslateLoader {
       map((text: string) => JSON5.parse(text) as Record<string, string>),
       catchError(() => of({})),
     );
+  }
+
+  /**
+   * The languages each theme provides an override file for, as collected at build time
+   */
+  protected themeLanguages(): Record<string, string[]> {
+    return (process.env.themeLanguages as any) ?? {};
+  }
+
+  /**
+   * Whether the build contains an i18n override file for this theme and language.
+   * Requesting a file that isn't there costs a 404 before the merge can complete.
+   */
+  protected hasThemeOverride(themeName: string, lang: string): boolean {
+    return this.themeLanguages()[themeName]?.includes(lang) === true;
   }
 }
