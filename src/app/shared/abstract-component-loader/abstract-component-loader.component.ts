@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
@@ -112,7 +113,11 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   public async instantiateComponent(): Promise<void> {
     let component: GenericConstructor<T>;
     try {
-      component = await this.getComponent();
+      const component$: Promise<GenericConstructor<T>> = this.getComponent();
+      if (hasNoValue(component$)) {
+        return;
+      }
+      component = await component$;
     } catch (error) {
       console.error('Failed to retrieve the component', error);
       return;
