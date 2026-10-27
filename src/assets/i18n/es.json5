@@ -7606,6 +7606,10 @@
 
   "evidencia.search.tab.ai-summary.short": "IA Resumen",
 
+  "evidencia.search.tab.ai-summary.selected": "Sintetizar solo los ítems seleccionados ({{ count }})",
+
+  "evidencia.search.tab.ai-summary.needs-selection": "Seleccione uno o más ítems para generar el resumen",
+
   "evidencia.search.tab.ai-observation.short": "IA Obs.",
 
   "evidencia.item.reference.copied": "¡Copiado!",
@@ -7788,6 +7792,56 @@
 
   "search.form.search-type.hybrid.hint": "Búsqueda por palabra clave y significado combinada con RRF",
 
+  // ---------------------------------------------------------------------------
+  // Pestana "Resumen de IA" de la busqueda — GET /api/search/summarize
+  // ---------------------------------------------------------------------------
+
+  "evidencia.search.tab.label": "Modo de visualización de los resultados",
+
+  "evidencia.search.ai-summary.title": "Resumen sobre: {{ query }}",
+  "evidencia.search.ai-summary.badge": "Contenido generado por IA",
+  "evidencia.search.ai-summary.mode.label": "Modo del resumen",
+  "evidencia.search.ai-summary.mode.basic": "Resumen de hallazgos",
+  "evidencia.search.ai-summary.mode.by-section": "Resumen de recomendaciones",
+  "evidencia.search.ai-summary.filters.label": "Filtros aplicados",
+  "evidencia.search.ai-summary.evidence-count": "{{ count }} evidencias analizadas",
+
+  "evidencia.search.ai-summary.scope.selected-one": "Síntesis restringida a 1 documento seleccionado",
+  "evidencia.search.ai-summary.scope.selected-many": "Síntesis restringida a {{ count }} documentos seleccionados",
+
+  "evidencia.search.ai-summary.scope.too-many": "La síntesis acepta como máximo {{ max }} documentos a la vez, y hay {{ count }} seleccionados. Vuelva a los resultados y desmarque algunos.",
+  "evidencia.search.ai-summary.sources.label": "Fuentes",
+  "evidencia.search.ai-summary.copy.label": "Copiar",
+  "evidencia.search.ai-summary.copy.done": "Copiado",
+  "evidencia.search.ai-summary.copy.failed": "No se pudo copiar",
+  "evidencia.search.ai-summary.retry": "Generar de nuevo",
+  "evidencia.search.ai-summary.disclaimer": "Resumen generado por IA a partir de las evidencias recuperadas. Consulte las fuentes originales antes de usar el contenido en decisiones o documentos oficiales.",
+
+  "evidencia.search.ai-summary.citation.open": "Ver la evidencia de la cita {{ n }}",
+  "evidencia.search.ai-summary.citation.untitled": "Documento sin título",
+  "evidencia.search.ai-summary.citation.page": "p. {{ page }}",
+  "evidencia.search.ai-summary.citation.page-label": "Página",
+  "evidencia.search.ai-summary.citation.page-link": "Página {{page}}",
+  "evidencia.search.ai-summary.citation.section-label": "Sección",
+  "evidencia.search.ai-summary.citation.snippet-label": "Fragmento",
+  "evidencia.search.ai-summary.citation.open-item": "Abrir en DSpace",
+
+  "evidencia.search.ai-summary.state.loading": "Analizando las evidencias recuperadas…",
+  "evidencia.search.ai-summary.state.refreshing": "Actualizando el resumen para este modo…",
+  "evidencia.search.ai-summary.state.empty": "No hubo evidencia suficiente para resumir esta búsqueda. Amplíe la consulta o quite filtros.",
+
+  "evidencia.search.ai-summary.error.network": "No se pudo alcanzar el servicio de resumen. Verifique la conexión con el host de evidencia_pipe e inténtelo de nuevo.",
+  "evidencia.search.ai-summary.error.timeout": "El resumen tardó más que el límite y se interrumpió. Inténtelo de nuevo o reduzca el alcance de la búsqueda.",
+  "evidencia.search.ai-summary.error.invalid": "El servicio de resumen respondió en un formato inesperado. Avise al equipo de evidencia_pipe.",
+  "evidencia.search.ai-summary.error.http": "Fallo inesperado al generar el resumen. Inténtelo de nuevo.",
+  "evidencia.search.ai-summary.error.bad-request": "El servicio de resumen rechazó esta consulta. Simplifique los términos e inténtelo de nuevo.",
+  "evidencia.search.ai-summary.error.unauthorized": "Su sesión expiró. Inicie sesión de nuevo para generar el resumen.",
+  "evidencia.search.ai-summary.error.forbidden": "Su cuenta no puede usar el resumen de IA. Solicite acceso a un administrador.",
+  "evidencia.search.ai-summary.error.notfound": "El resumen de IA aún no está publicado en esta instalación de la API.",
+  "evidencia.search.ai-summary.error.unprocessable": "El servicio de resumen no pudo procesar esta consulta.",
+  "evidencia.search.ai-summary.error.throttled": "Demasiadas solicitudes. Espere un momento antes de generar otro resumen.",
+  "evidencia.search.ai-summary.error.server": "El servicio de resumen falló con un error interno. Revise los registros de evidencia_pipe.",
+  "evidencia.search.ai-summary.error.gateway": "El servicio de resumen no está disponible. Puede estar reiniciándose: inténtelo de nuevo en unos instantes.",
   "workflow.action.return-for-adjustment.button": "Devolver para ajuste",
 
   "workflow.action.return-for-adjustment.help": "Solicita correcciones al depositante y permite un nuevo envío para evaluación.",

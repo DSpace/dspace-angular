@@ -1,0 +1,16 @@
+.ingestion-table {
+  &__num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__file {
+    max-width: 22rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  code {
+    overflow-wrap: anywhere;
+  }
+}

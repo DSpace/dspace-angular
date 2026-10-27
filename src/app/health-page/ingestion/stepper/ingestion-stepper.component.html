@@ -1,0 +1,18 @@
+<ol class="stepper"
+    [attr.aria-label]="('health-page.ingestion.stepper.label' | translate) + ' — ' + (summaryKey() | translate)">
+  @for (step of steps(); track step.key) {
+    <li class="stepper__step" [class]="'is-' + step.state"
+        [attr.aria-current]="step.state === 'active' || step.state === 'error' ? 'step' : null">
+      <span class="stepper__dot" aria-hidden="true">
+        @if (step.state === 'done') {
+          &#x2713;
+        } @else if (step.state === 'error') {
+          &#x2717;
+        } @else {
+          {{ step.index + 1 }}
+        }
+      </span>
+      <span class="stepper__label">{{ step.labelKey | translate }}</span>
+    </li>
+  }
+</ol>

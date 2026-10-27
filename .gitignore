@@ -12,6 +12,12 @@ npm-debug.log
 /coverage
 
 /dist/
+# builds e logs do .claude/skills/deploy-prod
+/dist-next/
+/dist-prev-*/
+/dist-failed-*/
+/dist-rolledback-*/
+/deploy-logs/
 /coverage/
 
 .idea

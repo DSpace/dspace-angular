@@ -6,6 +6,7 @@ import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
+import { AiSummaryConfig } from './ai-summary.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -32,6 +33,7 @@ import {
   INotificationBoardOptions,
   NotificationAnimationsType,
 } from './notifications-config.interfaces';
+import { PipelineStatusConfig } from './pipeline-status.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
 import { SearchConfig } from './search-page-config.interface';
@@ -711,6 +713,47 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   matomo: MatomoConfig = {};
+
+  /**
+   * Painel de infraestrutura evidencIA/RDAPP.
+   *
+   * `baseUrl` default e `/` (mesma origem) — nunca o host de uma instituicao
+   * especifica. Atencao: um default vazio (`''`) faria `overrideWithEnvironment`
+   * ignorar `DSPACE_PIPELINESTATUS_BASEURL` em silencio (`isNotEmpty('')` e false).
+   */
+  pipelineStatus: PipelineStatusConfig = {
+    baseUrl: '/',
+    statusPath: '/api/status',
+    timeoutMs: 20000,
+    probe: false,
+    artifacts: true,
+  };
+
+  /**
+   * Aba "Sintese por IA" da busca (`GET /api/search/summarize` do evidencia_pipe).
+   *
+   * Ligada: o endpoint ja esta publicado na API RDAPP. Uma instalacao que nao o
+   * tenha desliga a aba com `aiSummary.enabled: false` no `config.<env>.yml` ou com
+   * `DSPACE_AISUMMARY_ENABLED=false`.
+   *
+   * `baseUrl` vazio significa "nao configurado": a feature cai no host da API RDAPP
+   * ja declarado em `src/app/health-page/evidencia-api.ts`, o mesmo da ingestao —
+   * assim a aba funciona sem depender de `config.prod.yml`, que nao e versionado.
+   * Consequencia conhecida do default vazio: `DSPACE_AISUMMARY_BASEURL` e ignorado
+   * em silencio (`isNotEmpty('')` e false); troque o host pelo YAML.
+   *
+   * `timeoutMs` de 45s: medido contra a API publicada, uma sintese com `limit: 10`
+   * leva ~13s, e a mesma GPU atende a ingestao.
+   */
+  aiSummary: AiSummaryConfig = {
+    enabled: true,
+    baseUrl: '',
+    summarizePath: '/api/search/summarize',
+    timeoutMs: 45000,
+    limit: 10,
+    limitPerDocument: 5,
+    maxDocuments: 20,
+  };
 
   // Leaflet tile providers and other configurable attributes
   geospatialMapViewer: GeospatialMapConfig = {

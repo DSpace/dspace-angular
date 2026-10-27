@@ -1,0 +1,85 @@
+@import '../pipeline';
+
+.pipeline-config {
+  @include pipeline-card;
+
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+
+  &__heading {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-align: start;
+    touch-action: manipulation;
+
+    &:focus-visible {
+      outline: 2px solid var(--bs-primary, #1351b4);
+      outline-offset: 2px;
+    }
+
+    .fa {
+      font-size: 0.75rem;
+      color: var(--bs-secondary-color, #6c757d);
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: 1rem;
+    margin-top: 0.875rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--bs-border-color, #dee2e6);
+  }
+
+  &__group {
+    min-width: 0;
+  }
+
+  &__group-title {
+    margin: 0 0 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--bs-secondary-color, #6c757d);
+  }
+
+  &__rows {
+    display: grid;
+    grid-template-columns: minmax(6rem, auto) 1fr;
+    gap: 0.125rem 0.75rem;
+    margin: 0;
+    font-size: 0.8125rem;
+
+    dt {
+      color: var(--bs-secondary-color, #6c757d);
+      font-weight: 500;
+      overflow-wrap: anywhere;
+    }
+
+    dd {
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+  }
+}
+
+// O prefixo do caminho do campo ("Temp · Espaço livre") fica discreto.
+.pipeline-detail__prefix {
+  opacity: 0.75;
+}
