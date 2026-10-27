@@ -31,8 +31,8 @@ import { of } from 'rxjs';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { SearchService } from '../../../../search.service';
-import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../search-filter.service';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
 

@@ -85,6 +85,17 @@ describe('HealthPageComponent', () => {
 
   it('should create nav items properly', () => {
     const navItems = fixture.debugElement.queryAll(By.css('li.nav-item'));
-    expect(navItems.length).toBe(2);
+    expect(navItems.length).toBe(4);
+  });
+
+  it('should show the status, info, ingestion and infrastructure tabs in order', () => {
+    const tabs = fixture.debugElement.queryAll(By.css('li.nav-item a[data-test]'))
+      .map((tab) => tab.attributes['data-test']);
+    expect(tabs).toEqual([
+      'health-page.status-tab',
+      'health-page.info-tab',
+      'health-page.ingestion-tab',
+      'health-page.pipeline-tab',
+    ]);
   });
 });

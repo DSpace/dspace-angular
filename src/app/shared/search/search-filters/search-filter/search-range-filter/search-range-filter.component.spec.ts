@@ -31,7 +31,7 @@ import {
 } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { SearchService } from '../../../search.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
