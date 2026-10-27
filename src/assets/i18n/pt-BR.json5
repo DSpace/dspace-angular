@@ -7886,13 +7886,13 @@
 
   "search.form.search-type.lexical": "Pesquisa Exata",
 
-  "search.form.search-type.semantic": "Semântica",
+  "search.form.search-type.semantic": "Pesquisa com IA",
 
   "search.form.search-type.hybrid": "Pesquisa com IA",
 
   "search.form.search-type.lexical.hint": "Busca por palavras-chave com operadores booleanos (AND, OR, NOT, “”, (), *, +, -)",
 
-  "search.form.search-type.semantic.hint": "Busca por significado com IA",
+  "search.form.search-type.semantic.hint": "Pesquisa com inteligência artificial. Descreva, no campo ao lado, o tema, os conceitos e/ou os termos mais relevantes para sua pesquisa. A pesquisa com IA compreende sinônimos, termos relacionados e diferentes formas de expressar um mesmo conceito. Exemplo: “Quais são as evidências sobre o uso de remédios para hipertensão em adultos?” Nesse caso, a busca também poderá considerar termos relacionados, como medicamentos, fármacos, anti-hipertensivos e outras expressões semelhantes, ampliando a recuperação de conteúdos relevantes.",
 
   "search.form.search-type.hybrid.hint": "Pesquisa com inteligência artificial. Descreva, no campo ao lado, o tema, os conceitos e/ou os termos mais relevantes para sua pesquisa. A pesquisa com IA compreende sinônimos, termos relacionados e diferentes formas de expressar um mesmo conceito. Exemplo: “Quais são as evidências sobre o uso de remédios para hipertensão em adultos?” Nesse caso, a busca também poderá considerar termos relacionados, como medicamentos, fármacos, anti-hipertensivos e outras expressões semelhantes, ampliando a recuperação de conteúdos relevantes.",
 
