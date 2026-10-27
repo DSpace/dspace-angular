@@ -32,19 +32,19 @@
       </button>
 
       <!-- BOTÃO 2: Pesquisa com IA -->
-      @if (hybridSearchEnabled) {
+      @if (semanticSearchEnabled) {
         <button
           type="button"
           class="search-button btn btn-{{ brandColor }}"
-          [attr.data-test]="'search-button-hybrid' | dsBrowserOnly"
-          (click)="onSubmit({ query: query, searchType: 'hybrid' })"
-          [ngbTooltip]="'search.form.search-type.hybrid.hint' | translate"
+          [attr.data-test]="'search-button-semantic' | dsBrowserOnly"
+          (click)="onSubmit({ query: query, searchType: 'semantic' })"
+          [ngbTooltip]="'search.form.search-type.semantic.hint' | translate"
           container="body"
           triggers="hover focus"
           role="button"
           tabindex="0"
         >
-          {{ "search.form.search-type.hybrid" | translate: { default: 'Pesquisa com IA' } }}
+          {{ "search.form.search-type.semantic" | translate: { default: 'Pesquisa com IA' } }}
         </button>
       }
     </div>
