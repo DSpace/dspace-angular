@@ -4,7 +4,7 @@
       <div class="col-12">
         <ds-search-form
           id="search-form"
-          [query]="(searchOptions$ | async)?.query"
+          [query]="(searchOptions$ | async)?.query ?? ''"
           [semanticSearchEnabled]="(semanticSearchEnabled$ | async) === true"
           [hybridSearchEnabled]="(hybridSearchEnabled$ | async) === true"
           [semanticSearch]="

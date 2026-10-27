@@ -30,7 +30,7 @@
         </div>
         <a class="text-danger small fw-semibold text-decoration-none"
            [routerLink]="[]"
-           [queryParams]="{ query: null, 'spc.page': null }"
+           [queryParams]="{ query: '', 'spc.page': null }"
            queryParamsHandling="merge">
           {{ "evidencia.search.clear-all" | translate }}
         </a>
@@ -182,7 +182,7 @@
     <p class="small text-muted mb-4">{{ "evidencia.search.no-results.hint" | translate }}</p>
     <a class="btn btn-outline-primary btn-sm rounded-pill px-4"
        [routerLink]="[]"
-       [queryParams]="{ query: null, 'spc.page': null }"
+       [queryParams]="{ query: '', 'spc.page': null }"
        queryParamsHandling="merge">
       {{ "evidencia.search.clear-filters" | translate }}
     </a>
