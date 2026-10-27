@@ -3,11 +3,13 @@
 }
 
 .ccLicense-select {
-    width: 400px;
-    ngb-dropdown, .input-group, input.form-control {
-      width: 100%;
-    }
+  width: 400px;
+  max-width: 100%;
+
+  ngb-dropdown, .input-group, input.form-control {
+    width: 100%;
   }
+}
 
 .scrollable-menu {
   height: auto;

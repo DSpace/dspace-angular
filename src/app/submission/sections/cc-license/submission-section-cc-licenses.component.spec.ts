@@ -295,4 +295,75 @@ describe('SubmissionSectionCcLicensesComponent', () => {
       });
     });
   });
+
+  describe('when a license uri is stored', () => {
+
+    const enumOption = (id: string) => ({ id, label: id, description: id });
+    const _links = { self: { href: 'test link' } };
+    const cc30: SubmissionCcLicence = {
+      id: 'cc30',
+      type: SUBMISSION_CC_LICENSE,
+      name: 'Creative Commons License (3.0)',
+      fields: [
+        { id: 'commercial', label: 'commercial', description: '', enums: [enumOption('y'), enumOption('n')] },
+        { id: 'derivatives', label: 'derivatives', description: '', enums: [enumOption('y'), enumOption('sa'), enumOption('n')] },
+        { id: 'jurisdiction', label: 'jurisdiction', description: '', enums: [enumOption(''), enumOption('us')] },
+      ],
+      _links,
+    };
+    const cc40: SubmissionCcLicence = {
+      id: 'cc40',
+      type: SUBMISSION_CC_LICENSE,
+      name: 'Creative Commons License (4.0)',
+      fields: [
+        { id: 'commercial', label: 'commercial', description: '', enums: [enumOption('y'), enumOption('n')] },
+        { id: 'derivatives', label: 'derivatives', description: '', enums: [enumOption('y'), enumOption('sa'), enumOption('n')] },
+      ],
+      _links,
+    };
+    const cc0: SubmissionCcLicence = { id: 'cc0', type: SUBMISSION_CC_LICENSE, name: 'CC0 1.0 Universal', fields: [], _links };
+    const mark: SubmissionCcLicence = { id: 'mark', type: SUBMISSION_CC_LICENSE, name: 'Public Domain Mark 1.0 Universal', fields: [], _links };
+
+    const restore = (uri: string) => {
+      component.submissionCcLicenses = [cc30, cc40, cc0, mark];
+      component.sectionData.data = { uri };
+      (component as any).restoreSelectionFromStoredUri();
+    };
+
+    it('should restore a CC 4.0 license with its options', () => {
+      restore('https://creativecommons.org/licenses/by-nc-sa/4.0/');
+      expect(component.data.ccLicense.id).toEqual('cc40');
+      expect(component.data.ccLicense.fields.commercial.id).toEqual('n');
+      expect(component.data.ccLicense.fields.derivatives.id).toEqual('sa');
+      expect(component.data.uri).toEqual('https://creativecommons.org/licenses/by-nc-sa/4.0/');
+    });
+
+    it('should restore a CC 3.0 license with its jurisdiction', () => {
+      restore('https://creativecommons.org/licenses/by-nd/3.0/us/');
+      expect(component.data.ccLicense.id).toEqual('cc30');
+      expect(component.data.ccLicense.fields.commercial.id).toEqual('y');
+      expect(component.data.ccLicense.fields.derivatives.id).toEqual('n');
+      expect(component.data.ccLicense.fields.jurisdiction.id).toEqual('us');
+    });
+
+    it('should distinguish public domain licenses with the same version', () => {
+      restore('https://creativecommons.org/publicdomain/mark/1.0/');
+      expect(component.data.ccLicense.id).toEqual('mark');
+      restore('https://creativecommons.org/publicdomain/zero/1.0/');
+      expect(component.data.ccLicense.id).toEqual('cc0');
+    });
+
+    it('should leave an unknown uri untouched', () => {
+      restore('https://example.org/my-license');
+      expect(component.data.ccLicense).toBeUndefined();
+      expect(component.accepted).toBeTrue();
+    });
+
+    it('should not override an existing selection', () => {
+      component.submissionCcLicenses = [cc30, cc40, cc0, mark];
+      component.sectionData.data = { uri: 'https://creativecommons.org/licenses/by/4.0/', ccLicense: { id: 'cc0', fields: {} } };
+      (component as any).restoreSelectionFromStoredUri();
+      expect(component.data.ccLicense.id).toEqual('cc0');
+    });
+  });
 });

@@ -7890,7 +7890,7 @@
 
   "bitstream.related.deleted": "deleted",
 
-  "cc-license.commercial.label": "Allow modifications of your work?",
+  "cc-license.commercial.label": "Allow commercial uses of your work?",
   "cc-license.commercial.hint": "Choose whether others may use your work for commercial purposes.",
 
   "cc-license.commercial.option.yes.label": "Yes",
@@ -7913,4 +7913,6 @@
 
   "cc-license.jurisdiction.label": "Jurisdiction",
   "cc-license.jurisdiction.hint": "Select the legal jurisdiction for your Creative Commons license, or leave as the default international license.",
+
+  "cc-license.jurisdiction.option.unported.label": "Generic (Unported)",
 }
