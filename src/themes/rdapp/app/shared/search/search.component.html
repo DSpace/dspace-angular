@@ -7,10 +7,6 @@
           [query]="(searchOptions$ | async)?.query ?? ''"
           [semanticSearchEnabled]="(semanticSearchEnabled$ | async) === true"
           [hybridSearchEnabled]="(hybridSearchEnabled$ | async) === true"
-          [semanticSearch]="
-            (semanticSearchEnabled$ | async) === true &&
-            (searchOptions$ | async)?.searchType === 'semantic'
-          "
           [selectedSearchType]="(searchOptions$ | async)?.searchType"
           [scope]="(searchOptions$ | async)?.scope"
           [hideScopeInUrl]="hideScopeInUrl"
