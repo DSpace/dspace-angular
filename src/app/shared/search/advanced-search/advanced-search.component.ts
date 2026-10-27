@@ -27,6 +27,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
@@ -98,7 +99,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
   constructor(
     protected router: Router,
     protected searchService: SearchService,
-    protected searchConfigurationService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigurationService: SearchConfigurationService,
     protected searchFilterService: SearchFilterService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {

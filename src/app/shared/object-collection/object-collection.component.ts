@@ -4,25 +4,20 @@ import {
   NgClass,
 } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Inject,
   Input,
   OnInit,
+  Optional,
   Output,
   PLATFORM_ID,
 } from '@angular/core';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+  Observable,
+  of,
+} from 'rxjs';
 
 import {
   SortDirection,
@@ -32,8 +27,9 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty } from '../empty.util';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
@@ -209,30 +205,18 @@ export class ObjectCollectionComponent implements OnInit {
 
 
   /**
-   * @param cdRef
-   *    ChangeDetectorRef service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
    * @param elementRef
    *    Used only to read DOM for the element width
    */
   constructor(
-    private cdRef: ChangeDetectorRef,
-    private route: ActivatedRoute,
-    private router: Router,
     private elementRef: ElementRef,
-    @Inject(PLATFORM_ID) private platformId: any) {
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional() @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
+  ) {
   }
 
   ngOnInit(): void {
-    this.currentMode$ = this.route
-      .queryParams
-      .pipe(
-        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
-        distinctUntilChanged(),
-      );
+    this.currentMode$ = this.searchConfigService?.getCurrentViewMode(ViewMode.ListElement) ?? of(ViewMode.ListElement);
     if (isPlatformBrowser(this.platformId)) {
       const width = this.elementRef.nativeElement.offsetWidth;
       this.placeholderFontClass = setPlaceHolderAttributes(width);

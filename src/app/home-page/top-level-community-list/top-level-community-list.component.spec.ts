@@ -25,6 +25,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../shared/host-window.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { CommunityListElementComponent } from '../../shared/object-list/community-list-element/community-list-element.component';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -148,6 +149,7 @@ describe('TopLevelCommunityListComponent', () => {
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
+        CommunityListElementComponent,
         TopLevelCommunityListComponent,
       ],
       providers: [
