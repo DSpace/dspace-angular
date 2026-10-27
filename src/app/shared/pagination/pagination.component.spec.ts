@@ -153,7 +153,18 @@ describe('Pagination component', () => {
       resetPage: {},
       updateRoute: {},
       updateRouteWithUrl: {},
+      handlePaginationFallback: 1,
     });
+    paginationService.handlePaginationFallback.and.callFake(
+      (paginationId: string, currentPage: number, totalPages: number) => {
+        if (totalPages === 0 && currentPage !== 1) {
+          return 1;
+        } else if (totalPages > 0 && currentPage > totalPages) {
+          return totalPages;
+        }
+        return currentPage;
+      },
+    );
 
     TestBed.configureTestingModule({
       imports: [
