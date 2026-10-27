@@ -26,7 +26,7 @@ export class SearchFiltersComponent extends BaseComponent implements OnInit {
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(
       map((filters) => {
         Object.keys(filters).forEach((f) => (filters[f] = null));
-        return { ...filters, query: null, 'spc.page': null };
+        return { ...filters, query: '', 'spc.page': null };
       }),
     );
   }
