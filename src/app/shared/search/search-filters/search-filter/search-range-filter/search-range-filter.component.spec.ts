@@ -136,6 +136,18 @@ describe('SearchRangeFilterComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should ignore legacy range parameters when fallback is disabled', () => {
+    const getQueryParameterValue = spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(of(undefined));
+    comp.searchConfigService.useLegacySearchParamFallback = false;
+
+    comp.ngOnInit();
+
+    expect(getQueryParameterValue).toHaveBeenCalledWith(`test-id.${mockFilterConfig.paramName}${minSuffix}`);
+    expect(getQueryParameterValue).toHaveBeenCalledWith(`test-id.${mockFilterConfig.paramName}${maxSuffix}`);
+    expect(getQueryParameterValue).not.toHaveBeenCalledWith(`${mockFilterConfig.paramName}${minSuffix}`);
+    expect(getQueryParameterValue).not.toHaveBeenCalledWith(`${mockFilterConfig.paramName}${maxSuffix}`);
+  });
+
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     // const data = { [mockFilterConfig.paramName + minSuffix]: '1900', [mockFilterConfig.paramName + maxSuffix]: '1950' };
@@ -148,8 +160,11 @@ describe('SearchRangeFilterComponent', () => {
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: {
-          [mockFilterConfig.paramName + minSuffix]: [1900],
-          [mockFilterConfig.paramName + maxSuffix]: [1950],
+          [`test-id.${mockFilterConfig.paramName}${minSuffix}`]: [1900],
+          [`test-id.${mockFilterConfig.paramName}${maxSuffix}`]: [1950],
+          [mockFilterConfig.paramName + minSuffix]: null,
+          [mockFilterConfig.paramName + maxSuffix]: null,
+          'test-id.page': 1,
         },
         queryParamsHandling: 'merge',
       });

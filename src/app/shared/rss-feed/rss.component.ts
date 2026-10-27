@@ -2,10 +2,13 @@ import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
+  Injector,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
@@ -38,6 +41,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 
 /**
@@ -66,14 +70,18 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   subs: Subscription[] = [];
   openSearchUri: string;
 
+  private searchConfigurationService: SearchConfigurationService;
+
   constructor(private groupDataService: GroupDataService,
               private linkHeadService: LinkHeadService,
               private configurationService: ConfigurationDataService,
-              private searchConfigurationService: SearchConfigurationService,
+              @Optional() @Inject(SEARCH_CONFIG_SERVICE) searchConfigurationService: SearchConfigurationService,
+              private injector: Injector,
               private router: Router,
               private route: ActivatedRoute,
               protected paginationService: PaginationService,
               protected translateService: TranslateService) {
+    this.searchConfigurationService = searchConfigurationService;
   }
 
   ngOnDestroy(): void {
@@ -84,6 +92,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
+    this.searchConfigurationService = this.searchConfigurationService ?? this.injector.get(SearchConfigurationService);
+
     // Set initial activation state
     if (hasValue(this.route.snapshot.data?.enableRSS)) {
       this.isActivated$.next(this.route.snapshot.data.enableRSS);

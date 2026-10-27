@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  Injector,
   Input,
   OnDestroy,
   OnInit,
@@ -25,6 +26,7 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { GeospatialMapDetail } from './models/geospatial-map-detail.model';
 
 @Component({
@@ -100,7 +102,8 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
   constructor(private elRef: ElementRef,
               @Inject(PLATFORM_ID) private platformId: string,
               private router: Router,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private injector: Injector) {
   }
 
   ngOnInit() {
@@ -282,8 +285,13 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
         direction: 'top',
       }).on('click', () => {
         // On click, make a filtered search using the point filter ('f.point' by default)
-        this.router.navigate([point.url],
-          { queryParams: { 'spc.page': 1, [filter]: point.value + ',equals', 'scope': this.currentScope } });
+        const searchConfigurationService = this.injector.get(SearchConfigurationService);
+        void this.router.navigate([point.url],
+          { queryParams: {
+            [searchConfigurationService.getCurrentPageParam()]: 1,
+            [searchConfigurationService.getCurrentSearchInstanceFilterParam(filter)]: point.value + ',equals',
+            [searchConfigurationService.getCurrentSearchInstanceParam('scope')]: this.currentScope,
+          } });
       });
       markers.addLayer(marker);
     }

@@ -24,6 +24,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { SearchConfigurationService } from '../search-configuration.service';
@@ -137,7 +138,7 @@ export class SearchSidebarComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    protected searchConfigurationService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigurationService: SearchConfigurationService,
   ) {
   }
 
