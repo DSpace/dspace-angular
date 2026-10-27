@@ -642,3 +642,12 @@ export const environment: BuildConfig = {
     ],
   },
 };
+
+/**
+ * Host da API RDAPP usado pelo `DocumentMoreResultsComponent`. Os demais
+ * environments exportam isto; sem ele a compilacao dos testes falha. Host ficticio
+ * de proposito: nenhum teste deve alcancar a API de verdade.
+ */
+export const customConfig = {
+  apiURL: 'https://api.rdapp.test',
+};

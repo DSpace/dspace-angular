@@ -1,0 +1,46 @@
+.ingestion-card {
+  margin-bottom: 1rem;
+  // Cards fora da viewport não pagam layout/paint até serem exibidos.
+  content-visibility: auto;
+  contain-intrinsic-size: auto 190px;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    // min-width: 0 permite o truncamento dentro do flex.
+    flex: 1 1 12rem;
+    min-width: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__time {
+    color: var(--bs-secondary-color, #6c757d);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  &__id {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+
+    code {
+      color: var(--bs-secondary-color, #6c757d);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__actions {
+    margin: 1rem 0 0;
+  }
+}

@@ -1,0 +1,31 @@
+<section class="pipeline-config">
+  <h3 class="pipeline-config__heading">
+    <button type="button" class="pipeline-config__toggle"
+            [attr.aria-expanded]="expanded()" aria-controls="pipeline-config-body"
+            (click)="toggle()">
+      <i class="fa {{ expanded() ? 'fa-chevron-down' : 'fa-chevron-right' }}" aria-hidden="true"></i>
+      {{ 'health-page.pipeline.config.heading' | translate }}
+    </button>
+  </h3>
+
+  @if (expanded()) {
+    <div class="pipeline-config__body" id="pipeline-config-body">
+      @for (group of groups(); track group.labelKey) {
+        <section class="pipeline-config__group">
+          <h4 class="pipeline-config__group-title">{{ group.labelKey | translate }}</h4>
+          <dl class="pipeline-config__rows">
+            @for (row of group.rows; track row.labelKey || row.label) {
+              <dt>
+                @if (row.prefix) {
+                  <span class="pipeline-detail__prefix">{{ row.prefix }} · </span>
+                }
+                {{ row.labelKey ? (row.labelKey | translate) : row.label }}
+              </dt>
+              <dd><ds-pipeline-value [value]="row.value"></ds-pipeline-value></dd>
+            }
+          </dl>
+        </section>
+      }
+    </div>
+  }
+</section>

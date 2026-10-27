@@ -1,0 +1,146 @@
+@import 'pipeline';
+
+.pipeline-status {
+  // Fundo neutro para os cartões brancos ganharem contorno sem borda dura.
+  padding: 1rem;
+  border-radius: var(--bs-border-radius-lg, 0.5rem);
+  background: var(--bs-tertiary-bg, #f8f9fa);
+
+  @media (max-width: 36em) {
+    padding: 0.5rem;
+  }
+}
+
+.pipeline-section-heading {
+  @include pipeline-section-heading;
+}
+
+.pipeline-components {
+  margin-bottom: 1.5rem;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 0.75rem;
+  }
+}
+
+.pipeline-empty {
+  @include pipeline-card;
+
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+.pipeline-error {
+  @include pipeline-card;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-left: 4px solid var(--bs-danger, #dc3545);
+
+  &__icon {
+    margin-top: 0.25rem;
+    font-size: 1.25rem;
+    color: var(--bs-danger, #dc3545);
+  }
+
+  &__title {
+    margin: 0 0 0.375rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+
+  &__text {
+    margin: 0 0 0.75rem;
+    font-size: 0.875rem;
+    text-wrap: pretty;
+  }
+}
+
+.pipeline-stale {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-left: 4px solid var(--bs-warning, #ffc107);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  background: var(--bs-body-bg, #fff);
+
+  .fa {
+    margin-top: 0.125rem;
+    color: var(--bs-warning, #ffc107);
+  }
+}
+
+// Esqueleto com a silhueta do painel: o conteúdo real entra sem salto.
+.pipeline-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__header {
+    height: 8rem;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 0.75rem;
+  }
+
+  &__box {
+    height: 5.5rem;
+  }
+
+  &__flow {
+    height: 9rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 0.75rem;
+  }
+
+  &__card {
+    height: 12rem;
+  }
+
+  &__header,
+  &__box,
+  &__flow,
+  &__card {
+    display: block;
+    border-radius: var(--bs-border-radius, 0.375rem);
+    background: linear-gradient(
+      90deg,
+      var(--bs-secondary-bg, #e9ecef) 25%,
+      var(--bs-body-bg, #f8f9fa) 37%,
+      var(--bs-secondary-bg, #e9ecef) 63%
+    );
+    background-size: 400% 100%;
+    animation: pipeline-shimmer 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes pipeline-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pipeline-skeleton__header,
+  .pipeline-skeleton__box,
+  .pipeline-skeleton__flow,
+  .pipeline-skeleton__card {
+    animation: none;
+    background: var(--bs-secondary-bg, #e9ecef);
+  }
+}

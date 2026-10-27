@@ -1,0 +1,58 @@
+// Tokens visuais compartilhados pelo painel de infraestrutura. Cores vêm do tema
+// (variáveis do Bootstrap) para acompanhar a identidade do projeto.
+$pipeline-radius: var(--bs-border-radius, 0.375rem);
+
+@mixin pipeline-card {
+  background: var(--bs-body-bg, #fff);
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: #{$pipeline-radius};
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+// Estado sempre com ícone + texto; a cor é reforço, nunca a única informação.
+@mixin pipeline-status-colors {
+  &.is-ok {
+    --ds-state: var(--bs-success, #198754);
+  }
+
+  &.is-degraded {
+    --ds-state: var(--bs-warning, #ffc107);
+  }
+
+  &.is-down {
+    --ds-state: var(--bs-danger, #dc3545);
+  }
+
+  &.is-not-configured {
+    --ds-state: var(--bs-secondary, #6c757d);
+  }
+
+  &.is-unknown {
+    --ds-state: var(--bs-secondary-color, #6c757d);
+  }
+}
+
+// Etiqueta de estado (ícone + rótulo)
+@mixin pipeline-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--ds-state, var(--bs-border-color, #dee2e6));
+  border-radius: 999px;
+  color: var(--ds-state, var(--bs-body-color, #212529));
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+// Título das seções (capacidades, fluxo, componentes, alertas).
+@mixin pipeline-section-heading {
+  margin: 0 0 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--bs-secondary-color, #6c757d);
+  scroll-margin-top: 5rem;
+}

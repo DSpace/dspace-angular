@@ -7,6 +7,7 @@ import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
+import { AiSummaryConfig } from './ai-summary.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
@@ -30,6 +31,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { PipelineStatusConfig } from './pipeline-status.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
@@ -71,6 +73,15 @@ interface AppConfig extends Config {
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
   matomo?: MatomoConfig;
+  /**
+   * Painel de infraestrutura evidencIA/RDAPP. Opcional: sem a secao, o painel usa
+   * os defaults (mesma origem) e informa o erro na tela.
+   */
+  pipelineStatus?: PipelineStatusConfig;
+  /**
+   * Aba "Sintese por IA" da busca. Opcional: sem a secao a aba fica desligada.
+   */
+  aiSummary?: AiSummaryConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
   layout: LayoutConfig;

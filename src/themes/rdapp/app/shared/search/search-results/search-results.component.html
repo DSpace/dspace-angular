@@ -50,17 +50,43 @@
   <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
 </div>
 
-<div class="rdapp-search-tabs gap-2 my-2">
-  <button class="btn btn-primary rounded-pill rdapp-search-tab" type="button">
+<div class="rdapp-search-tabs gap-2 my-2" role="tablist"
+     [attr.aria-label]="'evidencia.search.tab.label' | translate">
+  <button class="btn rounded-pill rdapp-search-tab"
+          type="button"
+          role="tab"
+          data-test="evidencia.search.results-tab"
+          [class.btn-primary]="activeTab() === 'results'"
+          [class.btn-outline-secondary]="activeTab() !== 'results'"
+          [attr.aria-selected]="activeTab() === 'results'"
+          (click)="showTab('results')">
     <i class="fas fa-list-ul me-1"></i>
     <span class="d-none d-sm-inline">{{ "evidencia.search.tab.results" | translate }}</span>
     <span class="d-sm-none">{{ "evidencia.search.tab.results.short" | translate }}</span>
   </button>
-  <button class="btn btn-outline-secondary rounded-pill rdapp-search-tab" type="button" disabled>
-    <i class="fas fa-robot me-1"></i>
-    <span class="d-none d-sm-inline">{{ "evidencia.search.tab.ai-summary" | translate }}</span>
-    <span class="d-sm-none">{{ "evidencia.search.tab.ai-summary.short" | translate }}</span>
-  </button>
+  @if (aiSummaryEnabled) {
+    <button class="btn rounded-pill rdapp-search-tab"
+            type="button"
+            role="tab"
+            data-test="evidencia.search.ai-summary-tab"
+            [class.btn-primary]="activeTab() === 'ai-summary'"
+            [class.btn-outline-secondary]="activeTab() !== 'ai-summary'"
+            [attr.aria-selected]="activeTab() === 'ai-summary'"
+            [disabled]="selectedCount === 0"
+            [attr.title]="selectedCount === 0 ? ('evidencia.search.tab.ai-summary.needs-selection' | translate) : null"
+            (click)="showTab('ai-summary')">
+      <i class="fas fa-robot me-1"></i>
+      <span class="d-none d-sm-inline">{{ "evidencia.search.tab.ai-summary" | translate }}</span>
+      <span class="d-sm-none">{{ "evidencia.search.tab.ai-summary.short" | translate }}</span>
+      <!-- Quantos itens a síntese vai olhar. Sem isto, marcar caixas e clicar aqui
+           é um salto no escuro: a aba muda o que responde e nada na tela avisa. -->
+      @if (selectedCount > 0) {
+        <span class="rdapp-export-badge ms-1"
+              data-test="evidencia.search.ai-summary-tab.count"
+              [attr.title]="'evidencia.search.tab.ai-summary.selected' | translate: { count: selectedCount }">{{ selectedCount }}</span>
+      }
+    </button>
+  }
   <div>
     <ds-base-search-settings 
       [currentSortOption]="searchConfig?.sort" 
@@ -69,122 +95,131 @@
   </div>
 </div>
 
-<div class="rdapp-search-toolbar d-flex flex-wrap justify-content-between align-items-center gap-2 p-3 bg-white border mb-3">
-  <div class="form-check mb-0">
-    <input class="form-check-input" type="checkbox" id="search-select-all"
-           [checked]="allSelected"
-           (change)="toggleSelectAll($event)" />
-    <label class="form-check-label fw-semibold" for="search-select-all">
-      {{ "evidencia.search.toolbar.select-all" | translate }}
-    </label>
-  </div>
-  <div class="d-flex gap-3 flex-wrap align-items-center">
-    <div ngbDropdown placement="bottom-end" class="rdapp-export-dropdown">
-      <button ngbDropdownToggle
-              class="rdapp-export-btn"
-              [class.rdapp-export-btn--active]="selectedCount > 0"
-              [disabled]="selectedCount === 0 || isExporting || isExportingDocx || isExportingPdf">
-        @if (isExporting || isExportingDocx || isExportingPdf) {
-          <i class="fas fa-spinner fa-spin"></i>
-          <span>{{ "evidencia.search.toolbar.exporting" | translate }}</span>
-        } @else {
-          <i class="fas fa-file-export"></i>
-          <span>{{ "evidencia.search.toolbar.export" | translate }}</span>
-          @if (selectedCount > 0) {
-            <span class="rdapp-export-badge">{{ selectedCount }}</span>
-          }
-        }
-        <i class="fas fa-chevron-down rdapp-export-chevron"></i>
-      </button>
+@if (activeTab() === 'ai-summary' && selectedDocuments().length > 0) {
+  <ds-ai-summary [query]="searchConfig?.query || ''"
+                 [searchType]="searchConfig?.searchType || ''"
+                 [documents]="selectedDocuments()"
+                 [active]="true"></ds-ai-summary>
+}
 
-      <div ngbDropdownMenu class="rdapp-export-menu">
-        <div class="rdapp-export-menu-header">
-          {{ "evidencia.search.toolbar.export-format" | translate }}
+@if (activeTab() === 'results') {
+  <div class="rdapp-search-toolbar d-flex flex-wrap justify-content-between align-items-center gap-2 p-3 bg-white border mb-3">
+    <div class="form-check mb-0">
+      <input class="form-check-input" type="checkbox" id="search-select-all"
+             [checked]="allSelected"
+             (change)="toggleSelectAll($event)" />
+      <label class="form-check-label fw-semibold" for="search-select-all">
+        {{ "evidencia.search.toolbar.select-all" | translate }}
+      </label>
+    </div>
+    <div class="d-flex gap-3 flex-wrap align-items-center">
+      <div ngbDropdown placement="bottom-end" class="rdapp-export-dropdown">
+        <button ngbDropdownToggle
+                class="rdapp-export-btn"
+                [class.rdapp-export-btn--active]="selectedCount > 0"
+                [disabled]="selectedCount === 0 || isExporting || isExportingDocx || isExportingPdf">
+          @if (isExporting || isExportingDocx || isExportingPdf) {
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>{{ "evidencia.search.toolbar.exporting" | translate }}</span>
+          } @else {
+            <i class="fas fa-file-export"></i>
+            <span>{{ "evidencia.search.toolbar.export" | translate }}</span>
+            @if (selectedCount > 0) {
+              <span class="rdapp-export-badge">{{ selectedCount }}</span>
+            }
+          }
+          <i class="fas fa-chevron-down rdapp-export-chevron"></i>
+        </button>
+
+        <div ngbDropdownMenu class="rdapp-export-menu">
+          <div class="rdapp-export-menu-header">
+            {{ "evidencia.search.toolbar.export-format" | translate }}
+          </div>
+          <button ngbDropdownItem class="rdapp-export-item" (click)="exportSelectedToDocx()">
+            <span class="rdapp-export-item-icon rdapp-export-item-icon--docx">
+              <i class="fas fa-file-word"></i>
+            </span>
+            <span class="rdapp-export-item-info">
+              <strong>DOCX</strong>
+              <small>{{ "evidencia.search.toolbar.export-docx-desc" | translate }}</small>
+            </span>
+          </button>
+          <button ngbDropdownItem class="rdapp-export-item" (click)="exportSelectedToCsv()">
+            <span class="rdapp-export-item-icon rdapp-export-item-icon--csv">
+              <i class="fas fa-file-csv"></i>
+            </span>
+            <span class="rdapp-export-item-info">
+              <strong>CSV</strong>
+              <small>{{ "evidencia.search.toolbar.export-csv-desc" | translate }}</small>
+            </span>
+          </button>
+          <button ngbDropdownItem class="rdapp-export-item" (click)="exportSelectedToPdf()">
+            <span class="rdapp-export-item-icon rdapp-export-item-icon--pdf">
+              <i class="fas fa-file-pdf"></i>
+            </span>
+            <span class="rdapp-export-item-info">
+              <strong>PDF</strong>
+              <small>{{ "evidencia.search.toolbar.export-pdf-desc" | translate }}</small>
+            </span>
+          </button>
         </div>
-        <button ngbDropdownItem class="rdapp-export-item" (click)="exportSelectedToDocx()">
-          <span class="rdapp-export-item-icon rdapp-export-item-icon--docx">
-            <i class="fas fa-file-word"></i>
-          </span>
-          <span class="rdapp-export-item-info">
-            <strong>DOCX</strong>
-            <small>{{ "evidencia.search.toolbar.export-docx-desc" | translate }}</small>
-          </span>
-        </button>
-        <button ngbDropdownItem class="rdapp-export-item" (click)="exportSelectedToCsv()">
-          <span class="rdapp-export-item-icon rdapp-export-item-icon--csv">
-            <i class="fas fa-file-csv"></i>
-          </span>
-          <span class="rdapp-export-item-info">
-            <strong>CSV</strong>
-            <small>{{ "evidencia.search.toolbar.export-csv-desc" | translate }}</small>
-          </span>
-        </button>
-        <button ngbDropdownItem class="rdapp-export-item" (click)="exportSelectedToPdf()">
-          <span class="rdapp-export-item-icon rdapp-export-item-icon--pdf">
-            <i class="fas fa-file-pdf"></i>
-          </span>
-          <span class="rdapp-export-item-info">
-            <strong>PDF</strong>
-            <small>{{ "evidencia.search.toolbar.export-pdf-desc" | translate }}</small>
-          </span>
-        </button>
       </div>
     </div>
   </div>
-</div>
 
-@if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
-  <div @fadeIn>
-    <ds-viewable-collection
-      [config]="searchConfig.pagination"
-      [sortConfig]="searchConfig.sort"
-      [objects]="searchResults"
-      [hideGear]="true"
-      [showRSS]="false"
-      [selectable]="selectable"
-      [selectionConfig]="selectionConfig"
-      [linkType]="linkType"
-      [context]="context"
-      [hidePaginationDetail]="hidePaginationDetail"
-      [showThumbnails]="showThumbnails"
-      (contentChange)="contentChange.emit($event)"
-      (deselectObject)="deselectObject.emit($event)"
-      (selectObject)="selectObject.emit($event)">
-    </ds-viewable-collection>
-  </div>
-}
-
-@if (isLoading()) {
-  <ds-search-results-skeleton
-    [showThumbnails]="showThumbnails"
-    [numberOfResults]="searchConfig.pagination.pageSize">
-  </ds-search-results-skeleton>
-}
-
-@if (showError()) {
-  <ds-error message="{{ errorMessageLabel() | translate }}"></ds-error>
-}
-
-@if (
-  !isLoading() &&
-  !showError() &&
-  searchConfig?.query &&
-  (searchResults?.payload?.page.length === 0 ||
-    searchResults?.statusCode === 400)
-) {
-  <div class="d-flex flex-column align-items-center justify-content-center bg-light py-5 text-center"
-       style="border-radius: var(--rdapp-border-radius-1rem);">
-    <div class="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center mb-4"
-         style="width: 52px; height: 52px;">
-      <i class="fas fa-search text-secondary"></i>
+  @if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
+    <div @fadeIn>
+      <ds-viewable-collection
+        [config]="searchConfig.pagination"
+        [sortConfig]="searchConfig.sort"
+        [objects]="searchResults"
+        [hideGear]="true"
+        [showRSS]="false"
+        [selectable]="selectable"
+        [selectionConfig]="selectionConfig"
+        [linkType]="linkType"
+        [context]="context"
+        [hidePaginationDetail]="hidePaginationDetail"
+        [showThumbnails]="showThumbnails"
+        (contentChange)="contentChange.emit($event)"
+        (deselectObject)="deselectObject.emit($event)"
+        (selectObject)="selectObject.emit($event)">
+      </ds-viewable-collection>
     </div>
-    <h2 class="h5 fw-bold mb-1">{{ "evidencia.search.no-results.title" | translate }}</h2>
-    <p class="small text-muted mb-4">{{ "evidencia.search.no-results.hint" | translate }}</p>
-    <a class="btn btn-outline-primary btn-sm rounded-pill px-4"
-       [routerLink]="[]"
-       [queryParams]="{ query: '', 'spc.page': null }"
-       queryParamsHandling="merge">
-      {{ "evidencia.search.clear-filters" | translate }}
-    </a>
-  </div>
+  }
+
+  @if (isLoading()) {
+    <ds-search-results-skeleton
+      [showThumbnails]="showThumbnails"
+      [numberOfResults]="searchConfig.pagination.pageSize">
+    </ds-search-results-skeleton>
+  }
+
+  @if (showError()) {
+    <ds-error message="{{ errorMessageLabel() | translate }}"></ds-error>
+  }
+
+  @if (
+    !isLoading() &&
+    !showError() &&
+    searchConfig?.query &&
+    (searchResults?.payload?.page.length === 0 ||
+      searchResults?.statusCode === 400)
+  ) {
+    <div class="d-flex flex-column align-items-center justify-content-center bg-light py-5 text-center"
+         style="border-radius: var(--rdapp-border-radius-1rem);">
+      <div class="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center mb-4"
+           style="width: 52px; height: 52px;">
+        <i class="fas fa-search text-secondary"></i>
+      </div>
+      <h2 class="h5 fw-bold mb-1">{{ "evidencia.search.no-results.title" | translate }}</h2>
+      <p class="small text-muted mb-4">{{ "evidencia.search.no-results.hint" | translate }}</p>
+      <a class="btn btn-outline-primary btn-sm rounded-pill px-4"
+         [routerLink]="[]"
+         [queryParams]="{ query: '', 'spc.page': null }"
+         queryParamsHandling="merge">
+        {{ "evidencia.search.clear-filters" | translate }}
+      </a>
+    </div>
+  }
 }

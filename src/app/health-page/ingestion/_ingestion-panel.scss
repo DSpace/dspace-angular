@@ -1,0 +1,53 @@
+// Cabeçalho dos painéis colapsáveis da aba de ingestão. Compartilhado pelas seções
+// de lista e pela consulta por ID, para que todos os painéis tenham a mesma cara.
+.ingestion-panel {
+  margin-bottom: 1rem;
+
+  &__header {
+    // O accordion do Bootstrap não espera um <h*> aqui; zera a tipografia de título
+    // sem perder o nível semântico (h2) na árvore de acessibilidade.
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    touch-action: manipulation;
+  }
+
+  &__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-align: start;
+    text-wrap: balance;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    // Espaço à esquerda do chevron do accordion.
+    margin-right: 0.5rem;
+
+    code {
+      font-size: 0.75rem;
+      color: var(--bs-secondary-color, #6c757d);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__count {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ingestion-panel .spinner-border {
+    animation: none;
+  }
+}

@@ -1,0 +1,555 @@
+/**
+ * Estilos do painel de síntese por IA.
+ *
+ * Reusa as variáveis institucionais do tema (`--rdapp-*`) com fallback próprio,
+ * para que a pasta continue legível numa instalação que não as define.
+ */
+
+:host {
+  display: block;
+}
+
+.rdapp-ai {
+  --ai-accent: var(--rdapp-bg-color-accent, #2b4e72);
+  // Accent para **texto**, não para preenchimento.
+  //
+  // O tema resolve `--rdapp-bg-color-accent` no teal `#00a88f`, e texto pequeno
+  // nele — o marcador de citação, a badge, o rótulo da pílula ativa — fica em
+  // ~2,7:1 sobre o próprio tint de 10% e ~3,0:1 de branco sobre o teal cheio.
+  // A WCAG pede 4,5:1. Escurecer o mesmo accent sobe para ~5,6:1 sem sair da
+  // família de cor; onde `color-mix` não existe, a primeira declaração garante
+  // o comportamento anterior em vez de nenhuma cor.
+  --ai-accent-strong: var(--ai-accent);
+  --ai-accent-strong: color-mix(in srgb, var(--ai-accent) 65%, #000);
+  --ai-border: var(--rdapp-border-color-muted, #dee2e6);
+  --ai-radius: var(--rdapp-border-radius-1rem, 1rem);
+
+  background: #fff;
+  border: 1px solid var(--ai-border);
+  border-radius: var(--ai-radius);
+  padding: 1.25rem;
+}
+
+// Título do painel + badge de IA, lado a lado. Já se chamou `__heading`, o mesmo
+// nome dos títulos vindos do Markdown — e as duas regras se contaminavam: os
+// títulos da síntese herdavam `display: flex` e `gap`, e este wrapper herdava
+// peso 700 e margem que nunca pediu.
+.rdapp-ai__title-group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+// Badge de conteúdo gerado por IA: fica junto ao título, onde é lido antes da
+// síntese — o aviso do rodapé só chega depois de já se ter lido tudo.
+.rdapp-ai__badge-full {
+  align-items: center;
+  background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.1);
+  border-radius: 999px;
+  color: var(--ai-accent-strong);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  gap: 0.35rem;
+  line-height: 1;
+  padding: 0.35rem 0.7rem;
+  white-space: nowrap;
+}
+
+.rdapp-ai__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.rdapp-ai__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  min-width: 0;
+}
+
+.rdapp-ai__modes {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rdapp-ai__mode {
+  background: transparent;
+  border: 1px solid var(--ai-border);
+  border-radius: var(--rdapp-border-radius-2rem, 2rem);
+  color: inherit;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.9rem;
+
+  &--on {
+    background: var(--ai-accent-strong);
+    border-color: var(--ai-accent-strong);
+    color: #fff;
+  }
+}
+
+.rdapp-ai__context {
+  border-bottom: 1px solid var(--ai-border);
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.75rem;
+}
+
+.rdapp-ai__label {
+  color: #6c757d;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+
+.rdapp-ai__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+.rdapp-ai__chip {
+  background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.08);
+  border-radius: var(--rdapp-border-radius-2rem, 2rem);
+  color: var(--ai-accent-strong);
+  display: inline-flex;
+  font-size: 0.78rem;
+  gap: 0.35rem;
+  padding: 0.15rem 0.7rem;
+}
+
+.rdapp-ai__chip-key {
+  opacity: 0.7;
+}
+
+.rdapp-ai__count {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.rdapp-ai__scope {
+  align-items: center;
+  color: var(--ai-accent-strong);
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 600;
+  gap: 0.35rem;
+  margin: 0 0 0.75rem;
+}
+
+.rdapp-ai__state {
+  align-items: center;
+  color: #6c757d;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.75rem 0;
+
+  &--error {
+    color: inherit;
+    display: block;
+  }
+
+  // Recarga com a síntese antiga na tela: o aviso divide a linha com o conteúdo
+  // que continua ali, então ocupa a altura de uma linha e não a de um bloco.
+  &--inline {
+    font-size: 0.8rem;
+    padding: 0 0 0.5rem;
+  }
+}
+
+// Mesma tipografia do trecho de evidência do `ds-document-more-results`
+// (`doc-more-results__snippet`): as duas telas mostram texto vindo do mesmo
+// pipeline, e ler uma não pode ser diferente de ler a outra. Fica no `__body`
+// para que parágrafos, títulos e listas herdem daqui.
+.rdapp-ai__body {
+  color: #495057;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin: 0 0 0.625rem;
+}
+
+// Card do texto gerado — o desenho do `doc-more-results__item`, o trecho de
+// evidência da página do item: fundo cinza-claro, borda fina e raio de 8px, com
+// a borda azulando ao passar o mouse. Envolve **só** a síntese; fontes e aviso
+// ficam fora, no branco do painel.
+//
+// Ocupa a largura toda do painel, alinhado às fontes e ao aviso logo abaixo.
+.rdapp-ai__output {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin: 0 0 0.875rem;
+  padding: 0.875rem 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: 100%;
+
+  &:hover,
+  &:focus-within {
+    border-color: rgba(19, 81, 180, 0.3);
+    box-shadow: 0 2px 8px rgba(19, 81, 180, 0.08);
+  }
+
+  // Dentro do card a última margem do texto só somaria ao padding.
+  .rdapp-ai__text {
+    margin-bottom: 0;
+  }
+}
+
+// Barra do card: o "Copiar" no canto, fora do fluxo do texto que ele copia.
+.rdapp-ai__output-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin: -0.25rem -0.25rem 0.25rem 0;
+}
+
+// Botão discreto: é ação secundária, e um botão cheio no topo do card competiria
+// com o título da síntese. Ganha cor quando o gesto dá certo — ou não dá.
+.rdapp-ai__copy {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 999px;
+  color: #495057;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 600;
+  gap: 0.4rem;
+  line-height: 1;
+  min-height: 28px;
+  padding: 0.35rem 0.75rem;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+
+  &:hover {
+    border-color: rgba(19, 81, 180, 0.4);
+    color: #1351b4;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #1351b4;
+    outline-offset: 2px;
+  }
+
+  &--done,
+  &--done:hover {
+    background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.1);
+    border-color: transparent;
+    color: var(--ai-accent-strong);
+  }
+
+  &--failed,
+  &--failed:hover {
+    border-color: rgba(220, 53, 69, 0.4);
+    color: #b02a37;
+  }
+}
+
+// A síntese chega em Markdown e é convertida em blocos de verdade (parágrafo,
+// título, lista) — nada de `white-space: pre-line`, que somaria as quebras do
+// texto às margens dos elementos.
+//
+// A prosa ocupa a largura toda do card de `__output`: foi uma escolha de
+// produto, contra a medida de ~58ch que limitava a linha a ~78 caracteres — com
+// ela o card largo ficava com uma faixa cinza vazia à direita do texto.
+.rdapp-ai__text {
+  margin: 0 0 0.75rem;
+}
+
+.rdapp-ai__paragraph {
+  margin: 0 0 0.6rem;
+}
+
+// Título vindo do Markdown da síntese. O LLM escreve uns em `##`/`###` e outros
+// só em negrito; todos chegam aqui como título.
+//
+// O `data-level` que o template já expõe precisa virar escala: sem ela o título
+// do documento, o da seção e o corpo saíam todos em 14px/700, e a estrutura que
+// o LLM tinha escrito desaparecia num paredão de texto. A escala fica **abaixo**
+// do título do painel (1,05rem), para que o cabeçalho continue sendo o topo da
+// hierarquia.
+.rdapp-ai__heading {
+  font-weight: 700;
+  margin: 0.9rem 0 0.35rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  // Título do documento: abre a síntese e pede mais ar acima.
+  &[data-level='1'],
+  &[data-level='2'] {
+    color: #212529;
+    font-size: 1rem;
+    line-height: 1.35;
+    margin-top: 1.35rem;
+  }
+
+  // Seção do documento.
+  &[data-level='3'] {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    margin-top: 1.1rem;
+  }
+}
+
+.rdapp-ai__list {
+  margin: 0 0 0.6rem;
+  padding-left: 1.25rem;
+
+  li {
+    margin-bottom: 0.3rem;
+  }
+}
+
+.rdapp-ai__paragraph:last-child,
+.rdapp-ai__list:last-child {
+  margin-bottom: 0;
+}
+
+.rdapp-ai__sections {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+// Duas colunas só onde há largura; abaixo disso as sínteses empilham.
+@media (min-width: 768px) {
+  .rdapp-ai__sections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rdapp-ai__section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+}
+
+.rdapp-ai__cite {
+  background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.1);
+  border: 0;
+  border-radius: 0.25rem;
+  color: var(--ai-accent-strong);
+  font-size: 0.78em;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.1em 0.3em;
+  position: relative;
+  vertical-align: super;
+
+  // O marcador mede ~17×13px: crescer a caixa para os 24×24 que a WCAG 2.5.8
+  // pede quebraria o ritmo da linha em que ele vive. O alvo cresce por fora,
+  // centrado e sem ocupar espaço no fluxo.
+  &::after {
+    content: '';
+    height: 24px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+  }
+
+  // Colados, dois marcadores ficam a ~18px de centro a centro e os dois alvos de
+  // 24px se sobrepõem — parte de `[1]` acionaria `[2]`. O espaço entra **só**
+  // entre eles: antes do primeiro a pontuação acabou de fechar a frase, e um
+  // vão ali é justamente o que `tidyCitationPunctuation` removeu.
+  & + & {
+    margin-left: 6px;
+  }
+
+  &:hover,
+  &:focus {
+    background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ai-accent-strong);
+    outline-offset: 2px;
+  }
+}
+
+.rdapp-ai__spinner {
+  color: var(--ai-accent-strong);
+}
+
+// Um movimento que não some com `prefers-reduced-motion` incomoda quem pediu para
+// reduzi-lo — a mesma regra que a aba de ingestão segue. O ícone continua ali,
+// parado, sinalizando a espera.
+@media (prefers-reduced-motion: reduce) {
+  .rdapp-ai__spinner {
+    animation: none;
+  }
+}
+
+.rdapp-ai__sources {
+  border-top: 1px solid var(--ai-border);
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+// Sem marcador de lista: a numeração das fontes é a das citações, à direita, e
+// dois números por linha se atrapalhariam.
+.rdapp-ai__source-list {
+  color: #6c757d;
+  font-size: 0.82rem;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.rdapp-ai__source {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.rdapp-ai__source-name {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.rdapp-ai__source-marks {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.2rem;
+}
+
+// Mesmo desenho do marcador que aparece no texto, para que `[1]` na fonte e
+// `[1]` na síntese se leiam como a mesma coisa — aqui sem sobrescrito, já que a
+// linha inteira é a referência.
+.rdapp-ai__mark {
+  background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.1);
+  border: 0;
+  border-radius: 0.25rem;
+  color: var(--ai-accent-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.15em 0.35em;
+  position: relative;
+
+  // Mesmo alvo de toque do marcador do texto, pela mesma razão.
+  &::after {
+    content: '';
+    height: 24px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+  }
+
+  &:hover,
+  &:focus {
+    background: rgba(var(--rdapp-bg-color-accent-rgb, 43, 78, 114), 0.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ai-accent-strong);
+    outline-offset: 2px;
+  }
+}
+
+// Citação sem documento de origem: mesmo lugar, mas nada a abrir.
+.rdapp-ai__mark--plain {
+  background: transparent;
+  opacity: 0.7;
+}
+
+// Botão que leva ao PDF na página citada. Mesma linguagem visual do botão de
+// página do `ds-document-more-results`, para que a mesma ação se pareça consigo
+// mesma nas duas telas.
+.rdapp-ai__page-link {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+  &:focus-visible {
+    outline: 2px solid var(--ai-accent-strong);
+    outline-offset: 2px;
+  }
+}
+
+.rdapp-ai__disclaimer {
+  align-items: flex-start;
+  border-top: 1px solid var(--ai-border);
+  color: #6c757d;
+  display: flex;
+  font-size: 0.82rem;
+  gap: 0.5rem;
+  margin: 0.9rem 0 0;
+  padding-top: 0.75rem;
+}
+
+.rdapp-ai__badge {
+  border: 1px solid var(--ai-accent-strong);
+  border-radius: 0.25rem;
+  color: var(--ai-accent-strong);
+  flex: none;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.3rem;
+}
+
+// Conteúdo do popover de citação. Fica no próprio componente (sem
+// `container="body"`) justamente para herdar a encapsulação destes estilos.
+.rdapp-ai-pop {
+  font-size: 0.82rem;
+  max-width: 20rem;
+}
+
+.rdapp-ai-pop__title {
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+}
+
+.rdapp-ai-pop__list {
+  display: grid;
+  gap: 0.15rem 0.6rem;
+  grid-template-columns: auto 1fr;
+  margin: 0;
+
+  dt {
+    color: #6c757d;
+    font-weight: 600;
+  }
+
+  dd {
+    margin: 0;
+    min-width: 0;
+  }
+}
+
+.rdapp-ai-pop__snippet {
+  // Trecho longo não pode esticar o popover nem virar uma parede de texto.
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+.rdapp-ai-pop__link {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+// Trecho monoespaçado vindo do Markdown (raro na síntese, mas possível).
+.rdapp-ai__text code {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  padding: 0.05em 0.3em;
+}

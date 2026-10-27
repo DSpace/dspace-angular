@@ -1,0 +1,137 @@
+<div ngbAccordion class="ingestion-panel" [animation]="animated">
+  <!-- destroyOnHide: cards e tabelas saem do DOM ao recolher. São a maior parte da
+       página, e o painel fechado também não recebe atualização. -->
+  <div [ngbAccordionItem]="sectionId()" [collapsed]="collapsed()" [destroyOnHide]="true"
+       (show)="openChange.emit(true)" (hide)="openChange.emit(false)">
+
+    <!-- Cabeçalho: título, total e o estado resumido — visível mesmo recolhido -->
+    <h2 ngbAccordionHeader class="ingestion-panel__header">
+      <button ngbAccordionButton class="ingestion-panel__button">
+        <span class="ingestion-panel__title">{{ headingKey() | translate }}</span>
+
+        <span class="ingestion-panel__badge">
+          @switch (badge()) {
+            @case ('busy') {
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span class="visually-hidden">{{ 'health-page.ingestion.state.refreshing' | translate }}</span>
+            }
+            @case ('error') {
+              <span class="badge bg-danger">{{ 'health-page.ingestion.panel.badge.error' | translate }}</span>
+            }
+            @case ('unavailable') {
+              <span class="badge bg-secondary">{{ 'health-page.ingestion.panel.badge.unavailable' | translate }}</span>
+            }
+            @case ('stale') {
+              <span class="badge bg-warning text-dark">{{ 'health-page.ingestion.panel.badge.stale' | translate }}</span>
+            }
+            @case ('count') {
+              <span class="badge bg-secondary ingestion-panel__count"
+                    [attr.aria-label]="'health-page.ingestion.panel.badge.count' | translate: { count: count() }">
+                {{ count() }}
+              </span>
+            }
+          }
+        </span>
+      </button>
+    </h2>
+
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          <section class="ingestion-section" [attr.aria-busy]="busy()">
+
+            <p class="ingestion-section__meta" aria-hidden="true">
+              @if (busy()) {
+                {{ 'health-page.ingestion.state.refreshing' | translate }}
+              } @else if (state().lastUpdated) {
+                {{ 'health-page.ingestion.updated-at' | translate }}
+                {{ state().lastUpdated | date:'mediumTime' }}
+              }
+            </p>
+
+            <!-- Erro sem dados anteriores: nada a exibir, com próximo passo e reconexão -->
+            @if (banner() === 'error') {
+              <div class="alert alert-danger ingestion-section__banner" role="alert">
+                <p class="mb-2">{{ state().error.key | translate }}</p>
+                <div class="ingestion-section__banner-actions">
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="retry.emit()">
+                    {{ 'health-page.ingestion.state.retry-now' | translate }}
+                  </button>
+                  @if (state().retryInSeconds !== null) {
+                    <span class="ingestion-section__countdown">
+                      {{ 'health-page.ingestion.state.retry-in' | translate: { seconds: state().retryInSeconds } }}
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Erro com dados anteriores: exibição parcial, avisando que está desatualizada -->
+            @if (banner() === 'partial') {
+              <div class="alert alert-warning ingestion-section__banner" role="status">
+                <p class="mb-2">
+                  {{ 'health-page.ingestion.state.partial' | translate }}
+                  @if (state().lastUpdated) {
+                    <span class="ingestion-section__stale">
+                      {{ 'health-page.ingestion.state.stale-since' | translate }}
+                      {{ state().lastUpdated | date:'mediumTime' }}
+                    </span>
+                  }
+                </p>
+                <p class="mb-2 small">{{ state().error.key | translate }}</p>
+                <div class="ingestion-section__banner-actions">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="retry.emit()">
+                    {{ 'health-page.ingestion.state.retry-now' | translate }}
+                  </button>
+                  @if (state().retryInSeconds !== null) {
+                    <span class="ingestion-section__countdown">
+                      {{ 'health-page.ingestion.state.retry-in' | translate: { seconds: state().retryInSeconds } }}
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Conteúdo indisponível: erro definitivo (permissão/endpoint), sem insistir -->
+            @if (banner() === 'unavailable') {
+              <div class="alert alert-secondary ingestion-section__banner" role="status">
+                <p class="mb-0">{{ state().error.key | translate }}</p>
+              </div>
+            }
+
+            <!-- Carregamento inicial: esqueleto de altura reservada (evita salto de layout) -->
+            @if (showSkeleton()) {
+              <p class="visually-hidden" role="status">{{ 'health-page.ingestion.state.loading' | translate }}</p>
+              <div class="ingestion-section__skeleton" aria-hidden="true">
+                <span class="ingestion-skeleton-line ingestion-skeleton-line--lg"></span>
+                <span class="ingestion-skeleton-line"></span>
+                <span class="ingestion-skeleton-line ingestion-skeleton-line--sm"></span>
+              </div>
+            }
+
+            <!-- Resultado vazio: a fonte respondeu, mas não há registros -->
+            @if (showEmpty()) {
+              <p class="ingestion-section__empty" role="status">{{ emptyKey() | translate }}</p>
+            }
+
+            <!-- Sem correspondência: há registros, mas os filtros excluíram todos -->
+            @if (showNoMatch()) {
+              <div class="ingestion-section__empty" role="status">
+                <p class="mb-2">{{ 'health-page.ingestion.state.no-match' | translate }}</p>
+                @if (hasActiveFilters()) {
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="clearFilters.emit()">
+                    {{ 'health-page.ingestion.filters.clear-all' | translate }}
+                  </button>
+                }
+              </div>
+            }
+
+            @if (showBody()) {
+              <ng-content></ng-content>
+            }
+          </section>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<article class="ingestion-card card">
+  <div class="card-body">
+    <div class="ingestion-card__header">
+      <span [class]="badgeClass()">{{ statusKey() | translate }}</span>
+
+      <h3 class="ingestion-card__title" [title]="title()">{{ title() }}</h3>
+
+      @if (job().updated_at) {
+        <small class="ingestion-card__time">{{ job().updated_at | date:'short' }}</small>
+      }
+    </div>
+
+    <p class="ingestion-card__id">
+      <span class="visually-hidden">{{ 'health-page.ingestion.col.job' | translate }}:</span>
+      <code translate="no" [title]="job().job_id">{{ job().job_id }}</code>
+    </p>
+
+    <ds-ingestion-stepper [job]="job()"></ds-ingestion-stepper>
+
+    @if (job().item_uuid) {
+      <p class="ingestion-card__actions">
+        <a class="btn btn-sm btn-outline-primary" [routerLink]="['/items', job().item_uuid]">
+          {{ 'health-page.ingestion.card.view-item' | translate }}
+        </a>
+      </p>
+    }
+  </div>
+</article>

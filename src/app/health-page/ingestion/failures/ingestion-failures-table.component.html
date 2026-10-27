@@ -1,0 +1,84 @@
+<div class="table-responsive ingestion-table">
+  <table class="table table-sm align-middle">
+    <caption class="visually-hidden">{{ 'health-page.ingestion.failures.heading' | translate }}</caption>
+    <thead>
+      <tr>
+        <th scope="col">{{ 'health-page.ingestion.col.job' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.file' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.stage' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.error' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.updated' | translate }}</th>
+        <th scope="col" class="text-end">{{ 'health-page.ingestion.col.actions' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (job of rows(); track job.job_id) {
+        <tr>
+          <td><code class="small" translate="no" [title]="job.job_id">{{ job.job_id }}</code></td>
+          <td class="ingestion-table__file" [title]="job.filename">{{ job.filename || '—' }}</td>
+          <td>
+            @if (job.stage) {
+              {{ 'health-page.ingestion.stage.' + job.stage | translate }}
+            } @else {
+              —
+            }
+          </td>
+
+          <!-- Erro truncado, com o texto completo acessível no próprio lugar -->
+          <td class="ingestion-table__error">
+            @if (errorText(job)) {
+              <details>
+                <summary class="ingestion-table__error-summary">
+                  <span class="text-danger">{{ errorText(job) }}</span>
+                </summary>
+                <p class="ingestion-table__error-full small text-danger">{{ errorText(job) }}</p>
+              </details>
+            } @else {
+              —
+            }
+          </td>
+
+          <td class="ingestion-table__num text-nowrap">
+            <small>{{ job.updated_at ? (job.updated_at | date:'short') : '—' }}</small>
+          </td>
+
+          <td class="text-end ingestion-table__actions">
+            @if (state(job.job_id).phase === 'loading') {
+              <span class="ingestion-table__pending" role="status">
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                {{ 'health-page.ingestion.reprocess.loading' | translate }}
+              </span>
+            } @else if (state(job.job_id).phase === 'done') {
+              <span class="text-success small" role="status">
+                {{ 'health-page.ingestion.reprocess.done' | translate }}
+              </span>
+            } @else if (pendingConfirm() === job.job_id) {
+              <div class="ingestion-table__confirm" role="group"
+                   [attr.aria-label]="'health-page.ingestion.reprocess.confirm' | translate">
+                <span class="small">{{ 'health-page.ingestion.reprocess.confirm' | translate }}</span>
+                <button type="button" class="btn btn-sm btn-primary" (click)="confirm(job.job_id)">
+                  {{ 'health-page.ingestion.reprocess.confirm-yes' | translate }}
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="cancelConfirm()">
+                  {{ 'health-page.ingestion.reprocess.cancel' | translate }}
+                </button>
+              </div>
+            } @else {
+              <button type="button" class="btn btn-sm btn-outline-primary"
+                      [attr.aria-label]="('health-page.ingestion.reprocess.action' | translate) + ': ' + (job.filename || job.job_id)"
+                      (click)="askConfirm(job.job_id)">
+                {{ 'health-page.ingestion.reprocess.action' | translate }}
+              </button>
+            }
+
+            @if (state(job.job_id).phase === 'error') {
+              <p class="ingestion-table__row-error small text-danger mb-0" role="alert">
+                {{ state(job.job_id).errorKey | translate }}
+              </p>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

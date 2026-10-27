@@ -1,0 +1,130 @@
+@import '../pipeline';
+
+.pipeline-section-heading {
+  @include pipeline-section-heading;
+}
+
+.pipeline-flow {
+  margin-bottom: 1.5rem;
+
+  &__intro {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--bs-secondary-color, #6c757d);
+    text-wrap: pretty;
+  }
+
+  // Celular: coluna, conector apontando para baixo.
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: pipeline-step;
+  }
+
+  &__step {
+    @include pipeline-status-colors;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    counter-increment: pipeline-step;
+  }
+
+  &__card {
+    @include pipeline-card;
+
+    flex: 1 1 auto;
+    padding: 0.75rem 0.875rem;
+    border-left: 3px solid var(--ds-state, var(--bs-border-color, #dee2e6));
+  }
+
+  &__connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-secondary-color, #adb5bd);
+    font-size: 0.875rem;
+    // Aponta para baixo no empilhamento vertical.
+    transform: rotate(90deg);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.25rem;
+  }
+
+  &__icon {
+    color: var(--bs-primary, #1351b4);
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  &__state {
+    @include pipeline-chip;
+
+    margin: 0 0 0.5rem;
+  }
+
+  &__role {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--bs-secondary-color, #6c757d);
+    text-wrap: pretty;
+  }
+
+  &__metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    margin: 0.5rem 0 0;
+  }
+
+  &__metric {
+    min-width: 0;
+
+    dt {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--bs-secondary-color, #6c757d);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    dd {
+      margin: 0;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  // Desktop: fluxo horizontal com setas entre as etapas.
+  @media (min-width: 62em) {
+    &__steps {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    &__step {
+      flex: 1 1 0;
+      flex-direction: row;
+      min-width: 0;
+    }
+
+    &__connector {
+      flex: 0 0 1.5rem;
+      transform: none;
+    }
+  }
+}
