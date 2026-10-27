@@ -30,7 +30,7 @@ import {
 } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { SearchService } from '../../../search.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 

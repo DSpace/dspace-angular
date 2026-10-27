@@ -1,26 +1,38 @@
 import {
   ComponentFixture,
-  fakeAsync,
   inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { SiteDataService } from '@dspace/core/data/site-data.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-
+import { environment } from '../../../../environments/environment.test';
 import { FooterComponent } from './footer.component';
-import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteStub } from 'src/app/core/testing/active-router.stub';
-import { AuthorizationDataServiceStub } from 'src/app/core/testing/authorization-service.stub';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
+
+// O rodapé base lê o texto do CMS do Site no idioma atual, então os dois serviços
+// precisam existir mesmo que o template do tema não mostre esse texto.
+const mockSite = {
+  firstMetadataValue: (key: string, options: any) => 'Sample Footer CMS Content',
+};
+const mockSiteDataService = {
+  find: () => of(mockSite),
+};
+const mockLocaleService = {
+  getCurrentLanguageCode: () => of('en'),
+};
 
 let notifyInfoService = {
   isCoarConfigEnabled: () => of(true),
@@ -37,6 +49,8 @@ describe('Footer component', () => {
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: SiteDataService, useValue: mockSiteDataService },
+        { provide: LocaleService, useValue: mockLocaleService },
         { provide: APP_CONFIG, useValue: environment },
       ],
     });
@@ -82,27 +96,38 @@ describe('Footer component', () => {
     });
   });
 
+  // O tema troca o rodapé do DSpace pelo do Ministério: não há bloco de COAR
+  // Notify nem links de privacidade, mesmo com os recursos ligados no config.
   describe('when coarLdnEnabled is true', () => {
     beforeEach(() => {
       spyOn(notifyInfoService, 'isCoarConfigEnabled').and.returnValue(of(true));
       fixture.detectChanges();
     });
 
-    it('should render COAR notify support link', () => {
-      const notifySection = fixture.debugElement.query(By.css('.notify-enabled'));
-      expect(notifySection).toBeTruthy();
+    it('should not render the COAR notify section, which the theme footer omits', () => {
+      expect(fixture.debugElement.query(By.css('.notify-enabled'))).toBeNull();
+      expect(fixture.debugElement.query(By.css('img.n-coar'))).toBeNull();
+    });
+  });
+
+  describe('theme content', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
     });
 
-    it('should redirect to info/coar-notify-support', () => {
-      // Check if the link to the COAR Notify support page is present
-      const routerLink = fixture.debugElement.query(By.css('a[routerLink="info/coar-notify-support"].coar-notify-support-route'));
-      expect(routerLink).toBeTruthy();
+    it('should open every social link in a new tab without exposing the opener', () => {
+      const links = fixture.debugElement.queryAll(By.css('.footer-social a'));
+      expect(links.length).toBe(4);
+      links.forEach((link) => {
+        expect(link.attributes.target).toBe('_blank');
+        expect(link.attributes.rel).toBe('noopener noreferrer');
+        expect(link.attributes['aria-label']).toBeTruthy();
+      });
     });
 
-    it('should have an img tag with the class "n-coar" when coarLdnEnabled is true', fakeAsync(() => {
-      // Check if the img tag with the class "n-coar" is present
-      const imgTag = fixture.debugElement.query(By.css('.notify-enabled img.n-coar'));
-      expect(imgTag).toBeTruthy();
-    }));
+    it('should render the organization contact block', () => {
+      expect(fixture.debugElement.query(By.css('.footer-org-name'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('a[href^="mailto:"]'))).toBeTruthy();
+    });
   });
 });
