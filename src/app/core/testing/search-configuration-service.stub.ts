@@ -11,16 +11,20 @@ import {
   FilterConfig,
   SearchConfig,
 } from '../shared/search/search-filters/search-config.model';
+import { ViewMode } from '../shared/view-mode.model';
 
 /**
  * Stub class of {@link SearchConfigurationService}
  */
 export class SearchConfigurationServiceStub {
 
-  public paginationID = 'test-id';
+  public searchInstanceId = 'test-id';
+
+  public useLegacySearchParamFallback = true;
 
   public searchOptions: BehaviorSubject<SearchOptions> = new BehaviorSubject(new SearchOptions({}));
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
+  private viewMode: BehaviorSubject<ViewMode> = new BehaviorSubject<ViewMode>(undefined);
 
   getCurrentFrontendFilters() {
     return of([]);
@@ -28,6 +32,22 @@ export class SearchConfigurationServiceStub {
 
   getCurrentFilters() {
     return of([]);
+  }
+
+  getCurrentSearchInstanceParam(param: string) {
+    return `${this.searchInstanceId}.${param}`;
+  }
+
+  getSearchParamFromParams(params: Params, parameterName: string, searchInstanceId = this.searchInstanceId) {
+    return params?.[`${searchInstanceId}.${parameterName}`] ?? params?.[parameterName];
+  }
+
+  getCurrentSearchInstanceFilterParam(param: string) {
+    return `${this.searchInstanceId}.${param}`;
+  }
+
+  getCurrentPageParam() {
+    return `${this.searchInstanceId}.page`;
   }
 
   getCurrentScope(a) {
@@ -40,6 +60,17 @@ export class SearchConfigurationServiceStub {
 
   getCurrentConfiguration(a) {
     return of(a);
+  }
+
+  getCurrentViewMode(defaultViewMode: ViewMode) {
+    if (this.viewMode.value === undefined) {
+      this.viewMode.next(defaultViewMode);
+    }
+    return this.viewMode.asObservable();
+  }
+
+  setViewMode(viewMode: ViewMode) {
+    this.viewMode.next(viewMode);
   }
 
   getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {

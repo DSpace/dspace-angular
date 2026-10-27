@@ -151,7 +151,7 @@ describe('MyDSpaceConfigurationService', () => {
 
     describe('when subscribeToSearchOptions is called', () => {
       beforeEach(() => {
-        (service as any).subscribeToSearchOptions(defaults);
+        (service as any).subscribeToSearchOptions(defaults.pagination.id, defaults);
       });
       it('should call all getters it needs, but not call any others', () => {
         expect(service.getCurrentPagination).not.toHaveBeenCalled();
@@ -168,14 +168,14 @@ describe('MyDSpaceConfigurationService', () => {
       beforeEach(() => {
         (service as any).subscribeToPaginatedSearchOptions('id', defaults);
       });
-      it('should call all getters it needs', () => {
+      it('should call the pagination-specific getters it needs', () => {
         expect(service.getCurrentPagination).toHaveBeenCalled();
         expect(service.getCurrentSort).toHaveBeenCalled();
-        expect(service.getCurrentScope).toHaveBeenCalled();
-        expect(service.getCurrentConfiguration).toHaveBeenCalled();
-        expect(service.getCurrentQuery).toHaveBeenCalled();
-        expect(service.getCurrentDSOType).toHaveBeenCalled();
-        expect(service.getCurrentFilters).toHaveBeenCalled();
+        expect(service.getCurrentScope).not.toHaveBeenCalled();
+        expect(service.getCurrentConfiguration).not.toHaveBeenCalled();
+        expect(service.getCurrentQuery).not.toHaveBeenCalled();
+        expect(service.getCurrentDSOType).not.toHaveBeenCalled();
+        expect(service.getCurrentFilters).not.toHaveBeenCalled();
       });
     });
   });

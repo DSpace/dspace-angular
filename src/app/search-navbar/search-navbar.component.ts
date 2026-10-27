@@ -12,8 +12,10 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { PaginationService } from '../core/pagination/pagination.service';
 import { expandSearchInput } from '../shared/animations/slide';
 import { SearchService } from '../shared/search/search.service';
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { BrowserOnlyPipe } from '../shared/utils/browser-only.pipe';
 import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
 
@@ -55,6 +57,8 @@ export class SearchNavbarComponent {
     private router: Router,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
+    private searchConfigurationService: SearchConfigurationService,
+    private paginationService: PaginationService,
   ) {
     this.searchForm = this.formBuilder.group(({
       query: '',
@@ -96,7 +100,10 @@ export class SearchNavbarComponent {
    * @param data  Data for the searchForm, containing the search query
    */
   onSubmit(data: any) {
-    const queryParams = Object.assign({}, data);
+    const queryParams = {
+      [this.searchConfigurationService.getCurrentSearchInstanceParam('query')]: data.query,
+      [this.paginationService.getPageParam(this.searchConfigurationService.searchInstanceId)]: 1,
+    };
     const linkToNavigateTo = [this.searchService.getSearchLink().replace('/', '')];
     this.searchForm.reset();
     this.collapse();

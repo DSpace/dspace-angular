@@ -31,6 +31,7 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
@@ -98,7 +99,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
   constructor(
     protected router: Router,
     protected searchService: SearchService,
-    protected searchConfigurationService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigurationService: SearchConfigurationService,
     protected searchFilterService: SearchFilterService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {

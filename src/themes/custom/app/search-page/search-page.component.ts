@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from 'src/app/my-dspace-page/my-dspace-configuration.service';
 
 import { SearchPageComponent as BaseComponent } from '../../../../app/search-page/search-page.component';
+import { SearchService } from '../../../../app/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../app/shared/search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 
@@ -15,6 +16,11 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,
     },
+    {
+      provide: SearchConfigurationService,
+      useExisting: SEARCH_CONFIG_SERVICE,
+    },
+    SearchService,
   ],
   imports: [
     ThemedSearchComponent,
