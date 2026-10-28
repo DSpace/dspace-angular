@@ -54,6 +54,7 @@ export class SearchNavbarComponent {
     private formBuilder: UntypedFormBuilder,
     private router: Router,
     private searchService: SearchService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.searchForm = this.formBuilder.group(({
       query: '',

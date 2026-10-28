@@ -21,24 +21,22 @@ input[type="text"] {
   }
 }
 
-@media screen and (max-width: map-get($grid-breakpoints, lg) - 0.02) {
+@media screen and (max-width: map-get($grid-breakpoints, sm) - 0.02) {
   form input[type="text"] {
     position: fixed !important;
     top: var(--ds-header-height);
     right: calc(var(--bs-gutter-x, 1.5rem) / 2);
     left: auto;
-    max-width: calc(100vw - 7rem);
+    width: 55vw !important;
+    max-width: 55vw;
     margin-top: 0.25rem;
     padding: 0.375rem 0.75rem;
     border: 1px solid var(--ds-header-icon-color);
     border-radius: 4px;
     background-color: #fff !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    opacity: 1 !important;
     z-index: 1001;
-
-    @media screen and (min-width: map-get($grid-breakpoints, sm)) and (max-width: map-get($grid-breakpoints, md) - 0.02) {
-      top: 65px;
-    }
   }
 }
 

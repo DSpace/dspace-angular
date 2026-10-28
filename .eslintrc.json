@@ -16,8 +16,7 @@
     "dspace-angular-html"
   ],
   "ignorePatterns": [
-    "lint/test/fixture",
-    "src/themes/custom"
+    "lint/test/fixture"
   ],
   "overrides": [
     {
