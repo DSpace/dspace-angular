@@ -10,8 +10,10 @@ import {
   find,
   map,
   take,
+  tap,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -54,14 +56,14 @@ import {
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
-
-// todo: optimize imports
+import { EPERSON } from './models/eperson.resource-type';
 
 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
 @Injectable({ providedIn: 'root' })
+@dataService(EPERSON)
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
@@ -277,10 +279,10 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   /**
    * Method that clears a cached EPerson request
    */
-  public clearEPersonRequests(): void {
-    this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
-      this.requestService.removeByHrefSubstring(link);
-    });
+  public clearEPersonRequests(): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      tap((href: string) => this.requestService.setStaleByHrefSubstring(href)),
+    );
   }
 
   /**

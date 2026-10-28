@@ -71,7 +71,8 @@ export const info: DSpaceESLintRuleInfo<[ThemedDecoratorsOption], [ThemedDecorat
 };
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
-  ...info,
+  meta: info.meta,
+  defaultOptions: info.defaultOptions,
   create(context: TSESLint.RuleContext<Message, unknown[]>, options: any) {
     return {
       [`ClassDeclaration > Decorator > CallExpression[callee.name=/^(${Object.keys(options[0].decorators).join('|')})$/]`]: (node: TSESTree.CallExpression) => {

@@ -10,7 +10,13 @@ import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/mo
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
@@ -125,7 +131,13 @@ describe('AdminNotifyDashboardComponent', () => {
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbNavModule, AdminNotifyDashboardComponent],
+      imports: [TranslateModule.forRoot(),
+        NgbNav,
+        NgbNavContent,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavOutlet,
+        AdminNotifyDashboardComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },

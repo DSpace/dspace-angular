@@ -8,6 +8,7 @@ import { CacheableObject } from '../../cache/cacheable-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { CORRECTION_TYPE } from './correctiontype.resource-type';
 
 @typedObject
 /**
@@ -15,7 +16,7 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
  * The correction type represents a type of correction that can be applied to a submission.
  */
 export class CorrectionType extends CacheableObject {
-  static type = new ResourceType('correctiontype');
+  static type = CORRECTION_TYPE;
 
   /**
    * The object type

@@ -5,6 +5,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -165,6 +167,8 @@ export class ItemDeleteComponent
    */
   private subs: Subscription[] = [];
 
+  @ViewChild('deleteConfirmationModal', { static: true }) deleteConfirmationModal!: TemplateRef<any>;
+
   public isDeleting$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(protected route: ActivatedRoute,
@@ -249,6 +253,21 @@ export class ItemDeleteComponent
    */
   openVirtualMetadataModal(content: any) {
     this.modalRef = this.modalService.open(content);
+  }
+
+  /**
+   * Open the delete confirmation modal
+   */
+  openDeleteConfirmationModal() {
+    this.modalRef = this.modalService.open(this.deleteConfirmationModal, { centered: true });
+  }
+
+  /**
+   * User confirmed permanent deletion.
+   */
+  confirmDeletion() {
+    this.modalRef.close();
+    this.performAction();
   }
 
   /**

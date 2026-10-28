@@ -20,6 +20,7 @@ import {
 } from 'rxjs/operators';
 
 import { SortDirection } from '../cache/models/sort-options.model';
+import { MAX_PAGE_SIZE } from '../data/find-list-options.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -88,7 +89,7 @@ export class BrowseService {
    */
   getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     // TODO properly support pagination
-    return this.browseDefinitionDataService.findAll({ elementsPerPage: 9999 }).pipe(
+    return this.browseDefinitionDataService.findAll({ elementsPerPage: MAX_PAGE_SIZE }).pipe(
       getFirstSucceededRemoteData(),
     );
   }
@@ -132,6 +133,29 @@ export class BrowseService {
       return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...this.getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
+  }
+
+  /*
+   * Get the sort direction for a browse index based on its unique id
+   * @param browseId     The unique id of the browse index
+   * @param defaultDirection  The default sort direction to return if the browse index has no sort direction configured
+   * @returns {Observable<SortDirection>} The sort direction of the browse index
+   */
+  getConfiguredSortDirection(browseId: string, defaultDirection: SortDirection): Observable<SortDirection> {
+    return this.getBrowseDefinitions().pipe(
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
+        .find((def: BrowseDefinition) => def.id === browseId),
+      ),
+      map((browseDef: BrowseDefinition) => {
+        if (browseDef.order === SortDirection.ASC || browseDef.order === SortDirection.DESC) {
+          return browseDef.order;
+        } else {
+          return defaultDirection;
+        }
+      }),
+    );
   }
 
   /**

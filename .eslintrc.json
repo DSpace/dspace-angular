@@ -70,7 +70,6 @@
           "error",
           {
             "allow": [
-              "log",
               "warn",
               "dir",
               "timeLog",

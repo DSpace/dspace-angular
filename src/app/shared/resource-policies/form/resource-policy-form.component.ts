@@ -30,8 +30,12 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
+  NgbNav,
   NgbNavChangeEvent,
-  NgbNavModule,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
@@ -89,7 +93,11 @@ export interface ResourcePolicyEvent {
     BtnDisabledDirective,
     EpersonGroupListComponent,
     FormComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     TranslateModule,
   ],
 })

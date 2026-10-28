@@ -15,7 +15,7 @@
 </th>
 <td>{{entry.policy.name}}</td>
 <td>{{entry.policy.policyType}}</td>
-<td>{{entry.policy.action}}</td>
+<td>{{getActionDisplayLabel(entry.policy.action)}}</td>
 <td>
   {{ epersonName$ | async }}
 </td>

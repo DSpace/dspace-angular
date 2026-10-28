@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppConfig } from '@dspace/config/app-config.interface';
 
+import { environment } from '../../../environments/environment';
 import { ServerHardRedirectService } from './server-hard-redirect.service';
 
 describe('ServerHardRedirectService', () => {
@@ -18,16 +19,33 @@ describe('ServerHardRedirectService', () => {
     },
   } as AppConfig;
 
-  let service: ServerHardRedirectService = new ServerHardRedirectService(envConfig, mockRequest, mockResponse);
+  const serverResponseService = jasmine.createSpyObj('ServerResponseService', {
+    setHeader: jasmine.createSpy('setHeader'),
+  });
+
+  let service: ServerHardRedirectService = new ServerHardRedirectService(envConfig, mockRequest, mockResponse, serverResponseService);
   const origin = 'https://test-host.com:4000';
+  let originalBaseUrl;
 
   beforeEach(() => {
     mockRequest.protocol = 'https';
+    mockRequest.path = '/bitstreams/test-uuid/download';
     mockRequest.headers = {
       host: 'test-host.com:4000',
     };
 
+    // Store original environment variable to restore after tests
+    originalBaseUrl = environment.ui.baseUrl;
+
+    // Set environment variable to match our mock location origin for testing
+    environment.ui.baseUrl = origin;
+
     TestBed.configureTestingModule({});
+  });
+
+  afterEach(() => {
+    // Restore original environment variable after tests
+    environment.ui.baseUrl = originalBaseUrl;
   });
 
   it('should be created', () => {
@@ -75,7 +93,7 @@ describe('ServerHardRedirectService', () => {
   describe('when requesting the origin', () => {
 
     it('should return the location origin', () => {
-      expect(service.getCurrentOrigin()).toEqual(origin);
+      expect(service.getBaseUrl()).toEqual(origin);
     });
   });
 
@@ -86,7 +104,7 @@ describe('ServerHardRedirectService', () => {
       ssrBaseUrl: 'https://private-url:4000/server',
       baseUrl: 'https://public-url/server',
     } } };
-    service = new ServerHardRedirectService(environmentWithSSRUrl, mockRequest, mockResponse);
+    service = new ServerHardRedirectService(environmentWithSSRUrl, mockRequest, mockResponse, serverResponseService);
 
     beforeEach(() => {
       service.redirect(redirect);

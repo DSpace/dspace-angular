@@ -20,7 +20,7 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
@@ -40,7 +40,7 @@ import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-select
     AsyncPipe,
     BrowserOnlyPipe,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

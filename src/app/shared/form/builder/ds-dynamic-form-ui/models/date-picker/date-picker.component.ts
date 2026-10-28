@@ -14,6 +14,7 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { dateValueToString } from '@dspace/shared/utils/date.util';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlComponent,
@@ -91,7 +92,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     if (this.model && this.model.value !== null) {
       // todo: model value could object or Date according to its type annotation
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
+      const values = dateValueToString(this.model.value).split(DS_DATE_PICKER_SEPARATOR);
       if (values.length > 0) {
         this.initialYear = parseInt(values[0], 10);
         this.year = this.initialYear;

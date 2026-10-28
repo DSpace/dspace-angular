@@ -1,0 +1,14 @@
+.source-icon {
+  height: var(--ds-identifier-subtype-icon-height);
+  min-height: 16px;
+  width: auto;
+  padding-left: 0.3rem;
+}
+
+.ellipsis-y-1 {
+  @include ellipsis-y(1);
+}
+
+.ellipsis-y-3 {
+  @include ellipsis-y(3);
+}

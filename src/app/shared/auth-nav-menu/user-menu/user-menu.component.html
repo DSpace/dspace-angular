@@ -6,8 +6,8 @@
     [ngClass]="inExpandableNavbar ? 'user-menu-mobile pb-2 mb-2 border-bottom' : 'user-menu-dropdown'"
     [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate" id="user-menu-dropdown">
     <li class="ds-menu-item-wrapper username-email-wrapper" role="presentation">
-      {{dsoNameService.getName(user$ | async)}}<br>
-      <span class="text-muted">{{(user$ | async)?.email}}</span>
+      <span class="username-wrapper">{{dsoNameService.getName(user$ | async)}}<br></span>
+      <span class="email-wrapper">{{(user$ | async)?.email}}</span>
     </li>
     <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
       <a class="ds-menu-item" role="menuitem"

@@ -7,9 +7,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { getDSORoute } from '../router/utils/dso-route.utils';
+import { ItemDataService } from '../data/item-data.service';
+import {
+  CUSTOM_URL_VALID_PATTERN,
+  getDSORoute,
+  getItemPageRoute,
+} from '../router/utils/dso-route.utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
+import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
@@ -55,12 +61,23 @@ export const DSOBreadcrumbResolverByUuid: (route: ActivatedRouteSnapshot, state:
   dataService: IdentifiableDataService<DSpaceObject>,
   ...linksToFollow: FollowLinkConfig<DSpaceObject>[]
 ): Observable<BreadcrumbConfig<DSpaceObject>> => {
-  return dataService.findById(uuid, true, false, ...linksToFollow).pipe(
+  const isItemDataService = dataService instanceof ItemDataService;
+  const findMethod = isItemDataService ? dataService.findByIdOrCustomUrl.bind(dataService) : dataService.findById.bind(dataService);
+  return findMethod(uuid, true, false, ...linksToFollow).pipe(
     getFirstCompletedRemoteData(),
     getRemoteDataPayload(),
     map((object: DSpaceObject) => {
       if (hasValue(object)) {
-        return { provider: breadcrumbService, key: object, url: getDSORoute(object) };
+        // For items, fall back to UUID-based route if the custom URL contains non-latin characters
+        let url: string;
+        if (object instanceof Item && object.hasMetadata('dspace.customurl')) {
+          const customUrl = object.firstMetadataValue('dspace.customurl');
+          const ignoreCustomUrl = !CUSTOM_URL_VALID_PATTERN.test(customUrl);
+          url = getItemPageRoute(object as Item, ignoreCustomUrl);
+        } else {
+          url = getDSORoute(object);
+        }
+        return { provider: breadcrumbService, key: object, url };
       } else {
         return undefined;
       }

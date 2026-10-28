@@ -5,7 +5,7 @@ FROM docker.io/node:22-alpine
 
 # Ensure Python and other build tools are available
 # These are needed to install some node modules, especially on linux/arm64
-RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+RUN apk --no-cache add python3 make g++
 
 WORKDIR /app
 

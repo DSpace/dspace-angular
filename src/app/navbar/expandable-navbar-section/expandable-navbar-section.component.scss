@@ -7,14 +7,19 @@
     overflow: hidden;
     min-width: 100%;
     top: 100%;
-    @include media-breakpoint-down(xs) {
+    padding: var(--ds-expandable-navbar-padding);
+
+    @include media-breakpoint-down(md) {
       border: 0;
-      background-color: var(--ds-expandable-navbar-bg);
+      border-radius: 0;
     }
     @include media-breakpoint-up(md) {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-      background-color: var(--ds-navbar-dropdown-bg);
+    }
+
+    ::ng-deep .ds-menu-item {
+      padding: var(--ds-expandable-navbar-item-padding);
     }
   }
 

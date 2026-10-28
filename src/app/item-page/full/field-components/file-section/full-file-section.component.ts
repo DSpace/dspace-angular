@@ -35,6 +35,7 @@ import {
 } from 'rxjs/operators';
 
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { MetadataDirective } from '../../../../shared/metadata.directive';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
@@ -54,6 +55,7 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
   imports: [
     AsyncPipe,
     FileSizePipe,
+    MetadataDirective,
     MetadataFieldWrapperComponent,
     PaginationComponent,
     ThemedFileDownloadLinkComponent,

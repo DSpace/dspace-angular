@@ -16,6 +16,6 @@
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
-    "src/themes/**/*.module.ts"
+    "src/themes/**/*.ts"
   ],
 }

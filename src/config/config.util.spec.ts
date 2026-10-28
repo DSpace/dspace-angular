@@ -16,14 +16,8 @@ describe('Config Util', () => {
       transferState: true,
       replaceRestUrl: true,
       excludePathPatterns: [
-        {
-          pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
-          flag: 'i',
-        },
-        {
-          pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
-          flag: 'i',
-        },
+        { pattern: '^/communities/[a-fA_F0-9-]{36}/browse(/.*)?$' },
+        { pattern: '^/collections/[a-fA-F0-9-]{36}/browse(/.*)?$' },
         { pattern: '^/browse/' },
         { pattern: '^/search' },
         { pattern: '^/community-list$' },
@@ -44,7 +38,8 @@ describe('Config Util', () => {
       const appConfig = new DefaultAppConfig();
       expect(appConfig.cache.msToLive.default).toEqual(15 * 60 * 1000); // 15 minute
       expect(appConfig.ui.rateLimiter.windowMs).toEqual(1 * 60 * 1000); // 1 minute
-      expect(appConfig.ui.rateLimiter.max).toEqual(500);
+      expect(appConfig.ui.rateLimiter.limit).toEqual(500);
+      expect(appConfig.ui.rateLimiter.ipv6Subnet).toEqual(56);
       expect(appConfig.ui.useProxies).toEqual(true);
 
       expect(appConfig.submission.autosave.metadata).toEqual([]);
@@ -58,7 +53,8 @@ describe('Config Util', () => {
 
       const rateLimiter = {
         windowMs: 5 * 50 * 1000, // 5 minutes
-        max: 1000,
+        limit: 1000,
+        ipv6Subnet: 56,
       };
       appConfig.ui.rateLimiter = rateLimiter;
 
@@ -82,7 +78,8 @@ describe('Config Util', () => {
 
       expect(mockProductionEnvironment.cache.msToLive.default).toEqual(msToLive);
       expect(mockProductionEnvironment.ui.rateLimiter.windowMs).toEqual(rateLimiter.windowMs);
-      expect(mockProductionEnvironment.ui.rateLimiter.max).toEqual(rateLimiter.max);
+      expect(mockProductionEnvironment.ui.rateLimiter.limit).toEqual(rateLimiter.limit);
+      expect(mockProductionEnvironment.ui.rateLimiter.ipv6Subnet).toEqual(rateLimiter.ipv6Subnet);
       expect(mockProductionEnvironment.ui.useProxies).toEqual(false);
       expect(mockProductionEnvironment.submission.autosave.metadata[0]).toEqual(autoSaveMetadata[0]);
       expect(mockProductionEnvironment.submission.autosave.metadata[1]).toEqual(autoSaveMetadata[1]);

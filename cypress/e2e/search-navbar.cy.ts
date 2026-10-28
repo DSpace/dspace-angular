@@ -15,7 +15,7 @@ const page = {
 
 describe('Search from Navigation Bar', () => {
   // NOTE: these tests currently assume this query will return results!
-  const query = Cypress.env('DSPACE_TEST_SEARCH_TERM');
+  const query = Cypress.expose('DSPACE_TEST_SEARCH_TERM');
 
   it('should go to search page with correct query if submitted (from home)', () => {
     cy.visit('/');

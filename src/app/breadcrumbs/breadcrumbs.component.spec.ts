@@ -75,7 +75,7 @@ describe('BreadcrumbsComponent', () => {
   it('should render the breadcrumbs', () => {
     const breadcrumbs = fixture.debugElement.queryAll(By.css('.breadcrumb-item'));
     expect(breadcrumbs.length).toBe(3);
-    expectBreadcrumb(breadcrumbs[0], 'home.breadcrumbs', '/');
+    expectBreadcrumb(breadcrumbs[0], 'home.breadcrumbs', '/home');
     expectBreadcrumb(breadcrumbs[1], 'bc 1', '/example.com');
     expectBreadcrumb(breadcrumbs[2].query(By.css('.text-truncate')), 'bc 2', null);
   });

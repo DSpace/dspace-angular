@@ -1,0 +1,12 @@
+:host {
+  .simple-view-element {
+    margin-bottom: 15px;
+  }
+  .simple-view-element-header {
+    font-size: 1.25rem;
+  }
+  .orcid-icon {
+    height: var(--ds-orcid-icon-height, 16px);
+    margin-right: 8px;
+  }
+}

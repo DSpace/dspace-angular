@@ -5,3 +5,12 @@
 .btn-download{
   width: fit-content;
 }
+
+.file-download-link {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.file-download-link-button:hover {
+  text-decoration: underline;
+}

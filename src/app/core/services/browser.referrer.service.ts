@@ -50,7 +50,7 @@ export class BrowserReferrerService extends ReferrerService {
           const reversedHistory = [...history].reverse();
           // and find the first URL that differs from the current one
           const prevUrl = reversedHistory.find((url: string) => url !== currentURL);
-          return new URLCombiner(this.hardRedirectService.getCurrentOrigin(), prevUrl).toString();
+          return new URLCombiner(this.hardRedirectService.getBaseUrl(), prevUrl).toString();
         }
       }),
     );

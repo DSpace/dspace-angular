@@ -1,6 +1,16 @@
 :host {
   position: relative;
   div#header-navbar-wrapper {
-    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
+    border-bottom: var(--ds-header-navbar-border-bottom-height) var(--ds-header-navbar-border-bottom-color) solid;
+  }
+
+  ::ng-deep {
+    nav#desktop-navbar {
+      .ds-menu-item-wrapper {
+        &:hover, &:focus {
+          background-color: var(--ds-navbar-link-bg-hover);
+        }
+      }
+    }
   }
 }

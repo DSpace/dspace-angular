@@ -84,13 +84,38 @@
 
       </ng-container>
 
+      <ng-template #deleteConfirmationModal>
+        <div class="modal-header bg-light text-dark">
+          <h5 class="modal-title">
+            {{'item.edit.delete.confirmation-title' | translate}}
+          </h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-bold">{{'item.edit.delete.confirmation-message' | translate}}</p>
+          <p>{{'item.edit.delete.confirmation-detail' | translate}}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="modalRef.close()">
+            {{'item.edit.delete.cancel' | translate}}
+          </button>
+          <button class="btn btn-danger" (click)="confirmDeletion()">
+            {{'item.edit.delete.confirm' | translate}}
+          </button>
+        </div>
+      </ng-template>
+
       <div class="space-children-mr">
-        <button [dsBtnDisabled]="isDeleting$ | async" (click)="performAction()"
-          class="btn btn-danger perform-action">{{confirmMessage | translate}}
+        <button [dsBtnDisabled]="isDeleting$ | async"
+                class="btn btn-danger perform-action"
+                (click)="openDeleteConfirmationModal()">
+          {{confirmMessage | translate}}
         </button>
-        <button [dsBtnDisabled]="isDeleting$ | async" [routerLink]="[itemPageRoute, 'edit']"
-          class="btn btn-outline-secondary cancel">
-          {{cancelMessage| translate}}
+
+        <button [dsBtnDisabled]="isDeleting$ | async"
+                [routerLink]="[itemPageRoute, 'edit']"
+                class="btn btn-outline-secondary cancel">
+          {{cancelMessage | translate}}
         </button>
       </div>
 

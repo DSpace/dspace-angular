@@ -68,7 +68,7 @@ export class RequestEffects {
         catchError((error: unknown) => {
           if (error instanceof RequestError) {
             // if it's an error returned by the server, complete the request
-            return [new RequestErrorAction(request.uuid, error.statusCode, error.message)];
+            return [new RequestErrorAction(request.uuid, error.statusCode, error.message, error.errors)];
           } else {
             // if it's a client side error, throw it
             throw error;

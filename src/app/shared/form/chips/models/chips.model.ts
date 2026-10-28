@@ -10,6 +10,7 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 import { ChipsItem } from './chips-item.model';
 
@@ -18,6 +19,7 @@ export class Chips {
   displayField: string;
   displayObj: string;
   iconsConfig: MetadataIconConfig[];
+  triggerUpdate = false;
 
   private _items: ChipsItem[];
 
@@ -114,6 +116,8 @@ export class Chips {
 
     const defaultConfigIndex: number = findIndex(this.iconsConfig, { name: 'default' });
     const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
+    const iconsVisibleWithNoAuthority = environment.submission.icons.iconsVisibleWithNoAuthority ?? [];
+
     let config: MetadataIconConfig;
     let configIndex: number;
     let value: any;
@@ -127,7 +131,7 @@ export class Chips {
         config = (configIndex !== -1) ? this.iconsConfig[configIndex] : defaultConfig;
 
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
-          const visibleWhenAuthorityEmpty = this.displayObj !== metadata;
+          const visibleWhenAuthorityEmpty = this.displayObj !== metadata || (iconsVisibleWithNoAuthority.includes(config.style));
 
           // Set icon
           const icon = {

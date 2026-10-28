@@ -55,7 +55,7 @@ export class ItemPageFieldComponent {
     /**
      * Fields (schema.element.qualifier) used to render their values.
      */
-    fields: string[];
+    @Input() fields: string[];
 
     /**
      * Label i18n key for the rendered metadata
@@ -77,6 +77,13 @@ export class ItemPageFieldComponent {
      * Image Configuration
      */
     img: ImageField;
+
+    /**
+     * Search filter used when rendering subject metadata as search links.
+     */
+    get searchFilter(): string | undefined {
+      return this.fields?.includes('dc.subject') ? 'subject' : undefined;
+    }
 
     /**
      * Return browse definition that matches any field used in this component if it is configured as a browse

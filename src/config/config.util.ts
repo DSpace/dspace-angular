@@ -16,7 +16,7 @@ import {
  */
 const extendEnvironmentWithAppConfig = (env: any, appConfig: AppConfig): void => {
   mergeConfig(env, appConfig);
-  console.log(`Environment extended with app config`);
+  console.info(`Environment extended with app config`);
 };
 
 /**

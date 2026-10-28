@@ -192,6 +192,7 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
+          MyDSpaceConfigurationValueType.OtherWorkspace,
         ],
       }));
     });
@@ -207,6 +208,7 @@ describe('MyDSpaceConfigurationService', () => {
         b: [
           MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow,
+          MyDSpaceConfigurationValueType.OtherWorkspace,
         ],
       }));
     });
@@ -222,6 +224,7 @@ describe('MyDSpaceConfigurationService', () => {
         b: [
           MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow,
+          MyDSpaceConfigurationValueType.OtherWorkspace,
         ],
       }));
     });
@@ -238,6 +241,7 @@ describe('MyDSpaceConfigurationService', () => {
           MyDSpaceConfigurationValueType.Workspace,
           MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow,
+          MyDSpaceConfigurationValueType.OtherWorkspace,
         ],
       }));
     });

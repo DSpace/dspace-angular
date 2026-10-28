@@ -9,10 +9,12 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
+import { BUNDLE } from '../shared/bundle.resource-type';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -23,7 +25,10 @@ import {
   PatchDataImpl,
 } from './base/patch-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions } from './find-list-options.model';
+import {
+  FindListOptions,
+  MAX_PAGE_SIZE,
+} from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
@@ -34,6 +39,7 @@ import { RequestEntryState } from './request-entry-state.model';
  * A service to retrieve {@link Bundle}s from the REST API
  */
 @Injectable({ providedIn: 'root' })
+@dataService(BUNDLE)
 export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
   private bitstreamsEndpoint = 'bitstreams';
 
@@ -84,7 +90,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
   findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
     //Since we filter by bundleName where the pagination options are not indicated we need to load all the possible bundles.
     // This is a workaround, in substitution of the previously recursive call with expand
-    const paginationOptions = options ?? { elementsPerPage: 9999 };
+    const paginationOptions = options ?? { elementsPerPage: MAX_PAGE_SIZE };
     return this.findAllByItem(item, paginationOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {

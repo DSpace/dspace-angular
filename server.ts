@@ -27,7 +27,6 @@ import { LRUCache } from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
-import { json } from 'body-parser';
 import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
@@ -45,8 +44,10 @@ import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
+  toClientConfig,
 } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
 import { CommonEngine } from '@angular/ssr/node';
@@ -68,7 +69,11 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+const configJson = join(DIST_FOLDER, 'assets/config.json');
+const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
+const appConfig: AppConfig = buildAppConfig(configJson, hashedFileMapping);
+appConfig.themes.forEach(themeConfig => hashedFileMapping.addThemeStyle(themeConfig.name, themeConfig.prefetch));
+hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRUCache<string, any>;
@@ -81,6 +86,19 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
+
+// Compile SSR exclude patterns only once at startup, as they do not change at runtime
+// Please note, that regex flags (like "i") are no longer supported.
+const SSR_EXCLUDE_PATTERNS: RegExp[] = environment.ssr.excludePathPatterns.map((p: SsrExcludePatterns) => new RegExp(p.pattern));
+
+// Create CommonEngine only once at startup instead of per request.
+// Its config is derived from environment.*, which is already final at this point and never changes at runtime.
+// "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
+// By default, this is set to the host of the UI's baseUrl.
+const commonEngine = new CommonEngine({
+  enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
+  allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+});
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -128,7 +146,7 @@ export function app() {
    * Add JSON parser for request bodies
    * See [body-parser](https://github.com/expressjs/body-parser)
    */
-  server.use(json());
+  server.use(express.json());
 
   server.engine('ejs', ejs.renderFile);
 
@@ -144,7 +162,7 @@ export function app() {
   server.get('/robots.txt', (req, res) => {
     res.setHeader('content-type', 'text/plain');
     res.render('assets/robots.txt.ejs', {
-      'origin': req.protocol + '://' + req.headers.host,
+      'origin': environment.ui.baseUrl,
     });
   });
 
@@ -176,10 +194,14 @@ export function app() {
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
    */
   if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-    const RateLimit = require('express-rate-limit');
-    const limiter = new RateLimit({
+    const { rateLimit } = require('express-rate-limit')
+    const limiter = rateLimit({
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-      max: (environment.ui as UIServerConfig).rateLimiter.max,
+      limit: (environment.ui as UIServerConfig).rateLimiter.limit,
+      standardHeaders: true,
+      legacyHeaders: false,
+      // don't log ERR_ERL_PERMISSIVE_TRUST_PROXY if we are trusting proxies
+      validate: {trustProxy: !environment.ui.useProxies},
     });
     server.use(limiter);
   }
@@ -219,7 +241,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -240,7 +262,6 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
@@ -261,7 +282,7 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         },
         {
           provide: APP_CONFIG,
-          useValue: environment,
+          useValue: toClientConfig(environment as AppConfig),
         },
       ],
     })
@@ -324,7 +345,7 @@ function clientSideRender(req, res) {
     html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
   }
 
-  res.send(html);
+  res.set('Cache-Control', 'no-cache, no-store').send(html);
 }
 
 
@@ -335,7 +356,11 @@ function clientSideRender(req, res) {
  */
 function addCacheControl(req, res, next) {
   // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  if (environment.cache.noCacheFiles.includes(req.originalUrl)) {
+    res.header('Cache-Control', 'no-cache, no-store');
+  } else {
+    res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  }
   next();
 }
 
@@ -489,8 +514,8 @@ function saveToCache(req, page: any) {
     const key = getCacheKey(req);
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
     if (key.startsWith('/reload')) { return; }
-    // Avoid caching not successful responses (status code different from 2XX status)
-    if (hasNotSucceeded(req.res.statusCode)) { return; }
+    // Only cache a fully rendered 200 response.
+    if (req.res.statusCode !== 200) { return; }
 
     // Retrieve response headers to save, if any
     const headers = retrieveHeaders(req.res);
@@ -507,15 +532,6 @@ function saveToCache(req, page: any) {
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
-}
-
-/**
- * Check if status code is different from 2XX
- * @param statusCode
- */
-function hasNotSucceeded(statusCode) {
-  const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {
@@ -646,15 +662,9 @@ function start() {
  * Check if SSR should be skipped for path
  *
  * @param path
- * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
-  const patterns = excludePathPattern.map(p =>
-    new RegExp(p.pattern, p.flag || '')
-  );
-  return patterns.some((regex) => {
-    return regex.test(path)
-  });
+function isExcludedFromSsr(path: string): boolean {
+  return SSR_EXCLUDE_PATTERNS.some((regex) => regex.test(path));
 }
 
 /*
@@ -664,10 +674,12 @@ function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
   fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response);
+      return response.json().then((data) => {
+        res.status(response.status).send(data);
+      });
     })
     .catch((error) => {
-      res.status(error.response.status).send({
+      res.status(error?.response?.status || 503).send({
         error: error.message,
       });
     });

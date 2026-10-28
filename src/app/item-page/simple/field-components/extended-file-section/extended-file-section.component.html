@@ -1,0 +1,53 @@
+<ng-container *ngVar="(bitstreamsRD$ | async) as bitstreamsRD">
+  <div class="file-section my-3 justify-content-center">
+    <div class="w-100 file-section-header mb-3">
+      <h3 [innerText]="label | translate"></h3>
+    </div>
+    <div class="file-section-table">
+      <div class="row heading mx-0">
+        <div class="col-6">
+          <h4 [innerText]="'file.section.name' | translate"></h4>
+        </div>
+        <div class="col-3">
+          <h4 [innerText]="'file.section.type' | translate"></h4>
+        </div>
+        <div class="col-2">
+          <h4 [innerText]="'file.section.size' | translate"></h4>
+        </div>
+        <div class="col-1">
+        </div>
+      </div>
+      <div class="mx-1">
+        @if (bitstreamsRD?.payload?.totalElements > 0) {
+          <ds-pagination
+            [paginationOptions]="pageConfig"
+            [collectionSize]="bitstreamsRD?.payload?.totalElements"
+            [hideGear]="true"
+            [hidePagerWhenSinglePage]="true"
+            [retainScrollPosition]="true">
+            <div class="entries">
+              @for (file of bitstreamsRD?.payload?.page; track file) {
+                <div class="row file-section-entry mx-0">
+                  <div class="col-6">
+                    <span [innerHTML]="dsoNameService.getName(file)"></span>
+                  </div>
+                  <div class="col-3">
+                    <span>{{ (bitstreamFormatDataService.findByBitstream(file) | async).payload?.shortDescription }}</span>
+                  </div>
+                   <div class="col-2">
+                    <span> {{ (file?.sizeBytes) | dsFileSize }}</span>
+                  </div>
+                  <div class="col-1 text-center">
+                    <ds-file-download-link [bitstream]="file" [item]="item">
+                      <i class="fa fa-download"></i>
+                    </ds-file-download-link>
+                  </div>
+                </div>
+              }
+            </div>
+          </ds-pagination>
+        }
+      </div>
+    </div>
+  </div>
+</ng-container>

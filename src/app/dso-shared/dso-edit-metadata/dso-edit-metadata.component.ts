@@ -13,7 +13,9 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import { DATA_SERVICE_FACTORY } from '@dspace/core/cache/builders/build-decorators';
 import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
+import { HALDataService } from '@dspace/core/data/base/hal-data-service.interface';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { UpdateDataService } from '@dspace/core/data/update-data.service';
 import {
@@ -24,8 +26,12 @@ import { lazyDataService } from '@dspace/core/lazy-data-service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { ResourceType } from '@dspace/core/shared/resource-type';
+import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import {
   hasNoValue,
   hasValue,
@@ -37,14 +43,16 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
   of,
   Subscription,
 } from 'rxjs';
 import {
+  catchError,
   map,
-  mergeMap,
+  switchMap,
   tap,
 } from 'rxjs/operators';
 
@@ -53,7 +61,10 @@ import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
-import { DsoEditMetadataForm } from './dso-edit-metadata-form';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataForm,
+} from './dso-edit-metadata-form';
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
@@ -153,6 +164,28 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    */
   dsoUpdateSubscription: Subscription;
 
+  /**
+   * Field to keep track of the current security level
+   * in case a new mdField is added and the security level needs to be set
+   */
+  newMdFieldWithSecurityLevelValue: number;
+
+  /**
+   * Flag to indicate if the metadata security configuration is present
+   * for the newly added metadata field
+   */
+  hasSecurityMetadata = false;
+
+  /**
+   * Contains metadata security configuration object
+   */
+  isFormInitialized$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
+   * Contains metadata security configuration object
+   */
+  securitySettings$: BehaviorSubject<MetadataSecurityConfiguration> = new BehaviorSubject(null);
+
   public readonly Context = Context;
 
   constructor(protected route: ActivatedRoute,
@@ -161,7 +194,9 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
               protected parentInjector: Injector,
               protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>,
               protected cdr: ChangeDetectorRef,
-              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap) {
+              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
+              protected metadataSecurityConfigurationService: MetadataSecurityConfigurationService,
+              @Inject(DATA_SERVICE_FACTORY) protected getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<HALDataService<any>>) {
   }
 
   /**
@@ -172,22 +207,46 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     if (hasNoValue(this.dso)) {
       this.dsoUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
-        tap((data: any)  => this.initDSO(data.dso.payload)),
-        mergeMap(() => this.retrieveDataService()),
-      ).subscribe((dataService: UpdateDataService<DSpaceObject>) => {
+        tap((data: any) => this.initDSO(data.dso.payload)),
+        switchMap(() => combineLatest([this.retrieveDataService(),this.getSecuritySettings()])),
+      ).subscribe(([dataService, securitySettings]: [UpdateDataService<DSpaceObject>, MetadataSecurityConfiguration]) => {
+        this.securitySettings$.next(securitySettings);
         this.initDataService(dataService);
         this.initForm();
+        this.isFormInitialized$.next(true);
       });
     } else {
       this.initDSOType(this.dso);
-      this.retrieveDataService().subscribe((dataService: UpdateDataService<DSpaceObject>) => {
-        this.initDataService(dataService);
-        this.initForm();
-      });
+      observableCombineLatest([this.retrieveDataService(), this.getSecuritySettings()])
+        .subscribe(([dataService, securitySettings]: [UpdateDataService<DSpaceObject>, MetadataSecurityConfiguration]) => {
+          this.securitySettings$.next(securitySettings);
+          this.initDataService(dataService);
+          this.initForm();
+          this.isFormInitialized$.next(true);
+        });
     }
     this.savingOrLoadingFieldValidation$ = observableCombineLatest([this.saving$, this.loadingFieldValidation$]).pipe(
       map(([saving, loading]: [boolean, boolean]) => saving || loading),
     );
+  }
+
+  /**
+   * Get the security settings for the current DSpaceObject,
+   * based on entityType (e.g. Person)
+   */
+  getSecuritySettings(): Observable<MetadataSecurityConfiguration> {
+    if (this.dso instanceof Item) {
+      const entityType: string = (this.dso as Item).entityType;
+      return this.metadataSecurityConfigurationService.findById(entityType).pipe(
+        getFirstCompletedRemoteData(),
+        map((securitySettingsRD: RemoteData<MetadataSecurityConfiguration>) => {
+          return securitySettingsRD.hasSucceeded ? securitySettingsRD.payload : null;
+        }),
+        catchError(() => of(null)),
+      );
+    } else {
+      return of(null);
+    }
   }
 
   /**
@@ -297,6 +356,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       this.loadingFieldValidation$.next(false);
       if (valid) {
         this.form.setMetadataField(this.newMdField);
+        this.setSecurityLevelForNewMdField();
         this.onValueSaved();
       }
     });
@@ -324,6 +384,74 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   reinstate(): void {
     this.form.reinstate();
     this.onValueSaved();
+  }
+
+  /**
+   * Keep track of the metadata field that is currently being edited / added
+   * Reset the security level properties for the new metadata field
+   * @param value The value of the new metadata field
+   */
+  onMdFieldChange(value: string){
+    if (hasValue(value)) {
+      this.newMdFieldWithSecurityLevelValue = null;
+      this.hasSecurityMetadata = false;
+    }
+  }
+
+  /**
+   * Update the security level for the field at the given index
+   */
+  onUpdateSecurityLevel(securityLevel: number) {
+    this.setSecurityLevelForNewMdField(securityLevel);
+  }
+
+  /**
+   * Set the security level for the new metadata field
+   * If the new metadata field has no security level yet, store the security level in a temporary variable
+   * until the metadata field is validated and set.
+   * @param securityLevel The security level to set for the new metadata field
+   */
+  setSecurityLevelForNewMdField(securityLevel?: number) {
+    // if the metadata field already exists among the metadata fields,
+    //  set the security level for the new metadata field in the right position
+    if (hasValue(this.newMdField) && hasValue(this.form.fields[this.newMdField]) && this.hasSecurityMetadata) {
+      const lastIndex = this.form.fields[this.newMdField].length - 1;
+      const obj = this.form.fields[this.newMdField][lastIndex];
+
+      if (hasValue(securityLevel)) {
+        // metadata field is not set yet, so store the security level for the new metadata field
+        this.newMdFieldWithSecurityLevelValue = securityLevel;
+      } else {
+        // metadata field is set, so set the security level for the new metadata field
+        obj.change = DsoEditMetadataChangeType.ADD;
+        const customSecurity = this.securitySettings$.value.metadataCustomSecurity[this.newMdField];
+        const lastCustomSecurityLevel = customSecurity[customSecurity.length - 1];
+
+        obj.newValue.securityLevel = this.newMdFieldWithSecurityLevelValue ?? lastCustomSecurityLevel;
+      }
+    }
+
+    // if the security level value is changed before the metadata field is set,
+    // store the security level in a temporary variable
+    if (hasValue(securityLevel) && hasNoValue(this.form.fields[this.newMdField])) {
+      this.newMdFieldWithSecurityLevelValue = securityLevel;
+    }
+
+    if (!this.hasSecurityMetadata) {
+      // for newly added metadata fields, set the security level to the default security level
+      // (in case there is no custom security level for the metadata field)
+      const defaultSecurity = this.securitySettings$.value.metadataSecurityDefault;
+      const lastDefaultSecurityLevel = defaultSecurity[defaultSecurity.length - 1];
+
+      this.form.fields[this.newMdField][this.form.fields[this.newMdField].length - 1].newValue.securityLevel = lastDefaultSecurityLevel;
+    }
+  }
+
+  /**
+   * Check if the new metadata field has a security level
+   */
+  hasSecurityLevel(event: boolean) {
+    this.hasSecurityMetadata = event;
   }
 
   /**

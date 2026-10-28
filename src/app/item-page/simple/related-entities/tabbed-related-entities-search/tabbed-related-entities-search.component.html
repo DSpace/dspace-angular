@@ -1,6 +1,6 @@
 @if (relationTypes.length > 1) {
   <ul ngbNav #tabs="ngbNav" [destroyOnHide]="true" [activeId]="activeTab$ | async" (navChange)="onTabChange($event)" class="nav-tabs" role="tablist">
-    @for (relationType of relationTypes; track relationType) {
+    @for (relationType of relationTypes; track relationType.configuration) {
       <li [ngbNavItem]="relationType.filter" role="presentation">
         <a ngbNavLink role="tab">
           {{'item.page.relationships.' + relationType.label | translate}}

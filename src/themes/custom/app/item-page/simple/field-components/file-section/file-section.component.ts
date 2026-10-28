@@ -10,6 +10,7 @@ import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/m
 import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
 
+
 @Component({
   selector: 'ds-themed-item-page-file-section',
   // templateUrl: './file-section.component.html',

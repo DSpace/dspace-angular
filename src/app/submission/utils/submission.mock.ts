@@ -1,10 +1,13 @@
-import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SubmissionVisibilityValue } from '@dspace/core/submission/models/section-visibility.model';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { METADATA_SECURITY_TYPE } from 'src/app/core/submission/models/metadata-security-config.resource-type';
 
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { Group } from '../../core/eperson/models/group.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { SubmissionObjectState } from '../objects/submission-objects.reducer';
 
 export const mockSectionsData = {
@@ -324,6 +327,18 @@ export const mockSubmissionRestResponse = [
   },
 ];
 
+export const mockSecurityConfig: MetadataSecurityConfiguration = {
+  'uuid' : 'Person',
+  'metadataSecurityDefault' : [ 0, 1, 2 ],
+  'metadataCustomSecurity' : { 'person.birthDate': [ 0, 1 ] },
+  'type' : METADATA_SECURITY_TYPE,
+  '_links' : {
+    'self' : {
+      'href' : 'http://localhost:8080/server/api/core/securitysettings/Person',
+    },
+  },
+};
+
 export const mockSubmissionObject = {
   collection: {
     handle: '10673/2',
@@ -403,6 +418,11 @@ export const mockSubmissionObject = {
         key: 'dc.title',
         language: null,
         value: 'Collection of Sample Items',
+      },
+      {
+        key: 'dspace.entity.type',
+        language: null,
+        value: 'Entity type of Sample Collection',
       },
     ],
     _links: {
@@ -576,6 +596,7 @@ export const mockSubmissionObject = {
       ],
     },
   ],
+  metadataSecurityConfiguration: mockSecurityConfig,
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
@@ -844,8 +865,8 @@ export const mockSubmissionDefinitionResponse = {
       mandatory: true,
       sectionType: 'utils',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN',
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
@@ -857,8 +878,7 @@ export const mockSubmissionDefinitionResponse = {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN',
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
@@ -927,8 +947,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       mandatory: true,
       sectionType: 'utils',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN',
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
@@ -940,8 +960,170 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN',
+        workflow: SubmissionVisibilityValue.Hidden,
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+        config: '',
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.stepone',
+      mandatory: true,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.steptwo',
+      mandatory: false,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
+      },
+    },
+    {
+      header: 'submit.progressbar.upload',
+      mandatory: true,
+      sectionType: 'upload',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
+      },
+    },
+    {
+      header: 'submit.progressbar.license',
+      mandatory: true,
+      sectionType: 'license',
+      visibility: {
+        main: null,
+        other: 'READONLY',
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+        config: '',
+      },
+    },
+  ]),
+  name: 'traditional',
+  type: 'submissiondefinition',
+  _links: {
+    collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+    sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
+  },
+} as any;
+
+export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitionsModel = {
+  isDefault: true,
+  sections: buildPaginatedList(new PageInfo(), [
+    {
+      mandatory: true,
+      sectionType: 'utils',
+      visibility: {
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden,
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+        config: '',
+      },
+    },
+    {
+      mandatory: true,
+      sectionType: 'collection',
+      visibility: {
+        submission: SubmissionVisibilityValue.ReadOnly,
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+        config: '',
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.stepone',
+      mandatory: true,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.steptwo',
+      mandatory: false,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
+      },
+    },
+    {
+      header: 'submit.progressbar.upload',
+      mandatory: true,
+      sectionType: 'upload',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
+      },
+    },
+    {
+      header: 'submit.progressbar.license',
+      mandatory: true,
+      sectionType: 'license',
+      visibility: {
+        main: null,
+        other: 'READONLY',
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+        config: '',
+      },
+    },
+  ]),
+  name: 'traditional',
+  type: 'submissiondefinition',
+  _links: {
+    collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+    sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
+  },
+} as any;
+export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitionsModel = {
+  isDefault: true,
+  sections: buildPaginatedList(new PageInfo(), [
+    {
+      mandatory: true,
+      sectionType: 'utils',
+      visibility: {
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden,
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+        config: '',
+      },
+    },
+    {
+      mandatory: true,
+      sectionType: 'collection',
+      visibility: {
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
@@ -1121,6 +1303,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
       } as any,
     },
     isLoading: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false,
   },
@@ -1147,6 +1330,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
+        removePending: false,
       } as any,
       collection: {
         config: '',
@@ -1162,6 +1346,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
+        removePending: false,
       } as any,
       traditionalpageone: {
         header: 'submit.progressbar.describe.stepone',
@@ -1175,6 +1360,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         formId: '2_traditionalpageone',
         isLoading: false,
         isValid: false,
+        removePending: false,
       } as any,
       traditionalpagetwo: {
         header: 'submit.progressbar.describe.steptwo',
@@ -1187,6 +1373,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
+        removePending: false,
       } as any,
       upload: {
         header: 'submit.progressbar.upload',
@@ -1201,6 +1388,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
+        removePending: false,
       } as any,
       license: {
         header: 'submit.progressbar.license',
@@ -1217,9 +1405,11 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
+        removePending: false,
       } as any,
     },
     isLoading: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false,
   },
@@ -1305,6 +1495,7 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
       } as any,
     },
     isLoading: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false,
   },
@@ -1340,6 +1531,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
+    removePending: false,
   } as any,
   traditionalpageone: {
     header: 'submit.progressbar.describe.stepone',
@@ -1352,6 +1544,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
+    removePending: false,
   } as any,
   traditionalpagetwo: {
     header: 'submit.progressbar.describe.steptwo',
@@ -1364,6 +1557,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
+    removePending: false,
   } as any,
   upload: {
     header: 'submit.progressbar.upload',
@@ -1376,6 +1570,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
+    removePending: false,
   } as any,
   license: {
     header: 'submit.progressbar.license',
@@ -1392,6 +1587,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
+    removePending: false,
   } as any,
 });
 
@@ -1815,4 +2011,3 @@ export const mockAccessesFormData = {
     },
   ],
 };
-

@@ -16,6 +16,7 @@ import {
 } from '@angular/platform-browser';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -62,6 +63,11 @@ export class MiradorViewerComponent implements OnInit {
   isViewerAvailable = true;
 
   /**
+   * Check if IIIF is enabled in the repository.
+   */
+  isIiifEnabled$: Observable<boolean>;
+
+  /**
    * The url for the iframe.
    */
   iframeViewerUrl: Observable<SafeResourceUrl>;
@@ -83,6 +89,7 @@ export class MiradorViewerComponent implements OnInit {
               private bitstreamDataService: BitstreamDataService,
               private bundleDataService: BundleDataService,
               private hostWindowService: HostWindowService,
+              private configurationDataService: ConfigurationDataService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -163,5 +170,7 @@ export class MiradorViewerComponent implements OnInit {
         );
       }
     }
+    // Set the property whether IIIF is enabled in the repository
+    this.isIiifEnabled$ =  this.viewerService.isIiifEnabled(this.configurationDataService);
   }
 }

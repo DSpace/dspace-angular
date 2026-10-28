@@ -60,9 +60,9 @@ describe('ObjectAuditLogsComponent', () => {
       { findOwningCollectionFor: createSuccessfulRemoteDataObject$(createPaginatedList([{ id : 'collectionId' }])) },
     );
     activatedRoute = new MockActivatedRoute({ objectId: mockItemId });
-    activatedRoute.paramMap = of({
-      get: () => mockItemId,
-    });
+    activatedRoute.data = of({ dso: {
+      payload: mockItem,
+    } });
     locationStub = jasmine.createSpyObj('location', {
       back: jasmine.createSpy('back'),
     });

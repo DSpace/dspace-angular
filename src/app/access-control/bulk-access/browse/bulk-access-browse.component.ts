@@ -17,7 +17,11 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbAccordionModule,
-  NgbNavModule,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -55,7 +59,11 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     BrowserOnlyPipe,
     ListableObjectComponentLoaderComponent,
     NgbAccordionModule,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     NgxPaginationModule,
     PaginationComponent,
     SelectableListItemControlComponent,

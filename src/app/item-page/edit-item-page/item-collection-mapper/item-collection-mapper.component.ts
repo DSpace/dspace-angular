@@ -33,7 +33,13 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -74,7 +80,11 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     AsyncPipe,
     BrowserOnlyPipe,
     CollectionSelectComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     ThemedSearchFormComponent,
     TranslateModule,
   ],
@@ -277,14 +287,28 @@ export class ItemCollectionMapperComponent implements OnInit {
         this.shouldUpdate$.next(true);
       }
       if (unsuccessful.length > 0) {
-        const unsuccessMessages = observableCombineLatest([
-          this.translateService.get(`${messagePrefix}.error.head`),
-          this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length }),
-        ]);
+        const forbidden = unsuccessful.filter((response: RemoteData<NoContent>) => response.statusCode === 403);
+        const otherErrors = unsuccessful.filter((response: RemoteData<NoContent>) => response.statusCode !== 403);
 
-        unsuccessMessages.subscribe(([head, content]) => {
-          this.notificationsService.error(head, content);
-        });
+        if (forbidden.length > 0) {
+          const forbiddenMessages = observableCombineLatest([
+            this.translateService.get(`${messagePrefix}.error.forbidden.head`),
+            this.translateService.get(`${messagePrefix}.error.forbidden.content`),
+          ]);
+          forbiddenMessages.subscribe(([head, content]) => {
+            this.notificationsService.error(head, content);
+          });
+        }
+
+        if (otherErrors.length > 0) {
+          const unsuccessMessages = observableCombineLatest([
+            this.translateService.get(`${messagePrefix}.error.head`),
+            this.translateService.get(`${messagePrefix}.error.content`, { amount: otherErrors.length }),
+          ]);
+          unsuccessMessages.subscribe(([head, content]) => {
+            this.notificationsService.error(head, content);
+          });
+        }
       }
       this.switchToFirstTab();
     });

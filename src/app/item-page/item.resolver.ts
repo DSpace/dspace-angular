@@ -23,7 +23,7 @@ export const itemResolver: ResolveFn<RemoteData<Item>> = (
   itemService: ItemDataService = inject(ItemDataService),
   store: Store<AppState> = inject(Store<AppState>),
 ): Observable<RemoteData<Item>> => {
-  const itemRD$ = itemService.findById(
+  const itemRD$ = itemService.findByIdOrCustomUrl(
     route.params.id,
     true,
     false,

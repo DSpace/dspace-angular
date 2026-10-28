@@ -20,6 +20,12 @@ export class PaginationComponentOptions extends NgbPaginationConfig {
   maxSize = 10;
 
   /**
+   * Whether to rotate pages towards the current page.
+   * Ensures the active page is always visible in the pagination control.
+   */
+  rotate = true;
+
+  /**
    * A number array that represents options for a context pagination limit.
    */
   pageSizeOptions: number[] = [1, 5, 10, 20, 40, 60, 80, 100];

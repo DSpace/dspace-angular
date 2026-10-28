@@ -27,6 +27,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -36,7 +37,10 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
@@ -100,11 +104,15 @@ export class FileDownloadLinkComponent implements OnInit {
   canDownloadWithToken$: Observable<boolean>;
   canRequestACopy$: Observable<boolean>;
 
+  modalTitle: string;
+  modalContent: string;
+
   constructor(
     private authorizationService: AuthorizationDataService,
     public dsoNameService: DSONameService,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -112,13 +120,23 @@ export class FileDownloadLinkComponent implements OnInit {
     if (this.enableRequestACopy) {
       // Obtain item request data from the route snapshot
       this.itemRequest = this.route.snapshot.data.itemRequest;
-      // Set up observables to test access rights to a normal bitstream download, a valid token download, and the request-a-copy feature
+      // Set up observable to evaluate access rights for a normal download
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
-      this.canDownloadWithToken$ = of((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
-      this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
-      // Set up observable to determine the path to the bitstream based on the user's access rights and features as above
-      this.bitstreamPath$ = observableCombineLatest([this.canDownload$, this.canDownloadWithToken$, this.canRequestACopy$]).pipe(
-        map(([canDownload, canDownloadWithToken, canRequestACopy]) => this.getBitstreamPath(canDownload, canDownloadWithToken, canRequestACopy)),
+      // Only set up and execute other observables if canDownload emits false
+      this.bitstreamPath$ = this.canDownload$.pipe(
+        switchMap(canDownload => {
+          if (canDownload) {
+            return of(this.getBitstreamDownloadPath());
+          }
+          // Set up and combine observables to evaluate access rights to a valid token download and the request-a-copy feature
+          this.canDownloadWithToken$ = of((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
+          this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
+          // Set up canDownload observable so the template can read the state
+          this.canDownload$ = of(false);
+          return observableCombineLatest([this.canDownloadWithToken$, this.canRequestACopy$]).pipe(
+            map(([canDownloadWithToken, canRequestACopy]) => this.getBitstreamPathForRequestACopy(canDownloadWithToken, canRequestACopy)),
+          );
+        }),
       );
     } else {
       this.bitstreamPath$ = of(this.getBitstreamDownloadPath());
@@ -130,21 +148,16 @@ export class FileDownloadLinkComponent implements OnInit {
    * Return a path to the bitstream based on what kind of access and authorization the user has, and whether
    * they may request a copy
    *
-   * @param canDownload user can download normally
    * @param canDownloadWithToken user can download using a token granted by a request approver
    * @param canRequestACopy user can request approval to access a copy
    */
-  getBitstreamPath(canDownload: boolean, canDownloadWithToken, canRequestACopy: boolean) {
-    // No matter what, if the user can download with their own authZ, allow it
-    if (canDownload) {
-      return this.getBitstreamDownloadPath();
-    }
-    // Otherwise, if they access token is valid, use this
+  getBitstreamPathForRequestACopy(canDownloadWithToken: boolean, canRequestACopy: boolean) {
+    //  if the access token is valid, use this
     if (canDownloadWithToken) {
       return this.getAccessByTokenBitstreamPath(this.itemRequest);
     }
     // If the user can't download, but can request a copy, show the request a copy link
-    if (!canDownload && canRequestACopy && hasValue(this.item)) {
+    if (canRequestACopy && hasValue(this.item)) {
       return getBitstreamRequestACopyRoute(this.item, this.bitstream);
     }
     // By default, return the plain path
@@ -172,5 +185,57 @@ export class FileDownloadLinkComponent implements OnInit {
   getDownloadLinkTitle(canDownload: boolean,canDownloadWithToken: boolean, bitstreamName: string): string {
     return (canDownload || canDownloadWithToken ? this.translateService.instant('file-download-link.download') :
       this.translateService.instant('file-download-link.request-copy')) + bitstreamName;
+  }
+
+  /**
+   * Audio transcript metadata value (`dspace.bitstream.transcript`), if present.
+   */
+  get audioTranscript(): string {
+    return this.bitstream?.firstMetadataValue('dspace.bitstream.transcript');
+  }
+
+  /**
+   * Video description metadata value (`dspace.bitstream.textalternative`), if present.
+   */
+  get videoDescription(): string {
+    return this.bitstream?.firstMetadataValue('dspace.bitstream.textalternative');
+  }
+
+  /**
+   * Media type metadata value (`dc.type`), if present.
+   */
+  get mediaType(): string {
+    return this.bitstream?.firstMetadataValue('dc.type');
+  }
+
+  /**
+   * Indicates whether media type metadata contains "video" (case-insensitive).
+   */
+  get isVideoMediaType(): boolean {
+    return this.mediaType?.toLowerCase().includes('video');
+  }
+
+  /**
+   * Indicates whether media type metadata contains "audio" (case-insensitive).
+   */
+  get isAudioMediaType(): boolean {
+    return this.mediaType?.toLowerCase().includes('audio');
+  }
+
+  /**
+   * Opens a large, scrollable modal showing text metadata.
+   *
+   * @param template Modal template reference.
+   * @param titleKey Translation key for modal title.
+   * @param content Plain text content to render in the modal body.
+   */
+  openTextModal(template, titleKey: string, content: string) {
+    this.modalTitle = this.translateService.instant(titleKey);
+    this.modalContent = content;
+    this.modalService.open(template, {
+      ariaLabelledBy: 'file-download-link-text-modal-title',
+      size: 'lg',
+      scrollable: true,
+    });
   }
 }

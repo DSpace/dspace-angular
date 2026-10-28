@@ -40,7 +40,7 @@ import {
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -85,7 +85,7 @@ import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
     AsyncPipe,
     BtnDisabledDirective,
     EPersonDataComponent,
-    NgbTooltipModule,
+    NgbTooltip,
     PaginationComponent,
     RouterLink,
     ThemedLoadingComponent,

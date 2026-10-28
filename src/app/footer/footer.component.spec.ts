@@ -10,8 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { SiteDataService } from '@dspace/core/data/site-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -20,29 +25,65 @@ import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
+let localeService: any;
+let mockSiteDataService: any;
+
+const TEST_MODEL = new ResourceType('testmodel');
+const languageList = ['en;q=1', 'de;q=0.8'];
+const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+  getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+  getLanguageCodeList: of(languageList),
+});
+const mockSite = {
+  firstMetadataValue: (key: string, options: any) => 'Sample Footer CMS Content',
+};
+const initialState = {
+  core: {
+    auth: {
+      authenticated: false,
+      loaded: false,
+      blocking: undefined,
+      loading: false,
+      authMethods: [],
+    },
+  },
+};
 
 let notifyInfoService = {
   isCoarConfigEnabled: () => of(true),
 };
 
+const mockDataServiceMap: any = new Map([
+  [TEST_MODEL.value, () => import('../core/testing/test-data-service.mock').then(m => m.TestDataService)],
+]);
+
 describe('Footer component', () => {
   beforeEach(waitForAsync(() => {
+    mockSiteDataService = jasmine.createSpyObj('SiteDataService', ['find']);
+    mockSiteDataService.find.and.returnValue(of(mockSite));
+
     return TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
       ],
       providers: [
         FooterComponent,
+        provideMockStore({ initialState }),
+        { provide: LocaleService, useValue: mockLocaleService },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: SiteDataService, useValue: mockSiteDataService },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
       ],
     });
   }));
 
   // synchronous beforeEach
   beforeEach(() => {
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(FooterComponent);
     comp = fixture.componentInstance;
   });

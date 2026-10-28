@@ -34,7 +34,7 @@
               <th id="{{ bundleName }}" class="row-element" colspan="3" scope="colgroup">
                 {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
               </th>
-              <td class="text-center row-element">
+              <td class="text-center row-element {{ columnSizes.columns[3].buildClasses() }}">
                 <div class="btn-group">
                   <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                     [queryParams]="{bundle: bundle.id}"
@@ -81,8 +81,7 @@
                     scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
                     <div class="drag-handle text-muted float-start p-1 me-2 d-inline" tabindex="0" cdkDragHandle
                       (keydown.enter)="select($event, entry)" (keydown.space)="select($event, entry)" (click)="select($event, entry)">
-                      <i class="fas fa-grip-vertical fa-fw"
-                      [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
+                      <i class="drag-icon" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
                     </div>
                     <span class="dont-break-out">{{ entry.name }}</span>
                   </th>
@@ -98,7 +97,7 @@
                     headers="{{ entry.nameStripped }} {{ bundleName }} actions">
                     <div class="text-center w-100">
                       <div class="btn-group relationship-action-buttons">
-                        <a [href]="entry.downloadUrl"
+                        <a [routerLink]="entry.downloadUrl"
                           [attr.aria-label]="'item.edit.bitstreams.edit.buttons.download' | translate"
                           class="btn btn-outline-primary btn-sm"
                           title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
@@ -110,6 +109,12 @@
                           title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
                           <i class="fas fa-edit fa-fw"></i>
                         </button>
+                        @if ((canReplaceBitstream(entry.bitstream.self) | async)) {
+                          <button [routerLink]="['/bitstreams/', entry.id, 'replace']" class="btn btn-outline-primary btn-sm"
+                                  title="{{'item.edit.bitstreams.edit.buttons.replace' | translate}}">
+                            <i class="fas fa-retweet fa-fw"></i>
+                          </button>
+                        }
                         <button [dsBtnDisabled]="!canRemove(update)" (click)="remove(entry.bitstream)"
                           [attr.aria-label]=" 'item. edit bitstreams.edit.buttons.remove' | translate"
                           class="btn btn-outline-danger btn-sm"

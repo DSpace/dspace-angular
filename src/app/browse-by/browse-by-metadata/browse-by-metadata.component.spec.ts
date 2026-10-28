@@ -117,14 +117,15 @@ describe('BrowseByMetadataComponent', () => {
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems),
+    getConfiguredSortDirection: () => of(SortDirection.ASC),
   };
 
   const mockDsoService = {
     findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: of({}),
+  const activatedRouteStub = Object.assign(new ActivatedRouteStub({ id: 'author' }), {
+    params: of({ id: 'author' }),
   });
 
   paginationService = new PaginationServiceStub();

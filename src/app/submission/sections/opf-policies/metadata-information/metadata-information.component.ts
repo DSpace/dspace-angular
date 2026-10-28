@@ -1,0 +1,27 @@
+import { DatePipe } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Metadata } from '@dspace/core/submission/models/opf-policies-details.model';
+import { TranslateModule } from '@ngx-translate/core';
+
+/**
+ * This component represents a section that contains the metadata information.
+ */
+@Component({
+  selector: 'ds-metadata-information',
+  templateUrl: './metadata-information.component.html',
+  styleUrls: ['./metadata-information.component.scss'],
+  imports: [
+    DatePipe,
+    TranslateModule,
+  ],
+})
+export class MetadataInformationComponent {
+  /**
+   * Metadata to show information from
+   */
+  @Input() metadata: Metadata;
+
+}
