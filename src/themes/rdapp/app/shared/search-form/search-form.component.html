@@ -47,6 +47,23 @@
           {{ "search.form.search-type.semantic" | translate: { default: 'Pesquisa com IA' } }}
         </button>
       }
+
+      <!-- BOTÃO 2: Pesquisa com IA (Híbrida)-->
+      @if (hybridSearchEnabled) {
+        <button
+          type="button"
+          class="search-button btn btn-{{ brandColor }}"
+          [attr.data-test]="'search-button-hybrid' | dsBrowserOnly"
+          (click)="onSubmit({ query: query, searchType: 'semantic' })"
+          [ngbTooltip]="'search.form.search-type.hybrid.hint' | translate"
+          container="body"
+          triggers="hover focus"
+          role="button"
+          tabindex="0"
+        >
+          {{ "search.form.search-type.semantic" | translate: { default: 'Pesquisa com IA' } }}
+        </button>
+      }
     </div>
   </div>
 </form>
