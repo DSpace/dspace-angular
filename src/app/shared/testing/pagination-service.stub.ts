@@ -25,5 +25,15 @@ export class PaginationServiceStub {
   clearPagination = jasmine.createSpy('clearPagination');
   getRouteParameterValue = jasmine.createSpy('getRouteParameterValue').and.returnValue(observableOf(''));
   getPageParam = jasmine.createSpy('getPageParam').and.returnValue(`${this.pagination.id}.page`);
+  handlePaginationFallback = jasmine.createSpy('handlePaginationFallback').and.callFake(
+    (paginationId: string, currentPage: number, totalPages: number) => {
+      if (totalPages === 0 && currentPage !== 1) {
+        return 1;
+      } else if (totalPages > 0 && currentPage > totalPages) {
+        return totalPages;
+      }
+      return currentPage;
+    },
+  );
 
 }
