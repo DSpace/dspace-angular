@@ -17,9 +17,9 @@
                 }
               </div>
             }
-            <ng-container
-              *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;">
-            </ng-container>
+            @if (sectionMap().get(subSection.id); as subSectionDTO) {
+              <ng-container *ngComponentOutlet="subSectionDTO.component; injector: subSectionDTO.injector;"></ng-container>
+            }
           </li>
         }
       </ul>

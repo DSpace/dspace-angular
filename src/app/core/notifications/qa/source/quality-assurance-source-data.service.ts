@@ -18,13 +18,16 @@ import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../../../cache/builders/build-decorators';
 import { NotificationsService } from '../../../notification-system/notifications.service';
 import { QualityAssuranceSourceObject } from '../models/quality-assurance-source.model';
+import { QUALITY_ASSURANCE_SOURCE_OBJECT } from '../models/quality-assurance-source-object.resource-type';
 
 /**
  * The service handling all Quality Assurance source REST requests.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(QUALITY_ASSURANCE_SOURCE_OBJECT)
 export class QualityAssuranceSourceDataService extends IdentifiableDataService<QualityAssuranceSourceObject> {
 
   private findAllData: FindAllData<QualityAssuranceSourceObject>;

@@ -1,4 +1,7 @@
-import { NgComponentOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
 import {
   Component,
   Injector,
@@ -6,10 +9,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import {
+  from,
+  Observable,
+} from 'rxjs';
 
-import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
-import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../methods/log-in.methods-decorator';
-import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getAuthMethodFor } from '../methods/log-in.methods-decorator';
 
 /**
  * This component represents a component container for log-in methods available.
@@ -19,6 +26,7 @@ import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils
   templateUrl: './log-in-container.component.html',
   styleUrls: ['./log-in-container.component.scss'],
   imports: [
+    AsyncPipe,
     NgComponentOutlet,
   ],
 })
@@ -38,8 +46,11 @@ export class LogInContainerComponent implements OnInit {
    */
   public objectInjector: Injector;
 
+  authMethodComponent$: Observable<GenericConstructor<Component>>;
+
   constructor(
     protected injector: Injector,
+    protected themeService: ThemeService,
   ) {
   }
 
@@ -54,13 +65,14 @@ export class LogInContainerComponent implements OnInit {
       ],
       parent: this.injector,
     });
+    this.authMethodComponent$ = this.getAuthMethodComponent();
   }
 
   /**
    * Find the correct component based on the AuthMethod's type
    */
-  getAuthMethodContent(): AuthMethodTypeComponent {
-    return rendersAuthMethodType(AUTH_METHOD_FOR_DECORATOR_MAP, this.authMethod.authMethodType);
+  getAuthMethodComponent(): Observable<GenericConstructor<Component>> {
+    return from(getAuthMethodFor(this.authMethod.authMethodType, this.themeService.getThemeName()));
   }
 
 }
