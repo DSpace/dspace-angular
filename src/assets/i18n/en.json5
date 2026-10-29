@@ -7915,4 +7915,16 @@
   "cc-license.jurisdiction.hint": "Select the legal jurisdiction for your Creative Commons license, or leave as the default international license.",
 
   "cc-license.jurisdiction.option.unported.label": "Generic (Unported)",
+
+  "cc-license.sampling.label": "Which Sampling license would you like to use?",
+  "cc-license.sampling.hint": "Choose which kind of sampling, remixing or mash-up of your work you allow.",
+
+  "cc-license.sampling.option.sampling.label": "Sampling",
+  "cc-license.sampling.option.sampling.hint": "Visitors may sample, remix or transform parts of your work for any purpose other than advertising, but may not copy or distribute the entire work.",
+
+  "cc-license.sampling.option.samplingplus.label": "Sampling Plus",
+  "cc-license.sampling.option.samplingplus.hint": "Visitors may sample, remix or transform parts of your work for any purpose other than advertising, and may also copy and distribute the entire work for non-commercial purposes.",
+
+  "cc-license.sampling.option.ncsamplingplus.label": "NonCommercial Sampling Plus",
+  "cc-license.sampling.option.ncsamplingplus.hint": "Visitors may sample, remix or transform parts of your work, and copy and distribute the entire work, but only for non-commercial purposes.",
 }

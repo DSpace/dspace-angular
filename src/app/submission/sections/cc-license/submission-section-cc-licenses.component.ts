@@ -209,14 +209,16 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       return;
     }
     this.selectedCcLicense = ccLicense;
-    this.setAccepted(false);
+    // A single update, as separate updates would each be compared against stale section data
     this.updateSectionData({
       ccLicense: {
         id: ccLicense.id,
         fields: {},
       },
       uri: undefined,
+      accepted: false,
     });
+    this.updateSectionStatus();
     this.ccLicenseLink$ = this.getCcLicenseLink$();
   }
 
@@ -340,7 +342,9 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         distinctUntilChanged(),
         map((sectionState) => sectionState.data as WorkspaceitemSectionCcLicenseObject),
       ).subscribe((data) => {
-        if (this.data.accepted !== data.accepted) {
+        // The REST API never returns the accepted state, so only changes made in this section (which always
+        // set it) should queue a patch. Otherwise a save response would queue a remove of an already removed uri.
+        if (hasValue(data.accepted) && this.data.accepted !== data.accepted) {
           const path = this.pathCombiner.getPath('uri');
           if (data.accepted) {
             this.getCcLicenseLink$().pipe(
@@ -458,6 +462,10 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         case 'jurisdiction':
           optionId = parsed.jurisdiction ?? '';
           break;
+        case 'sampling':
+          // e.g. 'nc-sampling+' -> 'ncsamplingplus'
+          optionId = parsed.unit.replace('-', '').replace('+', 'plus');
+          break;
       }
       const option = field.enums?.find((o) => o.id === optionId);
       if (option) {
@@ -475,13 +483,13 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   }
 
   /**
-   * Parse a creativecommons.org license uri into its unit (e.g. 'by-nc-nd', 'zero'), version and
+   * Parse a creativecommons.org license uri into its unit (e.g. 'by-nc-nd', 'sampling+', 'zero'), version and
    * optional jurisdiction, together with a matcher for the name of the corresponding license.
    * Returns null for uris that don't match a known Creative Commons pattern.
    * @param uri the stored license uri
    */
   private parseCcLicenseUri(uri: string): { unit: string, jurisdiction?: string, matches: (name: string) => boolean } {
-    const standard = /creativecommons\.org\/licenses\/([a-z-]+)\/(\d+\.\d+)(?:\/([a-z_-]+))?/i.exec(uri);
+    const standard = /creativecommons\.org\/licenses\/([a-z+-]+)\/(\d+\.\d+)(?:\/([a-z_-]+))?/i.exec(uri);
     if (standard) {
       const version = standard[2];
       return {
