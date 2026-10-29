@@ -189,7 +189,7 @@
     "@typescript-eslint/parser": "^8.71.2",
     "@typescript-eslint/rule-tester": "^8.71.2",
     "@typescript-eslint/utils": "^8.47.0",
-    "axe-core": "^4.13.0",
+    "axe-core": "^4.14.0",
     "chokidar": "^4.0.3",
     "commander": "^14.0.3",
     "compression-webpack-plugin": "^9.2.0",
