@@ -252,6 +252,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
       }));
     this.checkConfig(this.paginationOptions);
     this.initializeConfig();
+    this.checkAndHandleFallbackPage();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -314,6 +315,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   public doPageChange(page: number) {
     this.updateParams({ page: page });
     this.emitPaginationChange();
+    this.checkAndHandleFallbackPage();
   }
 
   /**
@@ -325,6 +327,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   public doPageSizeChange(pageSize: number) {
     this.updateParams({ page: 1, pageSize: pageSize });
     this.emitPaginationChange();
+    this.checkAndHandleFallbackPage();
   }
 
   /**
@@ -336,6 +339,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   public doSortDirectionChange(sortDirection: SortDirection) {
     this.updateParams({ page: 1, sortDirection: sortDirection });
     this.emitPaginationChange();
+    this.checkAndHandleFallbackPage();
   }
 
   /**
@@ -419,11 +423,28 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   }
 
   /**
+   * Check and handle fallback to the highest valid page if the current page is out of bounds.
+   */
+  private checkAndHandleFallbackPage() {
+    this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(take(1)).subscribe((currentPaginationOptions) => {
+      const pageSize = currentPaginationOptions.pageSize;
+      const currentPage = currentPaginationOptions.currentPage;
+      const totalPages = Math.max(1, Math.ceil(this.collectionSize / pageSize));
+      const correctedPage = this.paginationService.handlePaginationFallback(this.id, currentPage, totalPages);
+      if (correctedPage !== currentPage) {
+        this.updateParams({ page: correctedPage });
+        this.emitPaginationChange();
+      }
+    });
+  }
+
+  /**
    * Go to the previous page
    */
   goPrev() {
     this.prev.emit(true);
     this.updatePagination(-1);
+    this.checkAndHandleFallbackPage();
   }
 
   /**
@@ -432,6 +453,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   goNext() {
     this.next.emit(true);
     this.updatePagination(1);
+    this.checkAndHandleFallbackPage();
   }
 
   /**
