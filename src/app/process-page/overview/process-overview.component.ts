@@ -53,6 +53,8 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
 
   isProcessing$: Observable<boolean>;
 
+  searchQuery = '';
+
   constructor(protected processOverviewService: ProcessOverviewService,
               protected modalService: NgbModal,
               public processBulkDeleteService: ProcessBulkDeleteService,
@@ -68,6 +70,10 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
     if (hasValue(this.isProcessingSub)) {
       this.isProcessingSub.unsubscribe();
     }
+  }
+
+  searchProcesses(query: string): void {
+    this.searchQuery = query.trim();
   }
 
   /**

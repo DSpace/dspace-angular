@@ -1,3 +1,5 @@
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
   autoserialize,
   autoserializeAs,
@@ -30,7 +32,7 @@ import { ProcessStatus } from './process-status.model';
  * Object representing a process
  */
 @typedObject
-export class Process implements CacheableObject {
+export class Process extends ListableObject implements CacheableObject {
   static type = PROCESS;
 
   /**
@@ -127,5 +129,9 @@ export class Process implements CacheableObject {
    */
   @link(FILETYPES)
   filetypes?: Observable<RemoteData<Filetypes>>;
+
+  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+    return [Process];
+  }
 
 }

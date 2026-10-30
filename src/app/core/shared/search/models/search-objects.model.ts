@@ -6,7 +6,7 @@ import {
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { PaginatedList } from '../../../data/paginated-list.model';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { DSpaceObject } from '../../dspace-object.model';
+import { ListableObject } from '../../object-collection/listable-object.model';
 import { SEARCH_OBJECTS } from '../types/search-objects.resource-type';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchResult } from './search-result.model';
@@ -17,7 +17,7 @@ import { SearchResult } from './search-result.model';
 @typedObject
 @inheritSerialization(PaginatedList)
 @inheritSerialization(SearchQueryResponse)
-export class SearchObjects<T extends DSpaceObject> extends SearchQueryResponse<SearchResult<T>> {
+export class SearchObjects<T extends ListableObject> extends SearchQueryResponse<SearchResult<T>> {
   static type = SEARCH_OBJECTS;
 
   /**
