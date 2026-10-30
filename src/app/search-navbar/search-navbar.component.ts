@@ -78,7 +78,10 @@ export class SearchNavbarComponent {
    * from the DOM by the template's `@if (!searchExpanded)` branch.
    */
   collapse() {
-    this.searchField?.nativeElement?.blur();
+    if (!this.searchExpanded) {
+      return;
+    }
+    this.searchField.nativeElement.blur();
     this.searchExpanded = false;
     this.isExpanded = 'collapsed';
   }
