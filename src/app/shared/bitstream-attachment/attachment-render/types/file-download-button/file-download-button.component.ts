@@ -26,6 +26,8 @@ import { FileDownloadLinkComponent } from '../../../../file-download-link/file-d
  */
 export class FileDownloadButtonComponent extends FileDownloadLinkComponent implements OnInit {
 
+  static structured = true;
+
   hasNoDownload = true;
 
   ngOnInit() {

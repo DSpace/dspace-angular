@@ -282,7 +282,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       it('should fill in the media type', () => {
-        expect(rawForm.mediaInfoContainer.mediaType).toEqual('audio');
+        expect(rawForm.mediaInfoContainer.fileType).toEqual('audio');
       });
 
       it('should fill in the audio transcript', () => {
