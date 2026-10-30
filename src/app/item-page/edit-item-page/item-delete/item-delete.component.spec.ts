@@ -45,7 +45,6 @@ import { ListableObjectComponentLoaderComponent } from '../../../shared/object-c
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { ItemDeleteComponent } from './item-delete.component';
 
@@ -234,12 +233,12 @@ describe('ItemDeleteComponent', () => {
       }, 0);
     });
 
-    it('should show error notification and redirect to item edit page on failure', (done) => {
+    it('should show error notification and redirect to previous URL on failure', (done) => {
       scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
       comp.performAction();
       setTimeout(() => {
         expect(notificationsServiceStub.error).toHaveBeenCalled();
-        expect(router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        expect(router.navigateByUrl).toHaveBeenCalledWith(comp.returnUrl);
         done();
       }, 0);
     });
