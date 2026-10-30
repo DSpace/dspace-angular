@@ -2,7 +2,7 @@
   <div>
     @if ((versionRD$ | async)?.payload; as itemVersion) {
       <div>
-        @if (versionsDTO.versionDTOs.length > 0 || displayWhenEmpty) {
+        @if (versionsDTO.totalElements > 1 || displayWhenEmpty) {
           <div class="mb-2">
             @if (displayTitle) {
               <h2 class="h4">{{"item.version.history.head" | translate}}</h2>
@@ -10,7 +10,7 @@
             <ds-alert [type]="AlertTypeEnum.Info">
               {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
             </ds-alert>
-            @if (versionsDTO.versionDTOs.length > 0) {
+            @if (versionsDTO.totalElements > 1) {
               <ds-pagination
                 (paginationChange)="onPageChange()"
                 [hideGear]="true"
