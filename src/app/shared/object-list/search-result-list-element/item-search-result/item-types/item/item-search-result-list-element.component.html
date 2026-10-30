@@ -49,7 +49,7 @@
               }
               @if (dso.allMetadataValues(authorMetadata, placeholderFilter).length > 0) {
                 <span class="item-list-authors">
-                  @let collapsed = isCollapsed() | async;
+                  @let collapsed = isCollapsed$ | async;
                   <ng-container>
                     @if (collapsed) {
                       @for (author of dso.limitedMetadata(authorMetadata, additionalMetadataLimit, placeholderFilter); track author; let last = $last) {

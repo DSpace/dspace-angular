@@ -176,7 +176,7 @@ export function createHierarchicalParentTitleTests(
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
         providers: [
-          { provide: TruncatableService, useValue: {} },
+          { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
           { provide: DSOBreadcrumbsService, useValue: dsoBreadcrumbsService },
           DSONameService,

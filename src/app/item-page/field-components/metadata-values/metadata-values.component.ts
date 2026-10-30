@@ -111,8 +111,31 @@ export class MetadataValuesComponent implements OnChanges {
    */
   @Input() searchFilter?: string;
 
+  /**
+   * Memoized vocabulary-value lookups for the current {@link mdValues}, keyed by metadata value.
+   * Ensures each controlled-vocabulary metadata value resolves to the exact same Observable
+   * instance, rather than triggering a new lookup every change detection cycle.
+   */
+  private vocabularyValueCache = new Map<MetadataValue, Observable<string>>();
+
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
+
+    if (changes.mdValues) {
+      this.vocabularyValueCache = new Map(
+        (this.mdValues ?? [])
+          .filter((mdValue: MetadataValue) => this.isControlledVocabulary(mdValue))
+          .map((mdValue: MetadataValue) => [mdValue, this.getVocabularyValue(mdValue)] as const),
+      );
+    }
+  }
+
+  /**
+   * Returns the memoized vocabulary translated value Observable for this metadata value, previously
+   * computed in {@link ngOnChanges}.
+   */
+  getVocabularyValue$(metadataValue: MetadataValue): Observable<string> {
+    return this.vocabularyValueCache.get(metadataValue);
   }
 
   /**
@@ -217,7 +240,7 @@ export class MetadataValuesComponent implements OnChanges {
   /**
    * Get vocabulary translated value from metadata value
    */
-  getVocabularyValue(metadataValue: MetadataValue): Observable<string> {
+  private getVocabularyValue(metadataValue: MetadataValue): Observable<string> {
     const vocabularyId = this.getVocabularyIdFromAuthorityValue(metadataValue);
     const vocabularyName = this.getVocabularyName(vocabularyId);
 
