@@ -5,7 +5,10 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import { CommunityDataService } from '../data/community-data.service';
 import {
@@ -31,11 +34,15 @@ export const communityBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community>>
   dataService: CommunityDataService = inject(CommunityDataService),
 ): Observable<BreadcrumbConfig<Community>> => {
   const linksToFollow: FollowLinkConfig<DSpaceObject>[] = COMMUNITY_PAGE_LINKS_TO_FOLLOW as FollowLinkConfig<DSpaceObject>[];
-  if (hasValue(route.data.breadcrumbQueryParam) && hasValue(route.queryParams[route.data.breadcrumbQueryParam])) {
+  if (hasValue(route.data.breadcrumbQueryParam)) {
+    const queryParam = route.queryParams[route.data.breadcrumbQueryParam];
+    if (!hasValue(queryParam)) {
+      return of(undefined);
+    }
     return DSOBreadcrumbResolverByUuid(
       route,
       state,
-      route.queryParams[route.data.breadcrumbQueryParam],
+      queryParam,
       breadcrumbService,
       dataService,
       ...linksToFollow,
