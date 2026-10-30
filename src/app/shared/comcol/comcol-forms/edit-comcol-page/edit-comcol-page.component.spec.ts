@@ -56,6 +56,7 @@ describe('EditComColPageComponent', () => {
         ],
       },
       snapshot: {
+        data: {},
         firstChild: {
           routeConfig: {
             path: 'mockUrl',
