@@ -2,3 +2,33 @@
   display: block;
   width: 16px;
 }
+
+// Fix WCAG 1.4.10
+.example-tree-node {
+  .btn-group {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+
+    .d-flex.flex-row {
+      min-width: 0;
+
+      span.d-flex {
+        min-width: 0;
+
+        a.lead {
+          white-space: normal;
+          word-break: break-word;
+          overflow-wrap: anywhere;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .example-tree-node {
+    &[style*="padding-left"] {
+      padding-left: 0.75rem !important;
+    }
+  }
+}
