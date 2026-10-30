@@ -109,7 +109,7 @@
 
     ::ng-deep {
 
-      color: white;
+      color: var(--ds-light-color);
 
       // Set here the style of the *-menu-item nested components
       .ds-menu-item {

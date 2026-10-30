@@ -85,7 +85,7 @@ ngb-modal-backdrop {
         transition: background-color 0.15s linear;
 
         &.show {
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(var(--bs-black-rgb), 0.5);
         }
     }
 }
@@ -114,7 +114,7 @@ ngb-modal-backdrop {
 }
 
 .researcher-profile-switch .switch.checked {
-    color: #fff;
+  color: var(--bs-white);
 }
 
 /* Replicate default spacing look ~ preserveWhitespace=true
@@ -521,15 +521,15 @@ ngb-accordion {
 
 
 .btn.btn-success {
-  color: #fff;
+  color: var(--bs-white);
 }
 
 .btn.btn-success:hover {
-  color: #fff;
+  color: var(--bs-white);
 }
 
 .table {
-  --bs-table-accent-bg: #fff;
+  --bs-table-accent-bg: var(--ds-white-bg);
 }
 
 ngb-tooltip-window {
@@ -540,8 +540,8 @@ ngb-tooltip-window {
 }
 
 .table thead th {
-  border-bottom: 2px solid #{$gray-300};
-  border-top: 1px solid #{$gray-300};
+  border-bottom: 2px solid var(--bs-border-color);
+  border-top: 1px solid var(--bs-border-color);
 }
 
 .custom-alignment {

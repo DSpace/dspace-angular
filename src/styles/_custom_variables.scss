@@ -22,6 +22,11 @@
   --ds-footer-z-index: 0;
   --ds-sidebar-z-index: 20;
 
+  --ds-white-bg: #{$white};
+  --ds-light-bg: #{$light};
+  --ds-dark-bg: #{$dark};
+  --ds-light-color: #{$white};
+
   --ds-header-bg: #{$ds-header-bg};
   --ds-header-logo-height: 50px;
   --ds-header-icon-color: #{$ds-header-icon-color};
@@ -109,16 +114,23 @@
   --ds-advanced-attachment-thumbnail-placeholder-font-weight: bold;
 
   --ds-dso-selector-list-max-height: 475px;
-  --ds-dso-selector-current-background-color: #eeeeee;
-  --ds-dso-selector-current-background-hover-color: #{darken(#eeeeee, 10%)};
+  --ds-dso-selector-current-background-color: var(--ds-light-bg);
+  --ds-dso-selector-current-background-hover-color: color-mix(in srgb, var(--ds-light-bg) 80%, var(--ds-dark-bg));
   --ds-notification-bg-success: #{darken(adjust-hue($success, -10), 10%)};
   --ds-notification-bg-danger: #{darken(adjust-hue($danger, -10), 10%)};
   --ds-notification-bg-info: #{darken(adjust-hue($info, -10), 10%)};
   --ds-notification-bg-warning: #{darken(adjust-hue($warning, -10), 10%)};
 
+  --ds-notify-metric-accepted-bg: #B8DAFF;
+  --ds-notify-metric-processed-bg: #D4EDDA;
+  --ds-notify-metric-failure-bg: #FDBBC7;
+  --ds-notify-metric-retry-bg: #FDEEBB;
+  --ds-notify-metric-involved-bg: #{$dark};
+  --ds-notify-metric-involved-color: #{$white};
+
   --ds-top-footer-bg: #{$gray-200};
     --ds-footer-bg: #{$primary};
-  --ds-footer-border: 1px solid var(--bs-gray-400);
+  --ds-footer-border: 1px solid var(--bs-border-color);
   --ds-footer-padding: 0;
   --ds-footer-padding-bottom: 0;
   --ds-footer-logo-height: 50px;
