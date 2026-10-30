@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { Community } from '@dspace/core/shared/community.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -117,6 +118,7 @@ describe('SearchFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
         queryParams: { ...searchQuery, ...firstPage },
         queryParamsHandling: 'merge',
+        fragment: SEARCH_COMPONENT_ANCHOR_ID,
       });
     });
 
@@ -130,6 +132,7 @@ describe('SearchFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
         queryParams: { ...searchQuery, ...firstPage },
         queryParamsHandling: 'merge',
+        fragment: SEARCH_COMPONENT_ANCHOR_ID,
       });
     });
 
@@ -143,6 +146,7 @@ describe('SearchFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
         queryParams: { ...searchQuery, ...firstPage },
         queryParamsHandling: 'merge',
+        fragment: SEARCH_COMPONENT_ANCHOR_ID,
       });
     });
   });

@@ -10,6 +10,7 @@ import {
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
@@ -59,6 +60,8 @@ export class SearchSettingsComponent {
       sortField: values[0],
       sortDirection: values[1] as SortDirection,
       page: 1,
+    }, {}, false, {
+      fragment: SEARCH_COMPONENT_ANCHOR_ID,
     });
   }
 }

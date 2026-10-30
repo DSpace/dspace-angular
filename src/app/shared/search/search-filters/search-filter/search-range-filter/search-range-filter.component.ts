@@ -11,6 +11,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { RouteService } from '@dspace/core/services/route.service';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { yearFromString } from '@dspace/shared/utils/date.util';
@@ -183,6 +184,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
           [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
         },
       queryParamsHandling: 'merge',
+      fragment: SEARCH_COMPONENT_ANCHOR_ID,
     });
     this.filter = '';
   }

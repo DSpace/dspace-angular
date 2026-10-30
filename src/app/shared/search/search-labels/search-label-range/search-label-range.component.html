@@ -3,6 +3,7 @@
     [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate, value: min }"
     [routerLink]="searchLink"
     [queryParams]="(removeParametersMin$ | async)"
+    [fragment]="'search-component'"
     (click)="searchFilterService.minimizeAll()"
     class="badge bg-primary">
     <span class="d-flex">
@@ -16,6 +17,7 @@
     [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate, value: max }"
     [routerLink]="searchLink"
     [queryParams]="(removeParametersMax$ | async)"
+    [fragment]="'search-component'"
     (click)="searchFilterService.minimizeAll()"
     class="badge bg-primary">
     <span class="d-flex">
