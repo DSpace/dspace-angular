@@ -261,6 +261,31 @@ describe('FormComponent', () => {
 
     });
 
+    it('should drop a server-side error when the field changes, and keep the own validators of the field', () => {
+      const control = formComp.formGroup.get('dc_title');
+      const model = formComp.formModel[0];
+      const event = {
+        $event: new FormFieldMetadataValueObject('Test Title'),
+        context: null,
+        control: control,
+        group: formComp.formGroup,
+        model: model,
+        type: 'change',
+      } as DynamicFormControlEvent;
+
+      (formComp as any).formService.addErrorToField(control, model, 'Test error message');
+      control.setValue('Test Title');
+      expect(control.valid).toBeFalse();
+
+      formComp.onChange(event);
+
+      expect(control.valid).toBeTrue();
+
+      control.setValue('');
+
+      expect(control.hasError('required')).toBeTrue();
+    });
+
     it('should dispatch FormChangeAction on form change', inject([FormBuilderService], (service: FormBuilderService) => {
       const event = {
         $event: new FormFieldMetadataValueObject('Test Title'),

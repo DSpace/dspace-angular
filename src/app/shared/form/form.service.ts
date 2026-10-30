@@ -4,8 +4,10 @@ import {
   UntypedFormArray,
   UntypedFormControl,
   UntypedFormGroup,
+  ValidatorFn,
 } from '@angular/forms';
 import {
+  hasValue,
   isEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
@@ -47,6 +49,12 @@ import { formObjectFromIdSelector } from './selectors';
 
 @Injectable({ providedIn: 'root' })
 export class FormService {
+
+  /**
+   * Validators added by {@link addErrorToField}, kept so they can be removed again without dropping
+   * the validators the form builder installed on the field.
+   */
+  private serverErrorValidators = new WeakMap<AbstractControl, ValidatorFn>();
 
   constructor(
     private formBuilderService: FormBuilderService,
@@ -185,7 +193,8 @@ export class FormService {
       error[errorKey] = true;
       // add the error in the form control
       field.setErrors(error);
-      field.setValidators(() => error);
+      // Keep the error in place across Angular's own revalidations, without discarding the field's validators
+      this.setServerErrorValidator(field, () => error);
     }
 
     // if the field in question is a concat group, pass down the error to its fields
@@ -200,6 +209,43 @@ export class FormService {
     field.markAsTouched();
   }
 
+  /**
+   * Replace the server-side error validator on a field, leaving its own validators in place.
+   */
+  private setServerErrorValidator(field: AbstractControl, validator: ValidatorFn): void {
+    this.removeServerErrorValidator(field);
+    this.serverErrorValidators.set(field, validator);
+    field.addValidators(validator);
+  }
+
+  /**
+   * Take the server-side error validator off a field.
+   *
+   * @returns whether there was one to take off
+   */
+  private removeServerErrorValidator(field: AbstractControl): boolean {
+    const validator = this.serverErrorValidators.get(field);
+    if (hasValue(validator)) {
+      this.serverErrorValidators.delete(field);
+      field.removeValidators(validator);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Drop the server-side error validator from a field. Call this when the user edits the field: the
+   * error describes a value the server has already rejected, and the server revalidates on the next save.
+   *
+   * Revalidates only when a validator was actually dropped, so that editing a field the server never
+   * complained about does not emit a status change on every keystroke.
+   */
+  public clearServerErrorValidator(field: AbstractControl): void {
+    if (this.removeServerErrorValidator(field)) {
+      field.updateValueAndValidity();
+    }
+  }
+
   public removeErrorFromField(field: AbstractControl, model: DynamicFormControlModel, messageKey: string) {
     const error = {};
     const errorKey = this.getValidatorNameFromMap(messageKey);
@@ -207,7 +253,8 @@ export class FormService {
     if (field.hasError(errorKey)) {
       error[errorKey] = null;
       field.setErrors(error);
-      field.clearValidators();
+      this.removeServerErrorValidator(field);
+      // setErrors above leaves the field invalid even with a null error, so the status has to be recomputed
       field.updateValueAndValidity();
     }
 
