@@ -166,6 +166,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
+      this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
     });
   }
 
