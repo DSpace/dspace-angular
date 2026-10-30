@@ -221,7 +221,7 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
     if (fixedFilter) {
       route += '&' + fixedFilter;
     }
-    route = '/' + opensearch + '?' + route;
+    route = '/' + opensearch + '/search' + '?' + route;
     return route;
   }
 
