@@ -211,14 +211,16 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       return;
     }
     this.selectedCcLicense = ccLicense;
-    this.setAccepted(false);
+    // A single update, as separate updates would each be compared against stale section data
     this.updateSectionData({
       ccLicense: {
         id: ccLicense.id,
         fields: {},
       },
       uri: undefined,
+      accepted: false,
     });
+    this.updateSectionStatus();
     this.ccLicenseLink$ = this.getCcLicenseLink$();
   }
 
@@ -280,13 +282,10 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * Get the link to the Creative Commons license corresponding with the selected options.
    */
   getCcLicenseLink$(): Observable<string> {
-
-    if (this.storedCcLicenseLink) {
-      return of(this.storedCcLicenseLink);
-    }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
       (field) => !this.getSelectedOption(this.getSelectedCcLicense(), field))) {
-      return undefined;
+      // Fall back to the stored link when the selection could not be (fully) restored from it
+      return this.storedCcLicenseLink ? of(this.storedCcLicenseLink) : undefined;
     }
     const selectedCcLicense = this.getSelectedCcLicense();
     return this.submissionCcLicenseUrlDataService.getCcLicenseLink(
@@ -345,7 +344,9 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         distinctUntilChanged(),
         map((sectionState) => sectionState.data as WorkspaceitemSectionCcLicenseObject),
       ).subscribe((data) => {
-        if (this.data.accepted !== data.accepted) {
+        // The REST API never returns the accepted state, so only changes made in this section (which always
+        // set it) should queue a patch. Otherwise a save response would queue a remove of an already removed uri.
+        if (hasValue(data.accepted) && this.data.accepted !== data.accepted) {
           const path = this.pathCombiner.getPath('uri');
           if (data.accepted) {
             this.getCcLicenseLink$().pipe(
@@ -357,7 +358,17 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
             this.operationsBuilder.remove(path);
           }
         }
-        this.sectionData.data = data;
+        const previousCcLicense = this.data?.ccLicense;
+        this.sectionData.data = {
+          ...data,
+          // The REST API only returns the stored uri, so keep the (restored) selection when it is missing
+          ccLicense: data.ccLicense ?? previousCcLicense,
+        };
+        // The selection is updated asynchronously, so recompute the link once it has landed in the store
+        if (JSON.stringify(previousCcLicense) !== JSON.stringify(this.data.ccLicense)) {
+          this.ccLicenseLink$ = this.getCcLicenseLink$();
+          this.ref.detectChanges();
+        }
       }),
       this.configService.findByPropertyName('cc.license.jurisdiction').pipe(
         getFirstCompletedRemoteData(),
@@ -413,9 +424,91 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         (licenses) => {
           this.submissionCcLicenses = [...this.submissionCcLicenses, ...licenses];
           this.isLoading = false;
+          this.restoreSelectionFromStoredUri();
           this.ref.detectChanges();
         },
       ),
     );
+  }
+
+  /**
+   * Rebuild the license selection (license + field answers) from the stored license uri.
+   * The REST API only returns the uri of a saved license, so without this the previously chosen
+   * license and options can't be shown or changed after the submission has been saved and reopened.
+   * Does not touch the uri or accepted state, as the stored license remains valid.
+   */
+  private restoreSelectionFromStoredUri(): void {
+    if (hasValue(this.data?.ccLicense) || !this.storedCcLicenseLink) {
+      return;
+    }
+    const parsed = this.parseCcLicenseUri(this.storedCcLicenseLink);
+    if (!parsed) {
+      return;
+    }
+    const license = this.submissionCcLicenses.find((ccLicense) => parsed.matches(ccLicense.name ?? ''));
+    if (!license) {
+      // The license might be on a page that hasn't been loaded yet
+      return;
+    }
+
+    const fields: { [fieldId: string]: Option } = {};
+    (license.fields ?? []).forEach((field) => {
+      let optionId: string;
+      switch (field.id) {
+        case 'commercial':
+          optionId = parsed.unit.includes('nc') ? 'n' : 'y';
+          break;
+        case 'derivatives':
+          optionId = parsed.unit.includes('nd') ? 'n' : parsed.unit.includes('sa') ? 'sa' : 'y';
+          break;
+        case 'jurisdiction':
+          optionId = parsed.jurisdiction ?? '';
+          break;
+        case 'sampling':
+          // e.g. 'nc-sampling+' -> 'ncsamplingplus'
+          optionId = parsed.unit.replace('-', '').replace('+', 'plus');
+          break;
+      }
+      const option = field.enums?.find((o) => o.id === optionId);
+      if (option) {
+        fields[field.id] = option;
+      }
+    });
+
+    this.selectedCcLicense = license;
+    this.updateSectionData({
+      ccLicense: {
+        id: license.id,
+        fields,
+      },
+    });
+  }
+
+  /**
+   * Parse a creativecommons.org license uri into its unit (e.g. 'by-nc-nd', 'sampling+', 'zero'), version and
+   * optional jurisdiction, together with a matcher for the name of the corresponding license.
+   * Returns null for uris that don't match a known Creative Commons pattern.
+   * @param uri the stored license uri
+   */
+  private parseCcLicenseUri(uri: string): { unit: string, jurisdiction?: string, matches: (name: string) => boolean } {
+    const standard = /creativecommons\.org\/licenses\/([a-z+-]+)\/(\d+\.\d+)(?:\/([a-z_-]+))?/i.exec(uri);
+    if (standard) {
+      const version = standard[2];
+      return {
+        unit: standard[1].toLowerCase(),
+        jurisdiction: standard[3]?.toLowerCase(),
+        matches: (name) => name.includes(`(${version})`),
+      };
+    }
+    const publicDomain = /creativecommons\.org\/publicdomain\/(zero|mark|certification)\//i.exec(uri);
+    if (publicDomain) {
+      const unit = publicDomain[1].toLowerCase();
+      const namePart = { zero: 'cc0', mark: 'mark', certification: 'certification' }[unit];
+      return {
+        unit,
+        matches: (name) => name.toLowerCase().includes(namePart),
+      };
+    }
+    return null;
   }
 }
