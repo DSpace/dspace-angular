@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import {
+  existsSync,
   readdirSync,
   readFileSync,
   Stats,
@@ -53,4 +54,36 @@ export function getFileHashes(folderPath: string, regExp: RegExp): { [fileName: 
   }
 
   return hashes;
+}
+
+/**
+ * Collect the languages each theme provides an i18n override file for, e.g. { custom: ['en'] }
+ *
+ * @param themesPath The path of the folder containing the themes
+ */
+export function getThemeLanguages(themesPath: string): { [themeName: string]: string[] } {
+  const extension = '.json5';
+  const themeLanguages: { [themeName: string]: string[] } = {};
+
+  if (!existsSync(themesPath)) {
+    return themeLanguages;
+  }
+
+  for (const theme of readdirSync(themesPath)) {
+    const i18nPath: string = join(themesPath, theme, 'assets', 'i18n');
+
+    if (!existsSync(i18nPath) || !statSync(i18nPath).isDirectory()) {
+      continue;
+    }
+
+    const languages: string[] = readdirSync(i18nPath)
+      .filter((file: string) => file.endsWith(extension) && statSync(join(i18nPath, file)).isFile())
+      .map((file: string) => file.slice(0, -extension.length));
+
+    if (languages.length > 0) {
+      themeLanguages[theme] = languages;
+    }
+  }
+
+  return themeLanguages;
 }
