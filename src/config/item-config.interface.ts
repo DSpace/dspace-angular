@@ -1,5 +1,6 @@
 import { MetadataLinkViewPopoverDataConfig } from '@dspace/config/metadata-link-view-popoverdata-config.interface';
 import { MetadataSecurityConfig } from '@dspace/config/metadata-security-config';
+import { WithdrawnItemConfig } from '@dspace/config/withdrawn-item-config.interface';
 
 import { Config } from './config.interface';
 
@@ -23,4 +24,7 @@ export interface ItemConfig extends Config {
   metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig
 
   showAuthorityRelations: boolean;
+
+  // Withdrawal form and tombstone page of a withdrawn item
+  withdrawn: WithdrawnItemConfig;
 }

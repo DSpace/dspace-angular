@@ -1,0 +1,19 @@
+.withdrawn-metadata-form {
+  .withdrawn-metadata-form-title {
+    font-weight: 600;
+  }
+
+  // the flag asking for an action on the visitors stands out from the text fields
+  .withdrawn-metadata-form-flag {
+    // the checkbox keeps the negative margin of bootstrap, so it sits inside the padding
+    padding: 0.75rem 1rem 0.75rem calc(1rem + 1.5em);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-tertiary-bg);
+  }
+
+  // no bottom margin on the last field, the card body already provides the padding
+  .card-body > *:last-child {
+    margin-bottom: 0 !important;
+  }
+}
