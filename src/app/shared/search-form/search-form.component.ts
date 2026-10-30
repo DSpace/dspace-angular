@@ -61,8 +61,12 @@ export class SearchFormComponent implements OnChanges {
   /**
    * The currently selected scope object's UUID
    */
-  @Input()
-  scope = '';
+  @Input() scope = '';
+
+  /**
+   * Discovery configuration to be used in search
+   */
+  @Input() configuration: string;
 
   /**
    * Hides the scope in the url, this can be useful when you hardcode the scope in another way
@@ -128,6 +132,11 @@ export class SearchFormComponent implements OnChanges {
     if (isNotEmpty(this.scope)) {
       data = Object.assign(data, { scope: this.scope });
     }
+
+    if (isNotEmpty(this.configuration)) {
+      data = { ...data, configuration: this.configuration };
+    }
+
     this.updateSearch(data);
     this.submitSearch.emit(data);
   }

@@ -63,14 +63,34 @@ export interface AuthorityRefConfig extends Config {
  */
 export interface LayoutConfig extends Config {
   /**
+   * Whether explore pages (e.g., /explore/:id) and the explore menu in the navbar are enabled.
+   * When false, explore routes will redirect to 404 and menu entries will be hidden.
+   */
+  enableExplorePages: boolean;
+
+  /**
    * Array of authority reference configurations for different entity types.
    * Each entry defines how entities of a specific type should be visually represented with icons and styles.
    */
   authorityRef: AuthorityRefConfig[];
+  /**
+   * Whether to show download links as attachments.
+   */
   showDownloadLinkAsAttachment: boolean;
   /**
    * Configuration for advanced attachment rendering features.
    * Controls pagination and metadata display for bitstream attachments.
    */
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
+  /**
+   * Configuration for the navbar layout customization.
+   */
+  navbar: NavbarConfig;
+}
+
+/**
+ * Interface describing the structure of the navbar layout.
+ */
+export interface NavbarConfig extends Config {
+  showCommunityCollection: boolean;
 }

@@ -50,4 +50,6 @@ export enum Context {
    */
   AddMetadata = 'addMetadata',
   EditMetadata = 'editMetadata',
+
+  BrowseMostElements = 'browseMostElements'
 }

@@ -1,0 +1,13 @@
+<div>
+  @switch ((sectionTemplateType | lowercase)) {
+    @default {
+      <ds-default-browse-elements
+        [showThumbnails]="topSection.showThumbnails"
+        [topSection]="topSection"
+        [showLabel]="showLabel"
+        [paginatedSearchOptions]="paginatedSearchOptions$.asObservable() | async"
+        [context]="context"
+      ></ds-default-browse-elements>
+    }
+  }
+</div>

@@ -409,6 +409,8 @@ homePage:
   editHomeNews: true
   # Disable if you don't want users to edit the home header.
   editHomeHeader: true
+  # Enable or disable the dynamic layout configuration on the homepage
+  enableDynamicLayout: false
 
 # Item Config
 item:
@@ -713,8 +715,11 @@ accessibility:
   cookieExpirationDuration: 7
 
 # Configuration for layout customization of metadata rendering in Item page
-# Currently only the authority reference config is available, more will follow with the integration of the so called CRIS layout.
+# Currently only the authority reference config is available, more will follow with the integration of the so called dynamic layout.
 layout:
+  # Enable or disable the explore pages feature (/explore/:id routes and their navbar menu entries).
+  # When false, explore routes redirect to 404 and the explore menu is hidden.
+  enableExplorePages: false
   # Configuration of icons and styles to be used for each authority controlled link
   authorityRef:
     - entityType: DEFAULT
@@ -762,6 +767,11 @@ layout:
         type: attribute
       - name: checksum
         type: attribute
+  # Navbar layout configuration
+  navbar:
+    # If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+    showCommunityCollection: true
+
 
 # Configuration for customization of search results
 searchResults:
