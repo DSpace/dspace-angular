@@ -1,25 +1,12 @@
 import { Injectable } from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import {
-  SubmissionObject,
-  SubmissionObjectError,
-} from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
-import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
-import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
   isEmpty,
   isNotEmpty,
@@ -53,6 +40,21 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import {
+  SubmissionObject,
+  SubmissionObjectError,
+} from '../../core/submission/models/submission-object.model';
+import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { FormState } from '../../shared/form/form.reducer';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionState } from '../submission.reducers';
@@ -102,7 +104,8 @@ export class SubmissionObjectEffects {
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: any) => {
+      const sections = definition.sections as PaginatedList<SubmissionSectionModel>;
+      sections.page.forEach((sectionDefinition: any) => {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
