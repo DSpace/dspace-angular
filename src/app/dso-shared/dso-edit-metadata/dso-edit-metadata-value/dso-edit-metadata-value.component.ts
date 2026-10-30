@@ -69,6 +69,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { EditMetadataSecurityComponent } from '../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
@@ -343,6 +344,9 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
    * Retrieves the {@link EditMetadataValueFieldType} to be displayed for the current field while in edit mode.
    */
   getFieldType(): Observable<EditMetadataValueFieldType> {
+    if (environment.geospatialMapViewer.spatialMetadataFields.includes(this.mdField)) {
+      return of(EditMetadataValueFieldType.GEOSPATIAL);
+    }
     return this.dsoEditMetadataFieldService.findDsoFieldVocabulary(this.dso, this.mdField).pipe(
       map((vocabulary: Vocabulary) => {
         if (hasValue(vocabulary)) {
