@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
@@ -6,6 +7,7 @@ import { CorrectionType } from '@dspace/core/submission/models/correctiontype.mo
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import {
   DsoWithdrawnReinstateModalService,
@@ -69,6 +71,10 @@ describe('WithdrawnReinstateItemMenuProvider', () => {
 
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      setRedirectUrl: {},
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
@@ -76,6 +82,7 @@ describe('WithdrawnReinstateItemMenuProvider', () => {
         WithdrawnReinstateItemMenuProvider,
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
+        { provide: AuthService, useValue: authService },
       ],
     });
     provider = TestBed.inject(WithdrawnReinstateItemMenuProvider);

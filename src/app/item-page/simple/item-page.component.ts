@@ -48,6 +48,7 @@ import {
 } from 'rxjs/operators';
 import { validate as uuidValidate } from 'uuid';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
@@ -121,6 +122,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   isAdmin$: Observable<boolean>;
 
+  /**
+   * Whether the current user is logged in
+   */
+  isLoggedIn$: Observable<boolean>;
+
   itemUrl: string;
 
   /**
@@ -152,6 +158,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
+    protected auth: AuthService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
@@ -182,6 +189,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         return null;
       }),
     );
+
+    this.isLoggedIn$ = this.auth.isAuthenticated();
   }
 
   /**
