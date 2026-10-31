@@ -259,7 +259,9 @@ describe('AuthorizationDataService', () => {
         service.isAuthorized(featureID, 'item-url').subscribe((value) => results.push(value));
         service.isAuthorized(FeatureID.CanCreateVersion, 'item-url').subscribe((value) => results.push(value));
         expect(results).toEqual([true, false]);
-        expect(search.calls.count()).toBe(1);
+        // Identical unfiltered searches, which the request cache serves with a single request
+        expect(search.calls.count()).toBe(2);
+        expect(search.calls.argsFor(0)).toEqual(search.calls.argsFor(1));
         expect(search).toHaveBeenCalledWith(undefined, 'item-url', undefined, { elementsPerPage: 100 }, true, true, jasmine.anything());
       });
 
@@ -305,6 +307,18 @@ describe('AuthorizationDataService', () => {
           ? createSuccessfulRemoteDataObject$(createPaginatedList(validPayload))
           : throwError(() => new Error('Batch failed')));
         service.isAuthorized(featureID).subscribe((value) => expect(value).toBeTrue());
+      });
+
+      it('should fall back to the individual check when a feature cannot be retrieved', () => {
+        const brokenGrant = Object.assign(new Authorization(), {
+          feature: createFailedRemoteDataObject$('Feature failed', 500),
+        });
+        search.and.callFake((feature) => createSuccessfulRemoteDataObject$(
+          createPaginatedList(feature ? validPayload : [brokenGrant])));
+        const result = jasmine.createSpy('result');
+        service.isAuthorized(featureID, 'item-url').subscribe(result);
+        expect(result).toHaveBeenCalledOnceWith(true);
+        expect(search).toHaveBeenCalledWith(featureID, 'item-url', undefined, {}, true, true, jasmine.anything());
       });
 
       it('should discard partial grants if a later page fails', () => {

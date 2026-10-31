@@ -7,7 +7,6 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
-  defer,
   EMPTY,
   Observable,
   of,
@@ -18,7 +17,6 @@ import {
   filter,
   map,
   reduce,
-  shareReplay,
   switchMap,
   take,
 } from 'rxjs/operators';
@@ -48,6 +46,7 @@ import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import {
   authorizationFeatureIds,
+  getSucceededPageOrThrow,
   oneAuthorizationMatchesFeature,
 } from './authorization-utils';
 import { FeatureID } from './feature-id';
@@ -63,7 +62,6 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   protected searchByObjectPath = 'object';
 
   private searchData: SearchDataImpl<Authorization>;
-  private anonymousFeatureIds = new Map<string, { expiresAt: number; features: Observable<Set<string>> }>();
 
   constructor(
     protected requestService: RequestService,
@@ -82,7 +80,6 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    * Set all authorization requests to stale
    */
   invalidateAuthorizationsRequestCache() {
-    this.anonymousFeatureIds.clear();
     this.requestService.setStaleByHrefSubstring(this.linkPath);
   }
 
@@ -117,62 +114,45 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    * Anonymous feature checks for the same object share the existing unfiltered REST search.
    * The request cache deduplicates pending requests and retains its normal expiry, dependency
    * invalidation and SSR transfer behavior. No permissions are cached separately here.
-   * Follow every page before deciding a feature is absent. A failed batch (including a custom
-   * feature throwing on the backend) falls back to the original individual feature check.
+   * A failed batch (including a custom feature throwing on the backend) falls back to the
+   * original individual feature check.
    */
   private checkAnonymousAuthorization(featureId: FeatureID, objectUrl: string, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean): Observable<boolean> {
     const objectUrl$ = hasValue(objectUrl) ? of(objectUrl) : this.siteService.find().pipe(map((site) => site.self));
     return objectUrl$.pipe(
       take(1),
-      switchMap((url: string) => {
-        const readPage = (response$: Observable<RemoteData<PaginatedList<Authorization>>>) => response$.pipe(
-          getFirstCompletedRemoteData(),
-          map((response) => {
-            if (!response.hasSucceeded || !Array.isArray(response.payload?.page)) {
-              throw new Error('Unable to retrieve object authorizations');
-            }
-            return response.payload;
-          }),
-        );
-        const cacheKey = `${url}|${reRequestOnStale}`;
-        let cached = useCachedVersionIfAvailable ? this.anonymousFeatureIds.get(cacheKey) : undefined;
-        if (cached && cached.expiresAt <= Date.now()) {
-          this.anonymousFeatureIds.delete(cacheKey);
-          cached = undefined;
-        }
-        if (!cached) {
-          const features = defer(() => readPage(this.searchByObject(undefined, url, undefined, { elementsPerPage: 100 },
-            useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')))).pipe(
-            expand((page) => {
-              if (!page.next) {
-                return EMPTY;
-              }
-              const next$ = this.findListByHref(page.next, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature'));
-              this.addDependency(next$, of(url));
-              return readPage(next$);
-            }),
-            reduce((authorizations, page) => [...authorizations, ...page.page], [] as Authorization[]),
-            authorizationFeatureIds,
-            shareReplay({ bufferSize: 1, refCount: false }),
-          );
-          // BaseDataService may leave this unset, in which case RequestService uses its
-          // 15-minute default response lifetime as well.
-          cached = { expiresAt: Date.now() + (this.responseMsToLive ?? 15 * 60 * 1000), features };
-          if (useCachedVersionIfAvailable) {
-            this.anonymousFeatureIds.set(cacheKey, cached);
-          }
-        }
-        return cached.features.pipe(
-          map((featureIds) => featureIds.has(featureId.valueOf())),
-          catchError(() => {
-            if (this.anonymousFeatureIds.get(cacheKey) === cached) {
-              this.anonymousFeatureIds.delete(cacheKey);
-            }
-            return this.checkAuthorization(featureId, url, undefined, useCachedVersionIfAvailable, reRequestOnStale);
-          }),
-        );
-      }),
+      // Retrieve every authorization granted on the object, without a feature filter
+      switchMap((url: string) => this.findAllAuthorizationsForObject(url, useCachedVersionIfAvailable, reRequestOnStale)),
+      // Resolve the embedded feature of each authorization to its ID
+      authorizationFeatureIds,
+      // The requested feature is granted if its ID is among them
+      map((featureIds: Set<string>) => featureIds.has(featureId.valueOf())),
+      // Any failure along the way: ask the backend about this single feature instead
       catchError(() => this.checkAuthorization(featureId, objectUrl, undefined, useCachedVersionIfAvailable, reRequestOnStale)),
+    );
+  }
+
+  /**
+   * Retrieve all {@link Authorization}s granted on an object, following every page before
+   * completing, so that a feature is never considered absent because it is on a later page.
+   * Errors if any page fails.
+   */
+  private findAllAuthorizationsForObject(url: string, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean): Observable<Authorization[]> {
+    const firstPage$ = this.searchByObject(undefined, url, undefined, { elementsPerPage: 100 },
+      useCachedVersionIfAvailable, reRequestOnStale, followLink('feature'));
+    return firstPage$.pipe(
+      getSucceededPageOrThrow,
+      // Request the next page for as long as the current one links to it
+      expand((page: PaginatedList<Authorization>) => {
+        if (!page.next) {
+          return EMPTY;
+        }
+        const nextPage$ = this.findListByHref(page.next, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature'));
+        this.addDependency(nextPage$, of(url));
+        return nextPage$.pipe(getSucceededPageOrThrow);
+      }),
+      // Combine the authorizations of all pages into one list
+      reduce((authorizations: Authorization[], page: PaginatedList<Authorization>) => [...authorizations, ...page.page], []),
     );
   }
 
