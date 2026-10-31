@@ -16,7 +16,12 @@ import {
 import { AuthService } from '../../auth/auth.service';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
-import { getFirstSucceededRemoteDataPayload } from '../../shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../shared/operators';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { FeatureID } from './feature-id';
@@ -93,3 +98,41 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
       }),
       map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID.valueOf()).length > 0),
     );
+
+/**
+ * Operator emitting the payload of the first completed page of {@link Authorization}s.
+ * Errors instead if the request failed, so that callers can fall back to another check.
+ */
+export const getSucceededPageOrThrow = (source: Observable<RemoteData<PaginatedList<Authorization>>>): Observable<PaginatedList<Authorization>> =>
+  source.pipe(
+    getFirstCompletedRemoteData(),
+    map((response: RemoteData<PaginatedList<Authorization>>) => {
+      if (!response.hasSucceeded || !Array.isArray(response.payload?.page)) {
+        throw new Error('Unable to retrieve object authorizations');
+      }
+      return response.payload;
+    }),
+  );
+
+/**
+ * Operator resolving the {@link Feature} of each {@link Authorization} and emitting the set of their IDs.
+ * Errors if any feature cannot be retrieved, rather than waiting for one that never succeeds.
+ */
+export const authorizationFeatureIds = (source: Observable<Authorization[]>): Observable<Set<string>> =>
+  source.pipe(
+    switchMap((authorizations: Authorization[]) => {
+      const features$ = (authorizations || [])
+        .filter((authorization: Authorization) => hasValue(authorization.feature))
+        .map((authorization: Authorization) => authorization.feature.pipe(
+          getFirstCompletedRemoteData(),
+          map((featureRD: RemoteData<Feature>) => {
+            if (!featureRD.hasSucceeded || hasNoValue(featureRD.payload)) {
+              throw new Error('Unable to retrieve authorization feature');
+            }
+            return featureRD.payload;
+          }),
+        ));
+      return features$.length ? observableCombineLatest(features$) : of([]);
+    }),
+    map((features: Feature[]) => new Set(features.map((feature: Feature) => feature.id))),
+  );
