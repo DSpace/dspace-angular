@@ -17,7 +17,9 @@
       [downloadFileName]="dsoNameService.getName(pdfs[currentIndex].bitstream)"
       [iframeTitle]="'media-viewer.pdf.title' | translate"
       [showOpenFile]="false"
-      [showViewBookmark]="false">
+      [showViewBookmark]="false"
+      [showAnnotations]="false"
+      [customCSS]="viewerCss">
     </ng2-pdfjs-viewer>
   </div>
 }

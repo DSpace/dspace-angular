@@ -38,6 +38,12 @@ export class MediaViewerPdfComponent implements OnChanges {
    */
   readonly viewerFolder = 'assets/pdfjs';
 
+  /**
+   * PDF.js lays its viewer out at least 350px wide, wider than the item page's narrow column, which
+   * pushes the toolbar menu (print, download) out of view. Let it shrink to the column instead.
+   */
+  readonly viewerCss = '#mainContainer { min-width: 0; }';
+
   currentIndex = 0;
 
   /**
