@@ -3720,10 +3720,10 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.13.2.tgz#0aa167216965ac9474ccfa83892cfb6b3e1e52ef"
   integrity sha512-lHe62zvbTB5eEABUVi/AwVh0ZKY9rMMDhmm+eeyuuUQbQ3+J+fONVQOZyj+DdrvD4BY33uYniyRJ4UJIaSKAfw==
 
-axe-core@^4.13.0:
-  version "4.13.0"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.13.0.tgz#f868ecb1bd61d982321760e51d841ab497ab86d0"
-  integrity sha512-UzGt8zg7Ny8djbYMhxl2zuEevVa7r2gJjYY5Lwr1xM7+XU2nd6CkIWFTVcCIbAP63vSz71NaVyyuSk9lHKcy0A==
+axe-core@^4.14.0:
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.14.0.tgz#a9819d3932a8198fbe935d8cbd8afcdfecbcf31d"
+  integrity sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ==
 
 axobject-query@4.0.0:
   version "4.0.0"
@@ -8420,10 +8420,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ng-mocks@^14.18.1:
-  version "14.18.1"
-  resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-14.18.1.tgz#56b680afa43db74c6b5565531c619e6e9ad6bfbf"
-  integrity sha512-XEArPJ06C3G0XmLIS9YMy1Xke+Conn+pAV1IC3hA3AEbFag74kxXN3F/IaMWJC1N1E1UoTPH1SYFBNloBAHAOw==
+ng-mocks@^14.18.4:
+  version "14.18.4"
+  resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-14.18.4.tgz#eb29caf01c3722482c781e23eaa7e34c87eecceb"
+  integrity sha512-qh/1JKztkaog5Jw0cPpUxvWcFyXiE+W0Whtn+f/0q6aK2oSl05UyTQozDAA+ikXZ5gecGh78jVq0Eo/hCYQk2w==
 
 ng2-file-upload@5.0.0:
   version "5.0.0"
