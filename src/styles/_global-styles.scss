@@ -537,3 +537,7 @@ ngb-accordion {
   mask-size: contain;
   background-color: currentColor;
 }
+
+.item-page-field {
+  max-width: var(--ds-item-page-field-max-width);
+}
