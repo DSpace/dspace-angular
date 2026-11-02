@@ -1,0 +1,26 @@
+@if ((isXsOrSm$ | async) && showNav) {
+  <button class="navbar-toggler ps-2 float-end" type="button" (click)="toggleNavbar()"
+    aria-controls="collapsingNav" aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
+    <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
+  </button>
+}
+
+@if (showNav) {
+  <nav [ngClass]="{'open': !menuCollapsed}" class="navbar navbar-light navbar-expand-md p-md-0 navbar-container dynamic-layout-navbar {{menuCollapsed ? 'collapsed' : 'expanded'}}"
+    role="navigation" [attr.aria-label]="'nav.main.description' | translate">
+    <div class="container">
+      <div class="reset-padding-md w-100">
+        <div id="collapsingNav">
+          <span class="navbar-nav me-auto shadow-none">
+            @if (!!(activeTab$ |async)) {
+              @for (tab of tabs; track tab) {
+                <ds-dynamic-layout-sidebar-item [itemBaseUrl]="itemBaseUrl" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
+                (tabSelectedChange)="navigateToTab($event)"></ds-dynamic-layout-sidebar-item>
+              }
+            }
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+}
