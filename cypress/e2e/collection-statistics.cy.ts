@@ -29,7 +29,7 @@ describe('Collection Statistics Page', () => {
 
     // Verify / wait until "Total Visits" table's label is non-empty
     // (This table loads these labels asynchronously, so we want to wait for them before analyzing page)
-    cy.get('table[data-test="TotalVisits"] th[data-test="statistics-label"]').contains(REGEX_MATCH_NON_EMPTY_TEXT);
+    cy.get('table[data-test="TotalVisits"] td[data-test="statistics-label"]').contains(REGEX_MATCH_NON_EMPTY_TEXT);
 
     // Analyze <ds-collection-statistics-page> for accessibility issues
     testA11y('ds-collection-statistics-page');
