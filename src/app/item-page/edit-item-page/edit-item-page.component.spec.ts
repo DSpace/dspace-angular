@@ -16,6 +16,7 @@ import {
   RouterModule,
   RouterStateSnapshot,
 } from '@angular/router';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
@@ -92,6 +93,7 @@ describe('EditItemPageComponent', () => {
       ],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ItemDataService, useValue: { findByHref: () => of(createSuccessfulRemoteDataObject(new Item())) } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(EditItemPageComponent, {
