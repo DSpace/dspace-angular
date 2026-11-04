@@ -42,7 +42,7 @@
 
     <div class="d-flex flex-row">
       <div class="font-weight-bold {{ field.id }}">
-        {{ field.label }}
+        {{ field.label | translate }}
       </div>
       <button
         class="btn btn-outline-info btn-sm ml-2"
@@ -55,12 +55,12 @@
 
       <div>
 
-        <div class="modal-header mb-4 ">
+        <div class="modal-header mb-4">
           <div>
             <h4>
-              {{ field.label }}
+              {{ field.label | translate }}
             </h4>
-            <div [innerHTML]="field.description"></div>
+            <div [innerHTML]="field.description | translate"></div>
           </div>
           <button type="button" class="close"
                   (click)="closeInfoModal()" aria-label="Close">
@@ -72,9 +72,9 @@
           <div *ngFor="let value of field.enums"
                class="mb-4">
             <h5>
-              {{ value.label }}
+              {{ value.label | translate }}
             </h5>
-            <div [innerHTML]="value.description" class="font-weight-light"></div>
+            <div [innerHTML]="value.description | translate" class="font-weight-light"></div>
           </div>
         </div>
 
@@ -85,7 +85,7 @@
     <ds-select *ngIf="field.enums?.length > 5" [disabled]="field.id === 'jurisdiction' && defaultJurisdiction !== undefined && defaultJurisdiction !== 'none'">
       <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
         <span *ngIf="option">
-          {{ option.label }}
+          {{ option.label | translate }}
         </span>
         <span *ngIf="!option">
           {{ 'submission.sections.ccLicense.option.select' | translate }}
@@ -96,7 +96,7 @@
           <button *ngFor="let option of field.enums"
                   class="dropdown-item"
                   (click)="selectOption(getSelectedCcLicense(), field, option)">
-            {{ option.label }}
+            {{ option.label | translate }}
           </button>
         </div>
       </ng-container>
@@ -107,10 +107,10 @@
            class="d-flex flex-row m-1">
         <div (click)="selectOption(getSelectedCcLicense(), field, option)">
           <input type="radio"
-                 title="{{ option.label }}"
+                 title="{{ option.label | translate }}"
                  class="mr-1"
                  [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
-          <span>{{ option.label }}</span>
+          <span>{{ option.label | translate }}</span>
         </div>
       </div>
     </ng-container>
