@@ -17,7 +17,7 @@ import {
   ITEM_EDIT_REINSTATE_PATH,
   ITEM_EDIT_WITHDRAW_PATH,
 } from './edit-item-page.routing-paths';
-import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
+import { ThemedItemAccessControlComponent } from './item-access-control/themed-item-access-control.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
@@ -119,7 +119,7 @@ export const ROUTES: Route[] = [
           },
           {
             path: 'access-control',
-            component: ItemAccessControlComponent,
+            component: ThemedItemAccessControlComponent,
             data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true },
             canActivate: [itemPageAccessControlGuard],
           },
