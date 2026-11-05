@@ -10,7 +10,7 @@
             <ds-alert [type]="AlertTypeEnum.Info">
               {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
             </ds-alert>
-            @if (versionsDTO.totalElements > 1) {
+            @if (versionsDTO.versionDTOs.length > 0) {
               <ds-pagination
                 (paginationChange)="onPageChange()"
                 [hideGear]="true"
