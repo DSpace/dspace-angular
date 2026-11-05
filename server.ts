@@ -91,6 +91,15 @@ const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 // Please note, that regex flags (like "i") are no longer supported.
 const SSR_EXCLUDE_PATTERNS: RegExp[] = environment.ssr.excludePathPatterns.map((p: SsrExcludePatterns) => new RegExp(p.pattern));
 
+// Create CommonEngine only once at startup instead of per request.
+// Its config is derived from environment.*, which is already final at this point and never changes at runtime.
+// "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
+// By default, this is set to the host of the UI's baseUrl.
+const commonEngine = new CommonEngine({
+  enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
+  allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+});
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
@@ -253,11 +262,6 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  // "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
-  // By default, this is set to the host of the UI's baseUrl.
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
-                                          allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
-                                        });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
@@ -510,8 +514,8 @@ function saveToCache(req, page: any) {
     const key = getCacheKey(req);
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
     if (key.startsWith('/reload')) { return; }
-    // Avoid caching not successful responses (status code different from 2XX status)
-    if (hasNotSucceeded(req.res.statusCode)) { return; }
+    // Only cache a fully rendered 200 response.
+    if (req.res.statusCode !== 200) { return; }
 
     // Retrieve response headers to save, if any
     const headers = retrieveHeaders(req.res);
@@ -528,15 +532,6 @@ function saveToCache(req, page: any) {
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
-}
-
-/**
- * Check if status code is different from 2XX
- * @param statusCode
- */
-function hasNotSucceeded(statusCode) {
-  const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {
