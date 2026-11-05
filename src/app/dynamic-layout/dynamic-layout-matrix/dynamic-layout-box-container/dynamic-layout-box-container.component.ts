@@ -1,5 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   Injector,
@@ -91,7 +92,9 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
   constructor(
     private injector: Injector,
     protected translateService: TranslateService,
-    protected componentFactoryResolver: ComponentFactoryResolver) { }
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected cdr: ChangeDetectorRef,
+  ) { }
 
   ngOnInit(): void {
 
@@ -133,6 +136,7 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
 
     this.componentLoader = component;
     this.hasOwnContainer = (component as any)?.hasOwnContainer ?? false;
+    this.cdr.markForCheck();
   }
 
   /**

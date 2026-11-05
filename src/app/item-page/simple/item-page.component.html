@@ -1,6 +1,8 @@
-<div *ngVar="(tabsRD$ | async) as tabsRD">
-  <div class="container" *ngVar="(itemRD$ | async) as itemRD">
-    @let isDynamicItemPage = (itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements > 0;
+@let tabsRD = (tabsRD$ | async);
+<div>
+  @let itemRD = (itemRD$ | async);
+  @let isDynamicItemPage = (itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements > 0;
+  <div [class.container]="!isDynamicItemPage">
     @if (isDynamicItemPage) {
       <div [ngClass]="{'container': (itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements > 0}">
         <ds-item-versions-notice [item]="itemRD?.payload" ></ds-item-versions-notice>

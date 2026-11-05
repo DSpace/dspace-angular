@@ -116,4 +116,16 @@ describe('DynamicLayoutBoxContainerComponent', () => {
     });
 
   });
+
+  describe('change detection after async resolution', () => {
+    it('should mark the view for check once the component is resolved', async () => {
+      spyOn((component as any), 'getComponent').and.returnValue(Promise.resolve(TestDynamicLayoutBoxComponent));
+      const markForCheckSpy = spyOn((component as any).cdr, 'markForCheck');
+
+      await component.resolveComponent();
+
+      expect(component.componentLoader).toBe(TestDynamicLayoutBoxComponent as any);
+      expect(markForCheckSpy).toHaveBeenCalled();
+    });
+  });
 });
