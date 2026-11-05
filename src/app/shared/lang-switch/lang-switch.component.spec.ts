@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
+  DeferBlockState,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -91,7 +92,7 @@ describe('LangSwitchComponent', () => {
           provideHttpClientTesting(),
         ],
       }).compileComponents()
-        .then(() => {
+        .then(async () => {
           translate = TestBed.inject(TranslateService);
           translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
           translate.setFallbackLang('en');
@@ -103,6 +104,9 @@ describe('LangSwitchComponent', () => {
           de = fixture.debugElement;
           langSwitchElement = de.nativeElement;
           fixture.detectChanges();
+          // The language dropdown is wrapped in a @defer block (not rendered during SSR), so we need to render it explicitly
+          const deferBlock = await fixture.getDeferBlocks();
+          await deferBlock[0].render(DeferBlockState.Complete);
         });
     }));
 
