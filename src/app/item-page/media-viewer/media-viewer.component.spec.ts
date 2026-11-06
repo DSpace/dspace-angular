@@ -132,6 +132,7 @@ describe('MediaViewerComponent', () => {
       comp.mediaOptions = {
         image: true,
         video: true,
+        pdf: true,
       };
       comp.isLoading = true;
       fixture.detectChanges();
@@ -159,6 +160,7 @@ describe('MediaViewerComponent', () => {
       comp.mediaOptions = {
         image: true,
         video: true,
+        pdf: true,
       };
       comp.isLoading = false;
       fixture.detectChanges();

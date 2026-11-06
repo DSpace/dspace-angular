@@ -899,7 +899,7 @@ describe('SubmissionService', () => {
         isLoading: false,
         isValid: false,
       };
-      expect((service as  any).isSectionHidden(section)).toBeTruthy();
+      expect((service as any).isSectionHidden(section)).toBeTruthy();
 
       section = {
         header: 'submit.progressbar.describe.keyinformation',
@@ -914,7 +914,7 @@ describe('SubmissionService', () => {
         isLoading: false,
         isValid: false,
       };
-      expect((service as  any).isSectionHidden(section)).toBeFalsy();
+      expect((service as any).isSectionHidden(section)).toBeFalsy();
     });
   });
 
@@ -999,6 +999,8 @@ describe('SubmissionService', () => {
         }),
       });
       let itemSubmissionId = itemUuid + ':FULL';
+      (itemService.findById as jasmine.Spy).and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
+      spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
       spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
 
       scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
@@ -1074,7 +1076,7 @@ describe('SubmissionService', () => {
       );
 
       service.retrieveSubmission('826').subscribe((r) => {
-        const expectedRD = createFailedRemoteDataObject('Internal Server Error',500) as any;
+        const expectedRD = createFailedRemoteDataObject('Internal Server Error', 500) as any;
         expect(r.payload).toEqual(expectedRD.payload);
         expect(r.statusCode).toEqual(expectedRD.statusCode);
         expect(r.errorMessage).toEqual(expectedRD.errorMessage);

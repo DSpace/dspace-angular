@@ -1,0 +1,24 @@
+.pdf-viewer-container {
+  margin-bottom: 2rem;
+}
+
+.simple-view-element-header {
+  font-size: 1.25rem;
+}
+
+.pdf-viewer {
+  height: 50vh;
+  padding-bottom: 1px;
+  min-height: 500px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-overlay {
+  flex-grow: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
