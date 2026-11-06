@@ -28,8 +28,8 @@ import {
   DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
+import findIndex from 'lodash/findIndex';
 import {
   Observable,
   Subscription,
