@@ -19,7 +19,7 @@
 }
 
 .ds-document-drop-zone-inner {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(var(--bs-white-rgb), 0.7);
   z-index: var(--ds-drop-zone-area-inner-z-index);
   top: 0;
   left: 0;

@@ -9,7 +9,7 @@
       height: 0;
       border-style: solid;
       border-width: 12px 12px 0 0;
-      border-color: transparent #627a91 transparent transparent;
+      border-color: transparent var(--bs-primary) transparent transparent;
       border-bottom-right-radius: var(--bs-btn-border-radius-sm);
       right: 0;
       bottom: 0;
@@ -21,10 +21,10 @@
 
 ul.dropdown-menu {
     background-color: var(--ds-admin-sidebar-bg);
-    color: white;
+    color: var(--ds-light-color);
 
     ::ng-deep a {
-        color: white;
+        color: var(--ds-light-color);
 
         &.disabled {
             color: var(--bs-btn-link-disabled-color);

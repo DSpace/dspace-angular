@@ -20,7 +20,7 @@
 
 .scrollable-dropdown-loading {
   background-color: var(--bs-primary);
-  color: white;
+  color: var(--ds-light-color);
   height: calc(var(--bs-spacer) * 2) !important;
   line-height: calc(var(--bs-spacer) * 2);
   position: sticky;
