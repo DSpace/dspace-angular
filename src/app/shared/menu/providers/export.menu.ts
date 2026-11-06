@@ -18,7 +18,6 @@ import {
   combineLatest as observableCombineLatest,
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { ExportBatchSelectorComponent } from '../../dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
@@ -41,16 +40,16 @@ export class ExportMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return of(
-      {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      map((isSiteAdmin) => ({
         accessibilityHandle: 'export',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.export',
         },
         icon: 'file-export',
-        visible: true,
-      },
+        visible: isSiteAdmin,
+      })),
     );
   }
 

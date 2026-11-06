@@ -93,4 +93,28 @@ describe('EditMenuProvider', () => {
       done();
     });
   });
+
+  describe('when user has no permissions', () => {
+    let noPermsProvider: EditMenuProvider;
+    let noPermsAuthStub = new AuthorizationDataServiceStub();
+
+    beforeEach(() => {
+      spyOn(noPermsAuthStub, 'isAuthorized').and.returnValue(of(false));
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          EditMenuProvider,
+          { provide: AuthorizationDataService, useValue: noPermsAuthStub },
+        ],
+      });
+      noPermsProvider = TestBed.inject(EditMenuProvider);
+    });
+
+    it('getTopSection should return visible false', (done) => {
+      noPermsProvider.getTopSection().subscribe((section) => {
+        expect(section.visible).toBeFalse();
+        done();
+      });
+    });
+  });
 });
