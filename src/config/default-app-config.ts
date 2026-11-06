@@ -101,11 +101,20 @@ export class DefaultAppConfig implements AppConfig {
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any, // time in seconds
     },
-    // In-memory cache of server-side rendered content
+    // Cache of server-side rendered content
     serverSide: {
       debug: false,
       // Link header is used for signposting functionality
       headers: ['Link'],
+      redis: {
+        enabled: false,
+        url: 'redis://localhost:6379',
+        keyPrefix: 'dspace:ssr:',
+        connectTimeout: 1000,
+        commandTimeout: 1000,
+        refreshLockTimeToLive: 60000,
+        routes: [],
+      },
       // Cache specific to known bots.  Allows you to serve cached contents to bots only.
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {

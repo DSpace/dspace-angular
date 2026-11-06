@@ -169,6 +169,70 @@ These configuration sources are collected **at run time**, and written to `dist/
 
 The configuration file can be externalized by using environment variable `DSPACE_APP_CONFIG_PATH`.
 
+#### Shared SSR cache with Redis
+
+To share cached SSR pages across frontend processes, enable `cache.serverSide.redis.enabled` in
+`config/config.prod.yml`, or set `DSPACE_CACHE_SERVERSIDE_REDIS_ENABLED=true`. Redis replaces both
+in-memory SSR caches for anonymous users and bots. It requires production mode and `ssr.enabled=true`;
+authenticated requests, logout reloads and routes excluded from SSR bypass the cache.
+
+Set `DSPACE_CACHE_SERVERSIDE_REDIS_URL` to the Redis connection URL, for example
+`redis://localhost:6379/0` or `rediss://username:password@host:6379/0` for TLS. Connection settings
+remain server-side and are excluded from the browser configuration. Use a dedicated Redis instance
+or database with a memory limit and an appropriate eviction policy. The LRU `max` settings do not
+limit Redis memory.
+
+Only routes explicitly listed in `routes` are cached. There are no global TTLs or built-in page
+rules. Use `*` to opt into caching all eligible SSR pages, with more specific overrides:
+
+```yaml
+cache:
+  serverSide:
+    redis:
+      routes:
+        - pattern: '*'
+          timeToLive: 900000
+          refreshWhenTimeBelow: 300000
+        - pattern: '/entities/*'
+          timeToLive: 30000
+          refreshWhenTimeBelow: 10000
+        - pattern: '/entities/service'
+          timeToLive: 60000
+          refreshWhenTimeBelow: 20000
+        - pattern: '/entities/service/*'
+          timeToLive: 60000
+          refreshWhenTimeBelow: 20000
+```
+
+Patterns match the entire router-relative path without the UI namespace or query parameters.
+`*` matches any characters, including `/`; all other characters are literal and case-sensitive.
+Thus `/entities/service` matches that exact path, while `/entities/service/*` matches its descendants.
+Exact paths take precedence. For wildcard patterns, the longest literal prefix before the first
+`*` wins, followed by more literal characters, then fewer wildcards. Equal specificity uses the
+first configured rule. Reordering rules with different specificity does not change their priority.
+
+Each rule requires `timeToLive` in milliseconds. Omitted `refreshWhenTimeBelow` means no background
+refreshing; values are never inherited from a broader matching rule. A zero TTL bypasses reads
+and writes, including previously stored entries. Unmatched paths and an empty rules list also
+bypass Redis. Rules do not override SSR exclusions. Patterns are compiled and durations validated
+during cache initialization. Invalid rules disable the Redis cache with a warning while requests
+continue to render. See `config/config.example.yml` for all Redis settings.
+
+On a cache hit near expiry, one worker refreshes the page in the background while the cached page
+is returned immediately. Expired pages are not served. HTML, configured response headers (such as
+signposting `Link`) and successful status codes are stored together. Keys isolate deployments,
+language preferences and full URLs, including query strings. Choose a unique `keyPrefix` for each
+deployment and change it when deploying changes that should invalidate existing cached pages.
+
+Redis is disabled by default. When enabled but unavailable, requests are rendered without caching;
+connection retries run in the background and cache operations have a bounded wait time. Disable
+Redis to use the existing in-memory caches again. Set route durations according to how quickly
+anonymous users need to see updates.
+
+Run `npm run test:ssr-cache` for the server cache unit tests. To also run integration tests against
+an isolated Redis instance, use `DSPACE_TEST_REDIS_URL=redis://localhost:6379 npm run test:ssr-cache`.
+The integration tests use unique temporary key prefixes and remove their keys afterward.
+
 #### Buildtime Configuring
 
 Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
