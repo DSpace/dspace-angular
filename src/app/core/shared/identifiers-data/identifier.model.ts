@@ -1,3 +1,5 @@
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { IDENTIFIER } from '@dspace/core/shared/identifiers-data/identifier.resource-type';
 import { autoserialize } from 'cerialize';
 
 /**
@@ -5,14 +7,22 @@ import { autoserialize } from 'cerialize';
  *
  * @author Kim Shepherd
  */
+@typedObject
 export class Identifier {
+  static type = IDENTIFIER;
+
+  /**
+   * Unique ID for this identifier object
+   */
+  @autoserialize
+  id: string;
   /**
    * The value of the identifier, eg. http://hdl.handle.net/123456789/123 or https://doi.org/test/doi/1234
    */
   @autoserialize
   value: string;
   /**
-   * The type of identiifer, eg. "doi", or "handle", or "other"
+   * The type of identifier, eg. "doi", or "handle", or "other"
    */
   @autoserialize
   identifierType: string;
