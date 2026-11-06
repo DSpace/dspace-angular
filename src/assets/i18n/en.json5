@@ -801,6 +801,26 @@
 
   "admin.batch-import.page.header": "Import Batch",
 
+  "admin.batch-import.upload.file": "File: {{name}}",
+
+  "admin.batch-import.upload.collection": "Importing into collection: {{collection}}",
+
+  "admin.batch-import.upload.collection.none": "No collection selected: each item is imported into the collections listed in its SAF package.",
+
+  "admin.batch-import.upload.progress": "Uploading SAF file…",
+
+  "admin.batch-import.upload.speed": "Approx. upload speed: {{speed}}/s",
+
+  "admin.batch-import.upload.starting": "Upload complete. Starting import…",
+
+  "admin.batch-import.upload.resume": "An unfinished upload is available. Proceed to resume with its original import settings, or cancel it to start over.",
+
+  "admin.batch-import.upload.error": "The upload or handoff could not be completed. You can try again; committed file data will be reused. If an import process was already created, you will be taken to that process.",
+
+  "admin.batch-import.upload.expired": "Your login expired. Sign in again and return to Batch Import to resume the upload. Keep this browser tab open.",
+
+  "admin.batch-import.upload.cancel": "Cancel upload",
+
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
 
   "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
