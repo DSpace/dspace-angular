@@ -68,6 +68,11 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
    */
   @Output() select: EventEmitter<Script> = new EventEmitter<Script>();
   /**
+   * Indicates whether the parent form has been submitted
+   * Used to surface validation errors for an empty selection
+   */
+  @Input() submitted = false;
+  /**
    * All available scripts
    */
   scripts: Script[] = [];
