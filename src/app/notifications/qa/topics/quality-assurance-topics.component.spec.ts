@@ -148,14 +148,16 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       expect(compAsAny.getQualityAssuranceTopics).toHaveBeenCalled();
     });
 
-    it(('isTopicsLoading should return FALSE'), () => {
-      expect(comp.isTopicsLoading()).toBeObservable(cold('(a|)', {
+    it(('isTopicsLoading$ should return FALSE'), () => {
+      comp.ngOnInit();
+      expect(comp.isTopicsLoading$).toBeObservable(cold('(a|)', {
         a: false,
       }));
     });
 
-    it(('isTopicsProcessing should return FALSE'), () => {
-      expect(comp.isTopicsProcessing()).toBeObservable(cold('(a|)', {
+    it(('isTopicsProcessing$ should return FALSE'), () => {
+      comp.ngOnInit();
+      expect(comp.isTopicsProcessing$).toBeObservable(cold('(a|)', {
         a: false,
       }));
     });

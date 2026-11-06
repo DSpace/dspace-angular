@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
+  SimpleChange,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -132,7 +133,11 @@ describe('MetadataValuesComponent', () => {
         buildPaginatedList(new PageInfo(), [{ display: 'Translated Value' }]),
       )),
     );
-    comp.getVocabularyValue(controlledMetadata).subscribe((value) => {
+    comp.mdValues = [controlledMetadata];
+    comp.ngOnChanges({
+      mdValues: new SimpleChange(null, comp.mdValues, false),
+    });
+    comp.getVocabularyValue$(controlledMetadata).subscribe((value) => {
       expect(value).toBe('Translated Value');
       done();
     });

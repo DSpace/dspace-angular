@@ -11,7 +11,7 @@
           hasLink(mdValue) ? (hasValue(img) ? linkImg : link) :
           hasSearchFilter() ? searchlink :
           hasBrowseDefinition() ? browselink : simple;
-          context: { value: (isVocabulary ? mdValue : mdValue.value), img: img, lang: mdValue.language }
+          context: { value: (isVocabulary ? mdValue : mdValue.value), img: img, lang: mdValue.language, vocabularyValue$: isVocabulary ? getVocabularyValue$(mdValue) : null }
         ">
       </ng-container>
     @if (!last) {
@@ -72,8 +72,8 @@
 
 
 <!-- Render translated valueof vocabulary entry -->
-<ng-template #controlledVocabulary let-value="value">
-  @let label = getVocabularyValue(value) | async;
+<ng-template #controlledVocabulary let-vocabularyValue$="vocabularyValue$">
+  @let label = vocabularyValue$ | async;
   @if (hasBrowseDefinition()) {
     <ng-container *ngTemplateOutlet="browselink; context: {value: label}"></ng-container>
   } @else {

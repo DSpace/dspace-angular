@@ -78,7 +78,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * A boolean representing if section is enabled
    * @type {boolean}
    */
-  private enabled: Observable<boolean>;
+  public enabled: Observable<boolean>;
 
   /**
    * A boolean representing the panel collapsible state: opened (true) or closed (false)
@@ -96,7 +96,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * A boolean representing if section is valid
    * @type {boolean}
    */
-  private valid: Observable<boolean>;
+  public valid: Observable<boolean>;
 
   /**
    * Initialize instance variables
@@ -205,26 +205,6 @@ export class SectionsDirective implements OnDestroy, OnInit {
    */
   public isSectionActive(): boolean {
     return this.active;
-  }
-
-  /**
-   * Check if section is enabled
-   *
-   * @returns {Observable<boolean>}
-   *    Emits true whenever section is enabled
-   */
-  public isEnabled(): Observable<boolean> {
-    return this.enabled;
-  }
-
-  /**
-   * Check if section is valid
-   *
-   * @returns {Observable<boolean>}
-   *    Emits true whenever section is valid
-   */
-  public isValid(): Observable<boolean> {
-    return this.valid;
   }
 
   /**
