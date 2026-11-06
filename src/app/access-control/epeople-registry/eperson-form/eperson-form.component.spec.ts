@@ -401,6 +401,7 @@ describe('EPersonFormComponent', () => {
           ],
         },
         email: email,
+        netid: null,
         canLogIn: canLogIn,
         requireCertificate: requireCertificate,
       });
@@ -443,6 +444,7 @@ describe('EPersonFormComponent', () => {
             ],
           },
           email: email,
+          netid: undefined,
           canLogIn: canLogIn,
           requireCertificate: requireCertificate,
           _links: {
