@@ -170,8 +170,14 @@ export class MembersListComponent implements OnInit, OnDestroy {
   // The search form
   searchForm;
 
+  // The current member search form
+  searchCurrentMembersForm;
+
   // Current search in edit group - epeople search form
   currentSearchQuery: string;
+
+  // Current search in edit group - epeople current members search form
+  currentMembersSearchQuery: string;
 
   // Whether or not user has done a EPeople search yet
   searchDone: boolean;
@@ -193,12 +199,18 @@ export class MembersListComponent implements OnInit, OnDestroy {
     public dsoNameService: DSONameService,
   ) {
     this.currentSearchQuery = '';
+    this.currentMembersSearchQuery = '';
   }
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
+
+    this.searchCurrentMembersForm = this.formBuilder.group(({
+      queryCurrentMembers: '',
+    }));
+
     this.subs.set(SubKey.ActiveGroup, this.groupRegistryService.getActiveGroup().subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
@@ -354,6 +366,57 @@ export class MembersListComponent implements OnInit, OnDestroy {
   }
 
   /**
+  * Search all EPeople who are a member of the current group by name, email or metadata
+  * @param data  Contains query param
+  */
+  searchMembers(data: any) {
+    this.unsubFrom(SubKey.Members);
+    this.subs.set(SubKey.Members,
+      this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+        switchMap((paginationOptions) => {
+          const query: string = data.queryCurrentMembers;
+          if (query != null && this.currentMembersSearchQuery !== query && this.groupBeingEdited) {
+            this.currentMembersSearchQuery = query;
+            this.paginationService.resetPage(this.config.id);
+          }
+
+          return this.ePersonDataService.searchMembers(this.currentMembersSearchQuery, this.groupBeingEdited.id, {
+            currentPage: paginationOptions.currentPage,
+            elementsPerPage: paginationOptions.pageSize,
+          }, false, true);
+        }),
+        getAllCompletedRemoteData(),
+        map((rd: RemoteData<any>) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
+          } else {
+            return rd;
+          }
+        }),
+        switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
+          if (!epersonListRD || !epersonListRD.payload || !epersonListRD.payload.page) {
+            return of(buildPaginatedList(undefined, []));
+          } // added null check
+          const dtos$ = observableCombineLatest([...epersonListRD.payload.page.map((member: EPerson) => {
+            const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
+              this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
+                const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
+                epersonDtoModel.eperson = member;
+                epersonDtoModel.ableToDelete = isMember;
+                return epersonDtoModel;
+              });
+            return dto$;
+          })]);
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: EpersonDtoModel[]) => {
+            return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
+          }));
+        }),
+      ).subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
+        this.ePeopleMembersOfGroup.next(paginatedListOfDTOs);
+      }));
+  }
+
+  /**
    * unsub all subscriptions
    */
   ngOnDestroy(): void {
@@ -389,5 +452,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
       query: '',
     });
     this.search({ query: '' });
+  }
+
+  /**
+  * Reset all input-fields to be empty and search all search
+  */
+  clearCurrentMembersFormAndResetResult() {
+    this.searchCurrentMembersForm.patchValue({
+      queryCurrentMembers:'',
+    });
+    this.searchMembers({ queryCurrentMembers: '' });
   }
 }

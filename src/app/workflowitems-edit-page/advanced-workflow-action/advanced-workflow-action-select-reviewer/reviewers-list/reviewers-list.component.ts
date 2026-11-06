@@ -15,6 +15,7 @@ import {
 import {
   ReactiveFormsModule,
   UntypedFormBuilder,
+  UntypedFormGroup,
 } from '@angular/forms';
 import {
   Router,
@@ -92,6 +93,8 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
 
   selectedReviewers: EPerson[] = [];
 
+  searchCurrentMembersForm: UntypedFormGroup;
+
   constructor(
     protected groupService: GroupDataService,
     protected groupRegistryService: GroupRegistryService,
@@ -110,6 +113,10 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     this.searchForm = this.formBuilder.group(({
       scope: 'metadata',
       query: '',
+    }));
+
+    this.searchCurrentMembersForm = this.formBuilder.group(({
+      queryCurrentMembers: '',
     }));
   }
 
