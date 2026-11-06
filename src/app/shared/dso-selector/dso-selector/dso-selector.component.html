@@ -22,15 +22,17 @@
           {{'dso-selector.no-results' | translate: { type: typesString } }}
         </button>
       }
-      @for (listEntry of (listEntries$ | async); track listEntry) {
+      @for (listEntry of (listEntries$ | async); track listEntry; let i = $index) {
         <button
+          tabindex="0"
           class="list-group-item list-group-item-action border-0 list-entry"
-          [ngClass]="{'bg-primary': listEntry['id'] === currentDSOId}"
+          [ngClass]="{ 'active': isCurrentDso(listEntry) }"
+          [attr.aria-current]="isCurrentDso(listEntry) ? 'true' : null"
           title="{{ getName(listEntry) }}"
           dsHoverClass="ds-hover"
-          (click)="onClick(listEntry)" #listEntryElement>
+          (click)="onClick(listEntry)" (keydown)="onListEntryKeydown($event, i)" #listEntryElement>
           <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
-          [linkType]=linkTypes.None [context]="getContext(listEntry['id'])"></ds-listable-object-component-loader>
+          [linkType]=linkTypes.None [context]="getContext(getDsoId(listEntry))"></ds-listable-object-component-loader>
         </button>
       }
     }
