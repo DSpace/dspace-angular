@@ -38,4 +38,9 @@ export interface HomeConfig extends Config {
    * Disable if you don't want users to edit the home header.
    */
   editHomeHeader: boolean;
+
+  /**
+   * Whether to enable dynamic home page rendering.
+   */
+  enableDynamicLayout: boolean;
 }
