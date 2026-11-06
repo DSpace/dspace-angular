@@ -3,12 +3,9 @@ import { Component } from '@angular/core';
 import { SiteDataService } from '@dspace/core/data/site-data.service';
 import { Site } from '@dspace/core/shared/site.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { switchMap } from 'rxjs/operators';
 
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
-import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the site-wide statistics page.
@@ -19,10 +16,8 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   styleUrls: ['./site-statistics-page.component.scss'],
   imports: [
     CommonModule,
-    StatisticsTableComponent,
-    ThemedLoadingComponent,
+    CrisStatisticsPageComponent,
     TranslateModule,
-    VarDirective,
   ],
 })
 export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
@@ -42,11 +37,4 @@ export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
     return this.siteService.find();
   }
 
-  protected getReports$() {
-    return this.scope$.pipe(
-      switchMap((scope) =>
-        this.usageReportService.searchStatistics(scope._links.self.href, 0, 10),
-      ),
-    );
-  }
 }

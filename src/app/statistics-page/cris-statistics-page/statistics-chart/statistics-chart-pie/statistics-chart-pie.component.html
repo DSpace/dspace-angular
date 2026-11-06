@@ -1,0 +1,36 @@
+@if ((results | async) && (results | async).length > 0) {
+  <div class="export-buttons-container mb-2">
+    <button class="btn btn-secondary me-2" [dsBtnDisabled]="(isLoading | async) || (isSecondLoading | async)" (click)="downloadPng()">
+      @if ((isLoading | async) === true) {
+        <span><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      }
+      @if ((isLoading | async) !== true) {
+        <span><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.png' | translate}}</span>
+      }
+    </button>
+    <button class="btn btn-secondary me-2" [dsBtnDisabled]="(isLoading | async) || (isSecondLoading | async)" (click)="downloadJpeg()">
+      @if ((isSecondLoading | async) === true) {
+        <span><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      }
+      @if ((isSecondLoading | async) !== true) {
+        <span><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.jpg' | translate}}</span>
+      }
+    </button>
+  </div>
+}
+
+@if ((results | async) && (results | async).length > 0) {
+  @let res = results | async;
+  @if (hasNonZeroValues(res)) {
+    <div #chartRef id="chart" class="d-flex w-100 search-chart-container">
+      <ds-chart [results]="results" [view]="view" [type]='chartType.PIE' [animations]="true"></ds-chart>
+    </div>
+  } @else {
+    <div class="no-data-message">
+      <i class="fas fa-chart-pie fa-4x no-data-icon"></i><br>
+      <h4 class="no-data-title">{{ 'chart.no-data.title' | translate }}</h4>
+    </div>
+  }
+} @else {
+  <ds-alert [type]="'alert-info'" [content]="'search.filters.applied.charts.no.data.found'"></ds-alert>
+}

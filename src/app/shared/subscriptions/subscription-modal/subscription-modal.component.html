@@ -22,10 +22,10 @@
           <div class="col-md-8">
             <input type="hidden" formControlName="subscriptionId" [value]="subscriptionType?.value?.controls['subscriptionId'].value" >
             @for (frequency of frequencyDefaultValues; track frequency) {
-              <div class="form-check" formGroupName="frequencies">
-                <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [formControlName]="frequency"/>
+            <div class="form-check" formGroupName="frequencies">
+            <input type="checkbox" [id]="'checkbox-' + subscriptionType.key + frequency" class="form-check-input" [formControlName]="frequency"/>
                 <label class="form-check-label"
-                [for]="'checkbox-' + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
+                   [for]="'checkbox-' + subscriptionType.key  + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
               </div>
             }
           </div>

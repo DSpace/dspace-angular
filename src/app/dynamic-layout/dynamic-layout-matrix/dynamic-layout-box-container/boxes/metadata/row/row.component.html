@@ -1,0 +1,10 @@
+@for (cell of row.cells; track cell) {
+  <div class="d-flex flex-column col metadata-cell" [class]="cell.style">
+    @for (field of cell.fields; track trackUpdate($index, field)) {
+      <ds-metadata-container class="w-100"
+        [box]="box"
+        [item]="item"
+      [field]="field"></ds-metadata-container>
+    }
+  </div>
+}

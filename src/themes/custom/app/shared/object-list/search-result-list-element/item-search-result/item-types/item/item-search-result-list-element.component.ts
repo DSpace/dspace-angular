@@ -7,11 +7,14 @@ import { RouterLink } from '@angular/router';
 import { Context } from '@dspace/core/shared/context.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MetadataDirective } from '../../../../../../../../../app/shared/metadata.directive';
 import { MetadataLinkViewComponent } from '../../../../../../../../../app/shared/metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../../../../../../../app/shared/object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
+import { MetricBadgesComponent } from '../../../../../../../../../app/shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../../../../../../app/shared/object-list/metric-donuts/metric-donuts.component';
 import { ItemSearchResultListElementComponent as BaseComponent } from '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableComponent } from '../../../../../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
@@ -29,10 +32,13 @@ import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbna
     AsyncPipe,
     MetadataDirective,
     MetadataLinkViewComponent,
+    MetricBadgesComponent,
+    MetricDonutsComponent,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
+    TranslateModule,
     TruncatableComponent,
     TruncatablePartComponent,
   ],

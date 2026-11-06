@@ -3,7 +3,8 @@
     [object]="object"
     [showSubmitter]="showSubmitter"
     [badgeContext]="badgeContext"
-  [workflowItem]="workflowitem$.value"></ds-item-list-preview>
+    [showMetrics]="showMetrics"
+    [workflowItem]="workflowitem$.value"></ds-item-list-preview>
   <!-- Display duplicate alert, if feature enabled and duplicates detected -->
   <ng-container *ngVar="(duplicates$|async)?.length as duplicateCount">
     @if (duplicateCount > 0) {

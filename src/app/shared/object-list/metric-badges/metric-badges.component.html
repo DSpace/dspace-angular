@@ -1,0 +1,5 @@
+@for (metric of (metrics$ | async); track metric) {
+  <span class="badge bg-info badge-metric me-1 {{metric.metricType}}"
+    [innerHTML]="('metric-badges.' + metric.metricType | translate) + ' ' + metric.metricCount">
+  </span>
+}

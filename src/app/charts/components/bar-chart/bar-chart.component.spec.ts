@@ -1,0 +1,106 @@
+import {
+  EventEmitter,
+  Injector,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { of } from 'rxjs';
+
+import { ChartType } from '../../models/chart-type';
+import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
+import { BarChartComponent } from './bar-chart.component';
+
+xdescribe('BarChartComponent', () => {
+  let component: BarChartComponent;
+  let fixture: ComponentFixture<BarChartComponent>;
+
+  const view = [];
+  const results = of([
+    {
+      name: 'Germany',
+      value: 8940000,
+    },
+    {
+      name: 'USA',
+      value: 5000000,
+    },
+    {
+      name: 'France',
+      value: 7200000,
+    },
+  ]);
+  const animations = true;
+  const legend = true;
+  const legendTitle = '';
+  const legendPosition = 'right';
+  const select: EventEmitter<string> = new EventEmitter();
+  const loadMore: EventEmitter<string> = new EventEmitter();
+  const enableScrollToLeft = false;
+  const enableScrollToRight = false;
+  const isLastPage = of(false);
+  const currentPage = of(1);
+  const type: ChartType.BAR | ChartType.BAR_HORIZONTAL = ChartType.BAR;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        BrowserAnimationsModule,
+        NgxChartsModule,
+        BarChartComponent,
+        AbstractChartComponent,
+      ],
+      providers: [
+        { provide: 'view', useValue: view },
+        { provide: 'results', useValue: results },
+        { provide: 'animations', useValue: animations },
+        { provide: 'legend', useValue: legend },
+        { provide: 'legendTitle', useValue: legendTitle },
+        { provide: 'legendPosition', userValue: legendPosition },
+        { provide: 'select', useValue: select },
+        { provide: 'enableScrollToLeft', useValue: enableScrollToLeft },
+        { provide: 'enableScrollToRight', useValue: enableScrollToRight },
+        { provide: 'loadMore', useValue: loadMore },
+        { provide: 'isLastPage', useValue: isLastPage },
+        { provide: 'currentPage', useValue: currentPage },
+        { provide: 'type', useValue: type },
+        Injector,
+      ],
+    })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(BarChartComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should render ngx-charts-bar-horizontal', (done) => {
+    component.type = ChartType.BAR_HORIZONTAL;
+    const chartTag = fixture.debugElement.query(By.css('ngx-charts-bar-horizontal'));
+    expect(chartTag.nativeElement).toBeDefined();
+    done();
+  });
+
+  /*  describe('when the setViewSize method is called', () => {
+    beforeEach(() => {
+      spyOn(component, 'setViewSize');
+      component.setViewSize();
+    });
+
+    it('should call the setViewSize method', () => {
+      expect(component.setViewSize).toHaveBeenCalled();
+    });
+  });*/
+
+});

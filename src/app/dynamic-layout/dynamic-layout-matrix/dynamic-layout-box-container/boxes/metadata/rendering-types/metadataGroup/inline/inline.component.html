@@ -1,0 +1,19 @@
+@if ((initialized | async)) {
+  <div [ngClass]="field.valuesInline ? 'px-0 col d-flex flex-row flex-wrap' : 'px-0 col d-flex flex-column'">
+    @for (index of componentsToBeRenderedMap.keys(); track index) {
+      <div class="d-flex metadata-group-entry">
+        @for (mdg of componentsToBeRenderedMap.get(index); track mdg; let first = $first) {
+          <span class="metadata-group-entry-value" [class.ms-3]="!first">
+            <ds-metadata-render class="w-100"
+              [item]="item"
+              [field]="mdg.field"
+            [metadataValue]="mdg.value"></ds-metadata-render>
+          </span>
+        }
+        @if (field.valuesInline && index!== componentsToBeRenderedMap.size-1) {
+          <span class="px-3">&bull;</span >
+        }
+      </div>
+    }
+  </div>
+}

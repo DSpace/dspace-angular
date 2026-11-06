@@ -1,0 +1,69 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
+import { BehaviorSubject } from 'rxjs';
+
+import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
+import { renderChartFilterType } from '../../chart-search-result-element-decorator';
+
+@Component({
+  selector: 'ds-search-chart-wrapper',
+  templateUrl: '../../../../abstract-component-loader/abstract-component-loader.component.html',
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
+})
+
+/**
+ * Wrapper component that renders a specific chart facet filter based on the filter config's type
+ */
+export class SearchChartFilterWrapperComponent extends AbstractComponentLoaderComponent<Component> {
+
+  /**
+   * Configuration for the filter of this wrapper component
+   */
+  @Input() filterConfig: SearchFilterConfig;
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch: boolean;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * The scope of the search.
+   */
+  @Input() scope: string;
+
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'filterConfig',
+  ];
+
+  protected inputNames: (keyof this & string)[] = [
+    'filterConfig',
+    'inPlaceSearch',
+    'refreshFilters',
+    'scope',
+  ];
+
+  /**
+   * Find the correct chart component based on the filter config's type
+   */
+  public getComponent(): Promise<GenericConstructor<Component>> {
+    const lazyComponent: Promise<GenericConstructor<Component>> = renderChartFilterType(this.filterConfig.filterType);
+    if (hasNoValue(lazyComponent)) {
+      return Promise.reject(new Error(`No chart component registered for filter type '${this.filterConfig.filterType}'`));
+    }
+    return lazyComponent;
+  }
+
+}

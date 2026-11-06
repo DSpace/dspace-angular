@@ -13,15 +13,21 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { Operation } from 'fast-json-patch';
+import {
+  deepClone,
+  Operation,
+} from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of,
 } from 'rxjs';
 import {
+  filter,
   map,
   switchMap,
   take,
@@ -39,7 +45,10 @@ import {
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { MATOMO_ENABLED } from '../statistics/models/matomo-type';
 import { CookieService } from './cookie.service';
-import { OrejimeService } from './orejime.service';
+import {
+  CookieConsents,
+  OrejimeService,
+} from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,
   getOrejimeConfiguration,
@@ -103,6 +112,25 @@ export class BrowserOrejimeService extends OrejimeService {
 
   private orejimeInstance: any;
 
+  /**
+   * Subject to emit updates in the consents
+   */
+  consentsUpdates$:  BehaviorSubject<CookieConsents> = new BehaviorSubject<CookieConsents>(null);
+  /**
+   * Subject to emit initialization
+   */
+  initialized$:  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Boolean to check if a new watch method from the manager needs to be fired
+   * @private
+   */
+  private isOrejimeManagerWatching = false;
+  /**
+   * Boolean to check if service has been initialized
+   * @private
+   */
+  private initialized = false;
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translateService: TranslateService,
@@ -126,6 +154,20 @@ export class BrowserOrejimeService extends OrejimeService {
   initialize() {
     if (!this.appConfig.info.enablePrivacyStatement) {
       this.orejimeConfig.translations.zz.consentModal.privacyPolicy.text = 'cookies.consent.content-modal.no-privacy-policy.text';
+    }
+
+    if (hasValue(this.appConfig.info.metricsConsents)) {
+      this.appConfig.info.metricsConsents.forEach((metric) => {
+        if (metric.enabled) {
+          this.orejimeConfig.apps.push(
+            {
+              name: metric.key,
+              purposes: ['thirdPartyJs'],
+              required: false,
+            },
+          );
+        }
+      });
     }
 
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
@@ -203,8 +245,16 @@ export class BrowserOrejimeService extends OrejimeService {
         this.applyUpdateSettingsCallbackToApps(user);
         this.lazyOrejime.then(({ init }) => {
           this.orejimeInstance = init(this.orejimeConfig);
+          this.initialized = true;
+          this.initialized$.next(this.initialized);
         });
       });
+
+    this.consentsUpdates$.pipe(
+      filter(() => this.initialized),
+    ).subscribe((consents) => {
+      this.isOrejimeManagerWatching = hasValue(consents);
+    });
   }
 
   /**
@@ -461,4 +511,25 @@ export class BrowserOrejimeService extends OrejimeService {
     return this.orejimeConfig.apps.filter(service => !appsToHide.some(name => name === service.name));
   }
 
+  watchConsentUpdates(): void {
+    if (this.isOrejimeManagerWatching || !this.initialized) {
+      return;
+    }
+
+    this.lazyOrejime.then(_ => {
+      const manager = this.orejimeInstance.internals.manager;
+      const consentsSubject$ = this.consentsUpdates$;
+      let lastCookiesConsents;
+
+      consentsSubject$.next(manager.consents);
+      manager.watch({
+        update(__, eventName, consents) {
+          if (eventName === 'consents' && !isEqual(consents, lastCookiesConsents)) {
+            lastCookiesConsents = deepClone(consents);
+            consentsSubject$.next(consents);
+          }
+        },
+      });
+    });
+  }
 }

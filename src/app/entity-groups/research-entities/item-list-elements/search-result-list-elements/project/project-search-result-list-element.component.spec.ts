@@ -11,12 +11,16 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { of } from 'rxjs';
+import { MetricBadgesComponent } from 'src/app/shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from 'src/app/shared/object-list/metric-donuts/metric-donuts.component';
 
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
@@ -90,11 +94,20 @@ describe('ProjectSearchResultListElementComponent', () => {
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: OrejimeService, useValue: new OrejimeServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [ThemedThumbnailComponent, TruncatableComponent, ThemedBadgesComponent] },
+      remove: {
+        imports: [
+          ThemedThumbnailComponent,
+          TruncatableComponent,
+          ThemedBadgesComponent,
+          MetricBadgesComponent,
+          MetricDonutsComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -155,10 +168,20 @@ describe('ProjectSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: OrejimeService, useValue: new OrejimeServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ThemedThumbnailComponent,
+          TruncatableComponent,
+          ThemedBadgesComponent,
+          MetricBadgesComponent,
+          MetricDonutsComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

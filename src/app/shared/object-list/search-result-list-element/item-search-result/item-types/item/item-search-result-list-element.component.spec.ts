@@ -26,6 +26,8 @@ import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.ser
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { MetadataLinkViewComponent } from 'src/app/shared/metadata-link-view/metadata-link-view.component';
+import { MetricBadgesComponent } from 'src/app/shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from 'src/app/shared/object-list/metric-donuts/metric-donuts.component';
 import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
@@ -241,6 +243,8 @@ describe('ItemSearchResultListElementComponent', () => {
         TruncatableComponent,
         TruncatablePartComponent,
         MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
       ] },
     }).compileComponents();
   }));
@@ -458,6 +462,8 @@ describe('ItemSearchResultListElementComponent', () => {
         TruncatableComponent,
         TruncatablePartComponent,
         MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
       ] },
     }).compileComponents();
   }));

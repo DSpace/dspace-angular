@@ -28,6 +28,8 @@ import {
   Observable,
 } from 'rxjs';
 
+import { AlertComponent } from '../../alert/alert.component';
+import { AlertType } from '../../alert/alert-type';
 import {
   fadeIn,
   fadeInOut,
@@ -54,6 +56,7 @@ export interface SelectionConfig {
     fadeInOut,
   ],
   imports: [
+    AlertComponent,
     AsyncPipe,
     ErrorComponent,
     NgxSkeletonLoaderModule,
@@ -86,6 +89,16 @@ export class SearchResultsComponent {
   @Input() linkType: CollectionElementLinkType;
 
   /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string = null;
+
+  /**
+   * The alert type to use for the notice
+   */
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
+
+  /**
    * The actual search result objects
    */
   @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
@@ -104,6 +117,11 @@ export class SearchResultsComponent {
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
 
   /**
    * The current sorting configuration of the search
@@ -142,6 +160,11 @@ export class SearchResultsComponent {
    * The config option used for selection functionality
    */
   @Input() selectionConfig: SelectionConfig = null;
+
+  /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice = false;
 
   /**
    * Emit when one of the listed object has changed.

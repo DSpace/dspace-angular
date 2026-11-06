@@ -18,7 +18,7 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
   templateUrl: '../../../theme-support/themed.component.html',
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem', 'showMetrics'];
 
   @Input() item: Item;
 
@@ -29,6 +29,8 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
   @Input() showSubmitter: boolean;
 
   @Input() workflowItem: WorkflowItem;
+
+  @Input() showMetrics: boolean;
 
   protected getComponentName(): string {
     return 'ItemListPreviewComponent';

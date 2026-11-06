@@ -30,6 +30,7 @@ import {
   getSubscriptionsModuleRoute,
 } from '../../../app-routing-paths';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
+import { getProcessListRoute } from '../../../process-page/process-page-routing.paths';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';
 
@@ -89,6 +90,11 @@ export class UserMenuComponent implements OnInit {
    * The profile page route
    */
   public subscriptionsRoute = getSubscriptionsModuleRoute();
+
+  /**
+   * The processes page route
+   */
+  public processesRoute = getProcessListRoute();
 
   constructor(
     protected store: Store<AppState>,
