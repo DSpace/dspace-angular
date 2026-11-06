@@ -226,6 +226,54 @@ describe('ItemVersionsComponent', () => {
     });
   });
 
+  describe('when the item has a draft version but only one version is visible to the current user', () => {
+    const draftVersionHistory = Object.assign(new VersionHistory(), {
+      id: '2',
+      draftVersion: true,
+    });
+    const onlyVisibleVersion = Object.assign(new Version(), {
+      id: '3',
+      version: 1,
+      created: new Date(2020, 1, 1),
+      summary: 'first version',
+      versionhistory: createSuccessfulRemoteDataObject$(draftVersionHistory),
+      _links: {
+        self: {
+          href: 'version3-url',
+        },
+      },
+    });
+    const itemWithOnlyOneVisibleVersion = Object.assign(new Item(), {
+      id: 'item-identifier-3',
+      uuid: 'item-identifier-3',
+      handle: '123456789/3',
+      version: createSuccessfulRemoteDataObject$(onlyVisibleVersion),
+      _links: {
+        self: {
+          href: '/items/item-identifier-3',
+        },
+      },
+    });
+    onlyVisibleVersion.item = createSuccessfulRemoteDataObject$(itemWithOnlyOneVisibleVersion);
+    draftVersionHistory.versions = createSuccessfulRemoteDataObject$(createPaginatedList([onlyVisibleVersion]));
+
+    beforeEach(() => {
+      versionHistoryServiceSpy.getVersions.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([onlyVisibleVersion])));
+      component.item = itemWithOnlyOneVisibleVersion;
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    afterEach(() => {
+      versionHistoryServiceSpy.getVersions.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(versions)));
+    });
+
+    it('should not reveal the version history table, as that would disclose the presence of a draft version', () => {
+      const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+      expect(rows.length).toBe(0, 'Version history table should not be shown when only one version is visible to the current user');
+    });
+  });
+
   describe('when the user can only delete a version', () => {
     beforeAll(waitForAsync(() => {
       const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
