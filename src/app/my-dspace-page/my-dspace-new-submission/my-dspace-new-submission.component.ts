@@ -120,6 +120,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    */
   public onUploadError(error: UploaderError) {
     let errorMessageKey = 'mydspace.upload.upload-failed';
+    if (hasValue(error.status) && error.status === 413) {
+      errorMessageKey = 'mydspace.upload.upload-failed-max-size';
+    }
     if (hasValue(error.status) && error.status === 422) {
       errorMessageKey = 'mydspace.upload.upload-failed-manyentries';
     }
