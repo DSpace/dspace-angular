@@ -8,9 +8,9 @@
   @let showErrors = shouldShowErrorMessages();
 
   @if (!isCheckbox && hasLabel && !isDateField) {
-    <label
+  <label
       [id]="'label_' + model.id"
-      [for]="id"
+      [attr.for]="model.type === 'ARRAY' ? null : id"
       class="form-label"
       [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
       [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
