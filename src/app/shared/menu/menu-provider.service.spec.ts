@@ -168,6 +168,7 @@ describe('MenuProviderService', () => {
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.ADMIN, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
+        expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_PUBLIC, sectionToBeRemoved.id);
 
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
@@ -189,6 +190,7 @@ describe('MenuProviderService', () => {
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.ADMIN, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
+        expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_PUBLIC, sectionToBeRemoved.id);
 
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
@@ -213,6 +215,7 @@ describe('MenuProviderService', () => {
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.ADMIN, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
+        expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_PUBLIC, sectionToBeRemoved.id);
 
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
@@ -234,6 +237,7 @@ describe('MenuProviderService', () => {
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.ADMIN, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
+        expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_PUBLIC, sectionToBeRemoved.id);
 
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
@@ -256,6 +260,7 @@ describe('MenuProviderService', () => {
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.ADMIN, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
+        expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_PUBLIC, sectionToBeRemoved.id);
 
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
@@ -275,6 +280,7 @@ describe('MenuProviderService', () => {
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.ADMIN, sectionToBeRemoved.id);
         expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
+        expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_PUBLIC, sectionToBeRemoved.id);
 
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
         expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);

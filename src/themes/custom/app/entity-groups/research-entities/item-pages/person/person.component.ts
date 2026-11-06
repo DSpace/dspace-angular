@@ -16,6 +16,7 @@ import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.com
 import { PersonComponent as BaseComponent } from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
 import { ItemPageOrcidFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/orcid/item-page-orcid-field.component';
 import { AuthorityRelatedEntitiesSearchComponent } from '../../../../../../../app/item-page/simple/related-entities/authority-related-entities-search/authority-related-entities-search.component';
+import { DsoPublicMenuComponent } from '../../../../../../../app/shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('Person', ViewMode.StandalonePage, Context.Any, 'custom')
@@ -29,6 +30,7 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
     AsyncPipe,
     AuthorityRelatedEntitiesSearchComponent,
     DsoEditMenuComponent,
+    DsoPublicMenuComponent,
     GenericItemPageFieldComponent,
     ItemPageOrcidFieldComponent,
     MetadataFieldWrapperComponent,
