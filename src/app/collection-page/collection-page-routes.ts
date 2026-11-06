@@ -4,6 +4,7 @@ import { collectionBreadcrumbResolver } from '@dspace/core/breadcrumbs/collectio
 import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreement/end-user-agreement-current-user.guard';
+import { rerunGuardsAndResolversOnPathChange } from '@dspace/core/router/utils/route.utils';
 
 import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
@@ -57,7 +58,7 @@ export const ROUTES: Route[] = [
       dso: collectionPageResolver,
       breadcrumb: collectionBreadcrumbResolver,
     },
-    runGuardsAndResolvers: 'always',
+    runGuardsAndResolvers: rerunGuardsAndResolversOnPathChange,
     children: [
       {
         path: COLLECTION_EDIT_PATH,

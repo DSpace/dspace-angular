@@ -13,7 +13,10 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
+import {
+  currentPath,
+  SEARCH_COMPONENT_ANCHOR_ID,
+} from '@dspace/core/router/utils/route.utils';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
@@ -88,6 +91,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
   onSelect() {
     const navigationExtras: NavigationExtras = {
       queryParams: { configuration: this.selectedOption.value },
+      fragment: SEARCH_COMPONENT_ANCHOR_ID,
     };
 
     this.changeConfiguration.emit(this.selectedOption);
