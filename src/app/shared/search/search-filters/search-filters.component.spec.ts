@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
@@ -65,6 +66,14 @@ describe('SearchFiltersComponent', () => {
 
     it('should call getSearchLink on the searchService', () => {
       expect(searchService.getSearchLink).toHaveBeenCalled();
+    });
+  });
+
+  describe('accessibility', () => {
+    it('should render a section landmark with an accessible aria-label', () => {
+      const sectionElement = fixture.debugElement.query(By.css('section'));
+      expect(sectionElement).toBeTruthy();
+      expect(sectionElement.attributes['aria-label']).toBeTruthy();
     });
   });
 
