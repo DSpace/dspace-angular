@@ -107,6 +107,7 @@ describe('ProcessOverviewTableComponent', () => {
         sort: 'creationTime',
       },
       getProcessesByProcessStatus: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1)),
+      getProcessesBySearch: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1)),
     });
     processService = jasmine.createSpyObj('processService', {
       searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1)),
@@ -227,6 +228,36 @@ describe('ProcessOverviewTableComponent', () => {
       expect(deleteRow.nativeElement.innerHTML).toContain('/processes/' + processes[1].processId);
     });
 
+  });
+
+  describe('process retrieval', () => {
+    it('should retrieve processes by status when no search query is provided', () => {
+      expect(processOverviewService.getProcessesByProcessStatus).toHaveBeenCalled();
+      expect(processOverviewService.getProcessesBySearch).not.toHaveBeenCalled();
+    });
+
+    it('should retrieve processes using discovery when a search query is provided', () => {
+      (processOverviewService.getProcessesByProcessStatus as jasmine.Spy).calls.reset();
+      (processOverviewService.getProcessesBySearch as jasmine.Spy).calls.reset();
+
+      component.searchQuery = 'index-discovery';
+
+      expect(processOverviewService.getProcessesBySearch).toHaveBeenCalledWith(
+        ProcessStatus.COMPLETED,
+        'index-discovery',
+        jasmine.anything(),
+      );
+
+      expect(processOverviewService.getProcessesByProcessStatus).not.toHaveBeenCalled();
+    });
+
+    it('should reset pagination when the search query changes', () => {
+      paginationService.resetPage.calls.reset();
+
+      component.searchQuery = 'index-discovery';
+
+      expect(paginationService.resetPage).toHaveBeenCalledWith(component.paginationId);
+    });
   });
 
   describe('getEPersonName function', () => {

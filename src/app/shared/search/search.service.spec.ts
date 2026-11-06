@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
@@ -29,6 +28,10 @@ import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
 import SpyObj = jasmine.SpyObj;
 import { Component } from '@angular/core';
+import { HrefOnlyDataService } from '@dspace/core/data/href-only-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
 @Component({
   template: '',
@@ -46,6 +49,7 @@ describe('SearchService', () => {
   let requestService: SpyObj<RequestService>;
   let routeService: RouteService;
   let searchConfigService: SearchConfigurationServiceStub;
+  let hrefOnlyDataService: jasmine.SpyObj<HrefOnlyDataService>;
 
   let testScheduler: TestScheduler;
   let msToLive: number;
@@ -63,6 +67,9 @@ describe('SearchService', () => {
     remoteDataBuildService = getMockRemoteDataBuildService();
     requestService = getMockRequestService();
     searchConfigService = new SearchConfigurationServiceStub();
+    hrefOnlyDataService = jasmine.createSpyObj('HrefOnlyDataService', [
+      'findByHref',
+    ]);
 
     initTestData();
 
@@ -76,7 +83,7 @@ describe('SearchService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: HALEndpointService, useValue: halService },
-        { provide: DSpaceObjectDataService, useValue: {} },
+        { provide: HrefOnlyDataService, useValue: hrefOnlyDataService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: Angulartics2, useValue: {} },
@@ -245,6 +252,54 @@ describe('SearchService', () => {
       service.search(new PaginatedSearchOptions({})).subscribe();
 
       expect(remoteDataBuildService.buildFromHref).toHaveBeenCalledWith(envConfig.rest.baseUrl + '/discover/search/objects');
+    });
+
+    it('should directly attach the resolved indexable object to the search result', (done: DoneFn) => {
+      const href = 'https://rest.com/server/api/core/items/test-item';
+
+      const item = Object.assign(new Item(), {
+        uuid: 'test-item',
+      });
+
+      const searchResult = Object.assign(new SearchResult<Item>(), {
+        _links: {
+          indexableObject: {
+            href,
+          },
+        },
+      });
+
+      const searchObjects = Object.assign(new SearchObjects<Item>(), {
+        page: [searchResult],
+      });
+
+      const searchObjectsRD = new RemoteData<SearchObjects<Item>>(
+        remoteDataTimestamp,
+        msToLive,
+        remoteDataTimestamp,
+        RequestEntryState.Success,
+        undefined,
+        searchObjects,
+        200,
+      );
+
+      spyOn(remoteDataBuildService, 'buildFromHref')
+        .and.returnValue(of(searchObjectsRD));
+
+      hrefOnlyDataService.findByHref.and.returnValue(
+        createSuccessfulRemoteDataObject$(item),
+      );
+
+      service.search<Item>(new PaginatedSearchOptions({})).subscribe((rd) => {
+        expect(hrefOnlyDataService.findByHref).toHaveBeenCalledWith(
+          href,
+          true,
+          true,
+        );
+
+        expect(rd.payload.page[0].indexableObject).toBe(item);
+        done();
+      });
     });
   });
 

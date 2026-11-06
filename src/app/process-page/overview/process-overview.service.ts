@@ -12,8 +12,14 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Process } from '@dspace/core/processes/process.model';
 import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { SearchService } from '../../shared/search/search.service';
 
 /**
  * The sortable fields for processes
@@ -35,7 +41,10 @@ export enum ProcessSortField {
 })
 export class ProcessOverviewService {
 
-  constructor(protected processDataService: ProcessDataService) {
+  constructor(
+    private processDataService: ProcessDataService,
+    private searchService: SearchService,
+  ) {
   }
 
   /**
@@ -70,6 +79,41 @@ export class ProcessOverviewService {
     } else {
       return this.processDataService.searchBy('byProperty', options);
     }
+  }
+
+  getProcessesBySearch(processStatus: ProcessStatus, query: string, paginationOptions: PaginationComponentOptions): Observable<RemoteData<PaginatedList<Process>>> {
+    const options = new PaginatedSearchOptions({
+      configuration: 'processes',
+      query,
+      filters: [
+        new SearchFilter(
+          'f.process_status',
+          [processStatus],
+          'equals',
+        ),
+      ],
+      pagination: paginationOptions,
+    });
+
+    return this.searchService.search<Process>(options).pipe(
+      map((rd: RemoteData<SearchObjects<Process>>) => {
+        const payload = hasValue(rd.payload)
+          ? Object.assign(new PaginatedList<Process>(), rd.payload, {
+            page: rd.payload.page.map((result) => result.indexableObject),
+          })
+          : undefined;
+
+        return new RemoteData<PaginatedList<Process>>(
+          rd.timeCompleted,
+          rd.msToLive,
+          rd.lastUpdated,
+          rd.state,
+          rd.errorMessage,
+          payload,
+          rd.statusCode,
+        );
+      }),
+    );
   }
 
   /**
