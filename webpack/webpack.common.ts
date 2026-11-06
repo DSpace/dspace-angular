@@ -41,6 +41,11 @@ export const copyWebpackOptions = {
       to: 'assets',
     },
     {
+      // PDF.js viewer used by the media viewer's PDF view (ng2-pdfjs-viewer)
+      from: join(__dirname, '..', 'node_modules', 'ng2-pdfjs-viewer', 'pdfjs'),
+      to: join('assets', 'pdfjs'),
+    },
+    {
       // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
       // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
       from: join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
