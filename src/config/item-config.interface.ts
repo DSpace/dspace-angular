@@ -18,6 +18,8 @@ export interface ItemConfig extends Config {
     pageSize: number;
     // Show the bitstream access status label
     showAccessStatuses: boolean;
+    // Open bitstream download links in a new browser tab by default
+    openDownloadLinksInNewTab?: boolean;
   }
 
   metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig

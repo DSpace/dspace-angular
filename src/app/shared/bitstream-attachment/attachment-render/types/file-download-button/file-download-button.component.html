@@ -1,18 +1,21 @@
 @if (!hasNoDownload) {
   @if (bitstreamPath$ | async; as bitstreamLink) {
     @if (canDownload$ | async) {
-      <button [routerLink]="bitstreamLink?.routerLink" [queryParams]="bitstreamLink?.queryParams" class="btn btn-outline-primary"
+      <a [routerLink]="bitstreamLink?.routerLink" [queryParams]="bitstreamLink?.queryParams"
+        [target]="isBlank ? '_blank' : '_self'"
+        class="btn btn-outline-primary"
         data-test="download">
         <i class="fas fa-download"></i> {{ 'file-download-button.download' | translate }}
-      </button>
+      </a>
     } @else {
-      <button [routerLink]="bitstreamLink?.routerLink"
+      <a [routerLink]="bitstreamLink?.routerLink"
         [queryParams]="bitstreamLink?.queryParams"
+        [target]="isBlank ? '_blank' : '_self'"
         [dsBtnDisabled]="(canRequestACopy$ | async) !== true"
         class="btn btn-outline-primary"
         data-test="requestACopy">
         {{ 'file-download-button.request-copy' | translate }}
-      </button>
+      </a>
     }
   }
 }
