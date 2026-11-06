@@ -3,6 +3,7 @@
     <div class="mt-4" [ngClass]="placeholderFontClass" @fadeIn>
       <div class="d-flex flex-row border-bottom mb-4 pb-4"></div>
       <h2> {{ 'home.recent-submissions.head' | translate }}</h2>
+      <ds-rss [searchOptions]="searchOptions"></ds-rss>
       <ul class="list-unstyled m-0 p-0">
         @for (item of itemRD?.payload?.page; track item) {
           <li class="my-4">

@@ -8,14 +8,12 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
 
 import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
@@ -26,10 +24,7 @@ import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RouterMock } from '../mocks/router.mock';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchFilter } from '../search/models/search-filter.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
@@ -69,27 +64,16 @@ describe('RssComponent', () => {
         ],
       })),
     });
-    linkHeadService = jasmine.createSpyObj('linkHeadService', {
-      addTag: '',
-    });
-    const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-    const mockSearchOptions = of(new PaginatedSearchOptions({
-      pagination: Object.assign(new PaginationComponentOptions(), {
-        id: 'search-page-configuration',
-        pageSize: 10,
-        currentPage: 1,
-      }),
-      sort: new SortOptions('dc.title', SortDirection.ASC),
-    }));
+    linkHeadService = jasmine.createSpyObj('linkHeadService', [
+      'addTag',
+      'removeTag',
+    ]);
     groupDataService = jasmine.createSpyObj('groupsDataService', {
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: '',
       getUUIDFromString: '',
     });
     paginationService = new PaginationServiceStub();
-    const searchConfigService = {
-      paginatedSearchOptions: mockSearchOptions,
-    };
     TestBed.configureTestingModule({
       providers: [
         { provide: GroupDataService, useValue: groupDataService },
@@ -145,6 +129,35 @@ describe('RssComponent', () => {
   it('should include rpp in opensearch url if provided', () => {
     const route = comp.formulateRoute(uuid, 'opensearch/search', options, query, null, null, 50);
     expect(route).toBe('/opensearch/search?format=atom&scope=2cfcf65e-0a51-4bcb-8592-b8db7b064790&sort=dc.title&sort_direction=DESC&query=test&rpp=50');
+  });
+
+  it('should use provided search options when generating RSS links', () => {
+    comp.openSearchUri = 'opensearch/search';
+    comp.isEnabled$.next(true);
+
+    comp.searchOptions = new PaginatedSearchOptions({
+      scope: uuid,
+      configuration: 'site',
+      sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
+      pagination: Object.assign(new PaginationComponentOptions(), {
+        pageSize: 5,
+        currentPage: 1,
+      }),
+    });
+
+    comp.ngOnChanges({
+      searchOptions: {
+        previousValue: undefined,
+        currentValue: comp.searchOptions,
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    });
+
+    expect(comp.route$.value).toContain(`scope=${uuid}`);
+    expect(comp.route$.value).toContain('configuration=site');
+    expect(comp.route$.value).toContain('sort=dc.date.accessioned&sort_direction=DESC');
+    expect(comp.route$.value).toContain('rpp=5');
   });
 });
 

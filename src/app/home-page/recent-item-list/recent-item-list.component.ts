@@ -41,6 +41,7 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { RSSComponent } from '../../shared/rss-feed/rss.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
   followLink,
@@ -64,6 +65,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
     ErrorComponent,
     ListableObjectComponentLoaderComponent,
     NgClass,
+    RSSComponent,
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
@@ -79,6 +81,11 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
  * @type {ViewMode}
  */
   viewMode = ViewMode.ListElement;
+
+  /**
+   * Search options shared between the recent items list and its RSS feed.
+   */
+  searchOptions: PaginatedSearchOptions;
 
   private _placeholderFontClass: string;
 
@@ -108,12 +115,14 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
       linksToFollow.push(followLink('accessStatus'));
     }
 
+    this.searchOptions = new PaginatedSearchOptions({
+      pagination: this.paginationConfig,
+      dsoTypes: [DSpaceObjectType.ITEM],
+      sort: this.sortConfig,
+    });
+
     this.itemRD$ = this.searchService.search(
-      new PaginatedSearchOptions({
-        pagination: this.paginationConfig,
-        dsoTypes: [DSpaceObjectType.ITEM],
-        sort: this.sortConfig,
-      }),
+      this.searchOptions,
       undefined,
       undefined,
       undefined,

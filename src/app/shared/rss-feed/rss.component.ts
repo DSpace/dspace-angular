@@ -38,6 +38,7 @@ import {
   hasValue,
   isUndefined,
 } from '../empty.util';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchFilter } from '../search/models/search-filter.model';
 
 /**
@@ -62,6 +63,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   isActivated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @Input() sortConfig?: SortOptions;
+
+  @Input() searchOptions?: PaginatedSearchOptions;
 
   uuid: string;
   subs: Subscription[] = [];
@@ -120,8 +123,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // If sortConfig changes, update the RSS links
-    if (changes.sortConfig && this.openSearchUri && this.isEnabled$.getValue()) {
+    // Update RSS links when the sort configuration or search options change
+    if ((changes.sortConfig || changes.searchOptions) && this.openSearchUri && this.isEnabled$.getValue()) {
       this.updateRssLinks();
     }
   }
@@ -146,7 +149,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Update RSS links based on current search configuration and sortConfig input
+   * Update RSS links based on the provided search options or the current search configuration,
+   * applying the sortConfig override when available.
    */
   private updateRssLinks(): void {
     if (!this.openSearchUri || !this.isEnabled$.getValue()) {
@@ -156,8 +160,9 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
     // Remove existing link tags before adding new ones
     this.linkHeadService.removeTag("rel='alternate'");
 
-    // Get the current search options and apply our sortConfig if provided
-    const searchOptions = this.searchConfigurationService.paginatedSearchOptions.value;
+    // Use the provided search options, falling back to the current search configuration
+    // and overriding the sort configuration when explicitly provided
+    const searchOptions = this.searchOptions ?? this.searchConfigurationService.paginatedSearchOptions.value;
     const modifiedOptions = { ...searchOptions };
     if (hasValue(this.sortConfig)) {
       modifiedOptions.sort = this.sortConfig;
@@ -165,7 +170,7 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
 
     // Create the RSS feed URL
     const route = environment.rest.baseUrl + this.formulateRoute(
-      this.uuid,
+      this.searchOptions?.scope ?? this.uuid,
       this.openSearchUri,
       modifiedOptions.sort,
       modifiedOptions.query,
