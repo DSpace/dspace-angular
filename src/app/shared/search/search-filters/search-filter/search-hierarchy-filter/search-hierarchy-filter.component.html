@@ -1,5 +1,5 @@
 <div>
-  <div class="filters py-2">
+  <div class="filters pb-2">
     @for (value of (selectedAppliedFilters$ | async); track value) {
       <ds-search-facet-selected-option [selectedValue]="value" [filterConfig]="filterConfig" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-selected-option>
     }

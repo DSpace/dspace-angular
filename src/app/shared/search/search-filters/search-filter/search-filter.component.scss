@@ -4,11 +4,13 @@
 
   .search-filter-wrapper {
     line-height: var(--bs-line-height-base);
+    padding: 0 var(--bs-spacer) calc(var(--bs-spacer) / 2) var(--bs-spacer);
     &.closed {
       overflow: hidden;
     }
     &.notab {
       visibility: hidden;
+      padding: 0;
     }
   }
 
