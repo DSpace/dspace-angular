@@ -26,6 +26,7 @@ import {
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
+import { applyEnvironmentConfigOverrides } from './env-config-overrides';
 import { ServerConfig } from './server-config.interface';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
@@ -135,35 +136,8 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
   }
 };
 
-const overrideWithEnvironment = (config: Config, key: string = '') => {
-  // eslint-disable-next-line guard-for-in
-  for (const property in config) {
-    const variable = `${key}${isNotEmpty(key) ? '_' : ''}${property.toUpperCase()}`;
-    const innerConfig = config[property];
-    if (isNotEmpty(innerConfig)) {
-      if (typeof innerConfig === 'object') {
-        overrideWithEnvironment(innerConfig, variable);
-      } else {
-        const value = ENV(variable, true);
-        if (isNotEmpty(value)) {
-          console.info(`Applying environment variable ${DSPACE(variable)} with value ${value}`);
-          switch (typeof innerConfig) {
-            case 'number':
-              config[property] = getNumberFromString(value);
-              break;
-            case 'boolean':
-              config[property] = getBooleanFromString(value);
-              break;
-            case 'string':
-              config[property] = value;
-              break;
-            default:
-              console.warn(`Unsupported environment variable type ${typeof innerConfig} ${DSPACE(variable)}`);
-          }
-        }
-      }
-    }
-  }
+const overrideWithEnvironment = (config: Config) => {
+  applyEnvironmentConfigOverrides(config, ENV);
 };
 
 
@@ -237,7 +211,8 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
     }
   }
 
-  // override with environment variables
+  // Ordering invariant: environment overrides must run before buildBaseUrl()
+  // so DSPACE_REST_BASEURL can suppress computed rest.baseUrl.
   overrideWithEnvironment(appConfig);
 
   // apply existing non convention UI environment variables
