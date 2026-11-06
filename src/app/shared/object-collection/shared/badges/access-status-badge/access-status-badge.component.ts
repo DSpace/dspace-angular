@@ -42,6 +42,7 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
 
   accessStatus$: Observable<string>;
   embargoDate$: Observable<string>;
+  leaseDate$: Observable<string>;
 
   /**
    * Whether to show the access status badge or not
@@ -95,16 +96,19 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
   private handleItem() {
     this.showAccessStatus = environment.item.showAccessStatuses;
     if (!this.showAccessStatus) {
-      // Do not show the badge if the feature is inactive.
       return;
     }
-    this.accessStatus$ = this.object.accessStatus.pipe(
+    const accessStatusPayload$ = this.object.accessStatus.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
-      map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
-      catchError(() => of('access-status.unknown.listelement.badge')),
+      catchError(() => of({ status: 'unknown', leaseDate: null } as Partial<AccessStatusObject>)),
     );
-    // stylesheet based on the access status value
+    this.accessStatus$ = accessStatusPayload$.pipe(
+      map((accessStatus) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
+      map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
+    );
+    this.leaseDate$ = accessStatusPayload$.pipe(
+      map((accessStatus) => hasValue(accessStatus.leaseDate) ? accessStatus.leaseDate : null),
+    );
     this.subs.push(
       this.accessStatus$.pipe(
         map((accessStatusClass: string) => accessStatusClass.replace(/\./g, '-')),
@@ -120,16 +124,24 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
   private handleBitstream() {
     this.showAccessStatus = environment.item.bitstream.showAccessStatuses;
     if (!this.showAccessStatus) {
-      // Do not show the badge if the feature is inactive.
       return;
     }
-    this.embargoDate$ = this.object.accessStatus.pipe(
+    const payload$ = this.object.accessStatus.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((accessStatus: AccessStatusObject) => hasValue(accessStatus.embargoDate) ? accessStatus.embargoDate : null),
-      catchError(() => of(null)),
+      catchError(() => of({ embargoDate: null, leaseDate: null } as Partial<AccessStatusObject>)),
     );
-    this.accessStatus$ = this.embargoDate$.pipe(
-      map(date => hasValue(date) ? 'embargo.listelement.badge' : null),
+    this.embargoDate$ = payload$.pipe(
+      map((s) => hasValue(s.embargoDate) ? s.embargoDate : null),
+    );
+    this.leaseDate$ = payload$.pipe(
+      map((s) => hasValue(s.leaseDate) ? s.leaseDate : null),
+    );
+    this.accessStatus$ = payload$.pipe(
+      map((s) => {
+        if (hasValue(s.embargoDate)) { return 'embargo.listelement.badge'; }
+        if (hasValue(s.leaseDate))   { return 'lease.listelement.badge'; }
+        return null;
+      }),
     );
   }
 }
