@@ -15,9 +15,15 @@ import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontyp
 import {
   combineLatest,
   Observable,
+  of,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
+import { AuthService } from '../../../core/auth/auth.service';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
@@ -36,41 +42,50 @@ export class WithdrawnReinstateItemMenuProvider extends DSpaceObjectPageMenuProv
   constructor(
     protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
     protected correctionTypeDataService: CorrectionTypeDataService,
+    protected auth: AuthService,
   ) {
     super();
   }
 
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {
-    return combineLatest([
-      this.correctionTypeDataService.findByItem(item.uuid, true).pipe(
-        getFirstCompletedRemoteData(),
-        getRemoteDataPayload()),
-    ]).pipe(
-      map(([correction]) => {
-        return [
-          {
-            visible: item.isArchived && correction?.page.some((c) => c.topic === REQUEST_WITHDRAWN),
-            model: {
-              type: MenuItemType.ONCLICK,
-              text: 'item.page.withdrawn',
-              function: () => {
-                this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(item, 'request-withdrawn', item.isArchived);
+    return this.auth.isAuthenticated().pipe(
+      take(1),
+      switchMap((isLoggedIn) => {
+        if (!isLoggedIn) {
+          return of([] as PartialMenuSection[]);
+        }
+        return combineLatest([
+	  this.correctionTypeDataService.findByItem(item.uuid, true).pipe(
+            getFirstCompletedRemoteData(),
+            getRemoteDataPayload()),
+        ]).pipe(
+          map(([correction]) => {
+            return [
+              {
+                visible: item.isArchived && correction?.page.some((c) => c.topic === REQUEST_WITHDRAWN),
+                model: {
+                  type: MenuItemType.ONCLICK,
+		  text: 'item.page.withdrawn',
+		  function: () => {
+                    this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(item, 'request-withdrawn', item.isArchived);
+		  },
+                } as OnClickMenuItemModel,
+                icon: 'eye-slash',
               },
-            } as OnClickMenuItemModel,
-            icon: 'eye-slash',
-          },
-          {
-            visible: item.isWithdrawn && correction?.page.some((c) => c.topic === REQUEST_REINSTATE),
-            model: {
-              type: MenuItemType.ONCLICK,
-              text: 'item.page.reinstate',
-              function: () => {
-                this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(item, 'request-reinstate', item.isArchived);
+              {
+                visible: item.isWithdrawn && correction?.page.some((c) => c.topic === REQUEST_REINSTATE),
+                model: {
+		  type: MenuItemType.ONCLICK,
+		  text: 'item.page.reinstate',
+		  function: () => {
+                    this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(item, 'request-reinstate', item.isArchived);
+		  },
+                } as OnClickMenuItemModel,
+                icon: 'eye',
               },
-            } as OnClickMenuItemModel,
-            icon: 'eye',
-          },
-        ] as PartialMenuSection[];
+            ] as PartialMenuSection[];
+	  }),
+        );
       }),
     );
   }
