@@ -2497,6 +2497,35 @@
 
   "item.alerts.reinstate-request": "Request reinstate",
 
+  // Label and hint of the metadata fields configured in item.withdrawn.fields: the keys
+  // are built as "item.withdrawn." + the metadata field + ".label" or ".hint". A field
+  // with no translated hint is rendered without one
+  "item.withdrawn.dc.title.label": "Title",
+
+  "item.withdrawn.dspace.withdrawn.reason.label": "Reason for withdrawal",
+
+  "item.withdrawn.dspace.withdrawn.reason.hint": "Shown on the page of the withdrawn item, explain why it is no longer available.",
+
+  "item.withdrawn.dcterms.isReplacedBy.label": "Replaced by",
+
+  "item.withdrawn.dcterms.isReplacedBy.hint": "Full URL of the record replacing this item, in this or in another repository.",
+
+  "item.withdrawn.dspace.withdrawn.redirect.label": "Redirect visitors to the replacement record",
+
+  "item.withdrawn.dspace.withdrawn.redirect.hint": "When checked, visitors are sent straight to the replacement record instead of seeing this page.",
+
+  "item.withdrawn.form.header": "Withdrawal details",
+
+  "item.withdrawn.form.required-legend": "Required field",
+
+  "item.withdrawn.form.error.required": "This field is required.",
+
+  "item.withdrawn.form.error.required-flag": "This option has to be selected.",
+
+  "item.withdrawn.form.error.url": "Enter a full URL, starting with http:// or https://",
+
+  "item.withdrawn.form.incomplete": "Fill in the required fields above to withdraw this item.",
+
   "quality-assurance.event.table.person-who-requested": "Requested by",
 
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",

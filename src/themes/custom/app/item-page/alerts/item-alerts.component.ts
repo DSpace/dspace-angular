@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ItemAlertsComponent as BaseComponent } from '../../../../../app/item-page/alerts/item-alerts.component';
+import { ItemWithdrawnTombstoneComponent } from '../../../../../app/item-page/withdrawn/item-withdrawn-tombstone/item-withdrawn-tombstone.component';
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
 
 @Component({
@@ -15,6 +16,7 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
   imports: [
     AlertComponent,
     AsyncPipe,
+    ItemWithdrawnTombstoneComponent,
     RouterLink,
     TranslateModule,
   ],

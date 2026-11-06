@@ -27,6 +27,7 @@ import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
 } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { ItemWithdrawnTombstoneComponent } from '../withdrawn/item-withdrawn-tombstone/item-withdrawn-tombstone.component';
 
 @Component({
   selector: 'ds-base-item-alerts',
@@ -35,6 +36,7 @@ import {
   imports: [
     AlertComponent,
     AsyncPipe,
+    ItemWithdrawnTombstoneComponent,
     RouterLink,
     TranslateModule,
   ],
