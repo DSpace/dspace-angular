@@ -35,37 +35,58 @@
         }
       }
 
-      <ds-form [formId]="formId"
-        [formModel]="formModel"
-        [formGroup]="formGroup"
-        [formLayout]="formLayout"
-        [displayCancel]="false"
-        (submitForm)="onSubmit()">
-        <div before class="btn-group">
-          <button (click)="onCancel()" type="button"
-            class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
-          </div>
-          @if ((canEdit$ | async) && !(activeGroup$ | async)?.permanent) {
-            <div after class="btn-group">
-              <button (click)="delete()" class="btn btn-danger delete-button" type="button">
-                <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
-              </button>
+      <ul ngbNav [destroyOnHide]="true" #tabs="ngbNav" class="nav-tabs" role="tablist">
+        <li [ngbNavItem]="'editGroupTab'" role="presentation" data-test="editGroupTab">
+          <a ngbNavLink>{{messagePrefix + '.tabs.edit' | translate}}</a>
+          <ng-template ngbNavContent>
+            <div class="mt-2">
+              <ds-form [formId]="formId"
+                [formModel]="formModel"
+                [formGroup]="formGroup"
+                [formLayout]="formLayout"
+                [displayCancel]="false"
+                (submitForm)="onSubmit()">
+                <div before class="btn-group">
+                  <button (click)="onCancel()" type="button"
+                    class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
+                  </div>
+                  @if ((canEdit$ | async) && !(activeGroup$ | async)?.permanent) {
+                    <div after class="btn-group">
+                      <button (click)="delete()" class="btn btn-danger delete-button" type="button">
+                        <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
+                      </button>
+                    </div>
+                  }
+                </ds-form>
             </div>
-          }
-        </ds-form>
-
+          </ng-template>
+        </li>
         @if ((activeGroup$ | async); as groupBeingEdited) {
-          <div class="mb-5">
-            @if (groupBeingEdited !== undefined) {
-              <ds-members-list
-              [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
-            }
-          </div>
-          @if (groupBeingEdited !== undefined) {
-            <ds-subgroups-list
-            [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
-          }
+          <li [ngbNavItem]="'ePeopleTab'" role="presentation" data-test="ePeopleTab">
+            <a ngbNavLink>{{messagePrefix + '.tabs.ePeople' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div class="mt-2">
+                @if (groupBeingEdited !== undefined) {
+                  <ds-members-list
+                    [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
+                }
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="'groupsTab'" role="presentation" data-test="groupsTab">
+            <a ngbNavLink>{{messagePrefix + '.tabs.groups' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div class="mt-2">
+                @if (groupBeingEdited !== undefined) {
+                  <ds-subgroups-list
+                    [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
+                }
+              </div>
+            </ng-template>
+          </li>
         }
-      </div>
+      </ul>
+      <div [ngbNavOutlet]="tabs"></div>
+    </div>
     </div>
   </div>
