@@ -17,6 +17,13 @@
       'submission.sections.jisc.publisher.policy.noembargo' | translate }}</span>
     }
 
+    @if (version.additionalOpenAccessFee) {
+      <span class="m-1 ms-4">
+        <i class="fa-solid fa-dollar-sign pe-2"></i>
+        {{ 'submission.sections.jisc.publisher.policy.additional-oa-fee' | translate }}
+      </span>
+    }
+
     <span class="m-1 ms-4">
       <i class="far fa-folder-open"></i>
       @if (!!version?.locations && version.locations.length > 0) {

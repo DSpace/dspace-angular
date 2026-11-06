@@ -59,4 +59,25 @@ describe('ContentAccordionComponent', () => {
     fixture.detectChanges();
     expect(de.queryAll(By.css('.row')).length).toEqual(5);
   });
+
+  it('should show additional OA fee icon when additionalOpenAccessFee is true', () => {
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
+    (component.version as any).additionalOpenAccessFee = true;
+    fixture.detectChanges();
+    expect(de.query(By.css('.fa-dollar-sign'))).toBeTruthy();
+  });
+
+  it('should not show additional OA fee icon when additionalOpenAccessFee is false', () => {
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
+    (component.version as any).additionalOpenAccessFee = false;
+    fixture.detectChanges();
+    expect(de.query(By.css('.fa-dollar-sign'))).toBeFalsy();
+  });
+
+  it('should not show additional OA fee icon when additionalOpenAccessFee is missing', () => {
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
+    delete (component.version as any).additionalOpenAccessFee;
+    fixture.detectChanges();
+    expect(de.query(By.css('.fa-dollar-sign'))).toBeFalsy();
+  });
 });
