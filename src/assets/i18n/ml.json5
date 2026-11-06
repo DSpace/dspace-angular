@@ -5699,7 +5699,7 @@
   "login.form.oidc": "OIDC ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക",
 
   // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "ORCID ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക",
+  "login.form.orcid": "ORCID ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക",
 
   // "login.form.password": "Password",
   "login.form.password": "പാസ്വേഡ്",
@@ -12295,6 +12295,5 @@
   // "bitstream.related.deleted": "deleted",
   // TODO New key - Add a translation
   "bitstream.related.deleted": "deleted",
-
 
 }
