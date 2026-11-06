@@ -12,6 +12,7 @@ import {
   SECURITY_CONFIG,
   SUBMISSION_ID,
 } from './field-parser';
+import { GeospatialFieldParser } from './geospatial-field-parser';
 import { ListFieldParser } from './list-field-parser';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
@@ -49,6 +50,13 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: DropdownFieldParser,
+          deps: [...fieldParserDeps],
+        };
+      }
+      case ParserType.Geospatial: {
+        return {
+          provide: FieldParser,
+          useClass: GeospatialFieldParser,
           deps: [...fieldParserDeps],
         };
       }
