@@ -272,6 +272,23 @@ describe('ItemVersionsComponent', () => {
       const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
       expect(rows.length).toBe(0, 'Version history table should not be shown when only one version is visible to the current user');
     });
+
+    describe('and displayWhenEmpty is true', () => {
+      beforeEach(() => {
+        component.displayWhenEmpty = true;
+        component.ngOnInit();
+        fixture.detectChanges();
+      });
+
+      afterEach(() => {
+        component.displayWhenEmpty = false;
+      });
+
+      it('should reveal the version history table, as the submitter should still see their own draft version in the edit view', () => {
+        const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+        expect(rows.length).toBe(1, 'Version history table should be shown when displayWhenEmpty is true, even if only one version is visible');
+      });
+    });
   });
 
   describe('when the user can only delete a version', () => {
