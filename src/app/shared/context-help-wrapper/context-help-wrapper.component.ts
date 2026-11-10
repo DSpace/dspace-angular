@@ -110,7 +110,9 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     this.clearSubs();
   }
 
-  onClick() {
+  onClick(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
     this.contextHelpService.toggleTooltip(this.id);
   }
 
