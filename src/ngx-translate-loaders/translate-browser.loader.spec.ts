@@ -36,6 +36,7 @@ describe('TranslateBrowserLoader', () => {
       return declared;
     });
     originalThemes = environment.themes;
+    spyOn(console, 'warn');
   });
 
   afterEach(() => {
@@ -84,6 +85,22 @@ describe('TranslateBrowserLoader', () => {
 
     loader.getTranslation('en').subscribe((messages) => {
       expect(messages).toEqual({ 'home.title': 'Base' });
+      expect(console.warn).toHaveBeenCalledWith(
+        '[TranslateBrowserLoader] Failed to load theme i18n file assets/custom/i18n/en.json5:',
+        jasmine.any(Error),
+      );
+      done();
+    });
+  });
+
+  it('warns and returns no translations when the base file cannot be loaded', (done) => {
+    environment.themes = [];
+    transferState.get.and.returnValue({});
+    http.get.and.returnValue(throwError(() => new Error('404')));
+
+    loader.getTranslation('en').subscribe((messages) => {
+      expect(messages).toEqual({});
+      expect(console.warn).toHaveBeenCalled();
       done();
     });
   });

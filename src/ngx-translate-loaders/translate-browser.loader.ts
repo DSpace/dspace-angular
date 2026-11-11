@@ -83,9 +83,14 @@ export class TranslateBrowserLoader implements TranslateLoader {
     const translationHash: string = environment.production
       ? `.${(process.env.languageHashes as any)[lang + '.json5']}`
       : '';
-    return this.http.get(`${this.prefix}${lang}${translationHash}${this.suffix}`, { responseType: 'text' }).pipe(
+    const url = `${this.prefix}${lang}${translationHash}${this.suffix}`;
+    return this.http.get(url, { responseType: 'text' }).pipe(
       map((json: any) => JSON.parse(json)),
-      catchError(() => of({})),
+      catchError((error: unknown) => {
+        // eslint-disable-next-line no-console
+        console.warn(`[TranslateBrowserLoader] Failed to load i18n file ${url}:`, error);
+        return of({});
+      }),
     );
   }
 
@@ -94,9 +99,14 @@ export class TranslateBrowserLoader implements TranslateLoader {
    * Returns an empty object if the file is missing (most themes won't override every language).
    */
   protected fetchThemeOverride(themeName: string, lang: string): Observable<Record<string, string>> {
-    return this.http.get(`assets/${themeName}/i18n/${lang}.json5`, { responseType: 'text' }).pipe(
+    const url = `assets/${themeName}/i18n/${lang}.json5`;
+    return this.http.get(url, { responseType: 'text' }).pipe(
       map((text: string) => JSON5.parse(text) as Record<string, string>),
-      catchError(() => of({})),
+      catchError((error: unknown) => {
+        // eslint-disable-next-line no-console
+        console.warn(`[TranslateBrowserLoader] Failed to load theme i18n file ${url}:`, error);
+        return of({});
+      }),
     );
   }
 
