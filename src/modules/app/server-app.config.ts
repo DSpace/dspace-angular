@@ -7,9 +7,9 @@ import {
 import {
   APP_ID,
   ApplicationConfig,
+  DOCUMENT,
   importProvidersFrom,
   mergeApplicationConfig,
-  TransferState,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServerRendering } from '@angular/ssr';
@@ -64,8 +64,8 @@ import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { ServerInitService } from './server-init.service';
 
-export function createTranslateLoader(transferState: TransferState) {
-  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
+export function createTranslateLoader(document: Document) {
+  return new TranslateServerLoader(document, 'dist/server/assets/i18n/', '.json');
 }
 
 export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
@@ -81,7 +81,7 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [TransferState],
+        deps: [DOCUMENT],
       },
     }),
     ...ServerInitService.providers(),
