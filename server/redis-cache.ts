@@ -45,6 +45,7 @@ export function createSsrRefreshContext(req: Request, res: Response): { request:
 export class RedisSsrCache {
   private client: ReturnType<typeof createClient>;
   private unavailable = false;
+  private invalidEntryReported = false;
 
   constructor(private config: RedisCacheConfig, private debug = false) {
     this.client = createClient({
@@ -56,7 +57,7 @@ export class RedisSsrCache {
       },
     });
     // Do not log connection errors: their messages may contain credentials from the URL.
-    this.client.on('error', () => this.reportUnavailable());
+    this.client.on('error', error => this.reportFailure('connect', error));
     this.client.on('ready', () => {
       this.unavailable = false;
     });
@@ -64,7 +65,7 @@ export class RedisSsrCache {
 
   /** Connect in the background so an unavailable cache cannot delay server startup. */
   connect(): Promise<void> {
-    return this.client.connect().then(() => undefined).catch(() => this.reportUnavailable());
+    return this.client.connect().then(() => undefined).catch(error => this.reportFailure('connect', error));
   }
 
   async close(): Promise<void> {
@@ -74,7 +75,7 @@ export class RedisSsrCache {
   }
 
   async get(key: string): Promise<{ value: CachedPage; remainingTime: number } | undefined> {
-    return this.execute(async () => {
+    return this.execute('get', async () => {
       const cacheKey = this.pageKey(key);
       const [data, remainingTime] = await Promise.all([this.client.get(cacheKey), this.client.pTTL(cacheKey)]);
       if (!data || remainingTime <= 0) {
@@ -83,7 +84,7 @@ export class RedisSsrCache {
       const value = JSON.parse(data) as CachedPage;
       if (typeof value?.page !== 'string' || !value.headers || typeof value.headers !== 'object'
         || value.statusCode !== 200) {
-        return undefined;
+        throw new SyntaxError('Invalid cached page');
       }
       return { value, remainingTime };
     });
@@ -93,14 +94,14 @@ export class RedisSsrCache {
     if (!Number.isFinite(timeToLive) || timeToLive <= 0) {
       return;
     }
-    await this.execute(() => this.client.set(this.pageKey(key), JSON.stringify(value), { PX: Math.ceil(timeToLive) }));
+    await this.execute('set', () => this.client.set(this.pageKey(key), JSON.stringify(value), { PX: Math.ceil(timeToLive) }));
   }
 
   /** Only one worker may refresh a page at a time. Expiry recovers locks after crashes. */
   async refresh(key: string, render: () => Promise<void>): Promise<void> {
     const lockKey = `${this.config.keyPrefix}refresh:${key}`;
     const token = randomUUID();
-    const acquired = await this.execute(() => this.client.set(lockKey, token, {
+    const acquired = await this.execute('refresh-lock', () => this.client.set(lockKey, token, {
       NX: true,
       PX: this.config.refreshLockTimeToLive,
     }));
@@ -113,7 +114,7 @@ export class RedisSsrCache {
       console.warn('Background SSR cache refresh failed.');
     } finally {
       // A slow render must not delete a lock subsequently acquired by another worker.
-      await this.execute(() => this.client.eval(
+      await this.execute('refresh-unlock', () => this.client.eval(
         'if redis.call("GET", KEYS[1]) == ARGV[1] then return redis.call("DEL", KEYS[1]) else return 0 end',
         { keys: [lockKey], arguments: [token] },
       ));
@@ -124,7 +125,7 @@ export class RedisSsrCache {
     return `${this.config.keyPrefix}page:${key}`;
   }
 
-  private async execute<T>(operation: () => Promise<T>): Promise<T | undefined> {
+  private async execute<T>(name: string, operation: () => Promise<T>): Promise<T | undefined> {
     if (!this.client.isReady) {
       return undefined;
     }
@@ -133,23 +134,34 @@ export class RedisSsrCache {
       return await Promise.race([
         operation(),
         new Promise<never>((_, reject) => {
-          timer = setTimeout(() => reject(new Error('Redis command timed out')), this.config.commandTimeout);
+          timer = setTimeout(() => reject(Object.assign(new Error('Redis command timed out'), { code: 'ETIMEDOUT' })), this.config.commandTimeout);
         }),
       ]);
-    } catch {
-      this.reportUnavailable();
+    } catch (error) {
+      this.reportFailure(name, error);
       return undefined;
     } finally {
       clearTimeout(timer);
     }
   }
 
-  private reportUnavailable(): void {
+  private reportFailure(operation: string, error: unknown): void {
+    const code = (error as { code?: unknown })?.code;
+    const context = `Redis SSR cache ${operation} failed (${typeof code === 'string' && code ? code : 'no error code'}).`;
+    if (error instanceof SyntaxError) {
+      if (!this.invalidEntryReported) {
+        console.warn(`${context} Invalid cached entry ignored.`);
+        this.invalidEntryReported = true;
+      } else if (this.debug) {
+        console.debug(context);
+      }
+      return;
+    }
     if (!this.unavailable) {
-      console.warn('Redis SSR cache unavailable; requests will be rendered without caching.');
+      console.warn(`${context} Continuing without cache for this operation.`);
       this.unavailable = true;
     } else if (this.debug) {
-      console.debug('Redis SSR cache operation failed.');
+      console.debug(context);
     }
   }
 }

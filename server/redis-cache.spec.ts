@@ -64,6 +64,10 @@ describe('Redis SSR cache', () => {
       client.get.and.returnValue(Promise.resolve(data));
       expect(await cache.get('key')).toBeUndefined();
     }
+    expect(console.warn).toHaveBeenCalledOnceWith('Redis SSR cache get failed (no error code). Invalid cached entry ignored.');
+    client.get.and.callFake(() => Promise.reject(new Error('connection failed')));
+    expect(await cache.get('key')).toBeUndefined();
+    expect(console.warn).toHaveBeenCalledWith('Redis SSR cache get failed (no error code). Continuing without cache for this operation.');
   });
 
   it('treats entries without HTTP status 200 as cache misses', async () => {
@@ -99,10 +103,53 @@ describe('Redis SSR cache', () => {
     expect(console.warn).toHaveBeenCalledTimes(1);
   });
 
+  it('logs error codes or a fallback without exposing error messages, URLs or keys', async () => {
+    const secret = 'redis://user:password@private-host:6379';
+    const cases: [Error, string][] = [
+      [Object.assign(new Error(secret), { code: 'ECONNREFUSED' }), 'ECONNREFUSED'],
+      [Object.assign(new Error(secret), { code: 'ETIMEDOUT' }), 'ETIMEDOUT'],
+      [new Error(secret), 'no error code'],
+      [Object.assign(new Error(secret), { code: '' }), 'no error code'],
+      [Object.assign(new Error(secret), { code: 123 }), 'no error code'],
+    ];
+    for (const [error, code] of cases) {
+      const testedCache = new RedisSsrCache(config);
+      (testedCache as any).client = client;
+      client.get.and.callFake(() => Promise.reject(error));
+      (console.warn as jasmine.Spy).calls.reset();
+      expect(await testedCache.get(secret)).toBeUndefined();
+      expect(console.warn).toHaveBeenCalledOnceWith(`Redis SSR cache get failed (${code}). Continuing without cache for this operation.`);
+    }
+  });
+
+  it('includes operation context in debug logs without repeating warnings', async () => {
+    (cache as any).debug = true;
+    spyOn(console, 'debug');
+    client.get.and.callFake(() => Promise.reject(new Error('private details')));
+    client.set.and.callFake(() => Promise.reject(Object.assign(new Error('private details'), { code: 'ETIMEDOUT' })));
+    await cache.get('key');
+    await cache.set('key', value, 1000);
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.debug).toHaveBeenCalledOnceWith('Redis SSR cache set failed (ETIMEDOUT).');
+  });
+
+  it('logs connection failures once and allows a new warning after reconnecting', async () => {
+    const testedCache = new RedisSsrCache(config);
+    const redisClient = (testedCache as any).client;
+    const error = Object.assign(new Error('private connection details'), { code: 'ECONNREFUSED' });
+    spyOn(redisClient, 'connect').and.returnValue(Promise.reject(error));
+    await testedCache.connect();
+    redisClient.emit('error', error);
+    expect(console.warn).toHaveBeenCalledOnceWith('Redis SSR cache connect failed (ECONNREFUSED). Continuing without cache for this operation.');
+    redisClient.emit('ready');
+    redisClient.emit('error', error);
+    expect(console.warn).toHaveBeenCalledTimes(2);
+  });
+
   it('bounds the time spent waiting for an unresponsive Redis connection', async () => {
     client.get.and.returnValue(new Promise(() => undefined));
     expect(await cache.get('key')).toBeUndefined();
-    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalledOnceWith('Redis SSR cache get failed (ETIMEDOUT). Continuing without cache for this operation.');
   });
 
   it('does not refresh if another worker owns the lock', async () => {
