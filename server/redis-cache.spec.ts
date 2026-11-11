@@ -19,7 +19,7 @@ describe('Redis SSR cache', () => {
   let cache: RedisSsrCache;
   let client: any;
   let config: RedisCacheConfig;
-  const value: CachedPage = { page: '<html>page</html>', headers: { Link: ['<item>; rel="item"'] }, statusCode: 203 };
+  const value: CachedPage = { page: '<html>page</html>', headers: { Link: ['<item>; rel="item"'] }, statusCode: 200 };
 
   beforeEach(() => {
     config = {
@@ -59,10 +59,17 @@ describe('Redis SSR cache', () => {
     }
   });
 
-  it('treats malformed entries and unsuccessful responses as cache misses', async () => {
-    for (const data of ['not json', 'null', '"<html>"', '{}', JSON.stringify({ ...value, statusCode: 404 })]) {
+  it('treats malformed entries as cache misses', async () => {
+    for (const data of ['not json', 'null', '"<html>"', '{}']) {
       client.get.and.returnValue(Promise.resolve(data));
       expect(await cache.get('key')).toBeUndefined();
+    }
+  });
+
+  it('treats entries without HTTP status 200 as cache misses', async () => {
+    for (const statusCode of [undefined, null, '200', 200.5, 100, 199, 201, 203, 204, 206, 299, 301, 304, 404, 500]) {
+      client.get.and.returnValue(Promise.resolve(JSON.stringify({ ...value, statusCode })));
+      expect(await cache.get('key')).withContext(`statusCode: ${statusCode}`).toBeUndefined();
     }
   });
 

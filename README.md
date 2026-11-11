@@ -219,9 +219,9 @@ during cache initialization. Invalid rules disable the Redis cache with a warnin
 continue to render. See `config/config.example.yml` for all Redis settings.
 
 On a cache hit near expiry, one worker refreshes the page in the background while the cached page
-is returned immediately. Expired pages are not served. HTML, configured response headers (such as
-signposting `Link`) and successful status codes are stored together. Keys isolate deployments,
-language preferences and full URLs, including query strings. Choose a unique `keyPrefix` for each
+is returned immediately. Expired pages are not served. Only responses with HTTP status 200 are cached.
+HTML, configured response headers (such as signposting `Link`) and the status code are stored together.
+Keys isolate deployments, language preferences and full URLs, including query strings. Choose a unique `keyPrefix` for each
 deployment and change it when deploying changes that should invalidate existing cached pages.
 
 Redis is disabled by default. When enabled but unavailable, requests are rendered without caching;

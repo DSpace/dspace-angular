@@ -82,7 +82,7 @@ export class RedisSsrCache {
       }
       const value = JSON.parse(data) as CachedPage;
       if (typeof value?.page !== 'string' || !value.headers || typeof value.headers !== 'object'
-        || !Number.isInteger(value.statusCode) || value.statusCode < 200 || value.statusCode >= 300) {
+        || value.statusCode !== 200) {
         return undefined;
       }
       return { value, remainingTime };
