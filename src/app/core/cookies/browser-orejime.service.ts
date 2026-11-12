@@ -152,6 +152,11 @@ export class BrowserOrejimeService extends OrejimeService {
    *  - Add and translate orejime configuration messages
    */
   initialize() {
+    // Orejime rejects an empty apps list; skip entirely when the consent UI is disabled.
+    if (!this.appConfig.info?.enableCookieConsentPopup) {
+      return;
+    }
+
     if (!this.appConfig.info.enablePrivacyStatement) {
       this.orejimeConfig.translations.zz.consentModal.privacyPolicy.text = 'cookies.consent.content-modal.no-privacy-policy.text';
     }
@@ -237,11 +242,7 @@ export class BrowserOrejimeService extends OrejimeService {
          */
         this.translateConfiguration();
 
-        if (!this.appConfig.info?.enableCookieConsentPopup) {
-          this.orejimeConfig.apps = [];
-        } else {
-          this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
-        }
+        this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
         this.applyUpdateSettingsCallbackToApps(user);
         this.lazyOrejime.then(({ init }) => {
           this.orejimeInstance = init(this.orejimeConfig);
@@ -378,7 +379,9 @@ export class BrowserOrejimeService extends OrejimeService {
    * Show the cookie consent form
    */
   showSettings() {
-    this.orejimeInstance.show();
+    if (hasValue(this.orejimeInstance)) {
+      this.orejimeInstance.show();
+    }
   }
 
   /**
