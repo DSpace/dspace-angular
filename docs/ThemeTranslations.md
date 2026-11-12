@@ -75,12 +75,14 @@ Under SSR the server loader reads the base file and the theme overrides from dis
 and stores the result in the Angular `TransferState`. The browser reuses that state, so no extra
 request for theme translations is made after the initial page load.
 
-When no `TransferState` is available - client-side rendering, for example `npm run start:dev` -
-the browser loader fetches the base file and the theme override files over HTTP and merges them
-client-side.
+When no `TransferState` is available, the browser loader fetches the base file and the theme
+override files over HTTP and merges them client-side. This happens with client-side rendering
+(for example `npm run start:dev`) and on pages excluded from SSR through `ssr.excludePathPatterns`,
+such as `/search` in the default configuration.
 
-A missing override file is ignored. A malformed override file is skipped and a warning is written
-to the server log, so a syntax error in one theme file cannot break rendering.
+A missing override file is ignored. A file that cannot be loaded or parsed is skipped with a
+warning - in the server log under SSR, and in the browser console otherwise - so a syntax error in
+one theme file cannot break rendering.
 
 ## Relationship to `merge-i18n`
 
