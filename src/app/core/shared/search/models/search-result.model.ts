@@ -8,7 +8,6 @@ import {
   excludeFromEquals,
   fieldsForEquals,
 } from '../../../utilities/equals.decorators';
-import { DSpaceObject } from '../../dspace-object.model';
 import { GenericConstructor } from '../../generic-constructor';
 import { HALLink } from '../../hal-link.model';
 import { HALResource } from '../../hal-resource.model';
@@ -20,7 +19,7 @@ import { SEARCH_RESULT } from '../types/search-result.resource-type';
  * Represents a search result object of a certain (<T>) DSpaceObject
  */
 @typedObject
-export class SearchResult<T extends DSpaceObject> extends ListableObject implements HALResource {
+export class SearchResult<T extends ListableObject> extends ListableObject implements HALResource {
   static type = SEARCH_RESULT;
 
   /**

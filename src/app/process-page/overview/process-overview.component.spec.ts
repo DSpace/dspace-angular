@@ -81,9 +81,37 @@ describe('ProcessOverviewComponent', () => {
     fixture.detectChanges();
   });
 
+  describe('process search', () => {
+    it('should update the search query when the search button is clicked', () => {
+      const searchInput = fixture.debugElement.query(By.css('input[type="search"]'));
+      const searchButton = fixture.debugElement.query(By.css('.input-group .btn-primary'));
+
+      searchInput.nativeElement.value = 'index-discovery';
+      searchButton.triggerEventHandler('click', null);
+
+      expect(component.searchQuery).toBe('index-discovery');
+    });
+
+    it('should trim the search query', () => {
+      component.searchProcesses('  index-discovery  ');
+
+      expect(component.searchQuery).toBe('index-discovery');
+    });
+
+    it('should clear the search query when searching with an empty value', () => {
+      component.searchProcesses('   ');
+
+      expect(component.searchQuery).toBe('');
+    });
+  });
+
   describe('overview buttons', () => {
     it('should show a button to clear selected processes when there are selected processes', () => {
-      const clearButton = fixture.debugElement.query(By.css('.btn-primary'));
+      const clearButton = fixture.debugElement
+        .queryAll(By.css('.btn-primary'))
+        .find((button) =>
+          button.nativeElement.innerHTML.includes('process.overview.delete.clear'),
+        );
       expect(clearButton.nativeElement.innerHTML).toContain('process.overview.delete.clear');
 
       clearButton.triggerEventHandler('click', null);
@@ -93,8 +121,12 @@ describe('ProcessOverviewComponent', () => {
       (processBulkDeleteService.hasSelected as jasmine.Spy).and.returnValue(false);
       fixture.detectChanges();
 
-      const clearButton = fixture.debugElement.query(By.css('.btn-primary'));
-      expect(clearButton).toBeNull();
+      const clearButton = fixture.debugElement
+        .queryAll(By.css('.btn-primary'))
+        .find((button) =>
+          button.nativeElement.innerHTML.includes('process.overview.delete.clear'),
+        );
+      expect(clearButton).toBeUndefined();
     });
     it('should show a button to open the delete modal when there are selected processes', () => {
       spyOn(component, 'openDeleteModal');
