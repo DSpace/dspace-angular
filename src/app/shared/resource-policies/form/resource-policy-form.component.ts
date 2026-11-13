@@ -145,6 +145,12 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   public formModel: DynamicFormControlModel[];
 
   /**
+   * Whether the form status is valid or not
+   * @type {Observable<boolean>}
+   */
+  public isFormValid$: Observable<boolean>;
+
+  /**
    * The eperson or group that will be granted the permission
    * @type {DSpaceObject}
    */
@@ -205,6 +211,9 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.isActive = true;
     this.formId = this.formService.getUniqueId('resource-policy-form');
     this.formModel = this.buildResourcePolicyForm();
+    this.isFormValid$ = this.formService.isValid(this.formId).pipe(
+      map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant)),
+    );
 
     if (this.isBeingEdited()) {
       const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
@@ -231,16 +240,6 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Method to check if the form status is valid or not
-   *
-   * @return Observable that emits the form status
-   */
-  isFormValid(): Observable<boolean> {
-    return this.formService.isValid(this.formId).pipe(
-      map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant)),
-    );
-  }
 
   /**
    * Initialize the form model

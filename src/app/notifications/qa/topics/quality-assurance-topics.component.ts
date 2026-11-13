@@ -85,6 +85,18 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
    */
   public totalElements$: Observable<number>;
   /**
+   * The loading status of the Quality Assurance topics (if it's running or not).
+   */
+  public isTopicsLoading$: Observable<boolean>;
+  /**
+   * The processing status of the Quality Assurance topics (if it's running or not).
+   */
+  public isTopicsProcessing$: Observable<boolean>;
+  /**
+   * The title of the target item, when a targetId is present.
+   */
+  public targetItemTitle$: Observable<string>;
+  /**
    * Array to track all the component subscriptions. Useful to unsubscribe them with 'onDestroy'.
    * @type {Array}
    */
@@ -140,6 +152,11 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
       }),
     );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceTopicsTotals();
+    this.isTopicsLoading$ = this.notificationsStateService.isQualityAssuranceTopicsLoading();
+    this.isTopicsProcessing$ = this.notificationsStateService.isQualityAssuranceTopicsProcessing();
+    if (this.targetId) {
+      this.targetItemTitle$ = this.getTargetItemTitle();
+    }
   }
 
   /**
@@ -153,26 +170,6 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
         this.getQualityAssuranceTopics(this.sourceId, this.targetId);
       }),
     );
-  }
-
-  /**
-   * Returns the information about the loading status of the Quality Assurance topics (if it's running or not).
-   *
-   * @return Observable<boolean>
-   *    'true' if the topics are loading, 'false' otherwise.
-   */
-  public isTopicsLoading(): Observable<boolean> {
-    return this.notificationsStateService.isQualityAssuranceTopicsLoading();
-  }
-
-  /**
-   * Returns the information about the processing status of the Quality Assurance topics (if it's running or not).
-   *
-   * @return Observable<boolean>
-   *    'true' if there are operations running on the topics (ex.: a REST call), 'false' otherwise.
-   */
-  public isTopicsProcessing(): Observable<boolean> {
-    return this.notificationsStateService.isQualityAssuranceTopicsProcessing();
   }
 
   /**
