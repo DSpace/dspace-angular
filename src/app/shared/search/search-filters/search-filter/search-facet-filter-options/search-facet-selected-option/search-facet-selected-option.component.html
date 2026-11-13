@@ -2,6 +2,7 @@
    [tabIndex]="-1"
    [routerLink]="[searchLink]"
    [queryParams]="removeQueryParams | async"
+   [fragment]="'search-component'"
    (click)="searchFilterService.minimizeAll()">
   <label class="mb-0 d-flex w-100">
     <input type="checkbox" [checked]="true" class="my-1 align-self-stretch filter-checkbox" role="checkbox" tabindex="0"/>
