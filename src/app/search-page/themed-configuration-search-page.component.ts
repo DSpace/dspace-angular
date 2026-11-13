@@ -143,6 +143,35 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    */
   @Input() hideScopeInUrl: boolean;
 
+  /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() renderOnServerSide: boolean;
+  /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice: boolean;
+
+  /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string;
+
+  /**
+   * A boolean representing if show search charts
+   */
+  @Input() showCharts: boolean;
+
+  /**
+   * Defines whether to start as showing the charts collapsed
+   */
+  @Input() collapseCharts: boolean;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide chart
+   */
+  @Input() showChartsToggle: boolean;
+
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] = [
     'configurationList',
     'context',
@@ -168,6 +197,12 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
     'query',
     'scope',
     'hideScopeInUrl',
+    'renderOnServerSide',
+    'showSearchResultNotice',
+    'searchResultNotice',
+    'showCharts',
+    'collapseCharts',
+    'showChartsToggle',
   ];
 
   protected getComponentName(): string {

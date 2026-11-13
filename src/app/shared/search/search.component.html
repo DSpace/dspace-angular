@@ -8,6 +8,15 @@
   </div>
 }
 
+@if (showCharts) {
+  <ds-search-charts [configuration]="currentConfiguration$"
+                    [collapseChart]="collapseCharts"
+                    [filters]="chartFiltersRD$.asObservable()"
+                    [inPlaceSearch]="inPlaceSearch"
+                    [refreshFilters]="refreshFilters"
+                    [scope]="scope"
+                    [showChartsToggle]="showChartsToggle"></ds-search-charts>
+}
 @if (!showSidebar && (initialized$ | async)) {
   <div>
     <ng-template *ngTemplateOutlet="searchContent"></ng-template>
@@ -50,12 +59,16 @@
         [searchConfig]="searchOptions$ | async"
         [configuration]="(currentConfiguration$ | async)"
         [disableHeader]="!searchEnabled"
+        [showSearchResultNotice]="showSearchResultNotice"
+        [searchResultNotice]="searchResultNotice"
+        [searchResultNoticeType]="searchResultNoticeType"
         [linkType]="linkType"
         [context]="(currentContext$ | async)"
         [selectable]="selectable"
         [selectionConfig]="selectionConfig"
         [showCsvExport]="showCsvExport"
         [showThumbnails]="showThumbnails"
+        [showMetrics]="showMetrics"
         (contentChange)="onContentChange($event)"
         (deselectObject)="deselectObject.emit($event)"
       (selectObject)="selectObject.emit($event)"></ds-search-results>

@@ -1,0 +1,12 @@
+<div [class]="field.styleValue" [attr.lang]="metadataValue.language">
+  <div class="d-flex align-items-center identifier-container-{{iconPosition}}">
+    @if (subTypeIcon && iconPosition !== iconPositionEnum.NONE) {
+      <a href="{{iconLink}}" [ngbTooltip]="iconLink" target="_blank">
+        <img class="source-icon" [src]="subTypeIcon" alt="source-icon" >
+      </a>
+    }
+    <span class="text-value">
+      <a [target]="target" href="{{identifier?.href}}">{{ identifier?.text }}</a>
+    </span>
+  </div>
+</div>

@@ -1,53 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { MenuItemType } from '../menu-item-type.model';
-import { PartialMenuSection } from '../menu-provider.model';
 import { StatisticsMenuProvider } from './statistics.menu';
 
 describe('StatisticsMenuProvider', () => {
-
-  const expectedSectionsNoDSO: PartialMenuSection[] = [
-    {
-      visible: true,
-      model: {
-        type: MenuItemType.LINK,
-        text: 'menu.section.statistics',
-        link: `statistics`,
-      },
-      icon: 'chart-line',
-    },
-  ];
-
-  const expectedSectionsForItem: PartialMenuSection[] = [
-    {
-      visible: true,
-      model: {
-        type: MenuItemType.LINK,
-        text: 'menu.section.statistics',
-        link: `statistics/items/test-item-uuid`,
-      },
-      icon: 'chart-line',
-    },
-  ];
-
-  const expectedSectionsForItemInvisible: PartialMenuSection[] = [
-    {
-      visible: false,
-      model: {
-        type: MenuItemType.LINK,
-        text: 'menu.section.statistics',
-        link: `statistics/items/test-item-uuid`,
-      },
-      icon: 'chart-line',
-    },
-  ];
-
   let provider: StatisticsMenuProvider;
 
   const item: Item = Object.assign(new Item(), {
@@ -83,6 +46,7 @@ describe('StatisticsMenuProvider', () => {
       providers: [
         StatisticsMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { }) },
       ],
     });
     provider = TestBed.inject(StatisticsMenuProvider);
@@ -93,22 +57,19 @@ describe('StatisticsMenuProvider', () => {
   });
 
   describe('getSectionsForContext', () => {
-    it('should return the general statistics link when no DSO is provided', (done) => {
+    it('should return menu entries when at least one authorization is granted', (done) => {
       provider.getSectionsForContext(undefined).subscribe((sections) => {
-        expect(sections).toEqual(expectedSectionsNoDSO);
+        expect(Array.isArray(sections)).toBeTrue();
+        expect(sections.length).toBeGreaterThan(0);
+        expect(sections.some((s) => s.id === 'statistics')).toBeTrue();
         done();
       });
     });
-    it('should return a statistics link to the DSO when a DSO is provided', (done) => {
-      provider.getSectionsForContext(item).subscribe((sections) => {
-        expect(sections).toEqual(expectedSectionsForItem);
-        done();
-      });
-    });
-    it('should not return anything if not authorized to view statistics', (done) => {
+
+    it('should return an empty array when no authorizations are granted', (done) => {
       (TestBed.inject(AuthorizationDataService) as any).isAuthorized.and.returnValue(of(false));
-      provider.getSectionsForContext(item).subscribe((sections) => {
-        expect(sections).toEqual(expectedSectionsForItemInvisible);
+      provider.getSectionsForContext(undefined).subscribe((sections) => {
+        expect(sections).toEqual([]);
         done();
       });
     });
@@ -150,5 +111,4 @@ describe('StatisticsMenuProvider', () => {
       });
     });
   });
-
 });

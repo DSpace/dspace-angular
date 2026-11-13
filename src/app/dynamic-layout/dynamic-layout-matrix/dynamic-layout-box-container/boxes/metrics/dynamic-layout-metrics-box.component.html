@@ -1,0 +1,13 @@
+@let rows = metricRows | async;
+@if (rows.length) {
+  <div class="w-100 mb-3">
+    <div>
+      @for (metricRow of rows; track metricRow) {
+        <div ds-metric-row
+          [metricRow]="metricRow"
+          class="d-flex flex-row flex-wrap align-items-center gap-3">
+        </div>
+      }
+    </div>
+  </div>
+}

@@ -70,6 +70,11 @@ export class ItemDetailPreviewComponent implements OnChanges {
   @Input() showSubmitter = false;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * The item's thumbnail
    */
   public bitstreams$: Observable<Bitstream[]>;

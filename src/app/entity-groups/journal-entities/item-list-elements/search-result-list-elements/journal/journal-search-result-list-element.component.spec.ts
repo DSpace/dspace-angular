@@ -18,6 +18,8 @@ import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { MetricBadgesComponent } from 'src/app/shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from 'src/app/shared/object-list/metric-donuts/metric-donuts.component';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
@@ -103,6 +105,8 @@ describe('JournalSearchResultListElementComponent', () => {
           ThemedBadgesComponent,
           TruncatableComponent,
           TruncatablePartComponent,
+          MetricDonutsComponent,
+          MetricBadgesComponent,
         ],
       },
     }).compileComponents();
@@ -169,6 +173,15 @@ describe('JournalSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(JournalSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        ThemedBadgesComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetricDonutsComponent,
+        MetricBadgesComponent,
+      ] },
     }).compileComponents();
   }));
 

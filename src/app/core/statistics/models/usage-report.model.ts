@@ -4,6 +4,7 @@ import {
   deserialize,
   inheritSerialization,
 } from 'cerialize';
+import { StatisticsType } from 'src/app/statistics-page/cris-statistics-page/statistics-type.model';
 
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
@@ -31,6 +32,9 @@ export class UsageReport extends HALResource {
   @autoserialize
   id: string;
 
+  @autoserializeAs('view-mode')
+  viewMode: StatisticsType;
+
   @autoserializeAs('report-type')
   reportType: string;
 
@@ -39,6 +43,7 @@ export class UsageReport extends HALResource {
 
   @deserialize
   _links: {
+    category?: HALLink;
     self: HALLink;
   };
 }
@@ -50,7 +55,5 @@ export interface Point {
   id: string;
   label: string;
   type: string;
-  values: {
-    views: number;
-  }[];
+  values: any;
 }

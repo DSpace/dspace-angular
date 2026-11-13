@@ -45,6 +45,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
 import { MetadataMap } from '../shared/metadata.models';
+import { Metric } from '../shared/metric.model';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
@@ -241,6 +242,35 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     });
 
     return this.rdbService.buildList<Bundle>(hrefObs);
+  }
+
+  /**
+   * Get the endpoint for an item's metrics
+   * @param itemId
+   */
+  public getMetricsEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('metrics', `${url}/${itemId}`)),
+    );
+  }
+
+  /**
+   * Get an item's metrics using paginated search options
+   * @param itemId          The item's ID
+   * @param searchOptions   The search options to use
+   */
+  public getMetrics(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Metric>>> {
+    const hrefObs = this.getMetricsEndpoint(itemId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
+    );
+    hrefObs.pipe(
+      take(1),
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildList<Metric>(hrefObs);
   }
 
   /**

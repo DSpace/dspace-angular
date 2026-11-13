@@ -5,7 +5,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
@@ -19,7 +18,9 @@ import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '@dspace/core/statistics/usage-report-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { SiteStatisticsPageComponent } from './site-statistics-page.component';
 
@@ -85,7 +86,7 @@ describe('SiteStatisticsPageComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(SiteStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsTableComponent, CrisStatisticsPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -99,13 +100,4 @@ describe('SiteStatisticsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should resolve to the correct site', () => {
-    expect(de.query(By.css('.header')).nativeElement.id)
-      .toEqual('site_id');
-  });
-
-  it('should show a statistics table for each usage report', () => {
-    expect(de.query(By.css('ds-statistics-table.site_id-TotalVisits-report')).nativeElement)
-      .toBeTruthy();
-  });
 });

@@ -30,12 +30,14 @@ import {
 } from '@dspace/core/testing/supervision-order.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { ListableObjectComponentLoaderComponent } from 'src/app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 import { environment } from '../../../../../../environments/environment';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 import { WorkspaceItemSearchResultAdminWorkflowListElementComponent } from './workspace-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
@@ -85,7 +87,7 @@ describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })
-      .compileComponents();
+      .overrideComponent(WorkspaceItemSearchResultAdminWorkflowListElementComponent, { remove: { imports: [ListableObjectComponentLoaderComponent, WorkspaceItemAdminWorkflowActionsComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

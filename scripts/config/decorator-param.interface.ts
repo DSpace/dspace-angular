@@ -12,7 +12,7 @@ export interface DecoratorParam {
    *
    * (Optional)
    */
-  default?: string;
+  default?: string | boolean;
 
   /**
    * The property of the provided parameter value that should be used instead of the value itself.

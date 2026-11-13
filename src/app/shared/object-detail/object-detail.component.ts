@@ -91,6 +91,11 @@ export class ObjectDetailComponent {
   @Input() showThumbnails;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * Whether to show the RSS syndication link. Either false, or valid SortOptions object
    */
   @Input() showRSS: SortOptions | boolean = false;
