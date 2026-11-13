@@ -15,6 +15,7 @@ import {
   HIDDEN_MATCHER_PROVIDER,
   REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
+import { Subject } from 'rxjs';
 
 import { getMockFormBuilderService } from '../../testing/form-builder-service.mock';
 import {
@@ -97,6 +98,29 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       dcTypeControl.setValue('boundType');
       let subscriptions = service.subscribeRelations(testModel, dcTypeControl);
       expect(subscriptions).toHaveSize(1);
+    });
+
+    describe('Test control reset on MATCH_VISIBLE', () => {
+      it('should reset control when MATCH_VISIBLE becomes false', () => {
+        const testModel = mockInputWithTypeBindModel;
+        testModel.typeBindRelations = getTypeBindRelations(['boundType'], 'dc.type');
+
+        const control = new UntypedFormControl();
+        control.setValue('test value');
+
+        const typeModel: any = (service as any).formBuilderService.getTypeBindModel();
+
+        typeModel.valueChanges = new Subject();
+
+        typeModel.value = 'boundType';
+
+        service.subscribeRelations(testModel, control);
+
+        typeModel.value = 'anotherType';
+        typeModel.valueChanges.next('anotherType');
+
+        expect(control.value).toBeNull();
+      });
     });
 
     it('Expect hasMatch to be true (ie. this should be hidden)', () => {
