@@ -255,6 +255,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         provideMockActions(() => new Observable<any>()),
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
         NgbModal,
+        { provide: 'sectionDataProvider', useValue: { id: 'mock-section-id' } },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
