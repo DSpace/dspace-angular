@@ -12,8 +12,8 @@
           <div class="col">
             @if (!hideGear) {
               <div ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-end">
-                <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0"><i class="fas fa-cog" aria-hidden="true"></i></button>
-                <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
+                <button class="btn btn-secondary" [attr.id]="'paginationControls' + elementId" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                <ul [attr.id]="'paginationControlsDropdownMenu' + elementId" [attr.aria-labelledby]="'paginationControls' + elementId" role="menu" ngbDropdownMenu>
                   <li role="menuitem">
                     <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
                     <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
