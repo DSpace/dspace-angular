@@ -10,8 +10,12 @@ describe('Admin Sidebar', () => {
   });
 
   it('should be pinnable and pass accessibility tests', () => {
+    // Make sure the admin sidebar is collapsed by default.
+    cy.get('#admin-sidebar').should('have.class', 'collapsed');
     // Pin the sidebar open
     cy.get('[data-test="sidebar-collapse-toggle"]').click();
+    // Make sure the admin sidebar is pinned now.
+    cy.get('#admin-sidebar').should('have.class', 'expanded');
 
     // Click on every expandable section to open all menus
     cy.get('ds-expandable-admin-sidebar-section').click({ multiple: true });
