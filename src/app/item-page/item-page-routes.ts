@@ -6,6 +6,7 @@ import { itemBreadcrumbResolver } from '@dspace/core/breadcrumbs/item-breadcrumb
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
@@ -108,5 +109,13 @@ export const ROUTES: Route[] = [
         },
       },
     ],
+  },
+  {
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found',
+    },
   },
 ];

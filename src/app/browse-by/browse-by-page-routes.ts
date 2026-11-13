@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { browseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data/browse-by-geospatial-data.component';
 import { browseByGuard } from './browse-by-guard';
@@ -27,5 +28,14 @@ export const ROUTES: Route[] = [
         resolve: { breadcrumb: browseByI18nBreadcrumbResolver },
         data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' },
       },
+      {
+        path: '',
+        component: ThemedPageNotFoundComponent,
+        pathMatch: 'full',
+        data: {
+          title: '404.page-not-found',
+        },
+      },
     ],
-  }];
+  },
+];
