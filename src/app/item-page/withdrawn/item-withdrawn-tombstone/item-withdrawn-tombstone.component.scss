@@ -1,0 +1,36 @@
+.withdrawn-tombstone {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  padding-top: 0.75rem;
+  // the alert owns the colour, so the divider follows it in every alert type and theme
+  border-top: 1px solid var(--bs-alert-border-color, var(--bs-border-color));
+
+  .withdrawn-tombstone-entry {
+    padding: 0.35rem 0;
+
+    + .withdrawn-tombstone-entry {
+      border-top: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.08);
+    }
+  }
+
+  dt {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin-bottom: 0;
+    word-break: break-word;
+  }
+
+  .withdrawn-tombstone-link {
+    i {
+      font-size: 0.75em;
+      vertical-align: baseline;
+    }
+  }
+}

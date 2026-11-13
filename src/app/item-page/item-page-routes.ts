@@ -25,6 +25,7 @@ import { signpostingLinksResolver } from './simple/link-resolver/signposting-lin
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { itemWithdrawnRedirectResolver } from './withdrawn/item-withdrawn-redirect.resolver';
 
 export const ROUTES: Route[] = [
   {
@@ -60,6 +61,7 @@ export const ROUTES: Route[] = [
           menuRoute: MenuRoute.ITEM_PAGE,
         },
         resolve: {
+          withdrawnRedirect: itemWithdrawnRedirectResolver,
           tracking: viewTrackerResolver,
         },
       },
@@ -70,6 +72,7 @@ export const ROUTES: Route[] = [
           menuRoute: MenuRoute.ITEM_PAGE,
         },
         resolve: {
+          withdrawnRedirect: itemWithdrawnRedirectResolver,
           tracking: viewTrackerResolver,
         },
       },

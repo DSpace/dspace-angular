@@ -200,6 +200,33 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
+   * Withdraw an item, storing the given metadata values on it with the same request.
+   *
+   * The metadata operations are sent before the withdrawal, so that the update performed
+   * while withdrawing the item persists them: the server applies the operations of a patch
+   * in the order they are received, within a single transaction.
+   *
+   * @param item     the item to withdraw
+   * @param metadata the metadata values to store, by metadata field. Empty values are skipped
+   */
+  public withdrawWithMetadata(item: Item, metadata: { [field: string]: string }): Observable<RemoteData<Item>> {
+
+    const operations: Operation[] = Object.keys(metadata || {})
+      .filter((field: string) => isNotEmpty(metadata[field]))
+      .map((field: string) => ({
+        op: 'add', path: `/metadata/${field}`, value: { value: metadata[field] },
+      } as Operation));
+
+    operations.push({
+      op: 'replace', path: '/withdrawn', value: true,
+    } as Operation);
+
+    this.requestService.removeByHrefSubstring('/discover');
+
+    return this.patch(item, operations);
+  }
+
+  /**
    * Set the isDiscoverable state of an item to a specified state
    * @param item
    * @param discoverable
