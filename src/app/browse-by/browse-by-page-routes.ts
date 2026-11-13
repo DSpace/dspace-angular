@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { browseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { browseByGuard } from './browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
@@ -19,5 +20,14 @@ export const ROUTES: Route[] = [
         resolve: { breadcrumb: browseByI18nBreadcrumbResolver },
         data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' },
       },
+      {
+        path: '',
+        component: ThemedPageNotFoundComponent,
+        pathMatch: 'full',
+        data: {
+          title: '404.page-not-found',
+        },
+      },
     ],
-  }];
+  },
+];

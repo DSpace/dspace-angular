@@ -6,6 +6,7 @@ import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -129,6 +130,14 @@ export const ROUTES: Route[] = [
           } as LinkMenuItemModel,
         }],
       },
+    },
+  },
+  {
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found',
     },
   },
 ];

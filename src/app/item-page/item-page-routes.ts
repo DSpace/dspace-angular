@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
@@ -23,6 +24,18 @@ import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 
 export const ROUTES: Route[] = [
+  {
+    path: 'version',
+    children: [
+      {
+        path: ':id',
+        component: VersionPageComponent,
+        resolve: {
+          dso: versionResolver,
+        },
+      },
+    ],
+  },
   {
     path: ':id',
     resolve: {
@@ -85,15 +98,11 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    path: 'version',
-    children: [
-      {
-        path: ':id',
-        component: VersionPageComponent,
-        resolve: {
-          dso: versionResolver,
-        },
-      },
-    ],
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found',
+    },
   },
 ];
