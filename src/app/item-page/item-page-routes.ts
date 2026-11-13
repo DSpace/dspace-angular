@@ -4,6 +4,7 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { accessTokenResolver } from '../core/auth/access-token.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
+import { ThemedPageNotFoundComponent } from '../pagenotfound/themed-pagenotfound.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
@@ -23,6 +24,18 @@ import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 
 export const ROUTES: Route[] = [
+  {
+    path: 'version',
+    children: [
+      {
+        path: ':id',
+        component: VersionPageComponent,
+        resolve: {
+          dso: versionResolver,
+        },
+      },
+    ],
+  },
   {
     path: ':id',
     resolve: {
@@ -82,15 +95,11 @@ export const ROUTES: Route[] = [
     ],
   },
   {
-    path: 'version',
-    children: [
-      {
-        path: ':id',
-        component: VersionPageComponent,
-        resolve: {
-          dso: versionResolver,
-        },
-      },
-    ],
+    path: '',
+    component: ThemedPageNotFoundComponent,
+    pathMatch: 'full',
+    data: {
+      title: '404.page-not-found',
+    },
   },
 ];
