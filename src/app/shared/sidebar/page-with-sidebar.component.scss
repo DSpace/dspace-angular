@@ -20,6 +20,7 @@
 
   @include media-breakpoint-down(md) {
     position: relative;
+    left: 0 !important;
 
     &.row-offcanvas {
       position: relative;
@@ -39,7 +40,18 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: var(--bs-body-bg)
+      background-color: var(--bs-body-bg);
+
+      &.active {
+        position: relative;
+        left: 0;
+        height: auto;
+        overflow: visible;
+      }
+    }
+
+    .sidebar-content.active ~ .col-12:not(.sidebar-content) {
+      display: none;
     }
   }
 }
