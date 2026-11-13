@@ -1,5 +1,5 @@
 <div class="pt-2">
-  <div class="d-flex">
+  <div class="d-flex flex-column flex-sm-row">
     @if (!chips) {
       <ds-loading [showMessage]="false"></ds-loading>
     }
@@ -19,7 +19,7 @@
         [showIcons]="true"
         (selected)="onChipSelected($event)"></ds-chips>
     }
-    <button type="button" class="ds-form-add-more btn btn-link"
+    <button type="button" class="ds-form-add-more btn btn-link align-self-start"
             title="{{'form.add' | translate}}"
             [dsBtnDisabled]="model.readOnly"
             (click)="openModal()">
