@@ -127,6 +127,27 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       expect((comp as any).modalService.open).toHaveBeenCalled();
       done();
     });
+
+    describe('when the user is impersonating another user', () => {
+      beforeEach(() => {
+        spyOn(TestBed.inject(AuthService), 'getImpersonateID').and.returnValue('impersonated-user-id');
+        fixture.detectChanges();
+      });
+
+      it('should set the impersonatingID in upload options', () => {
+        expect(comp.uploadFilesOptions.impersonatingID).toEqual('impersonated-user-id');
+      });
+    });
+
+    describe('when the user is not impersonating another user', () => {
+      beforeEach(() => {
+        fixture.detectChanges();
+      });
+
+      it('should leave impersonatingID unset in upload options', () => {
+        expect(comp.uploadFilesOptions.impersonatingID).toBeUndefined();
+      });
+    });
   });
 });
 
