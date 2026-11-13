@@ -1,11 +1,11 @@
 #mirador-viewer {
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--bs-border-color);
   height: 660px;
   width: 100%
 }
 .full-text-op {
   text-align: right;
-  color: #333333;
+  color: var(--bs-body-color);
   font-size: 0.8em;
 }
 p.full-text-op {
