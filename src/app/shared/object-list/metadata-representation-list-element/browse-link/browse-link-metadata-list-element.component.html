@@ -1,7 +1,7 @@
 <div>
   @if ((mdRepresentation.representationType==='browse_link')) {
     <a
-      target="_blank" class="dont-break-out"
+      class="dont-break-out"
       [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
       [attr.lang]="mdRepresentation.getLanguage() | dsNormalizeLanguageCode"
       [queryParams]="getQueryParams()">
