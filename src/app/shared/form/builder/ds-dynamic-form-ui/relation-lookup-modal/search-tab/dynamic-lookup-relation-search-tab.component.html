@@ -37,8 +37,10 @@
             </button>
             <div ngbDropdownMenu aria-labelledby="resultdropdown" *ngVar="(resultsRD$ | async) as resultsRD">
               <button class="dropdown-item"
+                      [dsBtnDisabled]="resultsRD?.page.length === 0"
               (click)="selectPage(resultsRD?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-page' | translate) }}</button>
               <button class="dropdown-item"
+                      [dsBtnDisabled]="resultsRD?.page.length === 0"
               (click)="deselectPage(resultsRD?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.deselect-page' | translate) }}</button>
             </div>
           </div>
