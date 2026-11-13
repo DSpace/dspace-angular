@@ -4,6 +4,7 @@ import {
   NgZone,
   Type,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
@@ -70,6 +71,7 @@ import {
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction,
+  SetRedirectUrlAndNavigateAction,
   SetUserAsIdleAction,
 } from './auth.actions';
 // import services
@@ -159,6 +161,13 @@ export class AuthEffects {
       this.authService.navigateToRedirectUrl(action.payload);
     }),
   ), { dispatch: false });
+
+  public redirectAndNavigate$: Observable<Action> = createEffect(() => this.actions$
+    .pipe(ofType(AuthActionTypes.SET_REDIRECT_URL_AND_NAVIGATE),
+      tap((action: SetRedirectUrlAndNavigateAction) => this.router.navigate([decodeURIComponent(action.payload.navigateUrl)])),
+    ),
+  { dispatch: false },
+  );
 
   // It means "reacts to this action but don't send another"
   public authenticatedError$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -332,6 +341,7 @@ export class AuthEffects {
               private zone: NgZone,
               private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
-              private store: Store<CoreState>) {
+              private store: Store<CoreState>,
+              private router: Router) {
   }
 }
