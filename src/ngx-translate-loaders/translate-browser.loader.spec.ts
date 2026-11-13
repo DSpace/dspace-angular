@@ -14,7 +14,8 @@ describe('TranslateBrowserLoader', () => {
   let http: { get: jasmine.Spy };
   let loader: TranslateBrowserLoader;
   let originalThemes: typeof environment.themes;
-  let themeLanguages: jasmine.Spy;
+  let originalProduction: boolean;
+  let themeLanguageHashes: jasmine.Spy;
 
   /** Match the base i18n request regardless of the production content hash. */
   const isBaseRequest = (url: string): boolean => url.startsWith(`${PREFIX}en`) && url.endsWith(SUFFIX);
@@ -28,19 +29,21 @@ describe('TranslateBrowserLoader', () => {
     loader = new TranslateBrowserLoader(transferState as any, http as any, PREFIX, SUFFIX);
     // Default to every configured theme having an override, so the merge expectations
     // below need no setup; tests that check which files are requested override this.
-    themeLanguages = spyOn(loader as any, 'themeLanguages').and.callFake(() => {
-      const declared: Record<string, string[]> = {};
+    themeLanguageHashes = spyOn(loader as any, 'themeLanguageHashes').and.callFake(() => {
+      const declared: Record<string, Record<string, string>> = {};
       (environment.themes ?? []).forEach((theme: any) => {
-        declared[theme.name] = ['en'];
+        declared[theme.name] = { 'en.json5': 'abc123' };
       });
       return declared;
     });
     originalThemes = environment.themes;
+    originalProduction = environment.production;
     spyOn(console, 'warn');
   });
 
   afterEach(() => {
     environment.themes = originalThemes;
+    environment.production = originalProduction;
   });
 
   it('returns the cached translations from the TransferState without any HTTP call', (done) => {
@@ -61,7 +64,7 @@ describe('TranslateBrowserLoader', () => {
       if (isBaseRequest(url)) {
         return of(JSON.stringify({ 'home.title': 'Base', 'home.subtitle': 'Base sub' }));
       }
-      if (url === 'assets/custom/i18n/en.json5') {
+      if (url === 'assets/custom/i18n/en.json') {
         return of('{ "home.title": "Custom" }');
       }
       return throwError(() => new Error('404'));
@@ -86,9 +89,27 @@ describe('TranslateBrowserLoader', () => {
     loader.getTranslation('en').subscribe((messages) => {
       expect(messages).toEqual({ 'home.title': 'Base' });
       expect(console.warn).toHaveBeenCalledWith(
-        '[TranslateBrowserLoader] Failed to load theme i18n file assets/custom/i18n/en.json5:',
+        '[TranslateBrowserLoader] Failed to load theme i18n file assets/custom/i18n/en.json:',
         jasmine.any(Error),
       );
+      done();
+    });
+  });
+
+  it('requests the theme override file by its content hash in production', (done) => {
+    environment.production = true;
+    environment.themes = [{ name: 'custom' }];
+    transferState.get.and.returnValue({});
+    http.get.and.callFake((url: string) => {
+      if (url === 'assets/custom/i18n/en.abc123.json') {
+        return of(JSON.stringify({ 'home.title': 'Custom' }));
+      }
+      return of(JSON.stringify({ 'home.title': 'Base' }));
+    });
+
+    loader.getTranslation('en').subscribe((messages) => {
+      expect(messages).toEqual({ 'home.title': 'Custom' });
+      expect(http.get).toHaveBeenCalledWith('assets/custom/i18n/en.abc123.json', jasmine.anything());
       done();
     });
   });
@@ -112,11 +133,11 @@ describe('TranslateBrowserLoader', () => {
       if (isBaseRequest(url)) {
         return of(JSON.stringify({ key: 'base' }));
       }
-      if (url === 'assets/parent-theme/i18n/en.json5') {
-        return of('{ key: "parent" }');
+      if (url === 'assets/parent-theme/i18n/en.json') {
+        return of(JSON.stringify({ key: 'parent' }));
       }
-      if (url === 'assets/child-theme/i18n/en.json5') {
-        return of('{ key: "child" }');
+      if (url === 'assets/child-theme/i18n/en.json') {
+        return of(JSON.stringify({ key: 'child' }));
       }
       return throwError(() => new Error('404'));
     });
@@ -155,12 +176,12 @@ describe('TranslateBrowserLoader', () => {
       if (isBaseRequest(url)) {
         return of(JSON.stringify({ key: 'base' }));
       }
-      if (url === 'assets/parent-theme/i18n/en.json5') {
-        return of('{ key: "parent" }');
+      if (url === 'assets/parent-theme/i18n/en.json') {
+        return of(JSON.stringify({ key: 'parent' }));
       }
-      if (url === 'assets/sibling-theme/i18n/en.json5') {
+      if (url === 'assets/sibling-theme/i18n/en.json') {
         // sibling has its own value for the same key — must NOT win when parent-theme is active
-        return of('{ key: "sibling" }');
+        return of(JSON.stringify({ key: 'sibling' }));
       }
       return throwError(() => new Error('404'));
     });
@@ -183,10 +204,10 @@ describe('TranslateBrowserLoader', () => {
       if (isBaseRequest(url)) {
         return of(JSON.stringify({ 'key.a': 'base-a', 'key.b': 'base-b' }));
       }
-      if (url === 'assets/parent-theme/i18n/en.json5') {
+      if (url === 'assets/parent-theme/i18n/en.json') {
         return of('{ "key.a": "parent-a" }');
       }
-      if (url === 'assets/child-theme/i18n/en.json5') {
+      if (url === 'assets/child-theme/i18n/en.json') {
         return of('{ "key.b": "child-b" }');
       }
       return throwError(() => new Error('404'));
@@ -202,7 +223,7 @@ describe('TranslateBrowserLoader', () => {
   it('does not request any theme override file when the build contains none for the language', (done) => {
     // Requesting a file that was never built costs a 404 and delays the first render.
     environment.themes = [{ name: 'dspace' }];
-    themeLanguages.and.returnValue({});
+    themeLanguageHashes.and.returnValue({});
     transferState.get.and.returnValue({});
     http.get.and.callFake((url: string) => {
       if (isBaseRequest(url)) {
@@ -214,7 +235,7 @@ describe('TranslateBrowserLoader', () => {
     loader.getTranslation('en').subscribe((messages) => {
       expect(messages).toEqual({ 'home.title': 'Base' });
       expect(http.get).toHaveBeenCalledTimes(1);
-      expect(http.get).not.toHaveBeenCalledWith('assets/dspace/i18n/en.json5', jasmine.anything());
+      expect(http.get).not.toHaveBeenCalledWith('assets/dspace/i18n/en.json', jasmine.anything());
       done();
     });
   });
@@ -225,22 +246,22 @@ describe('TranslateBrowserLoader', () => {
       { name: 'parent-theme' },
     ];
     // Only the ancestor ships an override, so the active child theme must not be requested.
-    themeLanguages.and.returnValue({ 'parent-theme': ['en'] });
+    themeLanguageHashes.and.returnValue({ 'parent-theme': { 'en.json5': 'abc123' } });
     transferState.get.and.returnValue({});
     http.get.and.callFake((url: string) => {
       if (isBaseRequest(url)) {
         return of(JSON.stringify({ key: 'base' }));
       }
-      if (url === 'assets/parent-theme/i18n/en.json5') {
-        return of('{ key: "parent" }');
+      if (url === 'assets/parent-theme/i18n/en.json') {
+        return of(JSON.stringify({ key: 'parent' }));
       }
       return throwError(() => new Error('404'));
     });
 
     loader.getTranslation('en').subscribe((messages) => {
       expect(messages.key).toBe('parent');
-      expect(http.get).toHaveBeenCalledWith('assets/parent-theme/i18n/en.json5', jasmine.anything());
-      expect(http.get).not.toHaveBeenCalledWith('assets/child-theme/i18n/en.json5', jasmine.anything());
+      expect(http.get).toHaveBeenCalledWith('assets/parent-theme/i18n/en.json', jasmine.anything());
+      expect(http.get).not.toHaveBeenCalledWith('assets/child-theme/i18n/en.json', jasmine.anything());
       done();
     });
   });
