@@ -1,6 +1,7 @@
 export enum ParserType {
   Date = 'date',
   Dropdown = 'dropdown',
+  Geospatial = 'geospatial',
   RelationGroup = 'group',
   InlineGroup = 'inline-group',
   List = 'list',
