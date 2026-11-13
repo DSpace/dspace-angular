@@ -199,6 +199,30 @@ describe('ItemDataService', () => {
         done();
       });
     });
+
+    it('should call setStaleByHrefSubstring on the bundles endpoint', (done) => {
+      const rdbServiceWithSpy = Object.assign({}, rdbService, {
+        buildFromRequestUUIDAndAwait: (requestUUID$: any, callback: any) => {
+          // Execute callback and subscribe to verify cache invalidation
+          callback().subscribe();
+          return createSuccessfulRemoteDataObject$({});
+        },
+      });
+      service = new ItemDataService(
+        requestService,
+        rdbServiceWithSpy as any,
+        objectCache,
+        halEndpointService,
+        notificationsService,
+        comparator,
+        browseService,
+        bundleService,
+      );
+      service.createBundle(itemId, bundleName).subscribe(() => {
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalled();
+        done();
+      });
+    });
   });
 
   describe('when cache is invalidated', () => {
