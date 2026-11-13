@@ -273,6 +273,7 @@
               "src/**/*.html",
               "src/**/*.json5",
               "scripts/**/*.ts",
+              "server/**/*.ts",
               "webpack/**/*.ts"
             ]
           }
