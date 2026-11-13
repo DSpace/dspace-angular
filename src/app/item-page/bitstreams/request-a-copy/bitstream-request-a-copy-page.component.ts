@@ -101,6 +101,11 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   captchaEnabled$: Observable<boolean>;
   challengeHref$: Observable<string>;
 
+  /**
+   * Whether the request is currently being sent; disables the submit button to prevent duplicate requests/emails
+   */
+  submitting = false;
+
   constructor(private location: Location,
               private translateService: TranslateService,
               private route: ActivatedRoute,
@@ -242,6 +247,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    * When the submission fails, the user will stay on the page and an error notification will be shown
    */
   onSubmit() {
+    if (this.submitting || this.requestCopyForm.invalid) {
+      return;
+    }
+    this.submitting = true;
     const itemRequest = new ItemRequest();
     if (hasValue(this.bitstream)) {
       itemRequest.bitstreamId = this.bitstream.uuid;
@@ -260,6 +269,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         this.notificationsService.success(this.translateService.get('bitstream-request-a-copy.submit.success'));
         this.navigateBack();
       } else {
+        this.submitting = false;
         this.notificationsService.error(this.translateService.get('bitstream-request-a-copy.submit.error'));
       }
     });

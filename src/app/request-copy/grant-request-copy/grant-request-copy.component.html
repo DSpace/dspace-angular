@@ -21,6 +21,7 @@
       <!-- Only send access periods for display if an access token was present -->
       <ds-email-request-copy [subject]="subject$ | async"
                              [message]="message$ | async"
+                             [sending]="sending"
                              (send)="grant($event)"
                              (selectedAccessPeriod)="selectAccessPeriod($event)"
                              [validAccessPeriods$]="validAccessPeriods$"
