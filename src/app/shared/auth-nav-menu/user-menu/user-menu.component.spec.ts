@@ -17,10 +17,13 @@ import {
 } from '@dspace/core/auth/auth.reducer';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { EPersonMock } from '@dspace/core/testing/eperson.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   Store,
@@ -44,10 +47,20 @@ describe('UserMenuComponent', () => {
   let authState: AuthState;
   let authStateLoading: AuthState;
   let authService: AuthService;
+  let configurationDataService: ConfigurationDataService;
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
       getAuthenticatedUserFromStore: of(EPersonMock),
+    });
+
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'can-subscribe-feature.enable',
+        values: [
+          'can-subscribe-feature.enable = true',
+        ],
+      })),
     });
   }
 
@@ -96,6 +109,7 @@ describe('UserMenuComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
