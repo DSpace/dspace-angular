@@ -1,0 +1,115 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{'item-export.modal.title' | translate}}</h4>
+</div>
+<div class="modal-body">
+  @if ((initialized$ | async) !== true) {
+    <ds-loading></ds-loading>
+  }
+  @if ((initialized$ | async)) {
+    @if ((canExport$ | async)) {
+      @if (!selectCollection) {
+        <ds-item-export-alert [item]="item"
+          [entityType]="itemType?.label"
+        [bulkExportLimit]="bulkExportLimit"></ds-item-export-alert>
+        @if (exportForm) {
+          <form [formGroup]="exportForm">
+            @if (molteplicity === 'MULTIPLE') {
+              <div class="form-group">
+                <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
+                <select id="entityType" class="form-select" formControlName="entityType">
+                  <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
+                  @for (entityType of configuration.entityTypes; track entityType) {
+                    <option [ngValue]="entityType">
+                      {{ entityType }}
+                    </option>
+                  }
+                </select>
+              </div>
+            }
+            @if (configurationLoaded$) {
+              <div>
+                <div class="form-group" data-test="format-select">
+                  <label for="format">{{ 'item-export.form.format' | translate }}</label>
+                  <select id="format" class="form-select" formControlName="format">
+                    <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
+                    @for (format of configuration.formats; track format) {
+                      <option [ngValue]="format">
+                        {{ format.id }}
+                      </option>
+                    }
+                  </select>
+                </div>
+                @if (showListSelection) {
+                  <div class="form-group" data-test="selection-radio">
+                    <label>{{'item-export.form.selection' | translate}}</label>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="selectionMode-all" formControlName="selectionMode" value="all"
+                        class="custom-control-input">
+                      <label class="custom-control-label"
+                      for="selectionMode-all">{{'item-export.form.selection.all' | translate}}</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="selectionMode-sel" formControlName="selectionMode" value="onlySelection"
+                        class="custom-control-input">
+                      <label class="custom-control-label"
+                      for="selectionMode-sel">{{'item-export.form.selection.only-selected' | translate}}</label>
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="text-center">
+                <div class="spinner-border text-secondary m-3" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            }
+          </form>
+        } @else {
+          <div class="text-center">
+            <div class="spinner-border text-secondary m-3" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        }
+        @if (exportSelectionMode.value === 'onlySelection') {
+          <ds-item-export-list
+            [itemEntityType]="itemType.label"
+            [listId]="listId"
+          [searchOptions]="searchOptions"></ds-item-export-list>
+        }
+      } @else {
+        <ds-administered-collection-selector [entityType]="selectedEntityType" [types]="bulkImportXlsCollectionSelector"
+          (onSelect)="onCollectionSelect($event)">
+        </ds-administered-collection-selector>
+      }
+    } @else {
+      <div class="text-center">
+        <ds-alert [type]="'alert-warning'" data-test="cannotExport">{{'item-export.cannot-msg' | translate}}</ds-alert>
+      </div>
+    }
+  }
+
+
+  <ng-template #cannotExport>
+    <div class="text-center">
+      <ds-alert [type]="'alert-warning'" data-test="cannotExport">{{'item-export.cannot-msg' | translate}}</ds-alert>
+    </div>
+  </ng-template>
+
+
+
+</div>
+<div class="modal-footer">
+  <div class="text-end">
+    <button type="button" class="btn btn-outline-secondary me-2" (click)="activeModal.close('Close click')">
+      <i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}
+    </button>
+    @if (exportForm) {
+      <button type="submit" class="btn btn-primary" [dsBtnDisabled]='(isFormValid() | async) !== true'
+        (click)="onSubmit()">
+        <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
+      </button>
+    }
+  </div>
+</div>

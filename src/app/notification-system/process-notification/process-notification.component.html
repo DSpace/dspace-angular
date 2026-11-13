@@ -1,0 +1,65 @@
+<div class="notification alert {{(notificationType$ | async)}} alert-dismissible m-3 shadow" role="alert"
+  [@enterLeave]="animate">
+
+  @if (notification.options.clickToClose) {
+    <button
+      (click)="remove()"
+      [dsBtnDisabled]="(finished | async) !== true"
+      type="button" class="btn-close pt-0 pe-1 ps-0 pb-0" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  }
+
+
+  <div class="d-flex flex-column">
+
+    <div class="d-flex flex-column justify-content-center align-content-stretch">
+      @if (title) {
+        <div>
+          <strong>
+            @if (titleIsTemplate) {
+              <div class="notification-title ps-1">
+                <ng-container *ngTemplateOutlet="$any(title)"></ng-container>
+              </div>
+            } @else {
+              <div class="notification-title ps-1">
+                {{(title | async)}}
+              </div>
+            }
+          </strong>
+        </div>
+      }
+
+      @if ((finished | async)) {
+        <span class="notification-content ps-1">
+          {{(processStatus$ | async) | translate}}
+        </span>
+      }
+      @if ((finished | async) !== true) {
+        <span class="notification-content ps-1">
+          {{'process.new.notification.process.processing' | translate}}
+        </span>
+      }
+
+      @if ((finished | async) !== true) {
+        <div class="ps-1 progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
+      }
+    </div>
+
+    @if ((finished | async) && (files$ | async)?.length > 0) {
+      <div [attr.data-test]="'files-content'">
+        <div class="notification-content ps-1">{{ 'process.new.notification.process.files' | translate}}</div>
+        @for (file of (files$ | async); track file; let last = $last) {
+          <ds-file-download-link class="ps-1" [bitstream]="file">
+            <span>{{getFileName(file)}}</span>
+            <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+          </ds-file-download-link>
+        }
+      </div>
+    }
+  </div>
+
+
+</div>
