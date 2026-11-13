@@ -16,6 +16,7 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import { filesize } from 'filesize';
 import {
   Observable,
   of,
@@ -27,6 +28,7 @@ import {
 } from 'rxjs/operators';
 
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
+import { UploaderError } from '../../../shared/upload/uploader/uploader-error.model';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
@@ -173,9 +175,20 @@ export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
   }
 
   /**
-   * Show error notification on upload fails
+   * Show an error notification when an upload fails, naming the size limit when the file was too large
+   * @param error the uploader error, when available
    */
-  public onUploadError() {
+  public onUploadError(error?: UploaderError) {
+    if (hasValue(error) && error.status === 413) {
+      const limit = this.uploadFilesOptions?.maxFileSize;
+      if (limit > 0) {
+        this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed-max-size',
+          { size: filesize(limit, { standard: 'jedec', round: 0 }) }));
+      } else {
+        this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed-max-size-unknown'));
+      }
+      return;
+    }
     this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
   }
 
