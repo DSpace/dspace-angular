@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -16,10 +18,14 @@ import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import {
   catchError,
   map,
+  switchMap,
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
@@ -54,6 +60,7 @@ export class QaEventNotificationComponent implements OnChanges {
 
   constructor(
     private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
+    private authorizationService: AuthorizationDataService,
   ) {}
 
   /**
@@ -70,20 +77,27 @@ export class QaEventNotificationComponent implements OnChanges {
    * Note: sourceId is composed as: id: "sourceName:<target>"
    */
   getQualityAssuranceSources$(): Observable<QualityAssuranceSourceObject[]> {
-    const findListTopicOptions: FindListOptions = {
-      searchParams: [new RequestParam('target', this.item.uuid)],
-    };
-    return this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions, false)
-      .pipe(
-        getFirstCompletedRemoteData(),
-        map((data: RemoteData<PaginatedList<QualityAssuranceSourceObject>>) => {
-          if (data.hasSucceeded) {
-            return data.payload.page;
-          }
-          return [];
-        }),
-        catchError(() => []),
-      );
+    return this.authorizationService.isAuthorized(FeatureID.CanSeeQA).pipe(
+      switchMap((isAuthorized: boolean) => {
+        if (!isAuthorized) {
+          return of([]);
+        }
+        const findListTopicOptions: FindListOptions = {
+          searchParams: [new RequestParam('target', this.item.uuid)],
+        };
+        return this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions, false)
+          .pipe(
+            getFirstCompletedRemoteData(),
+            map((data: RemoteData<PaginatedList<QualityAssuranceSourceObject>>) => {
+              if (data.hasSucceeded) {
+                return data.payload.page;
+              }
+              return [];
+            }),
+            catchError(() => of([])),
+          );
+      }),
+    );
   }
 
   /**
