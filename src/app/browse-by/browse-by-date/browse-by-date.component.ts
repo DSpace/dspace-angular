@@ -186,8 +186,13 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     if (hasValue(itemRD.payload)) {
       const date = itemRD.payload.firstMetadataValue(metadataKeys);
       if (isNotEmpty(date) && isValidDate(date)) {
+        // Read the year from the text itself: non-ISO values ("January 2026", "01-01-2001") parse as local
+        // midnight, and getUTCFullYear() then drops them into the previous year in UTC+ timezones (e.g. IST).
+        const year = date.match(/\b(\d{4})\b/);
+        if (year) {
+          return +year[1];
+        }
         const dateObj = new Date(date);
-        // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
         return isNaN(dateObj.getUTCFullYear()) ? limit : dateObj.getUTCFullYear();
       } else {
         return new Date().getUTCFullYear();
