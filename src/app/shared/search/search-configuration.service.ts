@@ -85,6 +85,11 @@ export class SearchConfigurationService implements OnDestroy {
   private facetLinkPathPrefix = 'discover/facets/';
 
   /**
+   * Endpoint link path for retrieving configured facets with their respective values
+   */
+  private searchFacetLinkPath = 'discover/search/facets/';
+
+  /**
    * Default pagination id
    */
   public paginationID = 'spc';
@@ -523,15 +528,33 @@ export class SearchConfigurationService implements OnDestroy {
 
 
 
+
   /**
    * Request the filter configuration for a given scope or the whole repository
+   * @param {link}   link the link to use for the request
    * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
    * @param {string} configurationName the name of the configuration
    * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
    */
-  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    const href$ = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
-      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
+  private getFilterConfigByLink(link: string, scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    const href$ = this.halService.getEndpoint(link).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+
+        if (isNotEmpty(scope)) {
+          args.push(`scope=${scope}`);
+        }
+
+        if (isNotEmpty(configurationName)) {
+          args.push(`configuration=${configurationName}`);
+        }
+
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+
+        return url;
+      }),
     );
 
     href$.pipe(take(1)).subscribe((url: string) => {
@@ -571,6 +594,25 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
+  /**
+   * Request the filter configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
+  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    return this.getFilterConfigByLink(this.facetLinkPathPrefix, scope, configurationName);
+  }
+
+  /**
+   * Request the filter configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
+  searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    return this.getFilterConfigByLink(this.searchFacetLinkPath, scope, configurationName);
+  }
   /**
    * Calculates the {@link Params} of the search after removing a filter with a certain value and resets the page number.
    *

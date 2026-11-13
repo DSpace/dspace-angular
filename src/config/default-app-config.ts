@@ -377,6 +377,7 @@ export class DefaultAppConfig implements AppConfig {
     showDiscoverFilters: false,
     editHomeNews: true,
     editHomeHeader: true,
+    enableDynamicLayout: false,
   };
 
   // Item Config
@@ -747,6 +748,7 @@ export class DefaultAppConfig implements AppConfig {
   // These styles are used in components like MetadataLinkViewComponent to display entity type indicators
   // alongside metadata values, providing visual cues about the type of referenced entity.
   layout: LayoutConfig = {
+    enableExplorePages: false,
     authorityRef: [
       {
         entityType: 'DEFAULT',
@@ -816,6 +818,10 @@ export class DefaultAppConfig implements AppConfig {
           type: AdvancedAttachmentElementType.Attribute,
         },
       ],
+    },
+    navbar: {
+      // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+      showCommunityCollection: true,
     },
   };
 

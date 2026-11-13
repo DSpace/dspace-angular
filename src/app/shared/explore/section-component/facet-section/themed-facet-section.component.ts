@@ -1,0 +1,40 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { FacetSection } from '@dspace/core/layout/models/section.model';
+
+import { ThemedComponent } from '../../../theme-support/themed.component';
+import { FacetSectionComponent } from './facet-section.component';
+
+/**
+ * Themed wrapper for {@link FacetSectionComponent}.
+ */
+@Component({
+  selector: 'ds-facet-section',
+  styleUrls: [],
+  templateUrl: '../../../theme-support/themed.component.html',
+})
+export class ThemedFacetSectionComponent extends ThemedComponent<FacetSectionComponent> {
+
+  @Input()
+  sectionId: string;
+
+  @Input()
+  facetSection: FacetSection;
+
+  protected inAndOutputNames: (keyof FacetSectionComponent & keyof this)[] = ['sectionId', 'facetSection'];
+
+  protected getComponentName(): string {
+    return 'FacetSectionComponent';
+  }
+
+  protected importThemedComponent(themeName: string): Promise<any> {
+    return import(`../../../../../themes/${themeName}/app/shared/explore/section-component/facet-section/facet-section.component`);
+  }
+
+  protected importUnthemedComponent(): Promise<any> {
+    return import(`./facet-section.component`);
+  }
+
+}
