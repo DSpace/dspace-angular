@@ -54,7 +54,7 @@ describe('Redis SSR cache', () => {
   });
 
   it('rejects invalid memory limits and eviction policies before connecting', () => {
-    for (const maxMemory of [-1, 0.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
+    for (const maxMemory of [-1, 0.5, NaN, Infinity, 2 ** 33, Number.MAX_SAFE_INTEGER + 1]) {
       expect(() => new RedisSsrCache({ ...config, maxMemory })).toThrowError(/maxMemory/);
     }
     expect(() => new RedisSsrCache({ ...config, evictionPolicy: 'noeviction' as any })).toThrowError(/evictionPolicy/);
@@ -62,7 +62,7 @@ describe('Redis SSR cache', () => {
 
   describe('Redis memory settings', () => {
     beforeEach(() => {
-      config.maxMemory = 536870912;
+      config.maxMemory = 512;
       cache = new RedisSsrCache(config);
       const redisClient = (cache as any).client;
       client.connect.and.callFake(async () => {
@@ -71,7 +71,7 @@ describe('Redis SSR cache', () => {
       (cache as any).client = client;
     });
 
-    it('applies the memory limit and defaults to LFU', async () => {
+    it('converts the memory limit from MiB to bytes and defaults to LFU', async () => {
       await cache.connect();
       expect(client.configSet).toHaveBeenCalledOnceWith({ maxmemory: '536870912', 'maxmemory-policy': 'allkeys-lfu' });
     });

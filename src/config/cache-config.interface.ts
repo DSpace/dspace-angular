@@ -16,6 +16,7 @@ export interface RedisCacheConfig {
   url: string;
   keyPrefix: string;
   compressHtml?: boolean;
+  // MiB (1024 * 1024 bytes). Zero leaves Redis memory settings unchanged.
   maxMemory?: number;
   evictionPolicy?: 'allkeys-lru' | 'allkeys-lfu';
   connectTimeout: number;

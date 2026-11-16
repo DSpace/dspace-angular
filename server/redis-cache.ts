@@ -58,8 +58,8 @@ export class RedisSsrCache {
 
   constructor(private config: RedisCacheConfig, private debug = false) {
     const maxMemory = config.maxMemory ?? 0;
-    if (!Number.isSafeInteger(maxMemory) || maxMemory < 0) {
-      throw new Error('Redis maxMemory must be a non-negative integer in bytes.');
+    if (!Number.isSafeInteger(maxMemory) || maxMemory < 0 || !Number.isSafeInteger(maxMemory * 1024 * 1024)) {
+      throw new Error('Redis maxMemory must be a non-negative integer in MiB within the safe byte range.');
     }
     if (config.evictionPolicy !== undefined && !['allkeys-lru', 'allkeys-lfu'].includes(config.evictionPolicy)) {
       throw new Error('Redis evictionPolicy must be allkeys-lru or allkeys-lfu.');
@@ -78,7 +78,7 @@ export class RedisSsrCache {
       this.unavailable = false;
       if (maxMemory > 0) {
         this.memoryConfiguration = this.execute('configure-memory', () => this.client.configSet({
-          maxmemory: String(maxMemory),
+          maxmemory: String(maxMemory * 1024 * 1024),
           'maxmemory-policy': config.evictionPolicy ?? 'allkeys-lfu',
         }));
       }

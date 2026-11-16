@@ -126,7 +126,7 @@ cache:
       compressHtml: false
       # Applies to the ENTIRE Redis instance, including other databases and prefixes.
       # Use only with a dedicated cache instance and CONFIG SET permission (Redis 7+).
-      # Bytes. 0 leaves Redis settings unchanged; e.g. 536870912 = 512 MiB.
+      # MiB (1024 * 1024 bytes). 0 leaves Redis settings unchanged; e.g. 512 = 512 MiB.
       maxMemory: 0
       # Used when maxMemory > 0. LFU removes least frequently read entries;
       # LRU removes least recently read entries. Both may evict entries before TTL expires.

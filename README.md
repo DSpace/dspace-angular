@@ -188,7 +188,7 @@ To let the frontend configure a dedicated Redis instance, set:
 cache:
   serverSide:
     redis:
-      maxMemory: 536870912 # 512 MiB, in bytes
+      maxMemory: 512 # MiB (1024 * 1024 bytes)
       evictionPolicy: allkeys-lfu # or allkeys-lru
 ```
 
@@ -196,7 +196,8 @@ cache:
 read entries. Redis uses approximate rankings and may evict entries before their TTL expires.
 LRU does not mean the oldest entry by creation date. These are memory limits, not entry counts.
 
-`maxMemory` defaults to `0`, which leaves the Redis server settings unchanged. A positive value
+`maxMemory` is a whole number of MiB, converted to bytes internally. It defaults to `0`, which
+leaves the Redis server settings unchanged. A positive value
 applies both settings using `CONFIG SET` after every connection, including reconnects. This requires
 Redis 7+ and permission to run `CONFIG SET`. Cache operations are skipped until configuration succeeds;
 on failure or timeout, requests render without caching until the next successful reconnect.
