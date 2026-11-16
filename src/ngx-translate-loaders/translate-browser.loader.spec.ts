@@ -38,6 +38,8 @@ describe('TranslateBrowserLoader', () => {
     });
     originalThemes = environment.themes;
     originalProduction = environment.production;
+    // other specs may leave production on; the tests below expect unhashed file names unless they set it
+    environment.production = false;
     spyOn(console, 'warn');
   });
 
