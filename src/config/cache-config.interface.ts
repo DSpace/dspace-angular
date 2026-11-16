@@ -16,6 +16,8 @@ export interface RedisCacheConfig {
   url: string;
   keyPrefix: string;
   compressHtml?: boolean;
+  maxMemory?: number;
+  evictionPolicy?: 'allkeys-lru' | 'allkeys-lfu';
   connectTimeout: number;
   commandTimeout: number;
   refreshLockTimeToLive: number;

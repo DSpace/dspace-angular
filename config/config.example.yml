@@ -124,6 +124,13 @@ cache:
       keyPrefix: 'dspace:ssr:'
       # Gzip HTML stored in Redis; decompressed before serving. Disabled by default.
       compressHtml: false
+      # Applies to the ENTIRE Redis instance, including other databases and prefixes.
+      # Use only with a dedicated cache instance and CONFIG SET permission (Redis 7+).
+      # Bytes. 0 leaves Redis settings unchanged; e.g. 536870912 = 512 MiB.
+      maxMemory: 0
+      # Used when maxMemory > 0. LFU removes least frequently read entries;
+      # LRU removes least recently read entries. Both may evict entries before TTL expires.
+      evictionPolicy: allkeys-lfu # or allkeys-lru
       connectTimeout: 1000 # milliseconds
       commandTimeout: 1000 # maximum time to wait for a cache operation, in milliseconds
       refreshLockTimeToLive: 60000 # milliseconds; should exceed the longest SSR render

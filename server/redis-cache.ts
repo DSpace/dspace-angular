@@ -54,8 +54,16 @@ export class RedisSsrCache {
   private client: ReturnType<typeof createClient>;
   private unavailable = false;
   private invalidEntryReported = false;
+  private memoryConfiguration?: Promise<string | undefined>;
 
   constructor(private config: RedisCacheConfig, private debug = false) {
+    const maxMemory = config.maxMemory ?? 0;
+    if (!Number.isSafeInteger(maxMemory) || maxMemory < 0) {
+      throw new Error('Redis maxMemory must be a non-negative integer in bytes.');
+    }
+    if (config.evictionPolicy !== undefined && !['allkeys-lru', 'allkeys-lfu'].includes(config.evictionPolicy)) {
+      throw new Error('Redis evictionPolicy must be allkeys-lru or allkeys-lfu.');
+    }
     this.client = createClient({
       url: config.url,
       disableOfflineQueue: true,
@@ -68,12 +76,20 @@ export class RedisSsrCache {
     this.client.on('error', error => this.reportFailure('connect', error));
     this.client.on('ready', () => {
       this.unavailable = false;
+      if (maxMemory > 0) {
+        this.memoryConfiguration = this.execute('configure-memory', () => this.client.configSet({
+          maxmemory: String(maxMemory),
+          'maxmemory-policy': config.evictionPolicy ?? 'allkeys-lfu',
+        }));
+      }
     });
   }
 
   /** Connect in the background so an unavailable cache cannot delay server startup. */
   connect(): Promise<void> {
-    return this.client.connect().then(() => undefined).catch(error => this.reportFailure('connect', error));
+    return this.client.connect().then(async () => {
+      await this.memoryConfiguration;
+    }).catch(error => this.reportFailure('connect', error));
   }
 
   async close(): Promise<void> {
@@ -148,6 +164,9 @@ export class RedisSsrCache {
 
   private async execute<T>(name: string, operation: () => Promise<T>): Promise<T | undefined> {
     if (!this.client.isReady) {
+      return undefined;
+    }
+    if (name !== 'configure-memory' && this.config.maxMemory > 0 && await this.memoryConfiguration !== 'OK') {
       return undefined;
     }
     let timer: ReturnType<typeof setTimeout>;

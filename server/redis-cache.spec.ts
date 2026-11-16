@@ -29,6 +29,7 @@ describe('Redis SSR cache', () => {
       routes: [],
     };
     cache = new RedisSsrCache(config);
+    const redisClient = (cache as any).client;
     client = {
       isReady: true,
       isOpen: true,
@@ -37,10 +38,84 @@ describe('Redis SSR cache', () => {
       set: jasmine.createSpy('set').and.returnValue(Promise.resolve('OK')),
       eval: jasmine.createSpy('eval').and.returnValue(Promise.resolve(1)),
       disconnect: jasmine.createSpy('disconnect').and.returnValue(Promise.resolve()),
+      configSet: jasmine.createSpy('configSet').and.returnValue(Promise.resolve('OK')),
+      connect: jasmine.createSpy('connect').and.callFake(async () => {
+        redisClient.emit('ready');
+      }),
     };
     // Replace the unconnected client; these tests do not require a Redis server.
     (cache as any).client = client;
     spyOn(console, 'warn');
+  });
+
+  it('leaves Redis memory settings unchanged by default', async () => {
+    await cache.connect();
+    expect(client.configSet).not.toHaveBeenCalled();
+  });
+
+  it('rejects invalid memory limits and eviction policies before connecting', () => {
+    for (const maxMemory of [-1, 0.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
+      expect(() => new RedisSsrCache({ ...config, maxMemory })).toThrowError(/maxMemory/);
+    }
+    expect(() => new RedisSsrCache({ ...config, evictionPolicy: 'noeviction' as any })).toThrowError(/evictionPolicy/);
+  });
+
+  describe('Redis memory settings', () => {
+    beforeEach(() => {
+      config.maxMemory = 536870912;
+      cache = new RedisSsrCache(config);
+      const redisClient = (cache as any).client;
+      client.connect.and.callFake(async () => {
+        redisClient.emit('ready');
+      });
+      (cache as any).client = client;
+    });
+
+    it('applies the memory limit and defaults to LFU', async () => {
+      await cache.connect();
+      expect(client.configSet).toHaveBeenCalledOnceWith({ maxmemory: '536870912', 'maxmemory-policy': 'allkeys-lfu' });
+    });
+
+    it('supports LRU and reapplies settings after reconnecting', async () => {
+      config.evictionPolicy = 'allkeys-lru';
+      await cache.connect();
+      await cache.connect();
+      expect(client.configSet).toHaveBeenCalledTimes(2);
+      expect(client.configSet).toHaveBeenCalledWith({ maxmemory: '536870912', 'maxmemory-policy': 'allkeys-lru' });
+    });
+
+    it('waits for memory configuration before using the cache', async () => {
+      let finish: (result: string) => void;
+      client.configSet.and.returnValue(new Promise<string>(resolve => finish = resolve));
+      const connecting = cache.connect();
+      const reading = cache.get('key');
+      expect(client.get).not.toHaveBeenCalled();
+      finish('OK');
+      await connecting;
+      expect(await reading).toEqual({ value, remainingTime: 10000 });
+    });
+
+    it('bypasses the cache if CONFIG SET is denied and recovers after reconnecting', async () => {
+      client.configSet.and.callFake(() => Promise.reject(new Error('NOPERM private details')));
+      await cache.connect();
+      expect(await cache.get('key')).toBeUndefined();
+      await cache.set('key', value, 1000);
+      await cache.refresh('key', jasmine.createSpy('render'));
+      expect(client.get).not.toHaveBeenCalled();
+      expect(client.set).not.toHaveBeenCalled();
+      expect(console.warn).toHaveBeenCalledOnceWith('Redis SSR cache configure-memory failed (no error code). Continuing without cache for this operation.');
+      client.configSet.and.returnValue(Promise.resolve('OK'));
+      await cache.connect();
+      expect(await cache.get('key')).toEqual({ value, remainingTime: 10000 });
+    });
+
+    it('bypasses the cache when memory configuration times out', async () => {
+      client.configSet.and.returnValue(new Promise(() => undefined));
+      await cache.connect();
+      expect(await cache.get('key')).toBeUndefined();
+      expect(client.get).not.toHaveBeenCalled();
+      expect(console.warn).toHaveBeenCalledOnceWith('Redis SSR cache configure-memory failed (ETIMEDOUT). Continuing without cache for this operation.');
+    });
   });
 
   it('serializes pages with a millisecond TTL and deserializes cached HTML, headers and status', async () => {

@@ -179,8 +179,35 @@ authenticated requests, logout reloads and routes excluded from SSR bypass the c
 Set `DSPACE_CACHE_SERVERSIDE_REDIS_URL` to the Redis connection URL, for example
 `redis://localhost:6379/0` or `rediss://username:password@host:6379/0` for TLS. Connection settings
 remain server-side and are excluded from the browser configuration. Use a dedicated Redis instance
-or database with a memory limit and an appropriate eviction policy. The LRU `max` settings do not
+with a memory limit and an appropriate eviction policy. The LRU `max` settings do not
 limit Redis memory.
+
+To let the frontend configure a dedicated Redis instance, set:
+
+```yaml
+cache:
+  serverSide:
+    redis:
+      maxMemory: 536870912 # 512 MiB, in bytes
+      evictionPolicy: allkeys-lfu # or allkeys-lru
+```
+
+`allkeys-lfu` removes the least frequently read entries; `allkeys-lru` removes the least recently
+read entries. Redis uses approximate rankings and may evict entries before their TTL expires.
+LRU does not mean the oldest entry by creation date. These are memory limits, not entry counts.
+
+`maxMemory` defaults to `0`, which leaves the Redis server settings unchanged. A positive value
+applies both settings using `CONFIG SET` after every connection, including reconnects. This requires
+Redis 7+ and permission to run `CONFIG SET`. Cache operations are skipped until configuration succeeds;
+on failure or timeout, requests render without caching until the next successful reconnect.
+All frontend instances sharing Redis must use the same settings. Returning `maxMemory` to `0`
+does not undo previously applied settings. The frontend does not persist them with `CONFIG REWRITE`.
+
+These settings affect the entire Redis instance, across all logical databases and key prefixes,
+and can evict other applications' data and refresh locks. Evicted locks may allow concurrent refreshes.
+Use a dedicated cache instance. For managed services or accounts without `CONFIG SET` permission,
+leave `maxMemory: 0` and configure `maxmemory` and `maxmemory-policy` on the Redis server instead.
+See the [Redis eviction documentation](https://redis.io/docs/latest/develop/reference/eviction/).
 
 Set `cache.serverSide.redis.compressHtml: true` to gzip HTML before storing it in Redis.
 This is disabled by default. Compressed HTML is stored as base64 alongside the headers and status,

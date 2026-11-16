@@ -111,6 +111,8 @@ export class DefaultAppConfig implements AppConfig {
         url: 'redis://localhost:6379',
         keyPrefix: 'dspace:ssr:',
         compressHtml: false,
+        maxMemory: 0,
+        evictionPolicy: 'allkeys-lfu',
         connectTimeout: 1000,
         commandTimeout: 1000,
         refreshLockTimeToLive: 60000,
