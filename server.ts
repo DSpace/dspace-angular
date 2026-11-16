@@ -251,7 +251,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path))) {
+  if (environment.ssr.enabled && req.method === 'GET' && !isUserAuthenticated(req) && (req.path === '/' || !isExcludedFromSsr(req.path))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -473,7 +473,7 @@ async function cacheCheck(req, res, next) {
     }
   } else if (botCacheEnabled() && isbot(req.get('user-agent'))) {
     cachedCopy = checkCacheForRequest('bot', botCache, req, res, next);
-  } else if (anonymousCacheEnabled() && !isUserAuthenticated(req)) {
+  } else if (anonymousCacheEnabled()) {
     cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res, next);
   }
 
