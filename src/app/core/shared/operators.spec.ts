@@ -277,6 +277,7 @@ describe('Core Module - RxJS Operators', () => {
           expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
           flush();
           expect(authService.setRedirectUrl).toHaveBeenCalled();
+          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
         });
       });
 
@@ -290,6 +291,39 @@ describe('Core Module - RxJS Operators', () => {
           expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
           flush();
           expect(authService.setRedirectUrl).toHaveBeenCalled();
+          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+        });
+      });
+
+      it('should use the in-flight navigation url as redirect url when called during a navigation (e.g. from a resolver)', () => {
+        router.url = '/home';
+        (router.getCurrentNavigation as jasmine.Spy).and.returnValue({
+          extractedUrl: { toString: () => '/entities/publication/restricted-item' },
+        });
+
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const testRD = createFailedRemoteDataObject('Forbidden', 403);
+          const source = cold('a', { a: testRD });
+
+          expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe('-', {});
+          flush();
+          expect(authService.setRedirectUrl).toHaveBeenCalledWith('/entities/publication/restricted-item');
+          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+        });
+      });
+
+      it('should fall back to router.url as redirect url when there is no in-flight navigation', () => {
+        router.url = '/entities/publication/restricted-item';
+        (router.getCurrentNavigation as jasmine.Spy).and.returnValue(null);
+
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const testRD = createFailedRemoteDataObject('The current user is unauthorized', 401);
+          const source = cold('a', { a: testRD });
+
+          expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe('-', {});
+          flush();
+          expect(authService.setRedirectUrl).toHaveBeenCalledWith('/entities/publication/restricted-item');
+          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
         });
       });
     });

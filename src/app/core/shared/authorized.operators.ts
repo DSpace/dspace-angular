@@ -50,7 +50,8 @@ export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
               // points to the previous URL (e.g. '/'). Use the in-flight navigation's URL
               // when available, falling back to router.url for component-level calls.
               const redirectUrl = router.getCurrentNavigation()?.extractedUrl?.toString() ?? router.url;
-              authService.setRedirectUrl(redirectUrl, 'login');
+              authService.setRedirectUrl(redirectUrl);
+              router.navigateByUrl('login');
               return false;
             }
           }
