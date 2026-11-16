@@ -122,6 +122,8 @@ cache:
       url: redis://localhost:6379
       # Use a unique prefix per deployment; change it after deploying incompatible page changes.
       keyPrefix: 'dspace:ssr:'
+      # Gzip HTML stored in Redis; decompressed before serving. Disabled by default.
+      compressHtml: false
       connectTimeout: 1000 # milliseconds
       commandTimeout: 1000 # maximum time to wait for a cache operation, in milliseconds
       refreshLockTimeToLive: 60000 # milliseconds; should exceed the longest SSR render

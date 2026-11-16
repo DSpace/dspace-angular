@@ -182,6 +182,12 @@ remain server-side and are excluded from the browser configuration. Use a dedica
 or database with a memory limit and an appropriate eviction policy. The LRU `max` settings do not
 limit Redis memory.
 
+Set `cache.serverSide.redis.compressHtml: true` to gzip HTML before storing it in Redis.
+This is disabled by default. Compressed HTML is stored as base64 alongside the headers and status,
+and decompressed on read, even if compression has since been disabled. Existing uncompressed entries
+remain readable. Deploy this version to all frontend instances before enabling compression;
+older versions cannot read compressed entries. This setting does not change HTTP response compression.
+
 Only routes explicitly listed in `routes` are cached. There are no global TTLs or built-in page
 rules. Use `*` to opt into caching all eligible SSR pages, with more specific overrides:
 

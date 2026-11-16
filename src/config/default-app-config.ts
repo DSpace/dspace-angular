@@ -110,6 +110,7 @@ export class DefaultAppConfig implements AppConfig {
         enabled: false,
         url: 'redis://localhost:6379',
         keyPrefix: 'dspace:ssr:',
+        compressHtml: false,
         connectTimeout: 1000,
         commandTimeout: 1000,
         refreshLockTimeToLive: 60000,

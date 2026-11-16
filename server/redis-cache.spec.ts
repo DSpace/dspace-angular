@@ -3,6 +3,7 @@ import {
   ServerResponse,
 } from 'node:http';
 import { Socket } from 'node:net';
+import { gunzipSync } from 'node:zlib';
 
 import express from 'express';
 
@@ -47,6 +48,47 @@ describe('Redis SSR cache', () => {
     expect(client.set).toHaveBeenCalledWith('test:page:key', JSON.stringify(value), { PX: 900000 });
     expect(await cache.get('key')).toEqual({ value, remainingTime: 10000 });
     expect(client.get).toHaveBeenCalledWith('test:page:key');
+  });
+
+  it('compresses HTML without changing headers, status, TTL or the original value', async () => {
+    config.compressHtml = true;
+    const page = { ...value, page: `<html>${'Zażółć gęślą jaźń 🌍'.repeat(1000)}</html>` };
+    await cache.set('key', page, 900000);
+    const [key, data, options] = client.set.calls.mostRecent().args;
+    const stored = JSON.parse(data);
+    expect(key).toBe('test:page:key');
+    expect(options).toEqual({ PX: 900000 });
+    expect(stored.compressed).toBe(true);
+    expect(stored.headers).toEqual(page.headers);
+    expect(stored.statusCode).toBe(200);
+    expect(data.length).toBeLessThan(JSON.stringify(page).length);
+    expect(gunzipSync(Buffer.from(stored.page, 'base64')).toString('utf8')).toBe(page.page);
+    expect(page).toEqual({ ...value, page: `<html>${'Zażółć gęślą jaźń 🌍'.repeat(1000)}</html>` });
+
+    client.get.and.returnValue(Promise.resolve(data));
+    expect(await cache.get('key')).toEqual({ value: page, remainingTime: 10000 });
+    config.compressHtml = false;
+    expect(await cache.get('key')).toEqual({ value: page, remainingTime: 10000 });
+    await cache.set('key', page, 900000);
+    expect(client.set.calls.mostRecent().args[1]).toBe(JSON.stringify(page));
+  });
+
+  it('reads existing uncompressed entries when compression is enabled', async () => {
+    config.compressHtml = true;
+    expect(await cache.get('key')).toEqual({ value, remainingTime: 10000 });
+  });
+
+  it('ignores corrupt compressed entries without marking Redis as unavailable', async () => {
+    for (const compressed of [true, 'gzip']) {
+      client.get.and.returnValue(Promise.resolve(JSON.stringify({ ...value, compressed })));
+      expect(await cache.get('key')).toBeUndefined();
+    }
+    expect(console.warn).toHaveBeenCalledOnceWith('Redis SSR cache get failed (no error code). Invalid cached entry ignored.');
+    client.get.and.returnValue(Promise.resolve(JSON.stringify(value)));
+    expect(await cache.get('key')).toEqual({ value, remainingTime: 10000 });
+    client.get.and.callFake(() => Promise.reject(Object.assign(new Error(), { code: 'ECONNRESET' })));
+    expect(await cache.get('key')).toBeUndefined();
+    expect(console.warn).toHaveBeenCalledTimes(2);
   });
 
   it('treats missing and expired entries as cache misses', async () => {

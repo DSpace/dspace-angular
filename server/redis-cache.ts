@@ -3,6 +3,11 @@ import {
   randomUUID,
 } from 'node:crypto';
 import { ServerResponse } from 'node:http';
+import { promisify } from 'node:util';
+import {
+  gunzip,
+  gzip,
+} from 'node:zlib';
 
 import {
   Request,
@@ -11,6 +16,9 @@ import {
 import { createClient } from 'redis';
 
 import { RedisCacheConfig } from '../src/config/cache-config.interface';
+
+const gzipAsync = promisify(gzip);
+const gunzipAsync = promisify(gunzip);
 
 export interface CachedPage {
   page: string;
@@ -81,11 +89,19 @@ export class RedisSsrCache {
       if (!data || remainingTime <= 0) {
         return undefined;
       }
-      const value = JSON.parse(data) as CachedPage;
+      const value = JSON.parse(data) as CachedPage & { compressed?: boolean };
       if (typeof value?.page !== 'string' || !value.headers || typeof value.headers !== 'object'
-        || value.statusCode !== 200) {
+        || value.statusCode !== 200 || (value.compressed !== undefined && typeof value.compressed !== 'boolean')) {
         throw new SyntaxError('Invalid cached page');
       }
+      if (value.compressed) {
+        try {
+          value.page = (await gunzipAsync(Buffer.from(value.page, 'base64'))).toString('utf8');
+        } catch {
+          throw new SyntaxError('Invalid compressed cached page');
+        }
+      }
+      delete value.compressed;
       return { value, remainingTime };
     });
   }
@@ -94,7 +110,12 @@ export class RedisSsrCache {
     if (!Number.isFinite(timeToLive) || timeToLive <= 0) {
       return;
     }
-    await this.execute('set', () => this.client.set(this.pageKey(key), JSON.stringify(value), { PX: Math.ceil(timeToLive) }));
+    await this.execute('set', async () => {
+      const stored = this.config.compressHtml
+        ? { ...value, page: (await gzipAsync(value.page)).toString('base64'), compressed: true }
+        : value;
+      return this.client.set(this.pageKey(key), JSON.stringify(stored), { PX: Math.ceil(timeToLive) });
+    });
   }
 
   /** Only one worker may refresh a page at a time. Expiry recovers locks after crashes. */

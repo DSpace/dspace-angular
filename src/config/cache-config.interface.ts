@@ -15,6 +15,7 @@ export interface RedisCacheConfig {
   enabled: boolean;
   url: string;
   keyPrefix: string;
+  compressHtml?: boolean;
   connectTimeout: number;
   commandTimeout: number;
   refreshLockTimeToLive: number;
