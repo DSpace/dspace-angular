@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    @if (label) {
+      {{ 'geospatial-map-picker.title-for-field' | translate: { field: label } }}
+    } @else {
+      {{ 'geospatial-map-picker.title' | translate }}
+    }
+  </h5>
+  <button type="button"
+          class="btn-close"
+          [attr.aria-label]="'geospatial-map-picker.close' | translate"
+          (click)="cancel()">
+  </button>
+</div>
+
+<div class="modal-body">
+  <p class="text-muted small">
+    {{ 'geospatial-map-picker.instructions' | translate }}
+  </p>
+
+  <div class="geospatial-map-picker-canvas"></div>
+
+  <div class="row mt-3 g-2 align-items-end">
+    <div class="col-6">
+      <label for="geospatial-map-picker-lat" class="form-label">
+        {{ 'geospatial-map-picker.latitude' | translate }}
+      </label>
+      <input id="geospatial-map-picker-lat"
+             type="number"
+             step="any"
+             class="form-control"
+             [class.is-invalid]="isOutOfRange"
+             [(ngModel)]="lat"
+             (ngModelChange)="onManualCoordinatesChange()" />
+    </div>
+    <div class="col-6">
+      <label for="geospatial-map-picker-lng" class="form-label">
+        {{ 'geospatial-map-picker.longitude' | translate }}
+      </label>
+      <input id="geospatial-map-picker-lng"
+             type="number"
+             step="any"
+             class="form-control"
+             [class.is-invalid]="isOutOfRange"
+             [(ngModel)]="lng"
+             (ngModelChange)="onManualCoordinatesChange()" />
+    </div>
+  </div>
+
+  @if (isOutOfRange) {
+    <div class="text-danger small mt-1">
+      {{ 'geospatial-map-picker.out-of-range' | translate }}
+    </div>
+  }
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+    {{ 'geospatial-map-picker.cancel' | translate }}
+  </button>
+  <button type="button" class="btn btn-outline-danger" [dsBtnDisabled]="!hasPoint" (click)="confirmClear()">
+    {{ 'geospatial-map-picker.remove-point' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" [dsBtnDisabled]="!hasPoint || isOutOfRange" (click)="confirm()">
+    {{ 'geospatial-map-picker.use-point' | translate }}
+  </button>
+</div>
