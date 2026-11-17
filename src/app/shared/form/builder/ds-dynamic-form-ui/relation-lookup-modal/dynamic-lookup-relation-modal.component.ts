@@ -56,6 +56,7 @@ import {
 
 import { AppState } from '../../../../../app.reducer';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { SubmissionService } from '../../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
@@ -67,6 +68,7 @@ import { NameVariantService } from './name-variant.service';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
+  ReplaceRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
@@ -157,6 +159,22 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   hiddenQuery: string;
 
   /**
+   * The index of the plain-text value that should be replaced by adding a relationship
+   */
+  replaceValuePlace: number;
+
+  /**
+   * The metadata field of the value to replace with a relationship
+   * Undefined if no value needs replacing
+   */
+  replaceValueMetadataField: string;
+
+  /**
+   * The submission section of the plain-text value that should be replaced by adding a relationship
+   */
+  replaceValueSection: string;
+
+  /**
    * A map of subscriptions within this component
    */
   subMap: {
@@ -214,6 +232,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isPending = false;
 
+  /**
+   * Show a loading indicator if the form is currently submitting to avoid race conditions between requests
+   */
+  isSubmitting = false;
+
+  /**
+   * Open subscriptions
+   */
+  subs = [];
+
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
@@ -225,6 +253,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private zone: NgZone,
     private store: Store<AppState>,
     private router: Router,
+    protected submissionService: SubmissionService,
   ) {
 
   }
@@ -277,6 +306,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         }));
     }
 
+    if (hasValue(this.submissionId)) {
+      this.subs.push(
+        this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId).subscribe((isSubmitting) => {
+          this.isSubmitting = isSubmitting;
+        }),
+      );
+    }
+
     this.setTotals();
   }
 
@@ -310,9 +347,17 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         ]);
         obs
           .subscribe((arr: any[]) => {
-            return arr.forEach((object: any) => {
-              const addRelationshipAction = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
-              this.store.dispatch(addRelationshipAction);
+            return arr.forEach((object: any, i: number) => {
+              let action;
+              if (i === 0 && hasValue(this.replaceValueMetadataField)) {
+                // This is the first action this modal performs and "replace" properties are present to replace an existing metadata value
+                action = new ReplaceRelationshipAction(this.item, object.item, true, this.replaceValuePlace, this.replaceValueMetadataField, this.replaceValueSection, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+                // Only "replace" once, reset replace properties so future actions become "add"
+                this.resetReplaceProperties();
+              } else {
+                action = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+              }
+              this.store.dispatch(action);
             },
             );
           });
@@ -335,6 +380,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * @param selectableObjects
    */
   deselect(...selectableObjects: SearchResult<DSpaceObject>[]) {
+    this.resetReplaceProperties();
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
@@ -372,9 +418,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.totalInternal$.next(totalPages);
   }
 
+  private resetReplaceProperties() {
+    this.replaceValueMetadataField = undefined;
+    this.replaceValuePlace = undefined;
+    this.replaceValueSection = undefined;
+  }
+
   ngOnDestroy() {
     this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
