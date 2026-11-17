@@ -56,6 +56,20 @@
         padding-bottom: var(--ds-admin-sidebar-item-padding);
       }
 
+      // Menu item layout to align the optional icon and text label
+      .ds-menu-item {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        box-sizing: border-box;
+        gap: var(--ds-admin-sidebar-item-padding);
+
+        span {
+          flex: 1;
+          min-width: 0;
+        }
+      }
+
       // These classes handle the collapsing behavior
       .sidebar-section-wrapper {
 

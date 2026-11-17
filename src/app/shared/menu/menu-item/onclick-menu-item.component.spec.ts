@@ -38,6 +38,7 @@ describe('OnClickMenuItemComponent', () => {
     spyOn(item, 'function');
     fixture = TestBed.createComponent(OnClickMenuItemComponent);
     component = fixture.componentInstance;
+    component.item = item;
     debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -54,5 +55,42 @@ describe('OnClickMenuItemComponent', () => {
   it('should call the function on the item when clicked', () => {
     debugElement.query(By.css('a.ds-menu-item')).triggerEventHandler('click', new Event(('click')));
     expect(item.function).toHaveBeenCalled();
+  });
+
+  describe('icon rendering', () => {
+    beforeEach(() => {
+      item.icon = undefined;
+      item.disabled = false;
+      fixture.detectChanges();
+    });
+
+    it('should render the icon when item.icon is provided and enabled', () => {
+      item.icon = 'users';
+      fixture.detectChanges();
+
+      const icon = debugElement.query(By.css('a.ds-menu-item i.fa-users'));
+
+      expect(icon).toBeTruthy();
+      expect(icon.nativeElement.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('should render the icon when item.icon is provided and disabled', () => {
+      item.icon = 'users';
+      item.disabled = true;
+      fixture.detectChanges();
+
+      const icon = debugElement.query(By.css('span.ds-menu-item i.fa-users'));
+
+      expect(icon).toBeTruthy();
+      expect(icon.nativeElement.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('should not render the icon when item.icon is not provided', () => {
+      fixture.detectChanges();
+
+      const icon = debugElement.query(By.css('i.fas'));
+
+      expect(icon).toBeFalsy();
+    });
   });
 });
