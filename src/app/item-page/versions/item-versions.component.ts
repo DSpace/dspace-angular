@@ -9,6 +9,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
@@ -51,6 +52,8 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { renderDynamicLayoutBoxFor } from '../../dynamic-layout/decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../dynamic-layout/enums/layout-box.enum';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
@@ -67,6 +70,7 @@ interface VersionDTO {
   canEditVersion: Observable<boolean>;
 }
 
+@renderDynamicLayoutBoxFor(LayoutBox.VERSIONING)
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
@@ -189,6 +193,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               private translateService: TranslateService,
               private authorizationService: AuthorizationDataService,
               private configurationService: ConfigurationDataService,
+              private route: ActivatedRoute,
   ) {
   }
 
@@ -326,6 +331,21 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * Initialize all observables
    */
   ngOnInit(): void {
+    if (!hasValue(this.item)) {
+      this.subs.push(this.route.data.pipe(
+        map((data) => {
+          return data.dso as RemoteData<Item>;
+        }),
+        getFirstCompletedRemoteData(),
+        map(data => data.payload),
+      ).subscribe((item) => {
+        this.item = item;
+        this.ngOnInit();
+      }));
+
+      return;
+    }
+
     if (hasValue(this.item.version)) {
       this.versionRD$ = this.item.version;
       this.versionHistoryRD$ = this.versionRD$.pipe(
@@ -362,4 +382,3 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   }
 
 }
-

@@ -147,6 +147,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() showThumbnails;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;

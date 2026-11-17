@@ -3,10 +3,8 @@ import { Component } from '@angular/core';
 import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
-import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the statistics page for an item.
@@ -17,10 +15,8 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   styleUrls: ['./item-statistics-page.component.scss'],
   imports: [
     CommonModule,
-    StatisticsTableComponent,
-    ThemedLoadingComponent,
+    CrisStatisticsPageComponent,
     TranslateModule,
-    VarDirective,
   ],
 })
 export class ItemStatisticsPageComponent extends StatisticsPageDirective<Item> {

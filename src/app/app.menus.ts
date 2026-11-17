@@ -30,12 +30,14 @@ import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
 import { ClaimMenuProvider } from './shared/menu/providers/item-claim.menu';
 import { OrcidMenuProvider } from './shared/menu/providers/item-orcid.menu';
+import { ItemStatisticsMenuProvider } from './shared/menu/providers/item-statistics.menu';
 import { VersioningMenuProvider } from './shared/menu/providers/item-versioning.menu';
 import { NewMenuProvider } from './shared/menu/providers/new.menu';
 import { NotificationsMenuProvider } from './shared/menu/providers/notifications.menu';
 import { ProcessesMenuProvider } from './shared/menu/providers/processes.menu';
 import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu';
 import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
+import { SubscriptionMenuProvider } from './shared/menu/providers/subscription.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
@@ -61,6 +63,7 @@ export const MENUS = buildMenuStructure({
     CommunityListMenuProvider,
     BrowseMenuProvider,
     StatisticsMenuProvider,
+    ItemStatisticsMenuProvider,
   ],
   [MenuID.ADMIN]: [
     NewMenuProvider,
@@ -111,6 +114,11 @@ export const MENUS = buildMenuStructure({
         MenuRoute.ITEM_PAGE,
       ),
       ClaimMenuProvider.onRoute(
+        MenuRoute.ITEM_PAGE,
+      ),
+      SubscriptionMenuProvider.onRoute(
+        MenuRoute.COMMUNITY_PAGE,
+        MenuRoute.COLLECTION_PAGE,
         MenuRoute.ITEM_PAGE,
       ),
       BulkImportMenuProvider.onRoute(

@@ -8,11 +8,13 @@ import { commonExports } from './webpack.common';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const CompressionPlugin = require('compression-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = Object.assign({}, commonExports, {
   target: 'web',
   plugins: [
     ...commonExports.plugins,
-    new CompressionPlugin({
+    ...(isProd ? [new CompressionPlugin({
       filename: '[path][base].gz',
       algorithm: 'gzip',
       test: /\.(js|css|html|svg|json)$/,
@@ -30,7 +32,7 @@ module.exports = Object.assign({}, commonExports, {
       },
       threshold: 10240,
       minRatio: 0.8,
-    }),
+    })] : []),
   ],
   devServer: {
     setupMiddlewares(middlewares, server) {

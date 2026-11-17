@@ -36,6 +36,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { AlertComponent } from '../../alert/alert.component';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
@@ -120,7 +122,7 @@ describe('SubscriptionModalComponent', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(SubscriptionModalComponent, { remove: { imports: [ThemedTypeBadgeComponent, AlertComponent] } }).compileComponents();
 
   }));
 

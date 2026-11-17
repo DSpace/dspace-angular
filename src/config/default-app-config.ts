@@ -353,6 +353,8 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900,
     // Whether to add item thumbnail images to BOTH browse and search result lists.
     showThumbnails: true,
+    // Whether to show item netrics to BOTH browse and search result lists.
+    showMetrics: true,
     // The number of entries in a paginated browse results list.
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
@@ -589,6 +591,21 @@ export class DefaultAppConfig implements AppConfig {
     enablePrivacyStatement: true,
     enableCOARNotifySupport: true,
     enableCookieConsentPopup: true,
+    //Configuration for third-party metrics in Orejime
+    metricsConsents: [
+      {
+        key: 'plumX',
+        enabled: true,
+      },
+      {
+        key: 'altmetric',
+        enabled: true,
+      },
+      {
+        key: 'dimensions',
+        enabled: true,
+      },
+    ],
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
@@ -816,7 +833,98 @@ export class DefaultAppConfig implements AppConfig {
           type: AdvancedAttachmentElementType.Attribute,
         },
       ],
+      pagination: {
+        enabled: true,
+        elementsPerPage: 2,
+      },
     },
+    urn: [
+      {
+        name: 'doi',
+        baseUrl: 'https://doi.org/',
+      },
+      {
+        name: 'hdl',
+        baseUrl: 'https://hdl.handle.net/',
+      },
+      {
+        name: 'scopus',
+        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId=',
+      },
+      {
+        name: 'researcherid',
+        baseUrl: 'http://www.researcherid.com/rid/',
+      },
+      {
+        name: 'mailto',
+        baseUrl: 'mailto:',
+      },
+    ],
+    itemPage: {
+      OrgUnit: {
+        orientation: 'vertical',
+      },
+      Project: {
+        orientation: 'vertical',
+      },
+      default: {
+        orientation: 'horizontal',
+      },
+    },
+    metadataBox: {
+      defaultMetadataLabelColStyle: 'col-3',
+      defaultMetadataValueColStyle: 'col-9',
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 fw-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true,
+    },
+    dynamicRefStyleMetadata: {
+      default: 'dspace.entity.style',
+    },
+    metricVisualizationConfig: [
+      {
+        type: 'altmetric',
+        icon: null,
+        class: '',
+      },
+      {
+        type: 'plumX',
+        icon: null,
+        class: '',
+      },
+      {
+        type: 'dimensions',
+        icon: 'fa fa-cubes',
+        class: '',
+      },
+      {
+        type: 'google-scholar',
+        icon: '/assets/images/google-scholar.svg',
+        class: 'alert alert-info',
+      },
+      {
+        type: 'embedded-view',
+        icon: 'fa fa-eye',
+        class: 'alert alert-success',
+      },
+      {
+        type: 'embedded-download',
+        icon: 'fa fa-cloud-download-alt',
+        class: 'alert alert-danger',
+      },
+      {
+        type: 'view',
+        icon: 'fa fa-eye',
+        class: 'alert alert-success',
+      },
+      {
+        type: 'download',
+        icon: 'fa fa-cloud-download-alt',
+        class: 'alert alert-danger',
+      },
+    ],
   };
 
   // Search result configuration for authority metadata processing

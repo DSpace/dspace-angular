@@ -5,7 +5,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
@@ -19,7 +18,9 @@ import { UsageReportDataService } from '@dspace/core/statistics/usage-report-dat
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CollectionStatisticsPageComponent } from './collection-statistics-page.component';
 
@@ -84,7 +85,7 @@ describe('CollectionStatisticsPageComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(CollectionStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsTableComponent, CrisStatisticsPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -98,19 +99,4 @@ describe('CollectionStatisticsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should resolve to the correct collection', () => {
-    expect(de.query(By.css('.header')).nativeElement.id)
-      .toEqual('collection_id');
-  });
-
-  it('should show a statistics table for each usage report', () => {
-    expect(de.query(By.css('ds-statistics-table.collection_id-TotalVisits-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.collection_id-TotalVisitsPerMonth-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.collection_id-TopCountries-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.collection_id-TopCities-report')).nativeElement)
-      .toBeTruthy();
-  });
 });

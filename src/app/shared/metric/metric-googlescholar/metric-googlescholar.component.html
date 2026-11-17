@@ -1,0 +1,21 @@
+<div class="row d-flex align-items-center m-2">
+  <a [dsRedirect]="url">
+    <div class="row gap-3">
+      @if (metric && metric.icon) {
+        <div class="col-2">
+          <img class="icon-size" [src]="metric.icon" alt="google scholar icon"/>
+        </div>
+      }
+      <div class="col">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="fw-bold">
+            {{ "item.page.metric.label." + metric.metricType | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-overlap-container">
+      {{ "item.page.metric.label.view-detail-btn" | translate }}
+    </button>
+  </a>
+</div>

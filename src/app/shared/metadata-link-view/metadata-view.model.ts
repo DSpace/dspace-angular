@@ -8,4 +8,5 @@ export interface MetadataView {
   value: string;
   orcidAuthenticated: string;
   entityType: string;
+  entityStyle: string|string[];
 }

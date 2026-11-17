@@ -1,0 +1,24 @@
+<div class="row d-flex align-items-center m-2">
+  <a [dsRedirect]="href">
+    <div class="row gap-3">
+      @if (metric && metric.icon) {
+        <div class="col-1 text-start">
+          <span class="icon-size">
+            <i [class]="metric.icon"></i>
+          </span>
+        </div>
+      }
+      <div class="col">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="fw-bold">
+            {{'item.page.metric.label.view' | translate}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <button type="button" class="btn btn-overlap-container">
+      {{ "item.page.metric.label.view-detail-btn" | translate }}
+    </button>
+  </a>
+</div>

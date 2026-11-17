@@ -30,6 +30,10 @@ import {
   CommunityListState,
 } from './community-list-page/community-list.reducer';
 import {
+  statisticsReducer,
+  StatisticsState,
+} from './core/statistics/statistics.reducer';
+import {
   contextHelpReducer,
   ContextHelpState,
 } from './shared/context-help.reducer';
@@ -95,6 +99,7 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   contextHelp: ContextHelpState;
   bitstreamFormats: BitstreamFormatRegistryState;
+  statistics: StatisticsState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -116,6 +121,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   groupRegistry: groupRegistryReducer,
   contextHelp: contextHelpReducer,
   bitstreamFormats: bitstreamFormatReducer,
+  statistics: statisticsReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

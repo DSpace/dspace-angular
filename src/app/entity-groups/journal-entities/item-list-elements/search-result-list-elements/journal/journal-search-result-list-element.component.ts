@@ -9,6 +9,8 @@ import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { MetadataDirective } from '../../../../../shared/metadata.directive';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { MetricBadgesComponent } from '../../../../../shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../../shared/object-list/metric-donuts/metric-donuts.component';
 import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
@@ -22,6 +24,8 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   imports: [
     AsyncPipe,
     MetadataDirective,
+    MetricBadgesComponent,
+    MetricDonutsComponent,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,

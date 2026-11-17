@@ -20,6 +20,9 @@
 </div>
 @if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
   <div @fadeIn>
+    @if (showSearchResultNotice) {
+      <ds-alert [type]="searchResultNoticeType" [content]="searchResultNotice"></ds-alert>
+    }
     <ds-viewable-collection
       [config]="searchConfig.pagination"
       [sortConfig]="searchConfig.sort"
@@ -32,6 +35,7 @@
       [context]="context"
       [hidePaginationDetail]="hidePaginationDetail"
       [showThumbnails]="showThumbnails"
+      [showMetrics]="showMetrics"
       (contentChange)="contentChange.emit($event)"
       (deselectObject)="deselectObject.emit($event)"
       (selectObject)="selectObject.emit($event)">

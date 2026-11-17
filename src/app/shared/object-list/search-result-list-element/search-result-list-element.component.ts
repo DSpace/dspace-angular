@@ -9,12 +9,12 @@ import {
 } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
-import { MetadataValue } from '../../../core/shared/metadata.models';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import {
@@ -49,6 +49,8 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    */
   ngOnInit(): void {
     this.additionalMetadataLimit = this.appConfig?.searchResult?.followAuthorityMetadataValuesLimit;
+    this.showMetrics = this.showMetrics ?? this.appConfig?.browseBy?.showMetrics;
+
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
       this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso, true);

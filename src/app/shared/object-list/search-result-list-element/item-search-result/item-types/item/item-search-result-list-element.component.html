@@ -16,35 +16,43 @@
       }
     </div>
   }
-  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
-    <div class="d-flex">
-      @if (showLabel) {
-        <ds-badges [object]="dso" [context]="context" [showAccessStatus]="true"></ds-badges>
-      }
-    </div>
+  <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
+    <div class="d-flex justify-content-between">
+      <div class="flex-fill">
+        @if ((hasLoadedThirdPartyMetrics$ | async) !== true && showMetrics) {
+          <small class="d-flex text-muted">
+            {{ "third-party-metrics-blocked" | translate }}&nbsp;
+            <div role="button" class="btn-link" (click)="showSettings()">{{ "third-party-metrics-cookies.consent-settings" | translate }}</div>
+          </small>
+        }
+        @if (showLabel) {
+          <div class="d-flex">
+            <ds-badges [object]="dso" [context]="context" [showAccessStatus]="true"></ds-badges>
+          </div>
+        }
 
-      @if (object !== undefined && object !== null) {
-        <ds-truncatable [id]="dso.id">
-          @if (linkType !== linkTypes.None) {
-            <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-              [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-            [dsMetadata]="dsoTitle" role="link" tabindex="0"></a>
-          }
-          @if (linkType === linkTypes.None) {
-            <span class="lead item-list-title dont-break-out"
-            [dsMetadata]="dsoTitle"></span>
-          }
-          <span class="text-muted">
+        @if (object !== undefined && object !== null) {
+          <ds-truncatable [id]="dso.id">
+            @if (linkType !== linkTypes.None) {
+              <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+                 [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
+                 [dsMetadata]="dsoTitle" role="link" tabindex="0"></a>
+            }
+            @if (linkType === linkTypes.None) {
+              <span class="lead item-list-title dont-break-out"
+                    [dsMetadata]="dsoTitle"></span>
+            }
+            <span class="text-muted">
             <ds-truncatable-part [id]="dso.id" [minLines]="1">
               @if (firstMetadataValue('dc.publisher') || firstMetadataValue('dc.date.issued')) {
                 (@if (firstMetadataValue('dc.publisher')) {
-              <span class="item-list-publisher" [dsMetadata]="firstMetadata('dc.publisher')"></span>
-              }
-              @if (firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')) {
-                <span>, </span>
-              }
-              @if (firstMetadataValue('dc.date.issued')) {
-              <span class="item-list-date" [dsMetadata]="firstMetadata('dc.date.issued')"></span>
+                  <span class="item-list-publisher" [dsMetadata]="firstMetadata('dc.publisher')"></span>
+                }
+                @if (firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')) {
+                  <span>, </span>
+                }
+                @if (firstMetadataValue('dc.date.issued')) {
+                  <span class="item-list-date" [dsMetadata]="firstMetadata('dc.date.issued')"></span>
                 })
               }
               @if (dso.allMetadataValues(authorMetadata, placeholderFilter).length > 0) {
@@ -58,30 +66,40 @@
                           <span>; </span>
                         }
                       }
-                  }
-                  @if (!collapsed) {
-                    @for (author of dso.allMetadata(authorMetadata, placeholderFilter); track author; let last = $last) {
-                      <span>
-                        <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
-                        @if (!last) {
-                          <span>; </span>
-                        }
-                      </span>
                     }
-                }
+                    @if (!collapsed) {
+                      @for (author of dso.allMetadata(authorMetadata, placeholderFilter); track author; let last = $last) {
+                        <span>
+                        <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
+                          @if (!last) {
+                            <span>; </span>
+                          }
+                      </span>
+                      }
+                    }
                   </ng-container>
                 </span>
               }
             </ds-truncatable-part>
           </span>
-      @if (firstMetadataValue('dc.description.abstract'); as abstract) {
-          <div class="item-list-abstract">
-            <ds-truncatable-part [id]="dso.id" [minLines]="3">
-              <span [dsMetadata]="firstMetadata('dc.description.abstract')"></span>
-          </ds-truncatable-part>
+            @if (firstMetadataValue('dc.description.abstract'); as abstract) {
+              <div class="item-list-abstract">
+                <ds-truncatable-part [id]="dso.id" [minLines]="3">
+                  <span [dsMetadata]="firstMetadata('dc.description.abstract')"></span>
+                </ds-truncatable-part>
+              </div>
+            }
+          </ds-truncatable>
+        }
+        @if (showMetrics) {
+          <ds-metric-badges class="d-block clearfix" [item]="dso"></ds-metric-badges>
+        }
+      </div>
+      @if (showMetrics) {
+        <div class="align-self-center">
+          <ds-metric-donuts [item]="dso"></ds-metric-donuts>
         </div>
       }
-    </ds-truncatable>
-    }
+    </div>
   </div>
 </div>

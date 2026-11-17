@@ -37,6 +37,8 @@ import { IDENTIFIERS } from './identifiers-data/identifier-data.resource-type';
 import { ITEM } from './item.resource-type';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
+import { Metric } from './metric.model';
+import { METRIC } from './metric.resource-type';
 import { ListableObject } from './object-collection/listable-object.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
@@ -54,6 +56,7 @@ export function getItemPageLinksToFollow(): FollowLinkConfig<Item>[] {
     followLink('relationships'),
     followLink('version', {}, followLink('versionhistory')),
     followLink('thumbnail'),
+    followLink('metrics'),
   ];
   if (environment.item.showAccessStatuses) {
     followLinks.push(followLink('accessStatus'));
@@ -120,6 +123,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
     thumbnail: HALLink;
     accessStatus: HALLink;
     identifiers: HALLink;
+    metrics: HALLink;
     self: HALLink;
   };
 
@@ -171,6 +175,13 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    */
   @link(IDENTIFIERS, false, 'identifiers')
   identifiers?: Observable<RemoteData<IdentifierData>>;
+
+  /**
+   * The list of the Item's metrics
+   * Will be undefined unless the metrics {@link HALLink} has been resolved.
+   */
+  @link(METRIC, true)
+   metrics?: Observable<RemoteData<PaginatedList<Metric>>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

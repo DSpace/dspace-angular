@@ -24,6 +24,7 @@ import { getMockThemeService } from '../../../../shared/theme-support/test/theme
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalSearchResultListElementComponent } from '../search-result-list-elements/journal/journal-search-result-list-element.component';
 import { JournalListElementComponent } from './journal-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -69,6 +70,8 @@ describe('JournalListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(JournalListElementComponent, {
+      remove: { imports: [JournalSearchResultListElementComponent] },
     }).compileComponents();
   }));
 

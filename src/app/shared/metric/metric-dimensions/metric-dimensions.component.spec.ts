@@ -1,0 +1,66 @@
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
+import { MetricDimensionsComponent } from './metric-dimensions.component';
+
+describe('MetricDimensionsComponent', () => {
+  let component: MetricDimensionsComponent;
+  let fixture: ComponentFixture<MetricDimensionsComponent>;
+  const metricMock = {
+    acquisitionDate: new Date(),
+    deltaPeriod1: null,
+    deltaPeriod2: null,
+    endDate: null,
+    id: '1',
+    last: true,
+    metricCount: 0,
+    metricType: 'dimensions',
+    rank: null,
+    remark: '{"data-legend":"hover-right","data-style":"small_rectangle","data-doi":"10.1056/Test","data-pmid":"1234567890","list-data-badge-enabled":"true","data-badge-enabled":"true"}',
+    startDate: null,
+    type: null,
+    _links: null,
+  };
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricDimensionsComponent, ListMetricPropsPipe],
+    })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MetricDimensionsComponent);
+    component = fixture.componentInstance;
+    component.metric = metricMock;
+    component.success = true;
+    component.canLoadScript = true;
+    component.maxRetry = 0;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+  it('should render badge div', () => {
+    const div = fixture.debugElement.queryAll(By.css('div'))[1];
+    expect(div.nativeElement.className).toEqual('__dimensions_badge_embed__');
+    expect(div.nativeElement.dataset.doi).toEqual('10.1056/Test');
+    expect(div.nativeElement.dataset.style).toEqual('small_rectangle');
+    expect(div.nativeElement.dataset.legend).toEqual('hover-right');
+  });
+});

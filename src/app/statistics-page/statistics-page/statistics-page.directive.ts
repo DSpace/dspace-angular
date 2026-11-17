@@ -1,7 +1,6 @@
 import {
   Directive,
   inject,
-  OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -31,7 +30,7 @@ import {
 /**
  * Class representing an abstract statistics page component.
  */
-export abstract class StatisticsPageDirective<T extends DSpaceObject> implements OnInit {
+export abstract class StatisticsPageDirective<T extends DSpaceObject> {
 
   /**
    * The scope dso for this statistics page, as an Observable.
@@ -55,16 +54,6 @@ export abstract class StatisticsPageDirective<T extends DSpaceObject> implements
   protected usageReportService = inject(UsageReportDataService);
   protected nameService = inject(DSONameService);
   protected authService = inject(AuthService);
-
-  ngOnInit(): void {
-    this.scope$ = this.getScope$();
-    this.reports$ = this.getReports$();
-    this.hasData$ = this.reports$.pipe(
-      map((reports) => reports.some(
-        (report) => report.points.length > 0,
-      )),
-    );
-  }
 
   /**
    * Get the scope dso for this statistics page, as an Observable.

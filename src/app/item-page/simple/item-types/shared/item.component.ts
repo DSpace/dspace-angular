@@ -42,6 +42,11 @@ export class ItemComponent implements OnInit {
   @Input() viewMode: ViewMode;
 
   /**
+   * Whether to show the metrics or not
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * Session storage key for storing the previous URL before entering item page
    */
   private readonly ITEM_PREVIOUS_URL_SESSION_KEY = 'item-previous-url';

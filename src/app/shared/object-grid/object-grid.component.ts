@@ -89,6 +89,11 @@ export class ObjectGridComponent implements OnInit {
   @Input() showThumbnails;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * The whether or not the gear is hidden
    */
   @Input() hideGear = false;
