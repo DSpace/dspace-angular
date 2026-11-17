@@ -1,0 +1,19 @@
+<div>
+  <h2>{{ 'explore.facet-section.title' | translate }}</h2>
+  <div class="row">
+    @for (facet of (facets$ | async); track facet) {
+      <div [class]="getFacetsBoxCol(facet)" class="mb-4" data-test="facet-column">
+        <h5>{{'explore.index.' + facet.name | translate}}</h5>
+        @for (facetValue of facet._embedded.values; track facetValue) {
+          <div class="border p-3">
+            <a [routerLink]="getSearchLink()"
+               [queryParams]="getSearchQueryParams(facet, facetValue)">
+              {{facetValue.label}}
+            </a>
+            <span class="badge bg-secondary float-end">{{facetValue.count}}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

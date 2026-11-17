@@ -36,6 +36,7 @@ import {
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
 import { Feedback } from './feedback/models/feedback.model';
+import { Section } from './layout/models/section.model';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
@@ -232,4 +233,5 @@ export const models =
     CorrectionType,
     SupervisionOrder,
     SubmissionCustomUrl,
+    Section,
   ];
