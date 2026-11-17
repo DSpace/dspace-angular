@@ -32,6 +32,7 @@ describe('MenuProviderService', () => {
       public alwaysRenderExpandable: boolean,
       public sections: PartialMenuSection[],
       public renderBrowserOnly: boolean = false,
+      public renderIconOnly: boolean = false,
     ) {
       super();
     }
@@ -104,6 +105,7 @@ describe('MenuProviderService', () => {
       active: false,
       shouldPersistOnRouteChange: sectionToAdd.shouldPersistOnRouteChange ?? provider.shouldPersistOnRouteChange,
       alwaysRenderExpandable: sectionToAdd.alwaysRenderExpandable ?? provider.alwaysRenderExpandable,
+      renderIconOnly: sectionToAdd.renderIconOnly ?? false,
     };
   }
 
