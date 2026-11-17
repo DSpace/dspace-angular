@@ -1,7 +1,11 @@
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  defer,
   Observable,
   of,
   throwError,
@@ -259,10 +263,67 @@ describe('AuthorizationDataService', () => {
         service.isAuthorized(featureID, 'item-url').subscribe((value) => results.push(value));
         service.isAuthorized(FeatureID.CanCreateVersion, 'item-url').subscribe((value) => results.push(value));
         expect(results).toEqual([true, false]);
-        // Identical unfiltered searches, which the request cache serves with a single request
-        expect(search.calls.count()).toBe(2);
-        expect(search.calls.argsFor(0)).toEqual(search.calls.argsFor(1));
+        expect(search.calls.count()).toBe(1);
         expect(search).toHaveBeenCalledWith(undefined, 'item-url', undefined, { elementsPerPage: 100 }, true, true, jasmine.anything());
+      });
+
+      it('should resolve the embedded features once for all checks on the same object', () => {
+        let resolutions = 0;
+        const grant = Object.assign(new Authorization(), {
+          feature: defer(() => {
+            resolutions++;
+            return createSuccessfulRemoteDataObject$(Object.assign(new Feature(), { id: featureID }));
+          }),
+        });
+        search.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([grant])));
+        service.isAuthorized(FeatureID.CanDownload, 'bitstream-url').subscribe();
+        service.isAuthorized(FeatureID.CanRequestACopy, 'bitstream-url').subscribe();
+        service.isAuthorized(featureID, 'bitstream-url').subscribe((value) => expect(value).toBeTrue());
+        expect(search.calls.count()).withContext('searches').toBe(1);
+        expect(resolutions).withContext('feature resolutions').toBe(1);
+      });
+
+      it('should search separately for different objects', () => {
+        service.isAuthorized(featureID, 'item-url').subscribe();
+        service.isAuthorized(featureID, 'other-url').subscribe();
+        expect(search.calls.count()).toBe(2);
+      });
+
+      it('should search again after the authorizations are invalidated', () => {
+        service.isAuthorized(featureID, 'item-url').subscribe();
+        service.invalidateAuthorizationsRequestCache();
+        service.isAuthorized(featureID, 'item-url').subscribe();
+        expect(search.calls.count()).toBe(2);
+      });
+
+      it('should search again once the shared result has expired', () => {
+        jasmine.clock().install();
+        try {
+          jasmine.clock().mockDate(new Date(2026, 0, 1));
+          service.isAuthorized(featureID, 'item-url').subscribe();
+          jasmine.clock().tick(15 * 60 * 1000 + 1);
+          service.isAuthorized(featureID, 'item-url').subscribe();
+          expect(search.calls.count()).toBe(2);
+        } finally {
+          jasmine.clock().uninstall();
+        }
+      });
+
+      it('should not reuse a shared result when the cached version must be bypassed', () => {
+        service.isAuthorized(featureID, 'item-url').subscribe();
+        service.isAuthorized(featureID, 'item-url', undefined, false).subscribe();
+        expect(search.calls.count()).toBe(2);
+      });
+
+      it('should retry a failed batch on the next check instead of replaying the error', () => {
+        search.and.callFake((feature) => feature
+          ? createSuccessfulRemoteDataObject$(createPaginatedList(validPayload))
+          : createFailedRemoteDataObject$('Batch failed', 500));
+        service.isAuthorized(featureID, 'item-url').subscribe((value) => expect(value).toBeTrue());
+        search.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(validPayload)));
+        service.isAuthorized(featureID, 'item-url').subscribe((value) => expect(value).toBeTrue());
+        const unfiltered = search.calls.allArgs().filter((args) => hasNoValue(args[0]));
+        expect(unfiltered.length).toBe(2);
       });
 
       it('should resolve the site URL for checks without an object', () => {
