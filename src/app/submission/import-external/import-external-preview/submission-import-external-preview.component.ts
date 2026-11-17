@@ -1,10 +1,15 @@
-
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { ImportExternalMetadataViewMode } from '@dspace/config/import-external-metadata-view.mode';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
@@ -14,6 +19,7 @@ import {
   NgbActiveModal,
   NgbModal,
   NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
@@ -30,6 +36,7 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
   imports: [
+    NgbTooltipModule,
     TranslateModule,
   ],
 })
@@ -52,12 +59,23 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   modalRef: NgbModalRef;
 
   /**
+   * The view mode for the metadatafield names
+   */
+  public viewMode: ImportExternalMetadataViewMode;
+
+  /**
+   * The available view modes
+   */
+  public MetadataFieldViewMode = ImportExternalMetadataViewMode;
+
+  /**
    * Initialize the component variables.
    * @param {NgbActiveModal} activeModal
    * @param {SubmissionService} submissionService
    * @param {NgbModal} modalService
    * @param {Router} router
    * @param {NotificationsService} notificationService
+   * @param {AppConfig} appConfig
    */
   constructor(
     private activeModal: NgbActiveModal,
@@ -65,12 +83,15 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private notificationService: NotificationsService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) { }
 
   /**
    * Metadata initialization for HTML display.
    */
   ngOnInit(): void {
+    this.viewMode = this.appConfig.submission.importExternal.viewMode
+                    ?? this.MetadataFieldViewMode.Default;
     this.metadataList = [];
     const metadataKeys = Object.keys(this.externalSourceEntry.metadata);
     metadataKeys.forEach((key) => {

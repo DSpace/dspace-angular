@@ -8,7 +8,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { ImportExternalMetadataViewMode } from '@dspace/config/import-external-metadata-view.mode';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
@@ -25,6 +28,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { environment } from '../../../../environments/environment.test';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
@@ -68,6 +72,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: NgbModal, useValue: ngbModal },
         { provide: NgbActiveModal, useValue: ngbActiveModal },
+        { provide: APP_CONFIG, useValue: environment },
         SubmissionImportExternalPreviewComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -118,6 +123,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       fixture.detectChanges();
 
       expect(comp.metadataList).toEqual(expected);
+      expect(comp.viewMode).toEqual(environment.submission.importExternal.viewMode);
     });
 
     it('Should close the modal calling \'activeModal.dismiss\'', () => {
@@ -163,6 +169,61 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       expect(compAsAny.submissionService.createSubmissionFromExternalSource).toHaveBeenCalledWith(externalEntry._links.self.href, emittedEvent.collection.id);
       expect(compAsAny.router.navigateByUrl).toHaveBeenCalledWith('/workspaceitems/' + submissionObjects[0].id + '/edit');
       done();
+    });
+  });
+
+  describe('Metadatafield View Modes UI rendering', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SubmissionImportExternalPreviewComponent);
+      comp = fixture.componentInstance;
+      comp.externalSourceEntry = externalEntry;
+      fixture.detectChanges();
+    });
+
+    it('should display tooltip only in Tooltip mode', () => {
+      comp.viewMode = ImportExternalMetadataViewMode.Tooltip;
+      fixture.detectChanges();
+
+      const tooltipIcon = fixture.debugElement.query(By.css('.fa-info-circle'));
+      const labelText = fixture.debugElement.query(By.css('span.text-muted'));
+
+      expect(tooltipIcon).toBeTruthy();
+      expect(labelText).toBeNull();
+    });
+
+    it('should display label only in Labeled mode', () => {
+      comp.viewMode = ImportExternalMetadataViewMode.Labeled;
+      fixture.detectChanges();
+
+      const tooltipIcon = fixture.debugElement.query(By.css('.fa-info-circle'));
+      const labelText = fixture.debugElement.query(By.css('span.text-muted'));
+
+      expect(tooltipIcon).toBeNull();
+      expect(labelText).toBeTruthy();
+      expect(labelText.nativeElement.textContent).toContain('(dc.identifier.uri)');
+    });
+
+    it('should display both in Full mode', () => {
+      comp.viewMode = ImportExternalMetadataViewMode.Full;
+      fixture.detectChanges();
+
+      const tooltipIcon = fixture.debugElement.query(By.css('.fa-info-circle'));
+      const labelText = fixture.debugElement.query(By.css('span.text-muted'));
+
+      expect(tooltipIcon).toBeTruthy();
+      expect(labelText).toBeTruthy();
+      expect(labelText.nativeElement.textContent).toContain('(dc.identifier.uri)');
+    });
+
+    it('should display neither in Disable mode', () => {
+      comp.viewMode = ImportExternalMetadataViewMode.Disable;
+      fixture.detectChanges();
+
+      const tooltipIcon = fixture.debugElement.query(By.css('.fa-info-circle'));
+      const labelText = fixture.debugElement.query(By.css('span.text-muted'));
+
+      expect(tooltipIcon).toBeNull();
+      expect(labelText).toBeNull();
     });
   });
 });
