@@ -6,7 +6,7 @@ import { EnvironmentPlugin } from 'webpack';
 import {
   calculateFileHash,
   getFileHashes,
-  getThemeLanguages,
+  getThemeLanguageHashes,
   globalCSSImports,
   projectRoot,
 } from './helpers';
@@ -58,6 +58,23 @@ export const copyWebpackOptions = {
       },
     },
     {
+      // theme i18n override files get a content hash as well, like the base files above
+      from: join(__dirname, '..', 'src', 'themes', '*', 'assets', 'i18n', '*.json5').replace(/\\/g, '/'),
+      noErrorOnMissing: true,
+      to({ absoluteFilename }) {
+        // use [\/|\\] to match both POSIX and Windows separators
+        const matches = absoluteFilename.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\]i18n[\/|\\](.+)\.json5$/);
+        if (matches) {
+          const fileHash: string = process.env.NODE_ENV === 'production' ? `.${calculateFileHash(absoluteFilename)}` : '';
+          // e.g. themes/custom/assets/i18n/en.json5 will end up in assets/custom/i18n/en.<hash>.json
+          return join('assets', matches[1], 'i18n', `${matches[2]}${fileHash}.json`);
+        }
+      },
+      transform(content) {
+        return JSON.stringify(parse(content.toString()));
+      },
+    },
+    {
       from: join(__dirname, '..', 'src', 'robots.txt.ejs'),
       to: 'assets/robots.txt.ejs',
     },
@@ -87,7 +104,7 @@ export const commonExports = {
     new GenerateDecoratorRegistriesPlugin(),
     new EnvironmentPlugin({
       languageHashes: getFileHashes(join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
-      themeLanguages: getThemeLanguages(join(__dirname, '..', 'src', 'themes')),
+      themeLanguageHashes: getThemeLanguageHashes(join(__dirname, '..', 'src', 'themes')),
     }),
     new CopyWebpackPlugin(copyWebpackOptions),
   ],
