@@ -116,7 +116,7 @@ export const bitstreamDownloadRedirectGuard: CanActivateFn = (
         } else if (isLoggedIn) {
           return router.createUrlTree([getForbiddenRoute()]);
         } else if (!isLoggedIn) {
-          auth.setRedirectUrl(router.url);
+          auth.setRedirectUrl(state.url);
           return router.createUrlTree(['login']);
         }
       }

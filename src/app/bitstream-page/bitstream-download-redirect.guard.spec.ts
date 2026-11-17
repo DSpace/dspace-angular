@@ -209,11 +209,13 @@ describe('BitstreamDownloadRedirectGuard', () => {
         (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestbed();
       });
-      it('should navigate to the login page', waitForAsync(() => {
+      it('should store the requested bitstream url as redirect url and navigate to the login page', waitForAsync(() => {
+        (router as any).url = '/home';
+        const requestedState = { url: '/bitstreams/bitstreamUuid/download' };
 
         TestBed.runInInjectionContext(() => {
-          resolver(route, state).subscribe(() => {
-            expect(authService.setRedirectUrl).toHaveBeenCalled();
+          resolver(route, requestedState).subscribe(() => {
+            expect(authService.setRedirectUrl).toHaveBeenCalledWith('/bitstreams/bitstreamUuid/download');
             expect(router.createUrlTree).toHaveBeenCalledWith(['login']);
           });
         });
