@@ -17,6 +17,7 @@ import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -157,6 +158,7 @@ describe('SearchHierarchyFilterComponent', () => {
                 'definedBy_selectNewAppliedFilterParams',
               ],
             },
+            fragment: SEARCH_COMPONENT_ANCHOR_ID,
           });
         }));
       });
