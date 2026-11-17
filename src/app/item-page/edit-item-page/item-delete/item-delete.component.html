@@ -113,10 +113,10 @@
         </button>
 
         <button [dsBtnDisabled]="isDeleting$ | async"
-                [routerLink]="[itemPageRoute, 'edit']"
-                class="btn btn-outline-secondary cancel">
-          {{cancelMessage | translate}}
-        </button>
+              (click)="router.navigateByUrl(returnUrl)"
+              class="btn btn-outline-secondary cancel">
+              {{cancelMessage | translate}}
+      </button>
       </div>
 
     </div>
