@@ -1,5 +1,6 @@
 <ng-container [formGroup]="group">
   <div [id]="id"
+    [attr.aria-labelledby]="'label_' + model.id"
     [formArrayName]="model.id"
     [class.d-none]="model.hidden"
     [ngClass]="getClass('element', 'control')">
