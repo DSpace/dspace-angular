@@ -1,4 +1,5 @@
 <ng-container *ngVar="mediaList$ | async as mediaList">
+<ng-container *ngVar="pdfList$ | async as pdfList">
   @if (isLoading) {
     <ds-loading
       message="{{ 'loading.default' | translate }}"
@@ -32,11 +33,15 @@
             }
           </ng-container>
         </ng-container>
-      } @else {
+      } @else if (pdfList.length === 0) {
         <ds-thumbnail
           [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
         </ds-thumbnail>
       }
+      @if (pdfList.length > 0) {
+        <ds-media-viewer-pdf [pdfs]="pdfList"></ds-media-viewer-pdf>
+      }
     </div>
   }
+</ng-container>
 </ng-container>
