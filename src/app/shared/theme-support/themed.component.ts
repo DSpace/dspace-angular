@@ -5,8 +5,11 @@ import {
   ComponentRef,
   ElementRef,
   HostBinding,
+  inject,
+  Injector,
   OnChanges,
   OnDestroy,
+  reflectComponentType,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -56,6 +59,8 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
   protected themeSub: Subscription;
 
   protected inAndOutputNames: (keyof T & keyof this)[] = [];
+
+  protected injector = inject(Injector);
 
   /**
    * A data attribute on the ThemedComponent to indicate which theme the rendered component came from.
@@ -136,8 +141,13 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
       this.destroyComponentInstance();
+
+      const ngContentSelectors = this.getComponentNgContentSelectors(constructor);
+      const projectableNodes = this.getNgContent(this.themedElementContent.nativeElement, ngContentSelectors);
+
       this.compRef = this.vcr.createComponent(constructor, {
-        projectableNodes: [this.themedElementContent.nativeElement.childNodes],
+        injector: this.injector,
+        projectableNodes: projectableNodes,
       });
       if (hasValue(simpleChanges)) {
         this.ngOnChanges(simpleChanges);
@@ -158,6 +168,43 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
     if (hasValue(this.vcr)) {
       this.vcr.clear();
     }
+  }
+
+  /**
+   * Retrieves the ng-content selectors declared by the given component type.
+   *
+   * Uses the public {@link reflectComponentType} API to read the component's content projection
+   * selectors without relying on internal Angular component definitions.
+   *
+   * @param componentType - The component type to inspect.
+   * @returns The list of ng-content selectors, or `['*']` as a fallback when none can be resolved.
+   */
+  private getComponentNgContentSelectors(componentType: GenericConstructor<any>): string[] {
+    const mirror = reflectComponentType(componentType);
+    if (hasValue(mirror) && isNotEmpty(mirror.ngContentSelectors)) {
+      return [...mirror.ngContentSelectors];
+    }
+    return ['*'];
+  }
+
+  /**
+   * Extracts and returns the content nodes from the given element based on the provided ng-content selectors.
+   *
+   * @param element - The DOM element from which to extract content nodes.
+   * @param ngSelectors - An array of ng-content selectors to match against the element's children.
+   * @returns A 2D array where each sub-array contains the nodes matching a specific selector.
+   */
+  protected getNgContent(element: Element, ngSelectors: string[]): Node[][] {
+    return ngSelectors.map(selector => {
+      if (selector === '*') {
+        return Array.from(element.childNodes);
+      } else {
+        const selectedElements = Array.from(element.querySelectorAll(selector));
+        // Remove the selected elements from the DOM so they aren't also picked up by the '*' outlet.
+        selectedElements.forEach(e => e.remove());
+        return selectedElements;
+      }
+    });
   }
 
   protected connectInputsAndOutputs(): void {
