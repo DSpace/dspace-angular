@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
+import { AlertComponent } from '../../../../../../app/shared/alert/alert.component';
 import {
   fadeIn,
   fadeInOut,
@@ -24,6 +25,7 @@ import { SearchResultsSkeletonComponent } from '../../../../../../app/shared/sea
     fadeInOut,
   ],
   imports: [
+    AlertComponent,
     AsyncPipe,
     ErrorComponent,
     NgxSkeletonLoaderModule,
