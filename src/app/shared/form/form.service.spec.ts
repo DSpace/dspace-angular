@@ -242,6 +242,48 @@ describe('FormService test suite', () => {
 
   });
 
+  it('should keep the own validators of a field after a server-side error is added and removed', () => {
+    const control = controls.title;   // declared with Validators.required and left empty
+    const model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'title');
+
+    service.addErrorToField(control, model, 'Test error message');
+    service.removeErrorFromField(control, model, Object.keys(control.errors)[0]);
+
+    expect(control.hasError('required')).toBe(true);
+  });
+
+  it('should not stack up server-side validators when a field is given a second error', () => {
+    const control = controls.title;
+    const model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'title');
+
+    service.addErrorToField(control, model, 'First error message');
+    service.addErrorToField(control, model, 'Second error message');
+    service.clearServerErrorValidator(control);
+
+    // only the own validator of the field is left to complain about the empty value
+    expect(Object.keys(control.errors)).toEqual(['required']);
+  });
+
+  it('should not revalidate a field that carries no server-side error', () => {
+    const control = controls.title;
+    spyOn(control, 'updateValueAndValidity');
+
+    service.clearServerErrorValidator(control);
+
+    expect(control.updateValueAndValidity).not.toHaveBeenCalled();
+  });
+
+  it('should revalidate a field when its server-side error validator is dropped', () => {
+    const control = controls.title;
+    const model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'title');
+    service.addErrorToField(control, model, 'Test error message');
+    spyOn(control, 'updateValueAndValidity');
+
+    service.clearServerErrorValidator(control);
+
+    expect(control.updateValueAndValidity).toHaveBeenCalled();
+  });
+
   it('should remove error from field', () => {
     let control = controls.description;
     let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'description');
