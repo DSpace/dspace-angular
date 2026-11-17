@@ -4,6 +4,7 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
 import { SubmissionCustomUrl } from '@dspace/core/submission/models/submission-custom-url.model';
 
 import { Audit } from './audit/model/audit.model';
@@ -199,6 +200,7 @@ export const models =
     ResearcherProfile,
     OrcidQueue,
     OrcidHistory,
+    Identifier,
     IdentifierData,
     Subscription,
     ItemRequest,
