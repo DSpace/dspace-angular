@@ -25,6 +25,7 @@ import {
   DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import {
   Observable,
@@ -44,6 +45,7 @@ import {
   isNull,
 } from '../empty.util';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
+import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import {
@@ -361,7 +363,19 @@ export class FormComponent implements OnDestroy, OnInit {
       // In case of qualdrop value remove event must be dispatched before removing the control from array
       this.removeArrayItem.emit(event);
     }
-    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+    if (index === 0 && formArrayControl.value?.length === 1) {
+      event.model = cloneDeep(event.model);
+      const fieldId = event.model.id;
+
+      if (event.model instanceof DynamicConcatModel) {
+        formArrayControl.at(0).get(fieldId).reset();
+      } else {
+        formArrayControl.at(0).get(fieldId).setValue(null);
+      }
+    } else {
+      this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+      this.changeDetectorRef.detectChanges();
+    }
     this.formService.changeForm(this.formId, this.formModel);
     if (!this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
       // dispatch remove event for any field type except for qualdrop value
