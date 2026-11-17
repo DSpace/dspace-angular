@@ -10,7 +10,7 @@ span {
 span[class*="l-"] {
 	height: 4px;
 	width: 4px;
-	background: #000;
+	background: var(--ds-dark-bg);
 	display: inline-block;
 	margin: 12px 2px;
 

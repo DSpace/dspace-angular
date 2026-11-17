@@ -29,7 +29,7 @@
 }
 
 .tree-input[readonly]{
-  background-color: #fff;
+  background-color: var(--ds-white-bg);
 }
 
 .authority-icons {
@@ -48,7 +48,7 @@
 }
 
 .tree-input[readonly]{
-  background-color: #fff;
+  background-color: var(--ds-white-bg);
   cursor: pointer;
 }
 
@@ -60,7 +60,7 @@
   z-index: 9999;
   width: calc(100% - 10px);
   border-radius: 4px;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  box-shadow: 0 0.5rem 1rem rgba(var(--bs-black-rgb), 0.175);
   .list-item {
     cursor: pointer;
   }

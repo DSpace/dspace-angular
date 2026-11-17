@@ -3,7 +3,7 @@
     height: 80px;
     width: 80px;
     min-width: 80px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--bs-border-color);
     border-radius: 50%;
     object-fit: cover;
   }

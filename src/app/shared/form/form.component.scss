@@ -64,7 +64,7 @@ select.form-control {
 }
 
 .white-background{
-  background-color: #fff;
+  background-color: var(--ds-white-bg);
 }
 
 .cdk-drag-handle {
