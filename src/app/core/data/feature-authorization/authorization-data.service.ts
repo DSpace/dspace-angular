@@ -10,6 +10,7 @@ import {
   EMPTY,
   Observable,
   of,
+  throwError,
 } from 'rxjs';
 import {
   catchError,
@@ -17,6 +18,7 @@ import {
   filter,
   map,
   reduce,
+  shareReplay,
   switchMap,
   take,
 } from 'rxjs/operators';
@@ -63,6 +65,14 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
 
   private searchData: SearchDataImpl<Authorization>;
 
+  /**
+   * The IDs of the features granted anonymously on an object, keyed by object URL and
+   * re-request setting. A page checks several features on the same object (e.g. two per
+   * bitstream on an item page); each entry lets all of those checks share one search and one
+   * resolution of the embedded features, instead of repeating that work for every feature.
+   */
+  private anonymousFeatureIds = new Map<string, { expiresAt: number; featureIds$: Observable<Set<string>> }>();
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -80,6 +90,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    * Set all authorization requests to stale
    */
   invalidateAuthorizationsRequestCache() {
+    this.anonymousFeatureIds.clear();
     this.requestService.setStaleByHrefSubstring(this.linkPath);
   }
 
@@ -111,9 +122,8 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   }
 
   /**
-   * Anonymous feature checks for the same object share the existing unfiltered REST search.
-   * The request cache deduplicates pending requests and retains its normal expiry, dependency
-   * invalidation and SSR transfer behavior. No permissions are cached separately here.
+   * Anonymous feature checks for the same object share one unfiltered REST search, and the
+   * feature IDs resolved from it (see {@link getAnonymousFeatureIds}).
    * A failed batch (including a custom feature throwing on the backend) falls back to the
    * original individual feature check.
    */
@@ -121,15 +131,61 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
     const objectUrl$ = hasValue(objectUrl) ? of(objectUrl) : this.siteService.find().pipe(map((site) => site.self));
     return objectUrl$.pipe(
       take(1),
-      // Retrieve every authorization granted on the object, without a feature filter
-      switchMap((url: string) => this.findAllAuthorizationsForObject(url, useCachedVersionIfAvailable, reRequestOnStale)),
-      // Resolve the embedded feature of each authorization to its ID
-      authorizationFeatureIds,
+      // Retrieve the IDs of all features granted on the object, shared with other checks on it
+      switchMap((url: string) => this.getAnonymousFeatureIds(url, useCachedVersionIfAvailable, reRequestOnStale)),
       // The requested feature is granted if its ID is among them
       map((featureIds: Set<string>) => featureIds.has(featureId.valueOf())),
       // Any failure along the way: ask the backend about this single feature instead
       catchError(() => this.checkAuthorization(featureId, objectUrl, undefined, useCachedVersionIfAvailable, reRequestOnStale)),
     );
+  }
+
+  /**
+   * Retrieve the IDs of all features granted anonymously on an object.
+   * Concurrent and later calls for the same object reuse the same observable until it expires
+   * with the underlying response, so the search and the feature resolution happen only once.
+   * The request cache still handles the HTTP request itself (deduplication, SSR transfer state).
+   * A failed lookup is removed, so that the next check retries it rather than replaying the error.
+   */
+  private getAnonymousFeatureIds(url: string, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean): Observable<Set<string>> {
+    const key = `${url}|${reRequestOnStale}`;
+    const now = Date.now();
+    const cached = this.anonymousFeatureIds.get(key);
+    if (useCachedVersionIfAvailable && hasValue(cached) && cached.expiresAt > now) {
+      return cached.featureIds$;
+    }
+    const entry = {
+      // BaseDataService may leave responseMsToLive unset; RequestService then uses 15 minutes too
+      expiresAt: now + (this.responseMsToLive ?? 15 * 60 * 1000),
+      featureIds$: undefined as Observable<Set<string>>,
+    };
+    entry.featureIds$ = this.findAllAuthorizationsForObject(url, useCachedVersionIfAvailable, reRequestOnStale).pipe(
+      // Resolve the embedded feature of each authorization to its ID
+      authorizationFeatureIds,
+      // Forget a failed lookup, unless it has already been replaced
+      catchError((error: unknown) => {
+        if (this.anonymousFeatureIds.get(key) === entry) {
+          this.anonymousFeatureIds.delete(key);
+        }
+        return throwError(() => error);
+      }),
+      // Run the lookup once and replay its result to every check on this object
+      shareReplay({ bufferSize: 1, refCount: false }),
+    );
+    this.removeExpiredAnonymousFeatureIds(now);
+    this.anonymousFeatureIds.set(key, entry);
+    return entry.featureIds$;
+  }
+
+  /**
+   * Remove expired entries, so that browsing many objects does not grow the map indefinitely.
+   */
+  private removeExpiredAnonymousFeatureIds(now: number): void {
+    this.anonymousFeatureIds.forEach((entry, key) => {
+      if (entry.expiresAt <= now) {
+        this.anonymousFeatureIds.delete(key);
+      }
+    });
   }
 
   /**
