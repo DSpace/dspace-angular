@@ -7,6 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
@@ -21,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { environment } from '../../../environments/environment.test';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
@@ -52,6 +54,7 @@ describe('ItemAlertsComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

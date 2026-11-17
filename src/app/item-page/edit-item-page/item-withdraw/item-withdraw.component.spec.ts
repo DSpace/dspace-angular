@@ -12,6 +12,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
@@ -25,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { environment } from '../../../../environments/environment.test';
 import { ItemWithdrawComponent } from './item-withdraw.component';
 
 let comp: ItemWithdrawComponent;
@@ -54,6 +56,7 @@ describe('ItemWithdrawComponent', () => {
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
       setWithDrawn: createSuccessfulRemoteDataObject$(mockItem),
+      withdrawWithMetadata: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
@@ -71,6 +74,7 @@ describe('ItemWithdrawComponent', () => {
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: APP_CONFIG, useValue: environment },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
@@ -95,11 +99,29 @@ describe('ItemWithdrawComponent', () => {
   });
 
   describe('performAction', () => {
-    it('should call setWithdrawn function from the ItemDataService', () => {
+    it('should withdraw the item through the ItemDataService, without metadata when the form is empty', () => {
       spyOn(comp, 'processRestResponse');
       comp.performAction();
 
-      expect(mockItemDataService.setWithDrawn).toHaveBeenCalledWith(mockItem, true);
+      expect(mockItemDataService.withdrawWithMetadata).toHaveBeenCalledWith(mockItem, {});
+      expect(comp.processRestResponse).toHaveBeenCalled();
+    });
+
+    it('should pass the values filled in the form to the ItemDataService', () => {
+      spyOn(comp, 'processRestResponse');
+      comp.onFormChange({
+        valid: true,
+        values: {
+          'dspace.withdrawn.reason': 'Migrated elsewhere',
+          'dcterms.isReplacedBy': 'https://example.com/handle/123/456',
+        },
+      });
+      comp.performAction();
+
+      expect(mockItemDataService.withdrawWithMetadata).toHaveBeenCalledWith(mockItem, {
+        'dspace.withdrawn.reason': 'Migrated elsewhere',
+        'dcterms.isReplacedBy': 'https://example.com/handle/123/456',
+      });
       expect(comp.processRestResponse).toHaveBeenCalled();
     });
   });
