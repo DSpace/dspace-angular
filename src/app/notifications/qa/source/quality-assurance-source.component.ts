@@ -72,6 +72,14 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
    */
   public totalElements$: Observable<number>;
   /**
+   * The loading status of the Quality Assurance source (if it's running or not).
+   */
+  public isSourceLoading$: Observable<boolean>;
+  /**
+   * The processing status of the Quality Assurance source (if it's running or not).
+   */
+  public isSourceProcessing$: Observable<boolean>;
+  /**
    * Array to track all the component subscriptions. Useful to unsubscribe them with 'onDestroy'.
    * @type {Array}
    */
@@ -106,6 +114,8 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
       }),
     );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceSourceTotals();
+    this.isSourceLoading$ = this.notificationsStateService.isQualityAssuranceSourceLoading();
+    this.isSourceProcessing$ = this.notificationsStateService.isQualityAssuranceSourceProcessing();
   }
 
   /**
@@ -127,26 +137,6 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
    */
   onSelect(sourceId: string) {
     this.router.navigate([sourceId], { relativeTo: this.route });
-  }
-
-  /**
-   * Returns the information about the loading status of the Quality Assurance source (if it's running or not).
-   *
-   * @return Observable<boolean>
-   *    'true' if the source are loading, 'false' otherwise.
-   */
-  public isSourceLoading(): Observable<boolean> {
-    return this.notificationsStateService.isQualityAssuranceSourceLoading();
-  }
-
-  /**
-   * Returns the information about the processing status of the Quality Assurance source (if it's running or not).
-   *
-   * @return Observable<boolean>
-   *    'true' if there are operations running on the source (ex.: a REST call), 'false' otherwise.
-   */
-  public isSourceProcessing(): Observable<boolean> {
-    return this.notificationsStateService.isQualityAssuranceSourceProcessing();
   }
 
   /**

@@ -355,7 +355,7 @@ describe('FormComponent', () => {
       valid.next(true);
       formFixture.detectChanges();
 
-      formComp.isValid().subscribe((v) => {
+      formComp.isValid$.subscribe((v) => {
         expect(v).toBe(true);
       });
     });

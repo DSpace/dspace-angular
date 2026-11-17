@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -60,6 +59,13 @@ describe('ExtendedFileSectionComponent', () => {
     },
   });
 
+  const mockBitstreamFormat = Object.assign(new BitstreamFormat(), {
+    resourceType: 'testResourceType',
+    shortDescription: 'testShortDescription',
+    description: 'testDescription',
+    mimetype: 'test/mimeType',
+  });
+
   const mockBitstream = Object.assign(new Bitstream(), {
     id: 'test-bitstream-id',
     uuid: 'test-bitstream-id',
@@ -68,13 +74,7 @@ describe('ExtendedFileSectionComponent', () => {
     _links: {
       self: { href: 'test-bitstream-selflink' },
     },
-  });
-
-  const mockBitstreamFormat = Object.assign(new BitstreamFormat(), {
-    resourceType: 'testResourceType',
-    shortDescription: 'testShortDescription',
-    description: 'testDescription',
-    mimetype: 'test/mimeType',
+    format: createSuccessfulRemoteDataObject$(mockBitstreamFormat),
   });
 
   const paginatedList = createPaginatedList([mockBitstream]);
@@ -83,10 +83,6 @@ describe('ExtendedFileSectionComponent', () => {
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(paginatedList),
-  });
-
-  const bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-    findByBitstream: createSuccessfulRemoteDataObject$(mockBitstreamFormat),
   });
 
   beforeEach(waitForAsync(() => {
@@ -109,7 +105,6 @@ describe('ExtendedFileSectionComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: SearchConfigurationService, useValue: jasmine.createSpyObj(['getCurrentConfiguration']) },
         { provide: PaginationService, useValue: paginationServiceStub },

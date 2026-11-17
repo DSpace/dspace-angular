@@ -341,6 +341,7 @@
         // Custom DSpace Angular rules
         "dspace-angular-html/themed-component-usages": "error",
         "dspace-angular-html/no-disabled-attribute-on-button": "error",
+        "dspace-angular-html/no-method-call-with-async-pipe": "error",
         "@angular-eslint/template/prefer-control-flow": "error"
       }
     },

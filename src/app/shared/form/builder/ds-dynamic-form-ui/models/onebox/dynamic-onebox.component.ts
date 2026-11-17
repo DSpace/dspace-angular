@@ -121,7 +121,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   authorithyIcons = environment.submission.icons.authority.sourceIcons;
 
 
-  private isHierarchicalVocabulary$: Observable<boolean>;
+  isHierarchicalVocabulary$: Observable<boolean>;
   private subs: Subscription[] = [];
 
   constructor(protected vocabularyService: VocabularyService,
@@ -217,13 +217,6 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   changeLoadingInitialValueStatus(status: boolean) {
     this.loadingInitialValue = status;
     this.cdr.detectChanges();
-  }
-
-  /**
-   * Checks if configured vocabulary is Hierarchical or not
-   */
-  isHierarchicalVocabulary(): Observable<boolean> {
-    return this.isHierarchicalVocabulary$;
   }
 
   /**
