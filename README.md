@@ -169,6 +169,104 @@ These configuration sources are collected **at run time**, and written to `dist/
 
 The configuration file can be externalized by using environment variable `DSPACE_APP_CONFIG_PATH`.
 
+#### Shared SSR cache with Redis
+
+To share cached SSR pages across frontend processes, enable `cache.serverSide.redis.enabled` in
+`config/config.prod.yml`, or set `DSPACE_CACHE_SERVERSIDE_REDIS_ENABLED=true`. Redis replaces both
+in-memory SSR caches for anonymous users and bots. It requires production mode and `ssr.enabled=true`;
+authenticated requests, logout reloads and routes excluded from SSR bypass the cache.
+
+Set `DSPACE_CACHE_SERVERSIDE_REDIS_URL` to the Redis connection URL, for example
+`redis://localhost:6379/0` or `rediss://username:password@host:6379/0` for TLS. Connection settings
+remain server-side and are excluded from the browser configuration. Use a dedicated Redis instance
+with a memory limit and an appropriate eviction policy. The LRU `max` settings do not
+limit Redis memory.
+
+To let the frontend configure a dedicated Redis instance, set:
+
+```yaml
+cache:
+  serverSide:
+    redis:
+      maxMemory: 512 # MiB (1024 * 1024 bytes)
+      evictionPolicy: allkeys-lfu # or allkeys-lru
+```
+
+`allkeys-lfu` removes the least frequently read entries; `allkeys-lru` removes the least recently
+read entries. Redis uses approximate rankings and may evict entries before their TTL expires.
+LRU does not mean the oldest entry by creation date. These are memory limits, not entry counts.
+
+`maxMemory` is a whole number of MiB, converted to bytes internally. It defaults to `0`, which
+leaves the Redis server settings unchanged. A positive value
+applies both settings using `CONFIG SET` after every connection, including reconnects. This requires
+Redis 7+ and permission to run `CONFIG SET`. Cache operations are skipped until configuration succeeds;
+on failure or timeout, requests render without caching until the next successful reconnect.
+All frontend instances sharing Redis must use the same settings. Returning `maxMemory` to `0`
+does not undo previously applied settings. The frontend does not persist them with `CONFIG REWRITE`.
+
+These settings affect the entire Redis instance, across all logical databases and key prefixes,
+and can evict other applications' data and refresh locks. Evicted locks may allow concurrent refreshes.
+Use a dedicated cache instance. For managed services or accounts without `CONFIG SET` permission,
+leave `maxMemory: 0` and configure `maxmemory` and `maxmemory-policy` on the Redis server instead.
+See the [Redis eviction documentation](https://redis.io/docs/latest/develop/reference/eviction/).
+
+Set `cache.serverSide.redis.compressHtml: true` to gzip HTML before storing it in Redis.
+This is disabled by default. Compressed HTML is stored as base64 alongside the headers and status,
+and decompressed on read, even if compression has since been disabled. Existing uncompressed entries
+remain readable. Deploy this version to all frontend instances before enabling compression;
+older versions cannot read compressed entries. This setting does not change HTTP response compression.
+
+Only routes explicitly listed in `routes` are cached. There are no global TTLs or built-in page
+rules. Use `*` to opt into caching all eligible SSR pages, with more specific overrides:
+
+```yaml
+cache:
+  serverSide:
+    redis:
+      routes:
+        - pattern: '*'
+          timeToLive: 900000
+          refreshWhenTimeBelow: 300000
+        - pattern: '/entities/*'
+          timeToLive: 30000
+          refreshWhenTimeBelow: 10000
+        - pattern: '/entities/service'
+          timeToLive: 60000
+          refreshWhenTimeBelow: 20000
+        - pattern: '/entities/service/*'
+          timeToLive: 60000
+          refreshWhenTimeBelow: 20000
+```
+
+Patterns match the entire router-relative path without the UI namespace or query parameters.
+`*` matches any characters, including `/`; all other characters are literal and case-sensitive.
+Thus `/entities/service` matches that exact path, while `/entities/service/*` matches its descendants.
+Exact paths take precedence. For wildcard patterns, the longest literal prefix before the first
+`*` wins, followed by more literal characters, then fewer wildcards. Equal specificity uses the
+first configured rule. Reordering rules with different specificity does not change their priority.
+
+Each rule requires `timeToLive` in milliseconds. Omitted `refreshWhenTimeBelow` means no background
+refreshing; values are never inherited from a broader matching rule. A zero TTL bypasses reads
+and writes, including previously stored entries. Unmatched paths and an empty rules list also
+bypass Redis. Rules do not override SSR exclusions. Patterns are compiled and durations validated
+during cache initialization. Invalid rules disable the Redis cache with a warning while requests
+continue to render. See `config/config.example.yml` for all Redis settings.
+
+On a cache hit near expiry, one worker refreshes the page in the background while the cached page
+is returned immediately. Expired pages are not served. Only responses with HTTP status 200 are cached.
+HTML, configured response headers (such as signposting `Link`) and the status code are stored together.
+Keys isolate deployments, language preferences and full URLs, including query strings. Choose a unique `keyPrefix` for each
+deployment and change it when deploying changes that should invalidate existing cached pages.
+
+Redis is disabled by default. When enabled but unavailable, requests are rendered without caching;
+connection retries run in the background and cache operations have a bounded wait time. Disable
+Redis to use the existing in-memory caches again. Set route durations according to how quickly
+anonymous users need to see updates.
+
+Run `npm run test:ssr-cache` for the server cache unit tests. To also run integration tests against
+an isolated Redis instance, use `DSPACE_TEST_REDIS_URL=redis://localhost:6379 npm run test:ssr-cache`.
+The integration tests use unique temporary key prefixes and remove their keys afterward.
+
 #### Buildtime Configuring
 
 Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
