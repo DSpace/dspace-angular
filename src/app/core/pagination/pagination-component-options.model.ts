@@ -35,4 +35,14 @@ export class PaginationComponentOptions extends NgbPaginationConfig {
    */
   pageSize: number;
 
+  /**
+   * Show boundary links.
+   */
+  boundaryLinks = false;
+
+  /**
+   * Show an input field to enter the page number directly.
+   */
+  enablePaginationInput? = true;
+
 }
