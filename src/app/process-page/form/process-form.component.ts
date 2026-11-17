@@ -21,12 +21,16 @@ import { ProcessParameter } from '@dspace/core/processes/process-parameter.model
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Script } from '@dspace/core/shared/scripts/script.model';
 import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptHelpComponent } from './script-help/script-help.component';
@@ -40,6 +44,7 @@ import { ScriptsSelectComponent } from './scripts-select/scripts-select.componen
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
   imports: [
+    BtnDisabledDirective,
     FormsModule,
     ProcessParametersComponent,
     RouterLink,
@@ -79,6 +84,19 @@ export class ProcessFormComponent implements OnInit {
    */
   public missingParameters = [];
 
+  /**
+   * Indicates whether the form has been submitted
+   * Used to surface validation errors on an interrupted submission
+   */
+  public submitted = false;
+
+  /**
+   * Indicates whether a script has been selected
+   */
+  get isScriptSelected(): boolean {
+    return hasValue(this.selectedScript);
+  }
+
   constructor(
     private scriptService: ScriptDataService,
     private notificationsService: NotificationsService,
@@ -95,10 +113,11 @@ export class ProcessFormComponent implements OnInit {
    * @param form
    */
   submitForm(form: NgForm) {
+    this.submitted = true;
     if (isEmpty(this.parameters)) {
       this.parameters = [];
     }
-    if (!this.validateForm(form) || this.isRequiredMissing()) {
+    if (!this.isScriptSelected || !this.validateForm(form) || this.isRequiredMissing()) {
       return;
     }
 
@@ -157,6 +176,9 @@ export class ProcessFormComponent implements OnInit {
 
   private isRequiredMissing() {
     this.missingParameters = [];
+    if (!this.isScriptSelected || isEmpty(this.selectedScript.parameters)) {
+      return false;
+    }
     const setParams: string[] = this.parameters
       .map((param) => param.name);
     const requiredParams: ScriptParameter[] = this.selectedScript.parameters.filter((param) => param.mandatory);
