@@ -1,16 +1,18 @@
 @if (securityConfigLevel?.length > 1) {
   <div class="switch-container">
     @for (secLevel of securityLevelsMap; track secLevel.value) {
+      @let value = $any(secLevel).value;
+      @let isActive = securityLevel === value;
       <div>
         <div class="switch-opt"
-             [ngStyle]="{'background-color': securityLevel === $any(secLevel).value ? 'white' : 'rgb(204,204,204)' }">
+             [ngStyle]="{'background-color': isActive ? 'white' : 'rgb(204,204,204)' }">
           <button class="btn btn-link text-primary" data-test="switch-btn"
-                  [title]="'metadata.security.level.title' | translate: { level: $any(secLevel).value }"
+                  [title]="'metadata.security.level.title' | translate: { level: value }"
                   [dsBtnDisabled]="readOnly"
-                  (click)="changeSelectedSecurityLevel($any(secLevel).value)">
+                  (click)="changeSelectedSecurityLevel(value)">
             <i [class]="$any(secLevel).icon"
                aria-hidden="true"
-               [ngStyle]="{'color': securityLevel === $any(secLevel).value ? $any(secLevel).color : '' }"></i>
+               [ngStyle]="{'color': isActive ? $any(secLevel).color : '' }"></i>
           </button>
         </div>
       </div>
