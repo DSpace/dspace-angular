@@ -3117,6 +3117,8 @@
 
   "item.page.edit": "Administer",
 
+  "item.page.export": "Export",
+
   "item.page.files": "Files",
 
   "item.page.filesection.description": "Description:",
@@ -3451,6 +3453,20 @@
   "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
 
   "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
+
+  "item-export.alert.single": "Export item <b>{{title}}</b>",
+
+  "item-export.form.format": "Format",
+
+  "item-export.form.format.tip": "Choose the export format",
+
+  "item-export.modal.title": "Item Export Process Launcher",
+
+  "item-export.form.btn.submit": "Export",
+
+  "item-export.form.btn.cancel": "Cancel",
+
+  "item-export.process.title": "Bulk export item",
 
   "itemtemplate.edit.metadata.add-button": "Add",
 
@@ -4267,6 +4283,14 @@
   "process.new.notification.error.content": "An error occurred while creating this process",
 
   "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+
+  "process.new.notification.process.processing": "Processing...",
+
+  "process.new.notification.process.files": "Output Files: ",
+
+  "process.new.notification.process.status.completed": "Completed",
+
+  "process.new.notification.process.status.failed": "Failed",
 
   "process.new.header": "Create a new process",
 
