@@ -3,7 +3,10 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedAdminSidebarComponent } from '../../../../app/admin/admin-sidebar/themed-admin-sidebar.component';
@@ -29,6 +32,7 @@ import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-aler
     LiveRegionComponent,
     NgClass,
     NotificationsBoardComponent,
+    RouterLink,
     RouterOutlet,
     SystemWideAlertBannerComponent,
     ThemedAdminSidebarComponent,

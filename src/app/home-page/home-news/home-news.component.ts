@@ -1,9 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { Site } from '@dspace/core/shared/site.model';
 import {
@@ -32,20 +37,23 @@ export class HomeNewsComponent implements OnInit {
   homeNewsMetadataValue$: Observable<string>;
 
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected route: ActivatedRoute,
     private locale: LocaleService,
   ) {}
 
   ngOnInit() {
-    this.homeNewsMetadataValue$ = combineLatest({
-      site$: this.route.data.pipe(
-        map((data) => data.site as Site),
-      ),
-      language$: this.locale.getCurrentLanguageCode(),
-    }).pipe(
-      take(1),
-      map(({ site$, language$ }) => site$?.firstMetadataValue('dspace.cms.home-news', { language: language$ })),
-    );
+    if (this.appConfig.homePage.editHomeNews) {
+      this.homeNewsMetadataValue$ = combineLatest({
+        site$: this.route.data.pipe(
+          map((data) => data.site as Site),
+        ),
+        language$: this.locale.getCurrentLanguageCode(),
+      }).pipe(
+        take(1),
+        map(({ site$, language$ }) => site$?.firstMetadataValue('dspace.cms.home-news', { language: language$ })),
+      );
+    }
   }
 
 }

@@ -49,10 +49,3 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-// Generate classes for 1 to 10 lines
-@for $i from 1 through 10 {
-  .ellipsis-y-#{$i} {
-    @include ellipsis-y($i);
-  }
-}

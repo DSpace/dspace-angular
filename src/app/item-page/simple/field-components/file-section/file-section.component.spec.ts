@@ -9,12 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -91,6 +93,7 @@ describe('FileSectionComponent', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: XSRFService, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: ThemeService, useValue: getMockThemeService() },

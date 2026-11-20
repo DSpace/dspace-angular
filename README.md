@@ -414,7 +414,8 @@ dspace-angular
 │   ├── docker-compose.yml                              *
 │   └── README.md                                       *
 ├── docs                                                * Folder for documentation
-│   └── Configuration.md                                * Configuration documentation
+│   ├── Configuration.md                                * Configuration documentation
+│   └── ThemeTranslations.md                            * Theme-specific translations documentation
 ├── scripts                                             *
 │   ├── merge-i18n-files.ts                             *
 │   ├── serve.ts                                        *

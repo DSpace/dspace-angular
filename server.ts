@@ -87,6 +87,19 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 
+// Compile SSR exclude patterns only once at startup, as they do not change at runtime
+// Please note, that regex flags (like "i") are no longer supported.
+const SSR_EXCLUDE_PATTERNS: RegExp[] = environment.ssr.excludePathPatterns.map((p: SsrExcludePatterns) => new RegExp(p.pattern));
+
+// Create CommonEngine only once at startup instead of per request.
+// Its config is derived from environment.*, which is already final at this point and never changes at runtime.
+// "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
+// By default, this is set to the host of the UI's baseUrl.
+const commonEngine = new CommonEngine({
+  enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
+  allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+});
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
@@ -228,7 +241,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
+  if (environment.ssr.enabled && req.method === 'GET' && !isUserAuthenticated(req) && (req.path === '/' || !isExcludedFromSsr(req.path))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -249,11 +262,6 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  // "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
-  // By default, this is set to the host of the UI's baseUrl.
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
-                                          allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
-                                        });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
@@ -407,13 +415,19 @@ function anonymousCacheEnabled(): boolean {
  * Caching is ONLY done for SSR requests. Pages are cached base on their path (e.g. /home or /search?query=test)
  */
 function cacheCheck(req, res, next) {
+  // Authenticated users are never served via SSR
+  if (isUserAuthenticated(req)) {
+    next();
+    return;
+  }
+
   // Cached copy of page (if found)
   let cachedCopy;
 
   // If the bot cache is enabled and this request looks like a bot, check the bot cache for a cached page.
   if (botCacheEnabled() && isbot(req.get('user-agent'))) {
     cachedCopy = checkCacheForRequest('bot', botCache, req, res, next);
-  } else if (anonymousCacheEnabled() && !isUserAuthenticated(req)) {
+  } else if (anonymousCacheEnabled()) {
     cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res, next);
   }
 
@@ -506,8 +520,8 @@ function saveToCache(req, page: any) {
     const key = getCacheKey(req);
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
     if (key.startsWith('/reload')) { return; }
-    // Avoid caching not successful responses (status code different from 2XX status)
-    if (hasNotSucceeded(req.res.statusCode)) { return; }
+    // Only cache a fully rendered 200 response.
+    if (req.res.statusCode !== 200) { return; }
 
     // Retrieve response headers to save, if any
     const headers = retrieveHeaders(req.res);
@@ -524,15 +538,6 @@ function saveToCache(req, page: any) {
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
-}
-
-/**
- * Check if status code is different from 2XX
- * @param statusCode
- */
-function hasNotSucceeded(statusCode) {
-  const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {
@@ -663,15 +668,9 @@ function start() {
  * Check if SSR should be skipped for path
  *
  * @param path
- * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
-  const patterns = excludePathPattern.map(p =>
-    new RegExp(p.pattern, p.flag || '')
-  );
-  return patterns.some((regex) => {
-    return regex.test(path)
-  });
+function isExcludedFromSsr(path: string): boolean {
+  return SSR_EXCLUDE_PATTERNS.some((regex) => regex.test(path));
 }
 
 /*

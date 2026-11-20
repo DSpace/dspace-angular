@@ -23,9 +23,7 @@
 <ng-template #searchlink let-value="value">
   <a class="ds-search-link"
      [routerLink]="['/search']"
-     [queryParams]="getSearchQueryParams(value)">
-    {{ value }}
-  </a>
+     [queryParams]="getSearchQueryParams(value)">{{ value }}</a>
 </ng-template>
 
 <!-- Render value as markdown -->

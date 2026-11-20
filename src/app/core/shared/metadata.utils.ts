@@ -48,14 +48,14 @@ export class Metadata {
    * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
-  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean, limit?: number): MetadataValue[] {
+  public static all(metadata: MetadataMapInterface = {}, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean, limit?: number): MetadataValue[] {
     const matches: MetadataValue[] = [];
     if (isNotEmpty(hitHighlights)) {
       for (const mdKey of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
         if (hitHighlights[mdKey]) {
           for (const candidate of hitHighlights[mdKey]) {
             if (Metadata.valueMatches(candidate as MetadataValue, filter) && (isEmpty(limit) || (hasValue(limit) && matches.length < limit))) {
-              const nonHighlightValues = metadata[mdKey] as MetadataValue[];
+              const nonHighlightValues = metadata?.[mdKey] as MetadataValue[];
               const nonHighlightValue = nonHighlightValues?.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
               const language = nonHighlightValue?.language ?? candidate.language ?? null;
               matches.push(Object.assign(new MetadataValue(), candidate, { language }));
@@ -109,14 +109,14 @@ export class Metadata {
    * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
-  public static first(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): MetadataValue {
+  public static first(metadata: MetadataMapInterface = {}, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): MetadataValue {
     if (isNotEmpty(hitHighlights)) {
       for (const key of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
         const values: MetadataValue[] = hitHighlights[key] as MetadataValue[];
         if (values) {
           const metadataValue = values.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
           if (metadataValue) {
-            const nonHighlightValues = metadata[key] as MetadataValue[];
+            const nonHighlightValues = metadata?.[key] as MetadataValue[];
             const nonHighlightValue = nonHighlightValues?.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
             const language = nonHighlightValue?.language ?? metadataValue.language ?? null;
             return Object.assign(new MetadataValue(), metadataValue, { language });

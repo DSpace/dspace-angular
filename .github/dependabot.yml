@@ -119,6 +119,8 @@ updates:
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "browser-actions/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "docker/*"
@@ -238,6 +240,8 @@ updates:
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "browser-actions/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "docker/*"
@@ -356,6 +360,8 @@ updates:
       # For official GitHub & Docker actions, ignore minor & patch releases because we reference these actions
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "browser-actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
@@ -477,6 +483,8 @@ updates:
       # For official GitHub & Docker actions, ignore minor & patch releases because we reference these actions
       # via a major version tag which automatically uses the latest minor/patch version (e.g. "actions/checkout@v6")
       - dependency-name: "actions/*"
+        update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
+      - dependency-name: "browser-actions/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
       - dependency-name: "github/*"
         update-types: [ "version-update:semver-minor", "version-update:semver-patch"]
