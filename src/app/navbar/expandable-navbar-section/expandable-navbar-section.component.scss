@@ -9,6 +9,12 @@
     top: 100%;
     padding: var(--ds-expandable-navbar-padding);
 
+    // While .show is kept for the collapse slide, height:0 alone still leaves
+    // the menu's own padding visible (~1rem). Clear it when inactive.
+    &[aria-hidden="true"] {
+      min-height: 0;
+    }
+
     @include media-breakpoint-down(md) {
       border: 0;
       border-radius: 0;

@@ -30,6 +30,7 @@ describe('ExternalLinkMenuItemComponent', () => {
       imports: [TranslateModule.forRoot(), ExternalLinkMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, href: link } },
+        { provide: 'useAriaMenuRoles', useValue: false },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

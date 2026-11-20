@@ -9,7 +9,7 @@
         @if ((isMobile$ | async) && (isAuthenticated$ | async)) {
           <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
         }
-        <div class="navbar-nav align-items-md-center me-auto shadow-none gapx-3" role="menubar">
+        <div class="navbar-nav align-items-md-center me-auto shadow-none gapx-3">
           @for (sectionDTO of (sectionDTOs$ | async); track sectionDTO) {
             <ds-menu-component-loader [menuID]="menuID"
                                       [expandable]="sectionDTO.hasSubSections || sectionDTO.menuSection.alwaysRenderExpandable"

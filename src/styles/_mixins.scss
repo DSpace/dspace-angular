@@ -13,6 +13,8 @@
 }
 
 @mixin dark-scrollbar() {
+  scrollbar-color: var(--ds-dark-scrollbar-fg) var(--ds-dark-scrollbar-bg);
+
     &::-webkit-scrollbar {
         width: var(--ds-dark-scrollbar-width);
         height: 3px;

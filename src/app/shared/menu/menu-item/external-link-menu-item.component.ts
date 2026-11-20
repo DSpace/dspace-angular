@@ -27,14 +27,13 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
 })
 @rendersMenuItemForType(MenuItemType.EXTERNAL)
 export class ExternalLinkMenuItemComponent implements OnInit {
-  item: ExternalLinkMenuItemModel;
 
   hasLink: boolean;
 
   constructor(
-    @Inject('itemModelProvider') item: ExternalLinkMenuItemModel,
+    @Inject('itemModelProvider') public item: ExternalLinkMenuItemModel,
+    @Inject('useAriaMenuRoles') public useAriaMenuRoles: boolean,
   ) {
-    this.item = item;
   }
 
   ngOnInit() {

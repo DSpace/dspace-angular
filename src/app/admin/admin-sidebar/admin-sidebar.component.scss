@@ -31,6 +31,8 @@
       flex: 1 1 auto; // Fill available vertical space
       overflow-x: hidden;
       overflow-y: auto;
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
       @include dark-scrollbar;
     }
 
@@ -79,7 +81,6 @@
         & > .sidebar-collapsible-element-outer-wrapper {
           display: flex;
           flex-wrap: wrap;
-          justify-content: flex-end; // make inner wrapper slide on the left when collapsing
           max-width: calc(100% - var(--ds-admin-sidebar-fixed-element-width)); // fill available space
           padding-left: var(--ds-dark-scrollbar-width); // leave room for scrollbar
           overflow-x: hidden; // hide inner wrapper when sidebar is collapsed
@@ -115,7 +116,7 @@
       .ds-menu-item {
       }
 
-      a {
+      a, button {
         color: var(--ds-admin-sidebar-link-color);
         text-decoration: none;
 
