@@ -100,7 +100,7 @@
     "@angular/platform-browser-dynamic": "^20.3.34",
     "@angular/platform-server": "^20.3.34",
     "@angular/router": "^20.3.34",
-    "@angular/ssr": "^20.3.40",
+    "@angular/ssr": "^20.3.41",
     "@kolkov/ngx-gallery": "^2.0.1",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@ngrx/effects": "^20.1.0",
@@ -163,7 +163,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~20.0.0",
-    "@angular-devkit/build-angular": "^20.3.40",
+    "@angular-devkit/build-angular": "^20.3.41",
     "@angular-eslint/builder": "^20.7.0",
     "@angular-eslint/bundled-angular-compiler": "^20.7.0",
     "@angular-eslint/eslint-plugin": "^20.7.0",
@@ -235,7 +235,7 @@
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.9.3",
-    "webpack": "^5.107.2",
+    "webpack": "^5.112.2",
     "webpack-cli": "^6.0.1",
     "yaml": "^2.9.0"
   },
