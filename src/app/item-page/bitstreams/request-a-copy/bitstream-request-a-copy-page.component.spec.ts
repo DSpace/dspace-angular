@@ -44,7 +44,10 @@ import {
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import {
+  NEVER,
+  of,
+} from 'rxjs';
 
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
@@ -326,6 +329,33 @@ describe('BitstreamRequestACopyPageComponent', () => {
         expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest, 'payload');
         expect(notificationsService.error).toHaveBeenCalled();
         expect(location.back).not.toHaveBeenCalled();
+        expect(component.submitting).toBeFalse();
+      });
+    });
+
+    describe('while the request is in flight', () => {
+      beforeEach(waitForAsync(() => {
+        init();
+        (itemRequestDataService.requestACopy as jasmine.Spy).and.returnValue(NEVER);
+        initTestbed();
+      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(BitstreamRequestACopyPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+      it('should only submit the request once', () => {
+        component.name.patchValue('User Name');
+        component.email.patchValue('user@name.org');
+        component.allfiles.patchValue('false');
+        component.message.patchValue('I would like to request a copy');
+        component.captchaPayload.patchValue('payload');
+
+        component.onSubmit();
+        component.onSubmit();
+
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledTimes(1);
+        expect(component.submitting).toBeTrue();
       });
     });
   });

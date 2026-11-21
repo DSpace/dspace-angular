@@ -80,6 +80,11 @@ export class EmailRequestCopyComponent implements OnInit, OnDestroy {
 
   protected readonly hasValue = hasValue;
 
+  /**
+   * Whether the email is currently being sent; disables the send button to prevent duplicate submissions
+   */
+  @Input() sending = false;
+
   constructor(protected location: Location) {
   }
 
@@ -109,6 +114,9 @@ export class EmailRequestCopyComponent implements OnInit, OnDestroy {
    * Submit the email
    */
   submit() {
+    if (this.sending) {
+      return;
+    }
     this.send.emit(new RequestCopyEmail(this.subject, this.message));
   }
 

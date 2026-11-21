@@ -70,6 +70,11 @@ export class DenyRequestCopyComponent implements OnInit {
    */
   message$: Observable<string>;
 
+  /**
+   * Whether the email is currently being sent, used to prevent duplicate submissions
+   */
+  sending = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -122,6 +127,10 @@ export class DenyRequestCopyComponent implements OnInit {
    * @param email Subject and contents of the message to send back to the user requesting the item
    */
   deny(email: RequestCopyEmail) {
+    if (this.sending) {
+      return;
+    }
+    this.sending = true;
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((itemRequest: ItemRequest) => this.itemRequestService.deny(itemRequest.token, email)),
@@ -131,6 +140,7 @@ export class DenyRequestCopyComponent implements OnInit {
         this.notificationsService.success(this.translateService.get('deny-request-copy.success'));
         this.router.navigateByUrl('/');
       } else {
+        this.sending = false;
         this.notificationsService.error(this.translateService.get('deny-request-copy.error'), rd.errorMessage);
       }
     });

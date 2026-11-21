@@ -1071,6 +1071,8 @@
 
   "bitstream-request-a-copy.submit": "Request copy",
 
+  "bitstream-request-a-copy.submitting": "Requesting copy...",
+
   "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
 
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
@@ -2302,6 +2304,8 @@
   "grant-deny-request-copy.email.permissions.label": "Change to open access",
 
   "grant-deny-request-copy.email.send": "Send",
+
+  "grant-deny-request-copy.email.sending": "Sending...",
 
   "grant-deny-request-copy.email.subject": "Subject",
 

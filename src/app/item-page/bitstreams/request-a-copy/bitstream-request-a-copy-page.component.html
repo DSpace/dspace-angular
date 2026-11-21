@@ -101,9 +101,15 @@
         </a>
 
         <button
-          [dsBtnDisabled]="requestCopyForm.invalid"
+          [dsBtnDisabled]="submitting || requestCopyForm.invalid"
           class="btn btn-default btn-primary"
-        (click)="onSubmit()">{{'bitstream-request-a-copy.submit' | translate}}</button>
+        (click)="onSubmit()">
+          @if (!submitting) {
+            {{'bitstream-request-a-copy.submit' | translate}}
+          } @else {
+            <i class="fas fa-spinner fa-spin me-1" aria-hidden="true"></i> {{'bitstream-request-a-copy.submitting' | translate}}
+          }
+        </button>
       </div>
     </div>
   </div>
