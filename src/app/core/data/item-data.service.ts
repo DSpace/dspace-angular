@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /**
  * The contents of this file are subject to the license and copyright
  * detailed in the LICENSE and NOTICE files at the root of the source
@@ -5,7 +6,6 @@
  *
  * http://www.dspace.org/license/
  */
-/* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
