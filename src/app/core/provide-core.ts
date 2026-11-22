@@ -94,6 +94,9 @@ import { VersionHistory } from './shared/version-history.model';
 import { StatisticsEndpoint } from './statistics/models/statistics-endpoint.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { CorrectionType } from './submission/models/correctiontype.model';
+import { EditItem } from './submission/models/edititem.model';
+import { EditItemMode } from './submission/models/edititem-mode.model';
+import { MetadataSecurityConfiguration } from './submission/models/metadata-security-configuration';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { WorkflowItem } from './submission/models/workflowitem.model';
@@ -232,4 +235,7 @@ export const models =
     CorrectionType,
     SupervisionOrder,
     SubmissionCustomUrl,
+    EditItem,
+    EditItemMode,
+    MetadataSecurityConfiguration,
   ];
