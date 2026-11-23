@@ -30,13 +30,14 @@ import { LinkMenuItemModel } from './models/link.model';
 })
 @rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent implements OnInit {
-  item: LinkMenuItemModel;
+
   hasLink: boolean;
+
   constructor(
-    @Inject('itemModelProvider') item: LinkMenuItemModel,
+    @Inject('itemModelProvider') public item: LinkMenuItemModel,
+    @Inject('useAriaMenuRoles') public useAriaMenuRoles: boolean,
     private router: Router,
   ) {
-    this.item = item;
   }
 
   ngOnInit(): void {

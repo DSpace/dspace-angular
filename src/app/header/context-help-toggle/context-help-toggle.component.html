@@ -1,12 +1,12 @@
 @if (buttonVisible$ | async) {
   <div>
-    <a href="javascript:void(0);"
-      role="menuitem"
+    <button
+      class="btn btn-link px-0"
+      type="button"
       (click)="onClick()"
       [attr.aria-label]="'nav.context-help-toggle' | translate"
-      [title]="'nav.context-help-toggle' | translate"
-      >
+      [title]="'nav.context-help-toggle' | translate">
       <i class="fas fa-lg fa-fw fa-question-circle ds-context-help-toggle"></i>
-    </a>
+    </button>
   </div>
 }

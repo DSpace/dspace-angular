@@ -17,6 +17,11 @@
   }
 
   .subsection {
+    // Contain flex min-widths while height animates (before [hidden] applies)
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+
     .sidebar-collapsible-element-inner-wrapper {
       overflow-y: hidden;
     }

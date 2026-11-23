@@ -86,26 +86,6 @@ describe('DsoEditMenuComponent', () => {
       expect(comp).toBeTruthy();
     });
 
-    it('should have role menubar when subsections exist', () => {
-      (menuService.getSubSectionsByParentID as jasmine.Spy).and.returnValue(of([subSection]));
-      fixture = TestBed.createComponent(DsoEditMenuComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
-
-      const menu = fixture.nativeElement.querySelector('.dso-edit-menu');
-      expect(menu.getAttribute('role')).toBe('menubar');
-    });
-
-    it('should NOT have role menubar when no subsections exist', () => {
-      (menuService.getSubSectionsByParentID as jasmine.Spy).and.returnValue(of([]));
-      fixture = TestBed.createComponent(DsoEditMenuComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
-
-      const menu = fixture.nativeElement.querySelector('.dso-edit-menu');
-      expect(menu.getAttribute('role')).toBeNull();
-    });
-
     it('should have aria-hidden when no subsections exist', () => {
       (menuService.getSubSectionsByParentID as jasmine.Spy).and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuComponent);
