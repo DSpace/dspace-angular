@@ -116,6 +116,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   firstName: DynamicInputModel;
   lastName: DynamicInputModel;
   email: DynamicInputModel;
+  netid: DynamicInputModel;
   // booleans
   canLogIn: DynamicCheckboxModel;
   requireCertificate: DynamicCheckboxModel;
@@ -140,6 +141,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
     },
     email: {
+      grid: {
+        host: 'row',
+      },
+    },
+    netid: {
       grid: {
         host: 'row',
       },
@@ -318,6 +324,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       hint: this.translateService.instant(`${this.messagePrefix}.emailHint`),
     });
+    this.netid = new DynamicInputModel({
+      id: 'netid',
+      label: this.translateService.instant(`${this.messagePrefix}.netid`),
+      name: 'netid',
+      required: false,
+    });
     this.canLogIn = new DynamicCheckboxModel(
       {
         id: 'canLogIn',
@@ -336,6 +348,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.firstName,
       this.lastName,
       this.email,
+      this.netid,
       this.canLogIn,
       this.requireCertificate,
     ];
@@ -351,6 +364,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
         lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
         email: eperson != null ? eperson.email : '',
+        netid: eperson != null ? eperson.netid : '',
         canLogIn: eperson != null ? eperson.canLogIn : true,
         requireCertificate: eperson != null ? eperson.requireCertificate : false,
       });
@@ -429,6 +443,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
             ],
           },
           email: this.email.value,
+          netid: this.netid.value,
           canLogIn: this.canLogIn.value,
           requireCertificate: this.requireCertificate.value,
         };
@@ -486,6 +501,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         ],
       },
       email: (hasValue(values.email) ? values.email : ePerson.email),
+      netid: (hasValue(values.netid) ? values.netid : ePerson.netid),
       canLogIn: (hasValue(values.canLogIn) ? values.canLogIn : ePerson.canLogIn),
       requireCertificate: (hasValue(values.requireCertificate) ? values.requireCertificate : ePerson.requireCertificate),
       _links: ePerson._links,
