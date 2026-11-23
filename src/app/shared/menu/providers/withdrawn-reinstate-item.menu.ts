@@ -6,17 +6,23 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Item } from '@dspace/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
+import { CorrectionType } from '@dspace/core/submission/models/correctiontype.model';
 import {
-  combineLatest,
   Observable,
+  of,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import {
   DsoWithdrawnReinstateModalService,
@@ -36,17 +42,24 @@ export class WithdrawnReinstateItemMenuProvider extends DSpaceObjectPageMenuProv
   constructor(
     protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
     protected correctionTypeDataService: CorrectionTypeDataService,
+    protected authService: AuthService,
   ) {
     super();
   }
 
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {
-    return combineLatest([
-      this.correctionTypeDataService.findByItem(item.uuid, true).pipe(
-        getFirstCompletedRemoteData(),
-        getRemoteDataPayload()),
-    ]).pipe(
-      map(([correction]) => {
+    // The correction types endpoint requires an authenticated user: don't send a request that can only end in a 401
+    return this.authService.isAuthenticated().pipe(
+      switchMap((isAuthenticated: boolean) => {
+        if (!isAuthenticated) {
+          return of(undefined as PaginatedList<CorrectionType>);
+        }
+        return this.correctionTypeDataService.findByItem(item.uuid, true).pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload(),
+        );
+      }),
+      map((correction: PaginatedList<CorrectionType>) => {
         return [
           {
             visible: item.isArchived && correction?.page.some((c) => c.topic === REQUEST_WITHDRAWN),

@@ -8,6 +8,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import {
   NotifyRequestsStatus,
   NotifyStatuses,
@@ -23,6 +24,8 @@ import {
   filter,
   map,
   Observable,
+  of,
+  switchMap,
 } from 'rxjs';
 
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
@@ -55,20 +58,31 @@ export class NotifyRequestsStatusComponent implements OnInit {
    */
   requestMap$: Observable<Map<RequestStatusEnum, NotifyStatuses[]>>;
 
-  constructor(private notifyInfoService: NotifyRequestsStatusDataService) { }
+  constructor(
+    private notifyInfoService: NotifyRequestsStatusDataService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
-    this.requestMap$ = this.notifyInfoService
-      .getNotifyRequestsStatus(this.itemUuid)
-      .pipe(
-        getFirstCompletedRemoteData(),
-        filter((data) => hasValue(data)),
-        getRemoteDataPayload(),
-        filter((data: NotifyRequestsStatus) => hasValue(data)),
-        map((data: NotifyRequestsStatus) => {
-          return this.groupDataByStatus(data);
-        }),
-      );
+    // The endpoint requires an authenticated user: don't send a request that can only end in a 401
+    this.requestMap$ = this.authService.isAuthenticated().pipe(
+      switchMap((isAuthenticated: boolean) => {
+        if (!isAuthenticated) {
+          return of(new Map<RequestStatusEnum, NotifyStatuses[]>());
+        }
+        return this.notifyInfoService
+          .getNotifyRequestsStatus(this.itemUuid)
+          .pipe(
+            getFirstCompletedRemoteData(),
+            filter((data) => hasValue(data)),
+            getRemoteDataPayload(),
+            filter((data: NotifyRequestsStatus) => hasValue(data)),
+            map((data: NotifyRequestsStatus) => {
+              return this.groupDataByStatus(data);
+            }),
+          );
+      }),
+    );
   }
 
   /**
