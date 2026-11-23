@@ -28,7 +28,9 @@ An override file only has to contain the keys it changes; every other key falls 
 file. A theme also does not have to provide a file for every language.
 
 The build copies these files to `assets/<theme>/i18n/<lang>.json5` in the output, where the
-translate loaders pick them up.
+server loader picks them up. Like the base files, they are also copied as
+`assets/<theme>/i18n/<lang>.<hash>.json` with a content hash in the name; the browser requests
+that copy, so a changed translation is never served from the browser cache.
 
 The build also records which themes provide a file for which language, so the browser only
 requests override files that exist; a theme without overrides is not requested at all. That

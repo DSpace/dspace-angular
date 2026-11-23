@@ -57,16 +57,15 @@ export function getFileHashes(folderPath: string, regExp: RegExp): { [fileName: 
 }
 
 /**
- * Collect the languages each theme provides an i18n override file for, e.g. { custom: ['en'] }
+ * Calculate the hashes of the i18n override files of each theme, e.g. { custom: { 'en.json5': '<hash>' } }
  *
  * @param themesPath The path of the folder containing the themes
  */
-export function getThemeLanguages(themesPath: string): { [themeName: string]: string[] } {
-  const extension = '.json5';
-  const themeLanguages: { [themeName: string]: string[] } = {};
+export function getThemeLanguageHashes(themesPath: string): { [themeName: string]: { [fileName: string]: string } } {
+  const themeHashes: { [themeName: string]: { [fileName: string]: string } } = {};
 
   if (!existsSync(themesPath)) {
-    return themeLanguages;
+    return themeHashes;
   }
 
   for (const theme of readdirSync(themesPath)) {
@@ -76,14 +75,12 @@ export function getThemeLanguages(themesPath: string): { [themeName: string]: st
       continue;
     }
 
-    const languages: string[] = readdirSync(i18nPath)
-      .filter((file: string) => file.endsWith(extension) && statSync(join(i18nPath, file)).isFile())
-      .map((file: string) => file.slice(0, -extension.length));
+    const hashes = getFileHashes(i18nPath, /.*\.json5/g);
 
-    if (languages.length > 0) {
-      themeLanguages[theme] = languages;
+    if (Object.keys(hashes).length > 0) {
+      themeHashes[theme] = hashes;
     }
   }
 
-  return themeLanguages;
+  return themeHashes;
 }

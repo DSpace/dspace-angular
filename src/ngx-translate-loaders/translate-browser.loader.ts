@@ -4,7 +4,6 @@ import { AppConfig } from '@dspace/config/app-config.interface';
 import { getDefaultThemeConfig } from '@dspace/config/config.util';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateLoader } from '@ngx-translate/core';
-import JSON5 from 'json5';
 import {
   forkJoin,
   Observable,
@@ -26,7 +25,7 @@ import { resolveActiveThemeChain } from './theme-i18n.util';
  * A TranslateLoader for ngx-translate to retrieve i18n messages from the TransferState, or download
  * them if they're not available there.
  *
- * Also fetches per-theme translation overrides from `assets/<theme>/i18n/<lang>.json5` for the
+ * Also fetches per-theme translation overrides from `assets/<theme>/i18n/<lang>.<hash>.json` for the
  * active theme and its ancestors (root → active), merging them on top of the base translations
  * so the active theme's keys win. Only the active theme's inheritance chain is loaded — sibling
  * themes are excluded to prevent cross-theme key pollution.
@@ -95,13 +94,16 @@ export class TranslateBrowserLoader implements TranslateLoader {
   }
 
   /**
-   * Fetch the override JSON5 file for the given theme/language.
-   * Returns an empty object if the file is missing (most themes won't override every language).
+   * Fetch the override file for the given theme/language (the hashed JSON produced by the build pipeline).
+   * Returns an empty object if the file can't be loaded.
    */
   protected fetchThemeOverride(themeName: string, lang: string): Observable<Record<string, string>> {
-    const url = `assets/${themeName}/i18n/${lang}.json5`;
+    const translationHash: string = environment.production
+      ? `.${this.themeLanguageHashes()[themeName]?.[lang + '.json5']}`
+      : '';
+    const url = `assets/${themeName}/i18n/${lang}${translationHash}.json`;
     return this.http.get(url, { responseType: 'text' }).pipe(
-      map((text: string) => JSON5.parse(text) as Record<string, string>),
+      map((json: string) => JSON.parse(json) as Record<string, string>),
       catchError((error: unknown) => {
         // eslint-disable-next-line no-console
         console.warn(`[TranslateBrowserLoader] Failed to load theme i18n file ${url}:`, error);
@@ -111,10 +113,10 @@ export class TranslateBrowserLoader implements TranslateLoader {
   }
 
   /**
-   * The languages each theme provides an override file for, as collected at build time
+   * The hashes of the i18n override files of each theme, as collected at build time
    */
-  protected themeLanguages(): Record<string, string[]> {
-    return (process.env.themeLanguages as any) ?? {};
+  protected themeLanguageHashes(): Record<string, Record<string, string>> {
+    return (process.env.themeLanguageHashes as any) ?? {};
   }
 
   /**
@@ -122,6 +124,6 @@ export class TranslateBrowserLoader implements TranslateLoader {
    * Requesting a file that isn't there costs a 404 before the merge can complete.
    */
   protected hasThemeOverride(themeName: string, lang: string): boolean {
-    return this.themeLanguages()[themeName]?.includes(lang) === true;
+    return this.themeLanguageHashes()[themeName]?.[lang + '.json5'] !== undefined;
   }
 }
