@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({
-  selector: 'ds-item-access-control',
+  selector: 'ds-base-item-access-control',
   templateUrl: './item-access-control.component.html',
   styleUrls: ['./item-access-control.component.scss'],
   imports: [
