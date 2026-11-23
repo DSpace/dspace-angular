@@ -1,0 +1,31 @@
+{
+  "comment": "Focused ruleset: enforce that component stylesheets never hardcode colors. Colors must come from variables defined in the dedicated style/variable files (see overrides below).",
+  "customSyntax": "postcss-scss",
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "color-no-hex": true,
+    "color-named": "never",
+    "scss/function-disallowed-list": [
+      "rgb",
+      "rgba",
+      "hsl",
+      "hsla"
+    ]
+  },
+  "overrides": [
+    {
+      "comment": "Color definition files: hardcoded colors are allowed here, since this is where the variables that components must use are defined.",
+      "files": [
+        "src/styles/**/*.scss",
+        "src/themes/**/styles/**/*.scss"
+      ],
+      "rules": {
+        "color-no-hex": null,
+        "color-named": null,
+        "scss/function-disallowed-list": null
+      }
+    }
+  ]
+}

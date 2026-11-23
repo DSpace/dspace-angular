@@ -34,7 +34,7 @@
 }
 
 .map-frame {
-  border: 2px solid black;
+  border: 2px solid var(--bs-emphasis-color);
   height: 100%;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .browse-map-frame {
-  border: 2px solid black;
+  border: 2px solid var(--bs-emphasis-color);
   height: 100%;
   width: 100%;
 }

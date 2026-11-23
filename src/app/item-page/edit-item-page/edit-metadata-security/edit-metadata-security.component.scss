@@ -1,7 +1,7 @@
 .switch-container {
   height: 35px;
   width: fit-content;
-  background-color: rgb(204, 204, 204);
+  background-color: var(--bs-border-color);
   border-radius: 100px;
   display: flex;
 
@@ -14,7 +14,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  background-color: rgb(204, 204, 204);
+  background-color: var(--bs-border-color);
   cursor: pointer;
   width: 32px;
   height: 32px;
@@ -23,6 +23,10 @@
   top: 1px;
   margin-left: 2px;
   margin-right: 2px;
+}
+
+.switch-opt.selected {
+  background-color: var(--ds-white-bg);
 }
 
 .btn-link:focus {
