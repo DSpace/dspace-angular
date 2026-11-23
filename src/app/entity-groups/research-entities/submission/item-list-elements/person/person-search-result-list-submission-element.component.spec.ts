@@ -26,6 +26,7 @@ import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -140,7 +141,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
     TestBed.configureTestingModule({
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
@@ -241,7 +242,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
     TestBed.configureTestingModule({
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },

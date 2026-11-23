@@ -72,6 +72,14 @@ import {
   SelectionAction,
 } from '../item-bitstreams.service';
 
+/**
+ * A {@link BitstreamTableEntry} paired with a (memoized) observable indicating whether the current
+ * user is allowed to replace this bitstream.
+ */
+export interface BitstreamTableEntryWithReplace extends BitstreamTableEntry {
+  canReplace$: Observable<boolean>;
+}
+
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
   styleUrls: ['../item-bitstreams.component.scss', './item-edit-bitstream-bundle.component.scss'],
@@ -161,7 +169,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   /**
    * The data to show in the table
    */
-  tableEntries$: BehaviorSubject<BitstreamTableEntry[]> = new BehaviorSubject([]);
+  tableEntries$: BehaviorSubject<BitstreamTableEntryWithReplace[]> = new BehaviorSubject([]);
 
   /**
    * The initial page options to use for fetching the bitstreams
@@ -230,7 +238,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     this.canReplaceBitstreamCache.clear();
   }
 
-  canReplaceBitstream(bitstreamUrl: string): Observable<boolean> {
+  private canReplaceBitstream(bitstreamUrl: string): Observable<boolean> {
     if (!this.canReplaceBitstreamCache.has(bitstreamUrl)) {
       this.canReplaceBitstreamCache.set(
         bitstreamUrl,
@@ -292,6 +300,10 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
       this.bitstreamsRD$.pipe(
         paginatedListToArray(),
         map((bitstreams) => this.itemBitstreamsService.mapBitstreamsToTableEntries(bitstreams)),
+        map((tableEntries) => tableEntries.map((entry) => ({
+          ...entry,
+          canReplace$: this.canReplaceBitstream(entry.bitstream.self),
+        }))),
       ).subscribe((tableEntries) => this.tableEntries$.next(tableEntries)),
     );
   }

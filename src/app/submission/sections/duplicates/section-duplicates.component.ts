@@ -59,6 +59,11 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
   public isLoading = true;
 
   /**
+   * The duplicate data as observable from the section data
+   */
+  public duplicateData$: Observable<WorkspaceitemSectionDuplicatesObject>;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -85,6 +90,7 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
 
   ngOnInit() {
     super.ngOnInit();
+    this.duplicateData$ = this.getDuplicateData();
   }
 
   /**
