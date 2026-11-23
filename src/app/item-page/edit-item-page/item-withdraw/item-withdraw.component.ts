@@ -14,22 +14,35 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import {
+  WithdrawnMetadataFormComponent,
+  WithdrawnMetadataFormState,
+} from '../../withdrawn/withdrawn-metadata-form/withdrawn-metadata-form.component';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
   selector: 'ds-item-withdraw',
-  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
+  templateUrl: './item-withdraw.component.html',
   imports: [
+    BtnDisabledDirective,
     ModifyItemOverviewComponent,
     RouterLink,
     TranslateModule,
+    WithdrawnMetadataFormComponent,
   ],
 })
 /**
  * Component responsible for rendering the Item Withdraw page
  */
 export class ItemWithdrawComponent extends AbstractSimpleItemActionComponent {
+
+  /**
+   * The current state of the withdrawal form, holding the metadata values to store on the
+   * item along with the withdrawal
+   */
+  formState: WithdrawnMetadataFormState;
 
   protected messageKey = 'withdraw';
   protected predicate = (rd: RemoteData<Item>) => rd.payload.isWithdrawn;
@@ -43,13 +56,21 @@ export class ItemWithdrawComponent extends AbstractSimpleItemActionComponent {
   }
 
   /**
-   * Perform the withdraw action to the item
+   * Keeps track of the values filled in the withdrawal form
+   */
+  onFormChange(state: WithdrawnMetadataFormState): void {
+    this.formState = state;
+  }
+
+  /**
+   * Perform the withdraw action to the item, storing the metadata collected by the form
    */
   performAction() {
-    this.itemDataService.setWithDrawn(this.item, true).pipe(getFirstCompletedRemoteData()).subscribe(
-      (response: RemoteData<Item>) => {
-        this.processRestResponse(response);
-      },
-    );
+    this.itemDataService.withdrawWithMetadata(this.item, this.formState?.values ?? {})
+      .pipe(getFirstCompletedRemoteData()).subscribe(
+        (response: RemoteData<Item>) => {
+          this.processRestResponse(response);
+        },
+      );
   }
 }
