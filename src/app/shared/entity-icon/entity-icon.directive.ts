@@ -62,11 +62,11 @@ export class EntityIconDirective implements OnInit {
    * Adding icon to element oninit
    */
   ngOnInit() {
-    const crisRefConfig: AuthorityRefConfig = this.getCrisRefConfigByType(this.entityType);
-    if (isNotEmpty(crisRefConfig)) {
-      const crisStyle: AuthorityRefEntityStyleConfig = this.getCrisRefEntityStyleConfig(crisRefConfig, this.entityStyle);
-      if (isNotEmpty(crisStyle)) {
-        this.addIcon(crisStyle);
+    const authorityRefConfig: AuthorityRefConfig = this.getAuthorityRefConfigByType(this.entityType);
+    if (isNotEmpty(authorityRefConfig)) {
+      const entityStyle: AuthorityRefEntityStyleConfig = this.getAuthorityRefEntityStyleConfig(authorityRefConfig, this.entityStyle);
+      if (isNotEmpty(entityStyle)) {
+        this.addIcon(entityStyle);
       }
     }
   }
@@ -77,7 +77,7 @@ export class EntityIconDirective implements OnInit {
    * @param type
    * @private
    */
-  private getCrisRefConfigByType(type: string): AuthorityRefConfig {
+  private getAuthorityRefConfigByType(type: string): AuthorityRefConfig {
     let filteredConf: AuthorityRefConfig = this.confValue.find((config) => config.entityType.toUpperCase() === type.toUpperCase());
     if (isEmpty(filteredConf) && this.fallbackOnDefault) {
       filteredConf = this.confValue.find((config) => config.entityType.toUpperCase() === 'DEFAULT');
@@ -89,24 +89,24 @@ export class EntityIconDirective implements OnInit {
   /**
    * Return the AuthorityRefEntityStyleConfig by the given style
    *
-   * @param crisConfig
+   * @param authorityConfig
    * @param styles
    * @private
    */
-  private getCrisRefEntityStyleConfig(crisConfig: AuthorityRefConfig, styles: string|string[]): AuthorityRefEntityStyleConfig {
+  private getAuthorityRefEntityStyleConfig(authorityConfig: AuthorityRefConfig, styles: string|string[]): AuthorityRefEntityStyleConfig {
     let filteredConf: AuthorityRefEntityStyleConfig;
     if (Array.isArray(styles)) {
       styles.forEach((style) => {
-        if (Object.keys(crisConfig.entityStyle).includes(style)) {
-          filteredConf = crisConfig.entityStyle[style];
+        if (Object.keys(authorityConfig.entityStyle).includes(style)) {
+          filteredConf = authorityConfig.entityStyle[style];
         }
       });
     } else {
-      filteredConf = crisConfig.entityStyle[styles];
+      filteredConf = authorityConfig.entityStyle[styles];
     }
 
     if (isEmpty(filteredConf) && this.fallbackOnDefault) {
-      filteredConf = crisConfig.entityStyle.default;
+      filteredConf = authorityConfig.entityStyle.default;
     }
 
     return filteredConf;
@@ -115,7 +115,7 @@ export class EntityIconDirective implements OnInit {
   /**
    * Attach icon to HTML element
    *
-   * @param crisStyle
+   * @param entityStyle
    * @private
    */
   private addIcon(entityStyle: AuthorityRefEntityStyleConfig): void {

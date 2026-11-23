@@ -1,0 +1,14 @@
+:host ::ng-deep {
+
+  .text-section-home-news {
+    a {
+      color: var(--ds-home-news-link-color);
+
+      &:hover {
+        color: var(--ds-home-news-link-hover-color);
+      }
+    }
+  }
+}
+
+

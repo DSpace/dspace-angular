@@ -277,6 +277,7 @@ export const environment: BuildConfig = {
     showDiscoverFilters: false,
     editHomeNews: true,
     editHomeHeader: true,
+    enableDynamicLayout: false,
   },
   item: {
     edit: {
@@ -529,6 +530,7 @@ export const environment: BuildConfig = {
 
   // Configuration for layout customization of metadata rendering in Item page
   layout: {
+    enableExplorePages: false,
     authorityRef: [
       {
         entityType: 'DEFAULT',
@@ -597,6 +599,9 @@ export const environment: BuildConfig = {
           type: AdvancedAttachmentElementType.Attribute,
         },
       ],
+    },
+    navbar: {
+      showCommunityCollection: true,
     },
   },
 
