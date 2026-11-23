@@ -31,6 +31,16 @@ export function getRedisCacheKey(baseUrl: string, language: string, url: string)
   return createHash('sha256').update(JSON.stringify([baseUrl, language, url])).digest('hex');
 }
 
+/** Use one language for the cache key, SSR translations and REST requests. */
+export function normalizeSsrCacheLanguage(req: Request, res: Response, languages: string[], fallback: string): void {
+  const cookieLanguage = req.cookies?.dsLanguage;
+  const requestedLanguage = req.get('accept-language') && languages.length > 0 && req.acceptsLanguages(languages);
+  req.headers['accept-language'] = languages.includes(cookieLanguage)
+    ? cookieLanguage : requestedLanguage || fallback;
+  res.vary('Accept-Language');
+  res.vary('Cookie');
+}
+
 /** Shared SSR pages must never contain authenticated or route-specific private responses. */
 export function canCacheSsrRequest(req: Request, production: boolean, ssrEnabled: boolean,
   authenticationCookie: string, isExcluded: (path: string) => boolean): boolean {

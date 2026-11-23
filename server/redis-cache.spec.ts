@@ -13,6 +13,7 @@ import {
   canCacheSsrRequest,
   createSsrRefreshContext,
   getRedisCacheKey,
+  normalizeSsrCacheLanguage,
   RedisSsrCache,
 } from './redis-cache';
 
@@ -298,6 +299,73 @@ describe('Redis cache keys', () => {
     ]) {
       expect(getRedisCacheKey(args[0], args[1], args[2])).not.toBe(key);
     }
+  });
+});
+
+describe('SSR cache language', () => {
+  const app = express();
+
+  function normalize(header?: string, cookie?: string, languages = ['en', 'en-US', 'de', 'pt-BR']) {
+    const req = new IncomingMessage(new Socket()) as express.Request;
+    const res = new ServerResponse(req) as express.Response;
+    Object.setPrototypeOf(req, app.request);
+    Object.setPrototypeOf(res, app.response);
+    if (header !== undefined) {
+      req.headers['accept-language'] = header;
+    }
+    req.cookies = { dsLanguage: cookie };
+    res.setHeader('Vary', 'Accept-Encoding');
+    normalizeSsrCacheLanguage(req, res, languages, 'en');
+    const language = req.get('accept-language');
+    return { req, res, language, key: getRedisCacheKey('https://example.org', language, '/home') };
+  }
+
+  it('shares keys for equivalent language preferences and canonicalizes the SSR request', () => {
+    for (const [headers, expected] of [
+      [['en-US,en;q=0.9', 'en-US,en;q=0.8', 'EN-us, en;q=0.5'], 'en-US'],
+      [['de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7', 'de,en;q=0.5'], 'de'],
+    ] as [string[], string][]) {
+      const results = headers.map(header => normalize(header));
+      for (const result of results) {
+        expect(result.language).toBe(expected);
+        expect(result.req.headers['accept-language']).toBe(expected);
+        expect(result.key).toBe(results[0].key);
+      }
+    }
+    expect(normalize('de').key).not.toBe(normalize('en').key);
+  });
+
+  it('uses quality values and regional matches to select an active language', () => {
+    expect(normalize('en;q=0.1,de;q=0.9').language).toBe('de');
+    expect(normalize('de;q=0,en;q=0.5').language).toBe('en');
+    expect(normalize('pt-PT, en;q=0.5').language).toBe('en');
+    expect(normalize('pt-BR, en;q=0.5').language).toBe('pt-BR');
+    expect(normalize('de-DE').language).toBe('de');
+  });
+
+  it('gives an active cookie precedence over browser preferences, including for REST requests', () => {
+    const result = normalize('en-US,en;q=0.8', 'de');
+    expect(result.language).toBe('de');
+    expect(result.req.headers['accept-language']).toBe('de');
+    expect(result.key).toBe(normalize('de').key);
+  });
+
+  it('ignores cookies for languages that are not active', () => {
+    expect(normalize('de', 'fr').language).toBe('de');
+  });
+
+  it('uses the fallback for missing or unsupported preferences and an empty active list', () => {
+    for (const header of [undefined, '', 'xx', 'de;q=0']) {
+      expect(normalize(header).language).toBe('en');
+    }
+    expect(normalize('de', undefined, []).language).toBe('en');
+    expect(normalize(undefined, undefined, ['de', 'en']).language).toBe('en');
+    expect(normalize('*').language).toBe('en');
+  });
+
+  it('varies responses by language and cookies without replacing existing Vary fields', () => {
+    const { res } = normalize('de');
+    expect(res.getHeader('Vary')).toBe('Accept-Encoding, Accept-Language, Cookie');
   });
 });
 

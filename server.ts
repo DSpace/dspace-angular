@@ -42,6 +42,7 @@ import {
   canCacheSsrRequest,
   createSsrRefreshContext,
   getRedisCacheKey,
+  normalizeSsrCacheLanguage,
   RedisSsrCache,
 } from './server/redis-cache';
 import { RedisCachePolicy } from './server/redis-cache-policy';
@@ -239,6 +240,10 @@ export function app() {
    * copy of the page (see cacheCheck())
    */
   router.get('*', (req, res, next) => {
+    if (redisCacheEnabled() && canCacheRequest(req)) {
+      const languages = environment.languages.filter(language => language.active).map(language => language.code);
+      normalizeSsrCacheLanguage(req, res, languages, environment.fallbackLanguage);
+    }
     void cacheCheck(req, res, next).catch(next);
   }, ngApp);
 
@@ -485,7 +490,11 @@ async function cacheCheck(req, res, next) {
           if (environment.cache.serverSide.debug) {
             console.log(`Restore cached ${header} header`);
           }
-          res.setHeader(header, cachedCopy.headers[header]);
+          if (header.toLowerCase() === 'vary') {
+            res.vary(cachedCopy.headers[header]);
+          } else {
+            res.setHeader(header, cachedCopy.headers[header]);
+          }
         }
       });
     }
@@ -557,11 +566,8 @@ function checkCacheForRequest(cacheName: string, cache: LRUCache<string, any>, r
  */
 function getCacheKey(req): string {
   if (redisCacheEnabled()) {
-    const languages = environment.languages.filter(language => language.active).map(language => language.code);
-    const cookieLanguage = req.cookies?.dsLanguage;
-    // Keep all language preferences in the key: SSR's locale matching differs from Express negotiation.
-    const language = languages.includes(cookieLanguage) ? cookieLanguage
-      : req.get('accept-language') || environment.fallbackLanguage;
+    // The page handler normalizes this header before cache lookup and SSR.
+    const language = req.get('accept-language') || environment.fallbackLanguage;
     return getRedisCacheKey(environment.ui.baseUrl, language, req.originalUrl);
   }
   // NOTE: this will return the URL path *without* any baseUrl
