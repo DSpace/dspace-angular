@@ -12,4 +12,5 @@ export class LinkMenuItemModel implements MenuItemModel {
   text: string;
   link: string;
   queryParams?: Params | null;
+  icon?: string;
 }

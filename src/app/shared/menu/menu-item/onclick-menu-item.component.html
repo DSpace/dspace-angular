@@ -8,8 +8,17 @@
     (keyup.space)="activate($event)"
     (keyup.enter)="activate($event)"
     [attr.data-test]="item.text"
-  >{{item.text | translate}}</a>
+  >@if (item.icon) {
+      <i class="fas fa-{{item.icon}} fa-fw" aria-hidden="true"></i>
+    }
+    <span>{{item.text | translate}}</span>
+  </a>
 }
 @if (item.disabled) {
-  <span [attr.data-test]="item.text" class="nav-item nav-link disabled">{{item.text | translate}}</span>
+  <span [attr.data-test]="item.text" class="ds-menu-item nav-item nav-link disabled">
+    @if (item.icon) {
+      <i class="fas fa-{{item.icon}} fa-fw" aria-hidden="true"></i>
+    }
+    <span>{{item.text | translate}}</span>
+  </span>
 }
