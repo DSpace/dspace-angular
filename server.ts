@@ -314,16 +314,24 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
           html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
         }
 
-        // save server side rendered page to cache (if any are enabled)
-        await saveToCache(req, html, res);
+        const writeToCache = prepareCacheWrite(req, html, res);
         if (sendToUser) {
           res.locals.ssr = true;  // mark response as SSR (enables text compression)
           // send rendered page to user
           res.send(html);
+          if (writeToCache) {
+            void writeToCache().catch(() => console.warn('SSR cache write failed.'));
+          }
+        } else {
+          await writeToCache?.();
         }
       }
     })
     .catch((err) => {
+      if (res.headersSent) {
+        console.warn('SSR failed after the response was sent; skipping CSR fallback.');
+        return;
+      }
       if (hasValue(err) && err.code === 'ERR_HTTP_HEADERS_SENT') {
         // When this error occurs we can't fall back to CSR because the response has already been
         // sent. These errors occur for various reasons in universal, not all of which are in our
@@ -575,13 +583,13 @@ function getCacheKey(req): string {
 }
 
 /**
- * Save page to server side cache(s), if enabled. If caching is not enabled or a user is authenticated, this is a noop
+ * Capture a cache write before sending the response; the returned callback does not retain the request or response.
  * If multiple caches are enabled, the page will be saved to any caches where it does not yet exist (or is expired).
  * (This minimizes the number of times we need to run SSR on the same page.)
  * @param req current page request
  * @param page page data to save to cache
  */
-async function saveToCache(req, page: string, response) {
+function prepareCacheWrite(req, page: string, response): (() => Promise<void>) | undefined {
   // Only cache if no one is currently authenticated. This means ONLY public pages can be cached.
   // NOTE: It's not safe to save page data to the cache when a user is authenticated. In that situation,
   // the page may include sensitive or user-specific materials. As the cache is shared across all users, it can only contain public info.
@@ -595,22 +603,25 @@ async function saveToCache(req, page: string, response) {
     // Retrieve response headers to save, if any
     const headers = retrieveHeaders(response);
     if (redisCacheEnabled()) {
-      await redisCache?.set(key, { page, headers, statusCode: response.statusCode },
-        redisCachePolicy.getDurationsForUrl(req.url).timeToLive);
-      return;
+      const statusCode = response.statusCode;
+      const timeToLive = redisCachePolicy?.getDurationsForUrl(req.url).timeToLive;
+      if (!redisCache || !(timeToLive > 0)) { return; }
+      return () => redisCache.set(key, { page, headers, statusCode }, timeToLive);
     }
-    // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
-    // (NOTE: has() will return false if page is expired in cache)
-    if (botCacheEnabled() && !botCache.has(key)) {
-      botCache.set(key, { page, headers });
-      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
-    }
+    return async () => {
+      // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
+      // (NOTE: has() will return false if page is expired in cache)
+      if (botCacheEnabled() && !botCache.has(key)) {
+        botCache.set(key, { page, headers });
+        if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
+      }
 
-    // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
-    if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
-      anonymousCache.set(key, { page, headers });
-      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
-    }
+      // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
+      if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
+        anonymousCache.set(key, { page, headers });
+        if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
+      }
+    };
   }
 }
 

@@ -202,6 +202,30 @@ describe('Redis SSR cache', () => {
     expect(client.set).not.toHaveBeenCalled();
   });
 
+  it('limits writes to 20, including commands still running after a timeout', async () => {
+    let finish: (result: string) => void;
+    const command = new Promise<string>(resolve => finish = resolve);
+    client.set.and.returnValue(command);
+    const writes = Array.from({ length: 20 }, (_, i) => cache.set(`key:${i}`, value, 1000));
+    await cache.set('overflow', value, 1000);
+    expect(client.set).toHaveBeenCalledTimes(20);
+    await Promise.all(writes);
+    await cache.set('after-timeout', value, 1000);
+    expect(client.set).toHaveBeenCalledTimes(20);
+    finish('OK');
+    await command;
+    await cache.set('after-completion', value, 1000);
+    expect(client.set).toHaveBeenCalledTimes(21);
+  });
+
+  it('releases write slots after failed commands', async () => {
+    client.set.and.callFake(() => Promise.reject(new Error('failed')));
+    await Promise.all(Array.from({ length: 20 }, (_, i) => cache.set(`key:${i}`, value, 1000)));
+    client.set.and.returnValue(Promise.resolve('OK'));
+    await cache.set('next', value, 1000);
+    expect(client.set).toHaveBeenCalledTimes(21);
+  });
+
   it('does not queue operations during a Redis outage', async () => {
     client.isReady = false;
     expect(await cache.get('key')).toBeUndefined();

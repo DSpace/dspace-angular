@@ -65,6 +65,7 @@ export class RedisSsrCache {
   private unavailable = false;
   private invalidEntryReported = false;
   private memoryConfiguration?: Promise<string | undefined>;
+  private pendingWrites = 0;
 
   constructor(private config: RedisCacheConfig, private debug = false) {
     const maxMemory = config.maxMemory ?? 0;
@@ -137,10 +138,16 @@ export class RedisSsrCache {
       return;
     }
     await this.execute('set', async () => {
-      const stored = this.config.compressHtml
-        ? { ...value, page: (await gzipAsync(value.page)).toString('base64'), compressed: true }
-        : value;
-      return this.client.set(this.pageKey(key), JSON.stringify(stored), { PX: Math.ceil(timeToLive) });
+      if (this.pendingWrites >= 20) { return; }
+      this.pendingWrites++;
+      try {
+        const stored = this.config.compressHtml
+          ? { ...value, page: (await gzipAsync(value.page)).toString('base64'), compressed: true }
+          : value;
+        return await this.client.set(this.pageKey(key), JSON.stringify(stored), { PX: Math.ceil(timeToLive) });
+      } finally {
+        this.pendingWrites--;
+      }
     });
   }
 
