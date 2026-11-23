@@ -29,6 +29,7 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  distinctUntilKeyChanged,
   map,
   switchMap,
   take,
@@ -96,6 +97,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
           return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow());
         }),
         getAllSucceededRemoteData(),
+        distinctUntilKeyChanged('timeCompleted'),
       ).subscribe((rd: RemoteData<Item>) => {
         this.setItem(rd.payload);
       });
