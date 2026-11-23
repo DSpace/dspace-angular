@@ -56,4 +56,10 @@ export abstract class SearchQueryResponse<T> extends PaginatedList<T> {
 
   @autoserialize
   facets: any; // TODO
+
+  /**
+   * Spellcheck suggestions from the search backend
+   */
+  @autoserialize
+  spellCheckSuggestions: string[];
 }
