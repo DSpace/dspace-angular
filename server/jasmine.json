@@ -1,0 +1,5 @@
+{
+  "spec_dir": "server",
+  "spec_files": ["**/*.spec.ts"],
+  "random": true
+}

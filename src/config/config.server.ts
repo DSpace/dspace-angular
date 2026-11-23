@@ -146,7 +146,8 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
       } else {
         const value = ENV(variable, true);
         if (isNotEmpty(value)) {
-          console.info(`Applying environment variable ${DSPACE(variable)} with value ${value}`);
+          const loggedValue = variable === 'CACHE_SERVERSIDE_REDIS_URL' ? '[redacted]' : value;
+          console.info(`Applying environment variable ${DSPACE(variable)} with value ${loggedValue}`);
           switch (typeof innerConfig) {
             case 'number':
               config[property] = getNumberFromString(value);
