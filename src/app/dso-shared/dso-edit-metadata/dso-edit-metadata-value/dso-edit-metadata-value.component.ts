@@ -26,27 +26,18 @@ import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import { MetadataService } from '@dspace/core/metadata/metadata.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { ConfidenceType } from '@dspace/core/shared/confidence-type';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
 } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
-import {
-  getFirstCompletedRemoteData,
-  metadataFieldsToString,
-} from '@dspace/core/shared/operators';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -57,7 +48,6 @@ import {
   combineLatest,
   EMPTY,
   Observable,
-  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -65,11 +55,8 @@ import {
   filter,
   map,
   shareReplay,
-  switchMap,
-  take,
 } from 'rxjs/operators';
 
-import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { EditMetadataSecurityComponent } from '../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
@@ -235,17 +222,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
   private sub: Subscription;
 
   /**
-   * Whether or not the authority field is currently being edited
-   */
-  public editingAuthority = false;
-
-
-  /**
-   * Whether or not the free-text editing is enabled when scrollable dropdown or hierarchical vocabulary is used
-   */
-  public enabledFreeTextEditing = false;
-
-  /**
    * Field group used by authority field
    * @type {UntypedFormGroup}
    */
@@ -263,8 +239,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
     protected dsoNameService: DSONameService,
     protected metadataService: MetadataService,
     protected cdr: ChangeDetectorRef,
-    protected registryService: RegistryService,
-    protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoEditMetadataFieldService: DsoEditMetadataFieldService,
   ) {
@@ -366,49 +340,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
     if (changes.mdField) {
       this.fieldType$ = this.getFieldType();
     }
-
-    if (isNotEmpty(changes.mdField) && !changes.mdField.firstChange) {
-      if (isNotEmpty(changes.mdField.currentValue) ) {
-        if (isNotEmpty(changes.mdField.previousValue) &&
-          changes.mdField.previousValue !== changes.mdField.currentValue) {
-          // Clear authority value in case it has been assigned with the previous metadataField used
-          this.mdValue.newValue.authority = null;
-          this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
-        }
-
-        // Only ask if the current mdField have a period character to reduce request
-        if (changes.mdField.currentValue.includes('.')) {
-          this.validateMetadataField().subscribe((isValid: boolean) => {
-            if (isValid) {
-              this.cdr.detectChanges();
-            }
-          });
-        }
-      }
-    }
   }
-
-  /**
-   * Validate the metadata field to check if it exists on the server and return an observable boolean for success/error
-   */
-  validateMetadataField(): Observable<boolean> {
-    return this.registryService.queryMetadataFields(this.mdField, null, true, false, followLink('schema')).pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd) => {
-        if (rd.hasSucceeded) {
-          return of(rd).pipe(
-            metadataFieldsToString(),
-            take(1),
-            map((fields: string[]) => fields.indexOf(this.mdField) > -1),
-          );
-        } else {
-          this.notificationsService.error(this.translate.instant(`${this.dsoType}.edit.metadata.metadatafield.error`), rd.errorMessage);
-          return [false];
-        }
-      }),
-    );
-  }
-
 
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {

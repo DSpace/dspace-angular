@@ -13,6 +13,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { ConfidenceType } from '@dspace/core/shared/confidence-type';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
@@ -53,6 +54,7 @@ describe('DsoEditMetadataAuthorityFieldComponent', () => {
     },
     id: 'item',
     uuid: 'item',
+    type: ITEM.value,
     owningCollection: createSuccessfulRemoteDataObject$(collection),
   });
 
