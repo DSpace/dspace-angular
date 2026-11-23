@@ -89,6 +89,7 @@ let anonymousCache: LRUCache<string, any>;
 
 let redisCache: RedisSsrCache;
 let redisCachePolicy: RedisCachePolicy;
+let redisCacheInitFailed = false;
 
 // extend environment with app config for server
 extendEnvironmentWithAppConfig(environment, appConfig);
@@ -394,12 +395,13 @@ function addCacheControl(req, res, next) {
  */
 function initCache() {
   if (redisCacheEnabled()) {
-    if (!redisCache) {
+    if (!redisCache && !redisCacheInitFailed) {
       try {
         redisCachePolicy = new RedisCachePolicy(environment.cache.serverSide.redis);
         redisCache = new RedisSsrCache(environment.cache.serverSide.redis, environment.cache.serverSide.debug);
         void redisCache.connect();
       } catch {
+        redisCacheInitFailed = true;
         console.warn('Unable to initialize Redis SSR cache; check connection settings and route rules. Requests will be rendered without caching.');
       }
     }
@@ -462,7 +464,7 @@ function canCacheRequest(req): boolean {
  * Caching is ONLY done for SSR requests. Pages are cached base on their path (e.g. /home or /search?query=test)
  */
 async function cacheCheck(req, res, next) {
-  if (!canCacheRequest(req)) {
+  if (redisCacheInitFailed || !canCacheRequest(req)) {
     next();
     return;
   }
@@ -590,6 +592,7 @@ function getCacheKey(req): string {
  * @param page page data to save to cache
  */
 function prepareCacheWrite(req, page: string, response): (() => Promise<void>) | undefined {
+  if (redisCacheInitFailed) { return; }
   // Only cache if no one is currently authenticated. This means ONLY public pages can be cached.
   // NOTE: It's not safe to save page data to the cache when a user is authenticated. In that situation,
   // the page may include sensitive or user-specific materials. As the cache is shared across all users, it can only contain public info.
