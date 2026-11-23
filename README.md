@@ -258,8 +258,10 @@ HTML, configured response headers (such as signposting `Link`) and the status co
 Keys isolate deployments, language preferences and full URLs, including query strings. Choose a unique `keyPrefix` for each
 deployment and change it when deploying changes that should invalidate existing cached pages.
 
-Redis is disabled by default. When enabled but unavailable, requests are rendered without caching;
-connection retries run in the background and cache operations have a bounded wait time. Disable
+Redis is disabled by default. When enabled, it is the only SSR cache; the per-process LRU caches
+are not initialized or used as a fallback. If Redis is unavailable, every eligible request is
+rendered via SSR without caching until Redis recovers.
+Connection retries run in the background and cache operations have a bounded wait time. Disable
 Redis to use the existing in-memory caches again. Set route durations according to how quickly
 anonymous users need to see updates.
 
