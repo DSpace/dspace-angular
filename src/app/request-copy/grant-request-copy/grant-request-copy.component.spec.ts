@@ -29,7 +29,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import {
+  NEVER,
+  of,
+} from 'rxjs';
 
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
@@ -176,6 +179,24 @@ describe('GrantRequestCopyComponent', () => {
 
       it('should not navigate', () => {
         expect(router.navigateByUrl).not.toHaveBeenCalled();
+      });
+
+      it('should allow sending again', () => {
+        expect(component.sending).toBeFalse();
+      });
+    });
+
+    describe('when the request is still in flight', () => {
+      beforeEach(() => {
+        email = new RequestCopyEmail('subject', 'message');
+        (itemRequestService.grant as jasmine.Spy).and.returnValue(NEVER);
+        component.grant(email);
+        component.grant(email);
+      });
+
+      it('should only send the request once', () => {
+        expect(itemRequestService.grant).toHaveBeenCalledTimes(1);
+        expect(component.sending).toBeTrue();
       });
     });
   });

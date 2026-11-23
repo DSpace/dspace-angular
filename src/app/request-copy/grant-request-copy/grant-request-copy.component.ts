@@ -93,6 +93,11 @@ export class GrantRequestCopyComponent implements OnInit {
   sendAsAttachment = true;
 
   /**
+   * Whether the email is currently being sent, used to prevent duplicate submissions
+   */
+  sending = false;
+
+  /**
    * Preview link to be sent to a request applicant
    */
   previewLinkOptions:  {
@@ -153,6 +158,10 @@ export class GrantRequestCopyComponent implements OnInit {
    * @param email Subject and contents of the message to send back to the user requesting the item
    */
   grant(email: RequestCopyEmail) {
+    if (this.sending) {
+      return;
+    }
+    this.sending = true;
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((itemRequest: ItemRequest) => this.itemRequestService.grant(itemRequest.token, email, this.suggestOpenAccess, this.accessPeriod)),
@@ -162,6 +171,7 @@ export class GrantRequestCopyComponent implements OnInit {
         this.notificationsService.success(this.translateService.get('grant-request-copy.success'));
         this.router.navigateByUrl('/');
       } else {
+        this.sending = false;
         this.notificationsService.error(this.translateService.get('grant-request-copy.error'), rd.errorMessage);
       }
     });

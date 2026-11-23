@@ -51,4 +51,12 @@ describe('EmailRequestCopyComponent', () => {
     component.submit();
     expect(component.send.emit).toHaveBeenCalledWith(new RequestCopyEmail('test-subject', 'test-message'));
   });
+
+  it('submit should not emit while sending', () => {
+    spyOn(component.send, 'emit').and.stub();
+    component.subject = 'test-subject';
+    component.sending = true;
+    component.submit();
+    expect(component.send.emit).not.toHaveBeenCalled();
+  });
 });

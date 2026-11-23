@@ -44,12 +44,17 @@
   <ng-content></ng-content>
   <div class="d-flex flex-row-reverse">
     <button (click)="submit()"
-            [dsBtnDisabled]="!subject || subject.length === 0"
+            [dsBtnDisabled]="sending || !subject || subject.length === 0"
             class="btn btn-primary"
             title="{{'grant-deny-request-copy.email.send' | translate }}">
-      <i class="fas fa-envelope"></i> {{ 'grant-deny-request-copy.email.send' | translate }}
+      @if (!sending) {
+        <i class="fas fa-envelope"></i> {{ 'grant-deny-request-copy.email.send' | translate }}
+      } @else {
+        <i class="fas fa-spinner fa-spin me-1" aria-hidden="true"></i> {{ 'grant-deny-request-copy.email.sending' | translate }}
+      }
     </button>
     <button (click)="return()"
+            [dsBtnDisabled]="sending"
             class="btn btn-outline-secondary me-1"
             title="{{'grant-deny-request-copy.email.back' | translate }}">
       <i class="fas fa-arrow-left"></i> {{ 'grant-deny-request-copy.email.back' | translate }}

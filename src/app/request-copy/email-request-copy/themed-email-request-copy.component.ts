@@ -44,7 +44,12 @@ export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailReques
   @Input() validAccessPeriods$: Observable<string[]>;
 
 
-  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message', 'selectedAccessPeriod', 'validAccessPeriods$'];
+  /**
+   * Whether the email is currently being sent
+   */
+  @Input() sending: boolean;
+
+  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message', 'selectedAccessPeriod', 'validAccessPeriods$', 'sending'];
 
   protected getComponentName(): string {
     return 'EmailRequestCopyComponent';
