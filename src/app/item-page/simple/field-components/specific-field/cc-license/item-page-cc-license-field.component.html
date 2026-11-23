@@ -20,7 +20,7 @@
           </div>
         }
         <!-- CC name is always displayed if the image fails to load -->
-        @if (showName || !showImage) {
+        @if ((showName || !showImage) && showUrl) {
           <div [ngClass]="{ 'row': variant === 'small', 'col': variant === 'full' }">
             <span>
               {{ showDisclaimer ? ('item.page.cc.license.disclaimer' | translate) : '' }}

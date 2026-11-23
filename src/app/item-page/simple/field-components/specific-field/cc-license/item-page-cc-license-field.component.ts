@@ -73,6 +73,10 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() showDisclaimer? = true;
 
+  /**
+   * Shows the url
+   */
+  @Input() showUrl? = true;
 
   showImage = true;
 

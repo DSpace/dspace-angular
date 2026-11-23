@@ -1,6 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
   ComponentRef,
+  DestroyableInjector,
+  inject,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -55,6 +58,12 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   protected subs: Subscription[] = [];
+
+  /**
+   * Used to mark this loader's view for check after the dynamic component is
+   * resolved asynchronously (see {@link instantiateComponent}).
+   */
+  protected changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   /**
    * The @Input() that are used to find the matching component using {@link getComponent}. When the value of
@@ -129,11 +138,12 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined,
+        injector: this.getComponentInjector(),
       },
     );
 
     this.connectInputsAndOutputs();
+    this.changeDetectorRef.markForCheck();
   }
 
   /**
@@ -150,6 +160,13 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Fetch the component depending on the item's entity type, metadata representation type and context
    */
   public abstract getComponent(): Promise<GenericConstructor<T>>;
+
+  /**
+   * Returns the component injector, override for custom component injection
+   */
+  public getComponentInjector(): DestroyableInjector | undefined {
+    return undefined;
+  };
 
   /**
    * Connect the inputs and outputs of this component to the dynamic component,

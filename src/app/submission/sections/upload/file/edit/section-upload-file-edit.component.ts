@@ -440,9 +440,9 @@ implements OnInit, OnDestroy {
       mergeMap((formData: any) => {
         this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
 
-        const mediaTypeValue = this.retrieveValueFromField(formData.mediaType) ?? formData.mediaType;
-        if (isNotEmpty(mediaTypeValue) && mediaTypeValue !== 'neither') {
-          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']), [{ value: mediaTypeValue }], true);
+        const fileTypeValue = this.retrieveValueFromField(formData.fileType) ?? formData.fileType;
+        if (isNotEmpty(fileTypeValue) && fileTypeValue !== 'neither') {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']), [{ value: fileTypeValue }], true);
         } else {
           this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']));
         }

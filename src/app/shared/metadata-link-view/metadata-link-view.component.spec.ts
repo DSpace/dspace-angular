@@ -16,12 +16,14 @@ import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
 import { VarDirective } from '../utils/var.directive';
 import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import SpyObj = jasmine.SpyObj;
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { environment } from '../../../environments/environment';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 
 describe('MetadataLinkViewComponent', () => {
@@ -112,6 +114,7 @@ describe('MetadataLinkViewComponent', () => {
       ],
       providers: [
         { provide: ItemDataService, useValue: itemService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     })
       .overrideComponent(MetadataLinkViewComponent, { remove: { imports: [MetadataLinkViewPopoverComponent] } }).compileComponents();

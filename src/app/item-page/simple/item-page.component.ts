@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   isPlatformServer,
+  NgClass,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -18,9 +19,11 @@ import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-i
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
+import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import {
   LinkDefinition,
@@ -48,11 +51,11 @@ import {
 } from 'rxjs/operators';
 import { validate as uuidValidate } from 'uuid';
 
+import { DynamicItemPageComponent } from '../../dynamic-item-page/dynamic-item-page.component';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
@@ -77,16 +80,17 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     AsyncPipe,
     CustomUrlConflictErrorComponent,
     CustomUrlConflictErrorComponent,
+    DynamicItemPageComponent,
     ErrorComponent,
     ItemVersionsComponent,
     ItemVersionsNoticeComponent,
     ListableObjectComponentLoaderComponent,
+    NgClass,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
     ThemedItemAlertsComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    VarDirective,
   ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
@@ -141,6 +145,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   coarRestApiUrls: string[] = [];
 
+  /**
+   * The configured tabs for layout of current item
+   */
+  tabsRD$: Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
+
   protected readonly hasValue = hasValue;
 
   constructor(
@@ -164,7 +173,9 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
     );
-
+    this.tabsRD$ = this.route.data.pipe(
+      map((data) => data.tabs as RemoteData<PaginatedList<DynamicLayoutTab>>),
+    );
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item)),
