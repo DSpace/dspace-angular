@@ -8,7 +8,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "declaration": false,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "sourceMap": true,
