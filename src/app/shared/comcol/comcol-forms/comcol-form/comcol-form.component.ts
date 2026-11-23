@@ -205,6 +205,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
           ]).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
             this.uploadFilesOptions.url = href;
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+            this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
             this.initializedUploaderOptions.next(true);
           }),
         );
@@ -212,6 +213,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
         // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
         this.uploadFilesOptions.url = 'placeholder';
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+        this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
         this.initializedUploaderOptions.next(true);
       }
     }
