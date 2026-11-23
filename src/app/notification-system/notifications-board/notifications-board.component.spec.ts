@@ -1,4 +1,8 @@
-import { ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -15,9 +19,13 @@ import { INotificationBoardOptions } from '@dspace/config/notifications-config.i
 import { Notification } from '@dspace/core/notification-system/models/notification.model';
 import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
 import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { ProcessNotification } from '@dspace/core/notification-system/models/process-notification.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { provideMockStore } from '@ngrx/store/testing';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
@@ -26,14 +34,24 @@ import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessi
 import { LiveRegionService } from '../../shared/live-region/live-region.service';
 import { LiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
 import { NotificationComponent } from '../notification/notification.component';
+import { ProcessNotificationComponent } from '../process-notification/process-notification.component';
 import { NotificationsBoardComponent } from './notifications-board.component';
 
 export const bools = { f: false, t: true };
+
+@Component({
+  selector: 'ds-process-notification',
+  template: '',
+})
+class MockProcessNotificationComponent {
+  @Input() notification: any;
+}
 
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
   let fixture: ComponentFixture<NotificationsBoardComponent>;
   let liveRegionService: LiveRegionServiceStub;
+  let store: MockStore;
 
   const mockStoreModuleConfig: any = {
     runtimeChecks: {
@@ -69,12 +87,16 @@ describe('NotificationsBoardComponent', () => {
         { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
         ChangeDetectorRef,
       ],
+    }).overrideComponent(NotificationsBoardComponent, {
+      remove: { imports: [ProcessNotificationComponent] },
+      add: { imports: [MockProcessNotificationComponent] },
     }).compileComponents();  // compile template and css
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NotificationsBoardComponent);
     comp = fixture.componentInstance;
+    store = TestBed.inject(MockStore);
     comp.options = {
       rtl: false,
       position: ['top', 'right'],
@@ -164,6 +186,98 @@ describe('NotificationsBoardComponent', () => {
 
       expect(liveRegionService.addMessage).not.toHaveBeenCalled();
     }));
+  });
+
+  describe('addProccess', () => {
+    it('should add a process notification to the processNotifications array', () => {
+      const processNotification = new ProcessNotification(
+        'proc-1', NotificationType.Info, 'process-123', 5000, 'Process running',
+      );
+
+      comp.addProccess(processNotification);
+
+      expect(comp.processNotifications.length).toBe(1);
+      expect(comp.processNotifications[0].processId).toBe('process-123');
+    });
+
+    it('should not add process notifications to the regular notifications array', () => {
+      const initialCount = comp.notifications.length;
+      const processNotification = new ProcessNotification(
+        'proc-2', NotificationType.Info, 'process-456', 5000, 'Another process',
+      );
+
+      comp.addProccess(processNotification);
+
+      expect(comp.notifications.length).toBe(initialCount);
+    });
+  });
+
+  describe('process notifications via store', () => {
+    it('should route a notification with processId to processNotifications', () => {
+      const processNotification = new ProcessNotification(
+        'proc-store-1', NotificationType.Info, 'process-789', 5000, 'Store process',
+      );
+
+      store.setState({
+        core: {
+          notifications: [
+            ...initialState.core.notifications,
+            processNotification,
+          ],
+        },
+      });
+      fixture.detectChanges();
+
+      expect(comp.processNotifications.length).toBe(1);
+      expect(comp.processNotifications[0].processId).toBe('process-789');
+      expect(comp.notifications.length).toBe(2);
+    });
+
+    it('should render ds-process-notification elements for process notifications', () => {
+      const processNotification = new ProcessNotification(
+        'proc-store-2', NotificationType.Info, 'process-render', 5000, 'Render test',
+      );
+
+      store.setState({
+        core: {
+          notifications: [
+            ...initialState.core.notifications,
+            processNotification,
+          ],
+        },
+      });
+      fixture.detectChanges();
+
+      const processElements = fixture.debugElement.queryAll(By.css('ds-process-notification'));
+      expect(processElements.length).toBe(1);
+    });
+
+    it('should remove a process notification when it is removed from the store', () => {
+      const processNotification = new ProcessNotification(
+        'proc-store-3', NotificationType.Info, 'process-remove', 5000, 'To be removed',
+      );
+
+      store.setState({
+        core: {
+          notifications: [
+            ...initialState.core.notifications,
+            processNotification,
+          ],
+        },
+      });
+      fixture.detectChanges();
+      expect(comp.processNotifications.length).toBe(1);
+
+      store.setState({
+        core: {
+          notifications: [],
+        },
+      });
+      fixture.detectChanges();
+
+      expect(comp.processNotifications.length).toBe(0);
+      expect(comp.notifications.length).toBe(0);
+    });
   });
 
 })
