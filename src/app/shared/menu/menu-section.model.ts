@@ -69,4 +69,9 @@ export interface MenuSection {
    * This section will not be rendered when it has no visible children
    */
   alwaysRenderExpandable?: boolean;
+
+  /**
+   * Whether only to render the icon of the menu section not the text.
+   */
+  renderIconOnly?: boolean;
 }
