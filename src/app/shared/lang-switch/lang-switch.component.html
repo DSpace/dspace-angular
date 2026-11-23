@@ -13,16 +13,19 @@
     </button>
     <div ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate" id="language-menu-list"
          role="listbox">
-      @for (lang of translate.getLangs(); track lang) {
-        <div class="dropdown-item" tabindex="0"
-             role="option"
-             [lang]="lang"
-             (keyup.enter)="useLang(lang)"
-             (click)="useLang(lang)"
-             [attr.aria-selected]="lang === translate.getCurrentLang()"
-             [class.active]="lang === translate.getCurrentLang()">
-          {{ langLabel(lang) }}
-        </div>
+      <!-- Not rendered during SSR: the switch is only useful to interactive human users -->
+      @defer {
+        @for (lang of translate.getLangs(); track lang) {
+          <div class="dropdown-item" tabindex="0"
+               role="option"
+               [lang]="lang"
+               (keyup.enter)="useLang(lang)"
+               (click)="useLang(lang)"
+               [attr.aria-selected]="lang === translate.getCurrentLang()"
+               [class.active]="lang === translate.getCurrentLang()">
+            {{ langLabel(lang) }}
+          </div>
+        }
       }
     </div>
   </div>

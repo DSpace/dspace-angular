@@ -31,6 +31,7 @@ import {
 import { BaseDataService } from './base/base-data.service';
 import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';
+import { MAX_PAGE_SIZE } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
@@ -78,7 +79,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
    */
   getRelationshipTypeByLabelAndTypes(relationshipTypeLabel: string, firstItemType: string, secondItemType: string): Observable<RelationshipType> {
     // Retrieve all relationship types from the server in a single page
-    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
+    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: MAX_PAGE_SIZE }, true, true, followLink('leftType'), followLink('rightType'))
       .pipe(
         getFirstSucceededRemoteData(),
         // Emit each type in the page array separately

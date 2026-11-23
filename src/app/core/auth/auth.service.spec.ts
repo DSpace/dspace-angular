@@ -52,6 +52,8 @@ import {
 import { getMockTranslateService } from '../testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
+  CheckAuthenticationTokenAction,
+  RetrieveAuthMethodsSuccessAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,
 } from './auth.actions';
@@ -101,7 +103,7 @@ describe('AuthService test', () => {
     },
   };
 
-  const initialState: any = {
+  let initialState: any = {
     core: {
       auth: {
         authenticated: true,
@@ -162,7 +164,7 @@ describe('AuthService test', () => {
   describe('', () => {
     beforeEach(() => {
       init();
-      initialState.core.auth = authenticatedState;
+      initialState = { core: { auth: authenticatedState } };
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
@@ -193,6 +195,19 @@ describe('AuthService test', () => {
       authService = TestBed.inject(AuthService);
       mockStore = TestBed.inject(Store) as MockStore<CoreState>;
       mockStore.setState(initialState);
+    });
+
+    it('should become ready after anonymous authentication initialization without a loaded flag', () => {
+      const pending = authReducer(undefined, new CheckAuthenticationTokenAction());
+      mockStore.setState({ core: { auth: pending } } as any);
+      const results: boolean[] = [];
+      const subscription = authService.isAuthenticationReady().subscribe((ready) => results.push(ready));
+      const anonymous = authReducer(pending, new RetrieveAuthMethodsSuccessAction([]));
+      expect(anonymous.loaded).toBeFalse();
+      expect(anonymous.authenticated).toBeFalse();
+      mockStore.setState({ core: { auth: anonymous } } as any);
+      expect(results).toEqual([false, true]);
+      subscription.unsubscribe();
     });
 
     it('should return the authentication status object when user credentials are correct', () => {
@@ -283,7 +298,7 @@ describe('AuthService test', () => {
 
     beforeEach(waitForAsync(() => {
       init();
-      initialState.core.auth = authenticatedState;
+      initialState = { core: { auth: authenticatedState } };
       TestBed.configureTestingModule({
         imports: [
           StoreModule.forRoot({ authReducer }, {
@@ -599,7 +614,7 @@ describe('AuthService test', () => {
   describe('when user is not logged in', () => {
     beforeEach(waitForAsync(() => {
       init();
-      initialState.core.auth = unAuthenticatedState;
+      initialState = { core: { auth: unAuthenticatedState } };
       spyOn(authRequest, 'getShortlivedToken').and.returnValue(of(null));
       TestBed.configureTestingModule({
         imports: [
@@ -641,7 +656,7 @@ describe('AuthService test', () => {
   describe('when user is idle', () => {
     beforeEach(waitForAsync(() => {
       init();
-      initialState.core.auth = idleState;
+      initialState = { core: { auth: idleState } };
       TestBed.configureTestingModule({
         imports: [
           StoreModule.forRoot({ authReducer }, {

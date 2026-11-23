@@ -1,4 +1,4 @@
-// eslint-disable-next-line max-classes-per-file
+/* eslint-disable max-classes-per-file */
 import { Component } from '@angular/core';
 import { Context } from '@dspace/core/shared/context.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
