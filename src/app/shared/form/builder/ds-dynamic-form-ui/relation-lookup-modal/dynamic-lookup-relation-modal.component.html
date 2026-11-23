@@ -5,10 +5,10 @@
   </button>
 </div>
 <div class="modal-body">
-  @if (!item || !collection) {
+  @if (!item || !collection || isSubmitting) {
     <ds-loading></ds-loading>
   }
-  @if (item && collection) {
+  @if (item && collection && !isSubmitting) {
     <ul ngbNav #nav="ngbNav" class="nav-tabs">
       <li ngbNavItem role="presentation">
         <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + relationshipOptions.relationshipType | translate  : { count: (totalInternal$ | async)} }}</a>
@@ -78,18 +78,18 @@
   <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate: {size: (selection$ | async)?.length || 0}) }}</small>
   <div class="d-flex float-end space-children-mr">
     <div class="close-button">
-      <button type="button" [dsBtnDisabled]="isPending" class="btn btn-outline-secondary" (click)="close()">
+      <button type="button" [dsBtnDisabled]="isPending || isSubmitting" class="btn btn-outline-secondary" (click)="close()">
       {{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
     @if (isEditRelationship) {
       <button class="btn btn-danger discard"
-        [dsBtnDisabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending"
+        [dsBtnDisabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending || isSubmitting"
         (click)="discardEv()">
         <i class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
       </button>
       <button class="btn btn-primary submit"
-        [dsBtnDisabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending"
+        [dsBtnDisabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending || isSubmitting"
         (click)="submitEv()">
         @if (isPending) {
           <span class="spinner-border spinner-border-sm me-1" role="status"
