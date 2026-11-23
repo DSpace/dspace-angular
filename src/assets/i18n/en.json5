@@ -4504,6 +4504,10 @@
 
   "media-viewer.playlist": "Playlist",
 
+  "media-viewer.pdf.select": "PDF file",
+
+  "media-viewer.pdf.title": "PDF viewer",
+
   "suggestion.loading": "Loading ...",
 
   "suggestion.title": "Publication Claim",
