@@ -24,6 +24,7 @@
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     }
+    <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     @if (mediaViewer.image || mediaViewer.video) {
       <div class="mb-2">
         <ds-media-viewer [item]="object"></ds-media-viewer>
@@ -116,6 +117,11 @@
       [fields]="['datacite.relation.isReferencedBy']"
       [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
+    @if (mediaViewer.image || mediaViewer.video || mediaViewer.pdf) {
+      <div class="mb-2">
+        <ds-media-viewer [item]="object"></ds-media-viewer>
+      </div>
+    }
     <ds-item-page-license-field [item]="object">
     </ds-item-page-license-field>
     @if (geospatialItemPageFieldsEnabled) {
