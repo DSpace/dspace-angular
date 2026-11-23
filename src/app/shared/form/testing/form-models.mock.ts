@@ -323,7 +323,7 @@ export const inputWithTypeBindConfig = {
   submissionId: '1234',
   metadataFields: [],
   hasSelectableMetadata: false,
-  getTypeBindModel: new DsDynamicInputModel({
+  getTypeBindModels: new DsDynamicInputModel({
     name: 'testWithTypeBind',
     id: 'testWithTypeBind',
     readOnly: false,
