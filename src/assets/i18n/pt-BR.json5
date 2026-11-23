@@ -1518,44 +1518,34 @@
   "bitstream.edit.form.iiifHeight.hint": "A altura da tela geralmente deve corresponder à altura da imagem.",
 
   // "bitstream.edit.form.mediaType.label": "Audio or video media type",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  "bitstream.edit.form.mediaType.label": "Tipo de mídia de áudio ou vídeo",
 
   // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  "bitstream.edit.form.mediaType.hint": "Escolha como esse bitstream deve ser interpretado.",
 
   // "bitstream.edit.form.mediaType.option.neither": "Neither",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.neither": "Neither",
+  "bitstream.edit.form.mediaType.option.neither": "Nenhum",
 
   // "bitstream.edit.form.mediaType.option.audio": "Audio",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.audio": "Audio",
+  "bitstream.edit.form.mediaType.option.audio": "Áudio",
 
   // "bitstream.edit.form.mediaType.option.video": "Video",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.video": "Video",
+  "bitstream.edit.form.mediaType.option.video": "Vídeo",
 
   // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  "bitstream.edit.form.mediaType.option.audio-video": "Áudio e vídeo",
 
   // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+  "bitstream.edit.form.audioTranscript.label": "Transcrição de áudio",
 
   // "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+  "bitstream.edit.form.audioTranscript.hint": "Forneça uma transcrição para o conteúdo de áudio.",
 
   // "bitstream.edit.form.videoDescription.label": "Video description",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.videoDescription.label": "Video description",
+  "bitstream.edit.form.videoDescription.label": "Descrição do vídeo",
 
   // "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+  "bitstream.edit.form.videoDescription.hint": "Forneça uma descrição para o conteúdo do vídeo.",
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "Suas alterações neste bitstream foram salvas.",
@@ -2571,8 +2561,7 @@
   "context-menu.actions.audit-item.btn": "Auditar",
 
   // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
-  // TODO New key - Add a translation
-  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  "context-menu.actions.subscription.frequency.required": "Selecione uma frequência",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Aceitar tudo",
@@ -3322,8 +3311,7 @@
   "form.other-information.oairecerif_editor_affiliation": "Afiliação",
 
   // "form.other-information.person_identifier_orcid": "ORCID iD",
-  // TODO Source message changed - Revise the translation
-  "form.other-information.person_identifier_orcid": "ORCID",
+  "form.other-information.person_identifier_orcid": "ID ORCID",
 
   // "form.other-information.institution-affiliation-name": "Affiliation(s)",
   "form.other-information.institution-affiliation-name": "Afiliação(ões)",
@@ -4553,23 +4541,19 @@
   "item.truncatable-part.show-less": "Fechar",
 
   // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
-  // TODO New key - Add a translation
-  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  "item.qa-event-notification.check.notification-info.singular": "Há {{num}} sugestão pendente relacionada à sua conta",
 
   // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
-  // TODO New key - Add a translation
-  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  "item.qa-event-notification.check.notification-info.plural": "Há {{num}} sugestões pendentes relacionadas à sua conta",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "Visualização",
 
   // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
-  // TODO New key - Add a translation
-  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  "mydspace.qa-event-notification.check.notification-info.singular": "Há {{num}} sugestão pendente relacionada à sua conta",
 
   // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
-  // TODO New key - Add a translation
-  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  "mydspace.qa-event-notification.check.notification-info.plural": "Há {{num}} sugestões pendentes relacionadas à sua conta",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "Visualização",
@@ -7996,7 +7980,6 @@
   "submission.import-external.title.JournalVolume": "Importar um volume de revista de uma fonte externa",
 
   // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
-  // TODO Source message changed - Revise the translation
   "submission.import-external.title.OrgUnit": "Importar uma unidade organizacional de uma fonte externa",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
@@ -8228,8 +8211,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Autor externo importado e adicionado com sucesso à seleção",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Revista externa importada e adicionada com sucesso à seleção",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Autoridade",
@@ -8334,8 +8316,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Consulta de pesquisa",
 
   // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Alternar menu suspenso",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "Ir",
@@ -8473,12 +8454,10 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit do Projeto",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Revista do volume",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open Policy Finder da Revista",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projeto",
@@ -8559,8 +8538,7 @@
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Revista",
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Alternar menu suspenso",
@@ -8686,8 +8664,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da Pesquisa",
@@ -8900,44 +8877,34 @@
   "submission.sections.upload.edit.title": "Editar bitstream",
 
   // "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  "submission.sections.upload.file.edit.form.file-type.label": "Tipo de mídia de áudio ou vídeo",
 
   // "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+  "submission.sections.upload.file.edit.form.file-type.hint": "Escolha como esse bitstream deve ser interpretado.",
 
   // "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Áudio and vídeo",
 
   // "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Nenhum",
 
   // "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Áudio",
 
   // "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Vídeo",
 
   // "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Transcrição de áudio",
 
   // "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Forneça uma transcrição para o conteúdo de áudio.",
 
   // "submission.sections.upload.file.edit.form.video-description.label": "Video description",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+  "submission.sections.upload.file.edit.form.video-description.label": "Descrição do vídeo",
 
   // "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+  "submission.sections.upload.file.edit.form.video-description.hint": "Forneça uma descrição para o conteúdo do vídeo.",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "Tipo de condição de acesso",
@@ -9015,8 +8982,7 @@
   "submission.sections.custom-url.url.placeholder": "URL personalizado",
 
   // "submission.sections.custom-url.label.remove": "Remove",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.label.remove": "Remove",
+  "submission.sections.custom-url.label.remove": "Remover",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Quando marcado, este item poderá ser descoberto na pesquisa/navegação. Quando desmarcado, o item estará disponível apenas por meio de um link direto e nunca aparecerá na pesquisa/navegação.",
@@ -9160,8 +9126,7 @@
   "submission.sections.jisc.record.information.uri": "URI",
 
   // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
-  // TODO Source message changed - Revise the translation
-  "submission.sections.jisc.error.message": "Ocorreu um erro ao recuperar as informações de Jisc Open policy finder",
+  "submission.sections.jisc.error.message": "Ocorreu um erro ao recuperar as informações do Jisc Open policy finder",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Novo Envio",
@@ -10460,8 +10425,7 @@
   "ldn-new-service.form.error.ldnurl": "O URL do LDN é obrigatório",
 
   // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
-  // TODO New key - Add a translation
-  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "Este URL LDN já está associado a outro serviço.",
 
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Pelo menos um padrão é obrigatório",
@@ -11397,8 +11361,7 @@
   "external-login.confirmation.email-label": "E-mail do(a) usuário(a)",
 
   // "external-login.confirmation.email": "Email",
-  // TODO New key - Add a translation
-  "external-login.confirmation.email": "Email",
+  "external-login.confirmation.email": "E-mail",
 
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   "external-login.confirmation.email-invalid": "Formato de e-mail inválido.",
@@ -11491,8 +11454,7 @@
   "external-login-page.orcid-confirmation.netid": "Identificador da Conta",
 
   // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
-  // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  "external-login-page.orcid-confirmation.netid.label": "Identificador da Conta",
 
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
@@ -11543,28 +11505,22 @@
   "file-download-button.request-copy": "Solicitar uma cópia",
 
   // "file-download-link.audio-transcript.label": "Transcript",
-  // TODO New key - Add a translation
-  "file-download-link.audio-transcript.label": "Transcript",
+  "file-download-link.audio-transcript.label": "Transcrição",
 
   // "file-download-link.audio-transcript.title": "Audio transcript",
-  // TODO New key - Add a translation
-  "file-download-link.audio-transcript.title": "Audio transcript",
+  "file-download-link.audio-transcript.title": "Transcrição de áudio",
 
   // "file-download-link.audio-transcript.aria": "Open audio transcript",
-  // TODO New key - Add a translation
-  "file-download-link.audio-transcript.aria": "Open audio transcript",
+  "file-download-link.audio-transcript.aria": "Abrir transcrição de áudio",
 
   // "file-download-link.video-description.label": "Video description",
-  // TODO New key - Add a translation
-  "file-download-link.video-description.label": "Video description",
+  "file-download-link.video-description.label": "Descrição do vídeo",
 
   // "file-download-link.video-description.title": "Video description",
-  // TODO New key - Add a translation
-  "file-download-link.video-description.title": "Video description",
+  "file-download-link.video-description.title": "Descrição do vídeo",
 
   // "file-download-link.video-description.aria": "Open video description",
-  // TODO New key - Add a translation
-  "file-download-link.video-description.aria": "Open video description",
+  "file-download-link.video-description.aria": "Abrir descrição do vídeo",
 
   // "item.preview.organization.url": "URL",
   "item.preview.organization.url": "URL",
@@ -11819,80 +11775,61 @@
   "admin.edit-user-agreement.title": "Editar Contrato de Usuário",
 
   // "bitstream.replace.page.title": "Replace File",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.title": "Replace File",
+  "bitstream.replace.page.title": "Substituir arquivo",
 
   // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  "bitstream.replace.page.header": "Substituir {{fileName}} ({{fileSize}})",
 
   // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  "bitstream.replace.page.content": "Selecione um arquivo para substituir {{fileName}}. Observe que essa transferência pode demorar um pouco para ser processada e pode não começar imediatamente.",
 
   // "bitstream.replace.page.button.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.button.return": "Back",
+  "bitstream.replace.page.button.return": "Voltar",
 
   // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  "bitstream.replace.page.disclaimer": "O arquivo original será excluído. Esta operação não pode ser desfeita.",
 
   // "bitstream.replace.page.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.button.cancel": "Cancel",
+  "bitstream.replace.page.button.cancel": "Cancelar",
 
   // "bitstream.replace.page.button.save": "Replace file",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.button.save": "Replace file",
+  "bitstream.replace.page.button.save": "Substituir arquivo",
 
   // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  "bitstream.replace.page.upload.failed": "Falha ao carregar o bitstream",
 
   // "bitstream.replace.page.breadcrumbs": "Replace File",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.breadcrumbs": "Replace File",
+  "bitstream.replace.page.breadcrumbs": "Substituir arquivo",
 
   // "item.edit.bitstreams.edit.buttons.replace": "Replace",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  "item.edit.bitstreams.edit.buttons.replace": "Substituir",
 
   // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  "bitstream.replace.page.upload.success": "Bitstream substituído com sucesso",
 
   // "bitstream.edit.replace.link": "Replace file",
-  // TODO New key - Add a translation
-  "bitstream.edit.replace.link": "Replace file",
+  "bitstream.edit.replace.link": "Substituir arquivo",
 
   // "bitstream.replace.page.replace-name": "Use new filename",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.replace-name": "Use new filename",
+  "bitstream.replace.page.replace-name": "Usar novo nome de arquivo",
 
   // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
-  // TODO New key - Add a translation
-  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  "bitstream.replace.page.replace-name-hint": "A nova extensão do arquivo será mantida para que corresponda ao conteúdo do arquivo de substituição.",
 
   // "bitstream.related.isCopyOf": "Is copy of",
-  // TODO New key - Add a translation
-  "bitstream.related.isCopyOf": "Is copy of",
+  "bitstream.related.isCopyOf": "É cópia de",
 
   // "bitstream.related.hasCopies": "Has copies",
-  // TODO New key - Add a translation
-  "bitstream.related.hasCopies": "Has copies",
+  "bitstream.related.hasCopies": "Tem cópias",
 
   // "bitstream.related.isReplacementOf": "Is replacement of",
-  // TODO New key - Add a translation
-  "bitstream.related.isReplacementOf": "Is replacement of",
+  "bitstream.related.isReplacementOf": "É a substituição de",
 
   // "bitstream.related.isReplacedBy": "Is replaced by",
-  // TODO New key - Add a translation
-  "bitstream.related.isReplacedBy": "Is replaced by",
+  "bitstream.related.isReplacedBy": "É substituído por",
 
   // "bitstream.related.deleted": "deleted",
-  // TODO New key - Add a translation
-  "bitstream.related.deleted": "deleted",
+  "bitstream.related.deleted": "removido",
 
 
 }
