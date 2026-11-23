@@ -17,7 +17,10 @@ import {
   Router,
 } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
+import {
+  currentPath,
+  SEARCH_COMPONENT_ANCHOR_ID,
+} from '@dspace/core/router/utils/route.utils';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
@@ -307,6 +310,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, valueParts.slice(0, valueParts.length - 1).join(), valueParts[valueParts.length - 1]).pipe(take(1)).subscribe((params: Params) => {
         void this.router.navigate(this.getSearchLinkParts(), {
           queryParams: params,
+          fragment: SEARCH_COMPONENT_ANCHOR_ID,
         });
         this.filter = '';
         this.filterSearchResults$ = of([]);
