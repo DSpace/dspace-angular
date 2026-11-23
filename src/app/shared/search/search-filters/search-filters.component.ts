@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -111,6 +112,7 @@ export class SearchFiltersComponent implements OnInit {
     protected router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected cdr: ChangeDetectorRef,
   ) {
     this.defaultFilterCount = this.appConfig.search.filterPlaceholdersCount ?? 5;
   }
@@ -203,7 +205,11 @@ export class SearchFiltersComponent implements OnInit {
           }
           return result;
         }),
-      ).pipe(take(1)).subscribe(); // Execute the pipeline once and complete
+      ).pipe(take(1)).subscribe(() => {
+        // Ensure the skeleton/@if bindings re-evaluate after the counter changes.
+        // Needed when visibility is computed from cached facet data in the same CD cycle.
+        this.cdr.markForCheck();
+      });
     }
   }
 

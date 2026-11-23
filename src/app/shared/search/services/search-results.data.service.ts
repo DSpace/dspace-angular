@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /**
  * The contents of this file are subject to the license and copyright
  * detailed in the LICENSE and NOTICE files at the root of the source
@@ -5,8 +6,24 @@
  *
  * http://www.dspace.org/license/
  */
-/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BaseDataService } from '@dspace/core/data/base/base-data.service';
+import { SearchDataImpl } from '@dspace/core/data/base/search-data';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { ResponseParsingService } from '@dspace/core/data/parsing.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GetRequest } from '@dspace/core/data/request.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { SearchResponseParsingService } from '@dspace/core/data/search-response-parsing.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
   Observable,
   of,
@@ -17,23 +34,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BaseDataService } from '../../../core/data/base/base-data.service';
-import { SearchDataImpl } from '../../../core/data/base/search-data';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { ResponseParsingService } from '../../../core/data/parsing.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { GetRequest } from '../../../core/data/request.models';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchResponseParsingService } from '../../../core/data/search-response-parsing.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { AppliedFilter } from '../../../core/shared/search/models/applied-filter.model';
-import { PaginatedSearchOptions } from '../../../core/shared/search/models/paginated-search-options.model';
-import { SearchObjects } from '../../../core/shared/search/models/search-objects.model';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
 import {
   hasValue,
   isNotEmpty,

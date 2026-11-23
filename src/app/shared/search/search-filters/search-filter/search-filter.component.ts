@@ -152,7 +152,12 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
         }
       }),
       this.getIsActive().subscribe(() => {
-        this.isVisibilityComputed.emit(true);
+        // Cached facet values can complete synchronously during ngOnInit (while the parent
+        // SearchFiltersComponent is mid change-detection). Emitting immediately then updates
+        // the parent's visibility counter without scheduling another CD cycle, so the filter
+        // skeleton can stay visible forever after remounting a search page. Defer to the next
+        // microtask so the parent re-renders after the current CD cycle.
+        Promise.resolve().then(() => this.isVisibilityComputed.emit(true));
       }),
     );
   }

@@ -24,7 +24,6 @@ import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operator
 import { Facet } from '@dspace/core/shared/search/facet.model';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
 import {
