@@ -1,0 +1,18 @@
+@if (mdValue) {
+  <div class="d-flex align-items-start gap-2">
+    <input type="text"
+           class="form-control"
+           [(ngModel)]="mdValue.newValue.value"
+           [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
+           [dsDebounce]="300"
+           (onDebounce)="confirm.emit(false)"
+           placeholder="POINT(longitude latitude)" />
+    <button type="button"
+            class="btn btn-outline-secondary flex-shrink-0"
+            [title]="'form.geospatial-map-picker.open' | translate"
+            [attr.aria-label]="'form.geospatial-map-picker.open' | translate"
+            (click)="openMapPicker()">
+      <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+    </button>
+  </div>
+}
