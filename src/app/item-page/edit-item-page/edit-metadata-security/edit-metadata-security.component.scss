@@ -4,10 +4,6 @@
   background-color: rgb(204, 204, 204);
   border-radius: 100px;
   display: flex;
-
-  //display: flex;
-  //flex-wrap: wrap;
-  //flex: 50%;
 }
 
 .switch-opt {
@@ -25,7 +21,14 @@
   margin-right: 2px;
 }
 
-.btn-link:focus {
-  outline: none !important;
-  box-shadow: none !important;
+
+.switch-opt .btn-link {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+  text-decoration: none;
 }
