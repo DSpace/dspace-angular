@@ -117,9 +117,11 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
     });
     this.userAgreementTexts.forEach((value, key) => {
       if (key !== firstLanguage) {
+        // Append with '/-': an 'add' without an index replaces all values of the field (RFC 6902, and
+        // DSpace REST from https://github.com/DSpace/DSpace/pull/11018), which would keep only the last language.
         operations.push({
           op: 'add',
-          path: '/metadata/' + this.USER_AGREEMENT_TEXT_METADATA,
+          path: `/metadata/${this.USER_AGREEMENT_TEXT_METADATA}/-`,
           value: {
             value: value.text,
             language: key,
