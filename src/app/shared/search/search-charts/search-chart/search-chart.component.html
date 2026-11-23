@@ -1,0 +1,9 @@
+<div class="facet-filter mb-3 p-3">
+  <ds-search-chart-wrapper [filterConfig]="filter"
+    [inPlaceSearch]="inPlaceSearch"
+    [refreshFilters]="refreshFilters"
+  [scope]="scope"></ds-search-chart-wrapper>
+  @if (showCaption) {
+    <p class="mt-3 mb-0">{{caption}}</p>
+  }
+</div>

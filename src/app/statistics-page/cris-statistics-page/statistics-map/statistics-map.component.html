@@ -1,0 +1,31 @@
+@if (data.length > 0) {
+  <div class="row mt-1">
+    <div class="col text-end">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          id="exportMapAsImg"
+          ngbDropdownToggle
+          >
+          <i class="fas fa-download"></i>
+          {{"statistics-page.export-map-as-image" | translate}}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="exportMapAsImg">
+          @for (image of exportImageTypes; track image) {
+            <button
+              ngbDropdownItem
+              (click)="exportMapAsImage(image.type)"
+              [dsBtnDisabled]="isLoading$ | async"
+              >
+              {{ image.label }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-test="google-chart-ref">
+    <google-chart #googleChartRef [data]="geoChart"></google-chart>
+  </div>
+}

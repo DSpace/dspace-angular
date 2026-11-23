@@ -10,6 +10,7 @@ import { ListableObject } from '@dspace/core/shared/object-collection/listable-o
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
+import { AlertType } from '../alert/alert-type';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchComponent } from './search.component';
@@ -26,6 +27,7 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
+    'collapseCharts',
     'configurationList',
     'context',
     'configuration',
@@ -41,6 +43,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'selectable',
     'selectionConfig',
     'showCsvExport',
+    'showCharts',
+    'showChartsToggle',
     'showSidebar',
     'showThumbnails',
     'showViewModes',
@@ -54,6 +58,10 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'resultFound',
     'deselectObject',
     'selectObject',
+    'searchResultNotice',
+    'searchResultNoticeType',
+    'showSearchResultNotice',
+    'showMetrics',
   ];
 
   @Input() configurationList: SearchConfigurationOption[];
@@ -68,6 +76,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() useCachedVersionIfAvailable: boolean;
 
+  @Input() collapseCharts: boolean;
+
   @Input() inPlaceSearch: boolean;
 
   @Input() linkType: CollectionElementLinkType;
@@ -80,9 +90,15 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() searchFormPlaceholder: string;
 
+  @Input() searchResultNotice: string;
+
+  @Input() searchResultNoticeType: AlertType;
+
   @Input() selectable: boolean;
 
   @Input() selectionConfig: SelectionConfig;
+
+  @Input() showCharts: boolean;
 
   @Input() showCsvExport: boolean;
 
@@ -98,11 +114,17 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() showScopeSelector: boolean;
 
+  @Input() showChartsToggle: boolean;
+
+  @Input() showSearchResultNotice: boolean;
+
   @Input() trackStatistics: boolean;
 
   @Input() query: string;
 
   @Input() scope: string;
+
+  @Input() showMetrics: boolean;
 
   @Input() hideScopeInUrl: boolean;
 

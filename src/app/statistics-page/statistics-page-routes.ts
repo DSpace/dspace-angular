@@ -1,6 +1,8 @@
 import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { statisticsAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { statisticsLoginGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/statistics-login.guard';
+import { statisticsWorkflowGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/statistics-workflow.guard';
 
 import { collectionPageResolver } from '../collection-page/collection-page.resolver';
 import { communityPageResolver } from '../community-page/community-page.resolver';
@@ -8,7 +10,10 @@ import { itemResolver } from '../item-page/item.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
+import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { statisticsItemPageResolver } from './statistics-item-page.resolver';
+import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -19,6 +24,7 @@ export const ROUTES: Route[] = [
     data: {
       title: 'statistics.title',
       breadcrumbKey: 'statistics',
+      type: 'site',
     },
     children: [
       {
@@ -29,9 +35,43 @@ export const ROUTES: Route[] = [
     canActivate: [statisticsAdministratorGuard],
   },
   {
+    path: 'login',
+    resolve: {
+      breadcrumb: i18nBreadcrumbResolver,
+    },
+    data: {
+      title: 'statistics.login.title',
+      breadcrumbKey: 'statistics.login',
+    },
+    children: [
+      {
+        path: '',
+        component: LoginStatisticsPageComponent,
+      },
+    ],
+    canActivate: [statisticsLoginGuard],
+  },
+  {
+    path: 'workflow',
+    resolve: {
+      breadcrumb: i18nBreadcrumbResolver,
+    },
+    data: {
+      title: 'statistics.workflow.title',
+      breadcrumbKey: 'statistics.workflow',
+    },
+    children: [
+      {
+        path: '',
+        component: WorkflowStatisticsPageComponent,
+      },
+    ],
+    canActivate: [statisticsWorkflowGuard],
+  },
+  {
     path: `items/:id`,
     resolve: {
-      scope: itemResolver,
+      scope: statisticsItemPageResolver,
       breadcrumb: i18nBreadcrumbResolver,
     },
     data: {

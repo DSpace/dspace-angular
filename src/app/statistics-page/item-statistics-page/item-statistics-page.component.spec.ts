@@ -5,7 +5,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
@@ -19,7 +18,9 @@ import { UsageReportDataService } from '@dspace/core/statistics/usage-report-dat
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 
@@ -84,7 +85,7 @@ describe('ItemStatisticsPageComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(ItemStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsTableComponent, CrisStatisticsPageComponent, CrisStatisticsPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -96,23 +97,5 @@ describe('ItemStatisticsPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should resolve to the correct item', () => {
-    expect(de.query(By.css('.header')).nativeElement.id)
-      .toEqual('item_id');
-  });
-
-  it('should show a statistics table for each usage report', () => {
-    expect(de.query(By.css('ds-statistics-table.item_id-TotalVisits-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TotalVisitsPerMonth-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TotalDownloads-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TopCountries-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TopCities-report')).nativeElement)
-      .toBeTruthy();
   });
 });

@@ -1,12 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
-import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the statistics page for a collection.
@@ -16,11 +13,8 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./collection-statistics-page.component.scss'],
   imports: [
-    CommonModule,
-    StatisticsTableComponent,
-    ThemedLoadingComponent,
+    CrisStatisticsPageComponent,
     TranslateModule,
-    VarDirective,
   ],
 })
 export class CollectionStatisticsPageComponent extends StatisticsPageDirective<Collection> {

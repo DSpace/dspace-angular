@@ -1,0 +1,7 @@
+@for (metric of metricRow.metrics; track $index) {
+  @if (metric) {
+    <ds-metric-loader [metric]="metric"
+                      [class.d-none]="isHidden(metric.id)"
+                      (hide)="toggleVisibility(metric.id, $event)"></ds-metric-loader>
+  }
+}

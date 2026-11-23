@@ -1,0 +1,83 @@
+<ng-container *ngVar="(categories$ | async) as categories">
+
+  @if (!categories) {
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-40">
+          <ds-loading></ds-loading>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (categories) {
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-40">
+          <h2>{{'statistics.categories.title' | translate}}</h2>
+          @if (categories) {
+            <div class="datepicker-container">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control date-input" placeholder="Start Date" name="dp" [(ngModel)]="dateFrom" (ngModelChange)="startDateChanged()"
+                    ngbDatepicker #df="ngbDatepicker">
+                    <button class="btn btn-outline-secondary" title="Start Date" (click)="df.toggle()" type="button">
+                      <i class="far fa-calendar-alt"></i>
+                    </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group ms-2">
+                  <input class="form-control date-input" placeholder="End Date" name="dp" [(ngModel)]="dateTo" (ngModelChange)="endDateChanged()"
+                    ngbDatepicker #dt="ngbDatepicker">
+                    <button class="btn btn-outline-secondary" title="End Date" (click)="dt.toggle()" type="button">
+                      <i class="far fa-calendar-alt"></i>
+                    </button>
+                </div>
+              </div>
+            </div>
+          }
+          @if (!!categories && categories.length > 1) {
+            <ul ngbNav [(activeId)]="selectedCategory.id" class="nav-tabs" id="categories-tabs"
+              (navChange)="changeCategoryType($event)" [destroyOnHide]="true">
+              @for (category of categories; track category) {
+                <li [ngbNavItem]="category.id" [id]="category.id" role="tab">
+                  <a ngbNavLink>{{ 'statistics.categories.' + category.categoryType + '.tab' | translate }}</a>
+                  <ng-template ngbNavContent>
+                  </ng-template>
+                </li>
+              }
+            </ul>
+          }
+          <ng-container *ngVar="(reports$ | async) as reports">
+            @if (!reports) {
+              <ds-loading></ds-loading>
+            }
+            @if (reports) {
+              <ng-container>
+                @for (report of (reports | dsFilterMap : true); track report) {
+                  <ds-statistics-map [report]="report"
+                                     [startDate]="parseDate(dateFrom)"
+                                     [endDate]="parseDate(dateTo)"></ds-statistics-map>
+                }
+              </ng-container>
+              <div>
+                @if (!!selectedCategory) {
+                  <ds-statistics-chart
+                    (changeReportEvent)="changeReport($event)"
+                    [categoryType]="categoryType"
+                    [category]="selectedCategory"
+                    [reports]="reports"
+                    [selectedReportId]="selectedReportId"
+                    [selectedFullReport]="selectedFullReport$">
+                  </ds-statistics-chart>
+                }
+              </div>
+            }
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  }
+
+</ng-container>

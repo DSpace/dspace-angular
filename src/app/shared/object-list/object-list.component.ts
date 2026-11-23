@@ -117,6 +117,11 @@ export class ObjectListComponent {
   @Input() showThumbnails;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();

@@ -1,0 +1,74 @@
+<div class="row">
+  @if (metric && metric.icon) {
+    <div class="col-1 text-start">
+      <span class="icon-size">
+        <i [class]="metric.icon"></i>
+      </span>
+    </div>
+  }
+  <div class="col">
+    <div
+      class="d-flex"
+      [ngClass]="{
+        'justify-content-between': metric?.rank,
+        'justify-content-center': !metric?.rank
+      }"
+      >
+      <div class="fw-bold">
+        {{ "item.page.metric.label." + metric.metricType | translate }}
+      </div>
+      @if (metric?.rank) {
+        <div>
+          <span
+            ngbTooltip="{{ 'metric.rank' | translate }}"
+            class="badge bg-light pe-1"
+            >{{ metric?.rank }}
+          </span>
+        </div>
+      }
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <strong>{{ metric.metricCount }}</strong>
+      </div>
+    </div>
+  </div>
+</div>
+@if (metric.deltaPeriod1 || metric.deltaPeriod2) {
+  <div class="row">
+  @if (metric.deltaPeriod1) {
+    <div class="col text-start">
+      <small
+        ><span
+        ><em>{{ "item.page.metric.deltaPeriod1" | translate }}</em></span
+        ><br />
+        {{ metric.deltaPeriod1 }}
+      </small>
+    </div>
+  }
+  @if (metric.deltaPeriod2) {
+    <div class="col text-end">
+      <small>
+        <span>
+          <em>{{ "item.page.metric.deltaPeriod2" | translate }}</em> </span
+          ><br />
+          {{ metric.deltaPeriod2 }}
+        </small>
+      </div>
+    }
+  </div>
+}
+<div class="row">
+  <div class="col-12 text-center">
+    <small>{{ "item.page.metric.acquisition-date" | translate }}</small>
+    <br/>
+    {{ metric.acquisitionDate | date }}
+  </div>
+</div>
+@if (url) {
+  <div>
+    <a [dsRedirect]="url" type="button" class="btn btn-overlap-container">
+      {{ "item.page.metric.label.view-detail-btn" | translate }}
+    </a>
+  </div>
+}

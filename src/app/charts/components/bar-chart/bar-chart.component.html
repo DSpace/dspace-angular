@@ -1,0 +1,63 @@
+<div class="chart-container"
+  [class.pe-3]="enableScrollToRight && hasScrollbar">
+  <div class="scroll-class" #chartArea #chartContainer>
+    @if (type === defaultChartType) {
+      <ngx-charts-bar-vertical
+        [view]="view?.length === 0 ? [chartContainer.offsetWidth] : view"
+        [results]="getResults()"
+        [animations]="animations"
+        [legend]="legend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel | translate"
+        [yAxisLabel]="yAxisLabel | translate"
+        [showYAxisLabel]="hasTranslation(yAxisLabel)"
+        [showXAxisLabel]="hasTranslation(xAxisLabel)"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    } @else {
+      <ngx-charts-bar-horizontal
+        [view]="view?.length === 0 ? [chartContainer.offsetWidth] : view"
+        [animations]="animations"
+        [results]="getResults()"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel | translate"
+        [yAxisLabel]="yAxisLabel | translate"
+        [showYAxisLabel]="hasTranslation(yAxisLabel)"
+        [showXAxisLabel]="hasTranslation(xAxisLabel)"
+        [legend]="legend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        (select)="onSelect($event)"
+        >
+      </ngx-charts-bar-horizontal>
+    }
+  </div>
+  @if (enableScrollToLeft) {
+    <button
+      type="button"
+      class="btn btn-link load-more-left"
+      [title]="'chart.load-more' | translate"
+      [attr.aria-label]="'chart.load-more' | translate"
+      [dsBtnDisabled]="enableScrollToLeft && (isLastPage | async)"
+      [ngClass]="{ 'no-scrollbar': !hasScrollbar }"
+      (click)="loadMoreData()">
+      <i class="fas fa-2x fa-caret-left"></i>
+    </button>
+  }
+  @if (enableScrollToRight) {
+    <button
+      type="button"
+      class="btn btn-link load-more-right"
+      [title]="'chart.load-more' | translate"
+      [attr.aria-label]="'chart.load-more' | translate"
+      [dsBtnDisabled]="enableScrollToRight && (isLastPage | async)"
+      [ngClass]="{ 'no-scrollbar': !hasScrollbar, 'load-more-right-with-scrollbar': hasScrollbar }"
+      (click)="loadMoreData()">
+      <i class="fas fa-2x fa-caret-right"></i>
+    </button>
+  }
+</div>

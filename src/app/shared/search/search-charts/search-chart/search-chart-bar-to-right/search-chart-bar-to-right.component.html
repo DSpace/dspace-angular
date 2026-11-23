@@ -1,0 +1,19 @@
+@if ((results | async) && (results | async).length > 0) {
+  <div class="d-flex w-100 search-chart-container">
+    <ds-chart
+      [results]="results"
+      [view]="view"
+      [type]="chartType.BAR"
+      [animations]="true"
+      [enableScrollToRight]="true"
+      [currentPage]="currentPage"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="select($event)"
+      (showMore)="showMore()"
+      [isLastPage]="isLastPage$"
+    ></ds-chart>
+  </div>
+} @else {
+  <h2>{{ "search.filters.applied.charts.no.data.found" | translate }}</h2>
+}

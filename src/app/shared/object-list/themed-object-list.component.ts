@@ -48,6 +48,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() hideGear: boolean;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * Whether or not the pager is visible when there is only a single page of results
    */
   @Input() hidePagerWhenSinglePage: boolean;

@@ -48,5 +48,13 @@
       </ds-truncatable-part>
     </span>
   </ds-truncatable>
-</div>
+    @if (showMetrics) {
+      <ds-metric-badges class="d-block clearfix" [item]="dso"></ds-metric-badges>
+    }
+  </div>
+  @if (showMetrics) {
+    <div class="align-self-center">
+      <ds-metric-donuts [item]="dso"></ds-metric-donuts>
+    </div>
+  }
 </div>

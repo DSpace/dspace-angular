@@ -1,0 +1,104 @@
+::ng-deep {
+  .metric-container.alert {
+
+    max-height: inherit;
+    min-height: 7.1em;
+    height: 100%;
+
+    margin: 0;
+
+    width: 250px;
+
+    .btn-overlap-container {
+      display: none !important;
+      z-index: 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: auto;
+    }
+
+    &:hover {
+      opacity: 0.7;
+
+      .btn-overlap-container {
+        margin-top: 0.5em;
+        display: inline-flex !important;
+        z-index: 3;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        -webkit-box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%),
+        0 1px 1px rgb(0 0 0 / 8%);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%),
+        0 1px 1px rgb(0 0 0 / 8%);
+      }
+    }
+
+    .plumX, .altmetric, .dimensions {
+      // .plumX & .altmetric & dimensions-> metricType dimensions
+      display: contents;
+    }
+
+    &.alert-info {
+      .btn-overlap-container {
+        background-color: #113d4f;
+        border-color: #113d4f;
+      }
+    }
+
+    &.alert-success {
+      .btn-overlap-container {
+        background-color: #4c6722;
+        border-color: #4c6722;
+      }
+    }
+
+    &.alert-danger {
+      .btn-overlap-container {
+        background-color: #6c2323;
+        border-color: #6c2323;
+      }
+    }
+
+    &.alert-primary {
+      .btn-overlap-container {
+        background-color: #004085;
+        border-color: #004085;
+      }
+    }
+
+    &.alert-secondary {
+      .btn-overlap-container {
+        background-color: #383d41;
+        border-color: #383d41;
+      }
+    }
+
+    &.alert-warning {
+      .btn-overlap-container {
+        background-color: #7b4d1b;
+        border-color: #7b4d1b;
+      }
+    }
+
+    &.alert-dark {
+      .btn-overlap-container {
+        background-color: #1b1e21;
+        border-color: #1b1e21;
+      }
+    }
+
+    &.alert-light {
+      .btn-overlap-container {
+        background-color: #818182;
+        border-color: #818182;
+        color: black !important;
+      }
+    }
+
+  }
+}

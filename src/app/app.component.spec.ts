@@ -64,6 +64,7 @@ const initialState = {
 export function getMockLocaleService(): LocaleService {
   return jasmine.createSpyObj('LocaleService', {
     setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
   });
 }
 

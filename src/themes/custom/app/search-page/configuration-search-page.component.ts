@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../app/search-page/configuration-search-page.component';
 import { pushInOut } from '../../../../app/shared/animations/push';
+import { SearchChartsComponent } from '../../../../app/shared/search/search-charts/search-charts.component';
 import { SearchConfigurationService } from '../../../../app/shared/search/search-configuration.service';
 import { SearchLabelsComponent } from '../../../../app/shared/search/search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from '../../../../app/shared/search/search-results/themed-search-results.component';
@@ -37,6 +38,7 @@ import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch
     AsyncPipe,
     NgTemplateOutlet,
     PageWithSidebarComponent,
+    SearchChartsComponent,
     SearchLabelsComponent,
     ThemedSearchFormComponent,
     ThemedSearchResultsComponent,

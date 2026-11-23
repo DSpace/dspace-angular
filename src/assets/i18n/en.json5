@@ -1011,17 +1011,23 @@
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
-  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  "bitstream.edit.form.fileType.label": "File type",
 
-  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  "bitstream.edit.form.fileType.hint": "Choose how this bitstream should be interpreted.",
 
-  "bitstream.edit.form.mediaType.option.neither": "Neither",
+  "bitstream.edit.form.fileType.option.neither": "Neither",
 
-  "bitstream.edit.form.mediaType.option.audio": "Audio",
+  "bitstream.edit.form.fileType.option.audio": "Audio",
 
-  "bitstream.edit.form.mediaType.option.video": "Video",
+  "bitstream.edit.form.fileType.option.video": "Video",
 
-  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  "bitstream.edit.form.fileType.option.audio-video": "Audio and video",
+
+  "bitstream.edit.form.fileType.option.logo": "Logo",
+
+  "bitstream.edit.form.fileType.option.main-article": "Main Article",
+
+  "bitstream.edit.form.fileType.option.personal-picture": "Personal Picture",
 
   "bitstream.edit.form.audioTranscript.label": "Audio transcript",
 
@@ -1230,6 +1236,10 @@
   "search.browse.item-back": "Back to Results",
 
   "chips.remove": "Remove chip",
+
+  "chart.load-more": "Load more results",
+
+  "chart.no-data.title": "No Data Available",
 
   "claimed-approved-search-result-list-element.title": "Approved",
 
@@ -1815,7 +1825,63 @@
 
   "cookies.consent.purpose.sharing": "Sharing",
 
+  "cookies.consent.app.title.plumX": "PlumX",
+
+  "cookies.consent.app.description.plumX": "PlumX Metrics provide insights into the ways people interact with individual pieces of research output (articles, conference proceedings, book chapters, and many more) in the online environment. (https://plumanalytics.com/)",
+
+  "cookies.consent.app.title.altmetric": "Altmetric",
+
+  "cookies.consent.app.description.altmetric": "Altmetric’s interface tracks online engagement to reveal how and where your research is being visualized. (https://www.altmetric.com)",
+
+  "cookies.consent.app.title.dimensions": "Dimensions",
+
+  "cookies.consent.app.description.dimensions": "Dimensions analyses references from publications and calculates a set of article-level indicators. (https://www.dimensions.ai)",
+
+  "cookies.consent.purpose.thirdPartyJs": "Third-party JavaScript",
+
   "curation-task.task.citationpage.label": "Generate Citation Page",
+
+  "dynamic-layout.toggle.open": "Open section",
+
+  "dynamic-layout.toggle.close": "Close section",
+
+  "dynamic-layout.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "dynamic-layout.toggle.aria.close": "Collapse {{sectionHeader}} section",
+
+  "dynamic-layout.advanced-attachment.dc.title": "Name",
+
+  "dynamic-layout.advanced-attachment.size": "Size",
+
+  "dynamic-layout.advanced-attachment.checksum": "Checksum",
+
+  "dynamic-layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  "dynamic-layout.advanced-attachment.format": "Format",
+
+  "dynamic-layout.advanced-attachment.dc.type": "Type",
+
+  "dynamic-layout.advanced-attachment.dc.description": "Description",
+
+  "dynamic-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "dynamic-layout.advanced-attachment.download": "Download",
+
+  "dynamic-layout.advanced-attachment.requestACopy": "Request a copy",
+
+  "dynamic-layout.advanced-attachment.viewMore": "View More",
+
+  "dynamic-layout.advanced-attachment.label.not-present": "(not present)",
+
+  "dynamic-layout.attachment.viewMore": "View More",
+
+  "dynamic-layout.rendering.collections.owning-collection.label": "Owning collection",
+
+  "dynamic-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+
+  "dynamic-layout.rendering.collections.loading": "Loading...",
+
+  "dynamic-layout.rendering.collections.load-more": "Load more",
 
   "curation-task.task.checklinks.label": "Check Links in Metadata",
 
@@ -3045,6 +3111,46 @@
 
   "item.page.doi": "DOI",
 
+  "item.page.metric.acquisition-date": "Acquisition Date",
+
+  "item.page.metric.deltaPeriod1": "Last Week",
+
+  "item.page.metric.deltaPeriod2": "Last Month",
+
+  "item.page.metric.details": "Details",
+
+  "item.page.metric.label.altmetric": "Altmetrics©",
+
+  "item.page.metric.label.dimensions": "Dimensions",
+
+  "item.page.metric.label.check": "Check",
+
+  "item.page.metric.label.download": "Downloads",
+
+  "item.page.metric.label.view": "Views",
+
+  "item.page.metric.label.view-detail-btn": "View Details",
+
+  "item.page.metric.label.google-scholar": "Google Scholar",
+
+  "item.page.metric.label.scopusCitation": "Scopus© citations",
+
+  "item.page.metric.label.scopus-author-h-index": "Scopus© H-Index",
+
+  "item.page.metric.label.scopus-author-coauthor-count": "Scopus© Coauthor",
+
+  "item.page.metric.label.scopus-author-cited-count": "Scopus© Cited By",
+
+  "item.page.metric.label.scopus-author-citation-count": "Scopus© Citations",
+
+  "item.page.metric.label.scopus-author-document-count": "Scopus© Documents",
+
+  "item.page.metric.label.wosCitation": "Web of Science© citations",
+
+  "item.page.metric.label.wosPersonCitation": "Web of Science© citations",
+
+  "item.page.metric.label.plumX": "PlumX",
+
   "item.search.results.head": "Item Search Results",
 
   "item.search.title": "Item Search",
@@ -3834,6 +3940,16 @@
 
   "menu.section.statistics": "Statistics",
 
+  "menu.section.subscription": "Subscription",
+
+  "menu.section.statistics.item": "Item Statistics",
+
+  "menu.section.statistics.workflow": "Workflow",
+
+  "menu.section.statistics.login": "Login",
+
+  "menu.section.statistics.site": "Site",
+
   "menu.section.statistics_task": "Statistics Task",
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
@@ -3989,6 +4105,8 @@
   "nav.main.description": "Main navigation bar",
 
   "nav.mydspace": "MyDSpace",
+
+  "nav.processes": "My Processes",
 
   "nav.profile": "Profile",
 
@@ -4153,6 +4271,8 @@
   "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
 
   "quality-assurance.event.reason": "Reason",
+
+  "orcid.badge.alt": "ORCID logo",
 
   "orcid.badge.tooltip": "Connected to ORCID",
 
@@ -4918,6 +5038,39 @@
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
+  "search.filters.applied.f.graphitemtype": "Item type",
+
+  "search.filters.applied.f.graphpubldate": "Public date",
+
+  "search.filters.applied.f.graphpubldateltr": "Public date LTR",
+
+  "search.filters.applied.f.graphpubldatetrl": "Public date RTL",
+
+  "search.filters.applied.charts.defaultConfiguration.title": "Search Output",
+
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab": "Date Issued",
+
+  "search.filters.applied.charts.chart.pie.more-value": "More",
+
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab": "Item Type",
+
+  "search.filters.applied.charts.graphitemtype.tab": "Visualization by Type",
+
+  "search.filters.applied.charts.graphpubldate.tab": "Visualization by Date",
+
+  "search.filters.applied.charts.graphpubldateltr.tab": "Visualization Demo LTR",
+
+  "search.filters.applied.charts.graphpubldatetrl.tab": "Visualization Demo RTL",
+
+  "search.filters.applied.charts.default.title": "Search Output",
+
+  "search.filters.applied.charts.site.title": "Search Output",
+
+
+  "search.filters.applied.charts.no.data.found": "No data found",
+
+  "search.filters.applied.charts.show.hide": "Show/Hide",
+
   "search.filters.applied.operator.equals": "",
 
   "search.filters.applied.operator.notequals": " not equals",
@@ -5224,6 +5377,10 @@
 
   "search.sidebar.settings.title": "Settings",
 
+  "search.sidebar.show.hide": "Show/Hide",
+
+  "search.sidebar.show.hide.charts.tooltip": "Show/Hide charts",
+
   "search.view-switch.show-detail": "Show detail",
 
   "search.view-switch.show-grid": "Show as grid",
@@ -5276,6 +5433,116 @@
 
   "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
+  "statistics": "Statistics",
+
+  "statistics.workflow.breadcrumbs": "Workflow Statistics",
+
+  "statistics.workflow.page.header": "Workflow Statistics",
+
+  "statistics.workflow.page.current-table.header": "Current workflows",
+
+  "statistics.workflow.page.owner-table.header": "Actions performed by actor",
+
+  "statistics.workflow.page.owner-table.count": "Performed",
+
+  "statistics.workflow.page.owner-table.email": "Email",
+
+  "statistics.workflow.page.step-table.header": "Workflow steps performed",
+
+  "statistics.workflow.page.step-table.step": "Step",
+
+  "statistics.workflow.page.step-table.count": "Performed",
+
+  "statistics.workflow.page.step-table.submit": "Submit",
+
+  "statistics.workflow.page.step-table.reviewstep": "Review",
+
+  "statistics.workflow.page.step-table.editstep": "Edit",
+
+  "statistics.workflow.page.step-table.finaleditstep": "Final edit",
+
+  "statistics.workflow.page.step-table.item": "Archive",
+
+  "statistics.workflow.page.step-table.workspace": "Reject",
+
+  "statistics.workflow.page.current-table.reviewstep": "Review",
+
+  "statistics.workflow.page.current-table.editstep": "Edit",
+
+  "statistics.workflow.page.current-table.finaleditstep": "Final edit",
+
+  "statistics.workflow.page.current-table.step": "Step",
+
+  "statistics.workflow.page.current-table.count": "Count",
+
+  "statistics.workflow.page.max": "Max",
+
+  "statistics.workflow.page.collection": "Collection",
+
+  "statistics.workflow.page.endDate": "End date",
+
+  "statistics.workflow.page.startDate": "Start date",
+
+  "statistics.workflow.page.reset": "Reset filters",
+
+  "statistics.workflow.page.actions.title": "Actions",
+
+  "statistics.workflow.page.action-table.action": "Action",
+
+  "statistics.workflow.page.action-table.count": "Count",
+
+  "statistics.workflow.page.action-table.editstep.editaction": "Edit",
+
+  "statistics.workflow.page.action-table.finaleditstep.finaleditaction": "Final Edit",
+
+  "statistics.workflow.page.action-table.reviewstep.reviewaction": "Review",
+
+  "statistics.workflow.page.action-table.submit": "Submit",
+
+  "statistics.workflow.page.action-table.approve": "Approve",
+
+  "statistics.workflow.page.action-table.reject": "Reject",
+
+  "statistics.workflow.page.action-table.editaction": "Edit",
+
+  "statistics.workflow.page.action-table.finaleditaction": "Final Edit",
+
+  "statistics.workflow.page.action-table.reviewaction": "Review",
+
+  "statistics.workflow.page.action-table.claimaction": "Claim",
+
+  "statistics.workflow.page.no-data-found": "No data found",
+
+  "statistics.login.breadcrumbs": "Login Statistics",
+
+  "statistics.login.page.header": "Login Statistics",
+
+  "statistics.login.page.reset": "Reset filters",
+
+  "statistics.login.page.table.user": "User",
+
+  "statistics.login.page.table.email": "Email",
+
+  "statistics.login.page.table.count": "Login",
+
+  "statistics.login.page.max": "Max",
+
+  "statistics.login.page.endDate": "End date",
+
+  "statistics.login.page.startDate": "Start date",
+
+  "statistics.login.page.no-data-found": "No data found",
+
+  "statistics.login.title statistics.workflow.title": "Login Statistics",
+
+  "statistics.export.csv": "Export CSV",
+
+  "statistics.export.excel": "Export Excel",
+
+  "statistics.export.jpg": "Export as JPEG",
+
+  "statistics.export.png": "Export as PNG",
+
   "statistics.title": "Statistics",
 
   "statistics.header": "Statistics for {{ scope }}",
@@ -5286,9 +5553,25 @@
 
   "statistics.table.no-data": "No data available",
 
-  "statistics.table.title.TotalVisits": "Total visits",
+  "statistics.table.mainReports.title.TotalVisits": "Total visits",
+
+  "statistics.table.mainReports.title.TopItems": "Most viewed",
+
+  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Total visits per month",
+
+  "statistics.table.mainReports.title.TotalDownloads": "File visits",
+
+  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file visits",
+
+  "statistics.table.mainReports.title.TopCountries": "Top country views",
+
+  "statistics.table.mainReports.title.TopContinents": "Top region views",
 
   "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+
+  "statistics.table.mainReports.title.TopCategories": "Categories",
+
+  "statistics.table.mainReports.title.TopCities": "Top city views",
 
   "statistics.table.title.TotalDownloads": "File Visits",
 
@@ -5298,7 +5581,69 @@
 
   "statistics.table.header.views": "Views",
 
+  "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
+
+  "statistics.table.downloadReports.title.TopItems": "Most downloaded",
+
+  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Total downloads per month",
+
+  "statistics.table.downloadReports.title.TotalDownloads": "Most downloaded",
+
+  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Total downloads per month",
+
+  "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
+
+  "statistics.table.downloadReports.title.TopContinents": "Top region downloads",
+
+  "statistics.table.downloadReports.title.TopCategories": "Categories",
+
+  "statistics.table.downloadReports.title.TopCities": "Top city downloads",
+
+  "statistics.table.mainReports.header.views": "Views",
+
+  "statistics.table.mainReports.header.bitstream": "File Visits",
+
+  "statistics.table.mainReports.header.continent": "Continent",
+
+  "statistics.table.mainReports.header.country": "Country",
+
+  "statistics.table.mainReports.header.city": "City",
+
+  "statistics.table.mainReports.header.item": "Item",
+
+  "statistics.table.mainReports.header.community": "Community",
+
+  "statistics.table.mainReports.header.collection": "Collection",
+
+  "statistics.table.downloadReports.header.views": "Downloads",
+
+  "statistics.table.downloadReports.header.continent": "Continent",
+
+  "statistics.table.downloadReports.header.country": "Country",
+
+  "statistics.table.downloadReports.header.city": "City",
+
+  "statistics.table.downloadReports.header.item": "Item",
+
+  "statistics.table.publicationsReports.title.TotalVisits": "Total visits",
+
+  "statistics.table.publicationsReports.title.TopItems": "Most viewed",
+
+  "statistics.table.publicationsReports.title.TopCities": "Top cities",
+
   "statistics.table.no-name": "(object name could not be loaded)",
+
+  "statistics.categories.title": "Statistics by category",
+
+  "statistics.categories.mainReports.tab": "Views reports",
+
+  "statistics.categories.downloadReports.tab": "Downloads reports",
+
+  "statistics.categories.itemReports.tab": "Item views reports",
+
+  "statistics-page.export-map-as-image": "Export map",
+
+  "statistics.reports.title": "Reports",
 
   "submission.edit.breadcrumbs": "Edit Submission",
 
@@ -5944,7 +6289,7 @@
 
   "submission.sections.upload.edit.title": "Edit bitstream",
 
-  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  "submission.sections.upload.file.edit.form.file-type.label": "File type",
 
   "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
 
@@ -6220,6 +6565,10 @@
 
   "subscriptions.modal.new-subscription-form.type.content": "Content",
 
+  "subscriptions.modal.new-subscription-form.type.content+statistics": "Content and Statistics",
+
+  "subscriptions.modal.new-subscription-form.type.statistics": "Statistics",
+
   "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
 
   "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
@@ -6275,6 +6624,12 @@
   "thumbnail.person.alt": "Profile Picture",
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
+
+  "third-party-metrics-cookies.message": "{{ metricType }} badge is blocked by your ",
+
+  "third-party-metrics-cookies.consent-settings": "consent settings",
+
+  "third-party-metrics-blocked": "Some of the metrics are blocked by your",
 
   "title": "DSpace",
 
@@ -7586,6 +7941,8 @@
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
 
+  "dynamic.nav.main.description": "Section navigation",
+
   "external-login.component.or": "or",
 
   "external-login.confirmation.header": "Information needed to complete the login process",
@@ -7735,6 +8092,24 @@
   "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
 
   "metadata-link-view.popover.label.more-info": "More info",
+
+  "metric-badges.scopusCitation": "Scopus© Citations",
+
+  "metric-badges.scopus-author-citation-count": "Scopus© Citations",
+
+  "metric-badges.scopus-author-coauthor-count": "<span class=\"fa fa-users\" title=\"Scopus© Coauthors\">&nbsp;</span>",
+
+  "metric-badges.scopus-author-document-count": "<span class=\"fa fa-book-open\" title=\"Scopus© Documents\">&nbsp;</span>",
+
+  "metric-badges.scopus-author-h-index": "Scopus© H-Index",
+
+  "metric-badges.scopus-author-cited-count": "Scopus© Cited By",
+
+  "metric-badges.wosCitation": "WOS© Citations",
+
+  "metric-badges.view": "<span class=\"fa fa-eye\" title=\"View\">&nbsp;</span>",
+
+  "metric-badges.download": "<span class=\"fa fa-download\" title=\"Downloads\">&nbsp;</span>",
 
   "item.page.extended-file-section": "Bitstreams",
 
@@ -7951,4 +8326,161 @@
 
   "cc-license.sampling.option.ncsamplingplus.label": "NonCommercial Sampling Plus",
   "cc-license.sampling.option.ncsamplingplus.hint": "Visitors may sample, remix or transform parts of your work, and copy and distribute the entire work, but only for non-commercial purposes.",
+
+  // Layout - Autogenerated i18n keys: Tab headers
+
+  "layout.tab.header.Person.details": "Profile",
+
+  "layout.tab.header.Person.bitstreams": "Personal File(s)",
+
+  "layout.tab.header.Person.secure": "Secured Tab",
+
+  "layout.tab.header.OrgUnit.details": "Details",
+
+  "layout.tab.header.OrgUnit.bitstreams": "Files",
+
+  "layout.tab.header.Project.heading": "Heading",
+
+  "layout.tab.header.Project.details": "Details",
+
+  "layout.tab.header.Project.bitstreams": "Files",
+
+  "layout.tab.header.Journal.details": "Details",
+
+  "layout.tab.header.Publication.details": "Details",
+
+  // Layout - Autogenerated i18n keys: box headers
+
+  "layout.box.header.Journal.details": "Journal description",
+
+  "layout.box.header.OrgUnit.details": "Details",
+
+  "layout.box.header.OrgUnit.bitstreams": "Files",
+
+  "layout.box.header.Person.secure": "Secured box",
+
+  "layout.box.header.Person.bitstreams": "Personal File(s)",
+
+  "layout.box.header.Project.primarydata": "Primary Data",
+
+  "layout.box.header.Project.bitstreams": "Files",
+
+  // Layout - Autogenerated i18n keys: metadata labels
+
+  "layout.field.label.Journal.creativework.editor": "Editor(s)",
+
+  "layout.field.label.Journal.creativeworkseries.issn": "ISSN",
+
+  "layout.field.label.Journal.dc.description": "Description",
+
+  "layout.field.label.Journal.creativework.publisher": "Publisher",
+
+  "layout.field.label.Journal.BITSTREAM": "File(s)",
+
+  "layout.field.label.OrgUnit.dc.identifier": "ID",
+
+  "layout.field.label.OrgUnit.organization.foundingDate": "Date established",
+
+  "layout.field.label.OrgUnit.organization.address.addressLocality": "City",
+
+  "layout.field.label.OrgUnit.organization.address.addressCountry": "Country",
+
+  "layout.field.label.OrgUnit.dc.description": "Description",
+
+  "layout.field.label.OrgUnit.BITSTREAM": "File(s)",
+
+  "layout.field.label.Person.person.familyName": "Last name",
+
+  "layout.field.label.Person.person.givenName": "First name",
+
+  "layout.field.label.Person.person.email": "Email",
+
+  "layout.field.label.Person.person.birthDate": "Birth Date",
+
+  "layout.field.label.Project.dc.identifier": "ID",
+
+  "layout.field.label.Project.project.investigator": "Investigator",
+
+  "layout.field.label.Project.dc.subject": "Keywords",
+
+  "layout.field.label.Project.project.startDate": "Start date",
+
+  "layout.field.label.Project.project.endDate": "End Date",
+
+  "layout.field.label.Project.project.amount": "Amount",
+
+  "layout.field.label.Project.project.amount.currency": "Currency",
+
+  "layout.field.label.Project.dc.description": "Description",
+
+  "layout.field.label.Project.BITSTREAM": "File(s)",
+
+  "layout.field.label.Publication.dc.title.alternative": "Other Titles",
+
+  "layout.field.label.Publication.dc.contributor.author": "Author(s)",
+
+  "layout.field.label.Publication.dc.contributor.editor": "Editor(s)",
+
+  "layout.field.label.Publication.dc.date.issued": "Date Issued",
+
+  "layout.field.label.Publication.dc.type": "Type",
+
+  "layout.field.label.Publication.dc.publisher": "Publisher",
+
+  "layout.field.label.Publication.dc.relation.journal": "Journal",
+
+  "layout.field.label.Publication.dc.relation.ispartofseries ": "Series/Report No.",
+
+  "layout.field.label.Publication.dc.relation.publication": "Contained in",
+
+  "layout.field.label.Publication.dc.identifier.doi": "DOI",
+
+  "layout.field.label.Publication.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Publication.dc.relation.isbn": "ISBN",
+
+  "layout.field.label.Publication.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Publication.dc.description": "Additional information",
+
+  "layout.field.label.Publication.dc.identifier.citation": "Citation",
+
+  "layout.field.label.Publication.dc.subject": "Keywords",
+
+  "layout.field.label.Publication.dc.description.sponsorship": "Sponsor(s)",
+
+  "layout.field.label.Publication.BITSTREAM": "File(s)",
+
+  // Layout - Autogenerated i18n keys: metadata groups labels
+
+  "layout.field.label.Person.oairecerif.affiliation.role": "Role",
+
+  "layout.field.label.Person.oairecerif.person.affiliation": "Organisation",
+
+  "layout.field.label.Person.oairecerif.affiliation.startDate": "Start",
+
+  "layout.field.label.Person.oairecerif.affiliation.endDate": "End",
+
+  "layout.field.label.Person.crisrp.education.role": "Role",
+
+  "layout.field.label.Person.crisrp.education": "Organisation",
+
+  "layout.field.label.Person.crisrp.education.start": "Start",
+
+  "layout.field.label.Person.crisrp.education.end": "End",
+
+  "layout.field.label.Person.crisrp.qualification": "Title",
+
+  "layout.field.label.Person.crisrp.qualification.start": "Start",
+
+  "layout.field.label.Person.crisrp.qualification.end": "End",
+
+  "layout.field.label.Publication.dc.contributor.author": "Author",
+
+  "layout.field.label.Publication.oairecerif.author.affiliation": "Affiliation",
+
+  "layout.field.label.Publication.dc.contributor.editor": "Editor",
+
+  "layout.field.label.Publication.oairecerif.editor.affiliation": "Affiliation",
+
 }

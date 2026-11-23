@@ -72,6 +72,11 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
   @Input() showThumbnails: boolean;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * The value to display for this element
    */
   @Input() value: string;
@@ -98,6 +103,7 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     'listID',
     'showLabel',
     'showThumbnails',
+    'showMetrics',
     'viewMode',
     'value',
   ];

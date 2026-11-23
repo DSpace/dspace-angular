@@ -80,6 +80,11 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() workflowItem: WorkflowItem;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * Display thumbnails if required by configuration
    */
   showThumbnails: boolean;

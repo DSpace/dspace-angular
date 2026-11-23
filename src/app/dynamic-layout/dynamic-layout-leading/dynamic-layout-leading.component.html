@@ -1,0 +1,11 @@
+<div id="dynamic-layout-leading" class="d-flex flex-column">
+  @if (showContextMenu) {
+    <div class="d-flex justify-content-end mb-3">
+      <ds-dso-edit-menu></ds-dso-edit-menu>
+    </div>
+  }
+
+  @if (tab) {
+    <ds-dynamic-layout-matrix [tab]="tab" [item]="item"></ds-dynamic-layout-matrix>
+  }
+</div>

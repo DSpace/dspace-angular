@@ -23,6 +23,7 @@ import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchComponent } from '../shared/search/search.component';
 import { SearchService } from '../shared/search/search.service';
+import { SearchChartsComponent } from '../shared/search/search-charts/search-charts.component';
 import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { SearchLabelsComponent } from '../shared/search/search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from '../shared/search/search-results/themed-search-results.component';
@@ -51,6 +52,7 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
     AsyncPipe,
     NgTemplateOutlet,
     PageWithSidebarComponent,
+    SearchChartsComponent,
     SearchLabelsComponent,
     ThemedSearchFormComponent,
     ThemedSearchResultsComponent,

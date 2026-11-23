@@ -1,0 +1,21 @@
+.date-input{
+/*	border: none;
+    outline: none;
+    box-shadow: none;*/
+    width: 120px;
+    flex: inherit;
+}
+
+.toggle{
+	border: none;
+    background: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.datepicker-container{
+	display:flex;
+	justify-content:flex-end;
+}

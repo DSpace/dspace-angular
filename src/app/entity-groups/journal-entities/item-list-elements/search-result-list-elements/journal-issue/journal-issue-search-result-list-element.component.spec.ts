@@ -11,6 +11,8 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -103,6 +105,7 @@ describe('JournalIssueSearchResultListElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: OrejimeService, useValue: new OrejimeServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueSearchResultListElementComponent, {
@@ -195,6 +198,7 @@ describe('JournalIssueSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: OrejimeService, useValue: new OrejimeServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueSearchResultListElementComponent, {
