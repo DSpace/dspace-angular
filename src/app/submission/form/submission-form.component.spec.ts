@@ -9,17 +9,15 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { SubmissionVisibilityValue } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -28,6 +26,14 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { AuthService } from '../../core/auth/auth.service';
+import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
 import { SectionsService } from '../sections/sections.service';
@@ -58,6 +64,7 @@ describe('SubmissionFormComponent', () => {
   let authServiceStub: AuthServiceStub;
   let scheduler: TestScheduler;
   let metadataSecurityConfigDataService: MetadataSecurityConfigurationService;
+  let submissionDefinitionsConfigService: jasmine.SpyObj<SubmissionDefinitionsConfigDataService>;
 
   const submissionObject: any = mockSubmissionObject;
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
@@ -74,6 +81,9 @@ describe('SubmissionFormComponent', () => {
     metadataSecurityConfigDataService = jasmine.createSpyObj('metadataSecurityConfigDataService', {
       findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
     });
+    submissionDefinitionsConfigService = jasmine.createSpyObj('submissionDefinitionsConfigService', {
+      findAllSections: of(undefined),
+    });
     TestBed.configureTestingModule({
       imports: [
         SubmissionFormComponent,
@@ -85,6 +95,7 @@ describe('SubmissionFormComponent', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
+        { provide: SubmissionDefinitionsConfigDataService, useValue: submissionDefinitionsConfigService },
         { provide: SectionsService, useValue:
           {
             isSectionTypeAvailable: () => of(true),
@@ -155,6 +166,41 @@ describe('SubmissionFormComponent', () => {
       compAsAny = null;
     });
 
+    /**
+     * Populate the component with the common submission inputs and stub the services required to
+     * run {@link SubmissionFormComponent.ngOnChanges}. Returns the definition assigned to the
+     * component (useful for identity assertions).
+     */
+    const arrangeSubmission = (definition: any = submissionDefinition): any => {
+      comp.collectionId = collectionId;
+      comp.submissionId = submissionId;
+      comp.submissionDefinition = definition;
+      comp.selfUrl = selfUrl;
+      comp.sections = sectionsData;
+      comp.submissionErrors = null;
+      comp.item = new Item();
+      comp.entityType = 'publication';
+      submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionState));
+      submissionServiceStub.getSubmissionSections.and.returnValue(of(sectionsList));
+      spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
+      return definition;
+    };
+
+    /**
+     * Trigger {@link SubmissionFormComponent.ngOnChanges} for collectionId/submissionId and flush
+     * the test scheduler.
+     */
+    const triggerNgOnChanges = (): void => {
+      scheduler.schedule(() => {
+        comp.ngOnChanges({
+          collectionId: new SimpleChange(null, collectionId, true),
+          submissionId: new SimpleChange(null, submissionId, true),
+        });
+        fixture.detectChanges();
+      });
+      scheduler.flush();
+    };
+
     it('should not has effect when collectionId and submissionId are undefined', (done) => {
 
       scheduler.schedule(() => fixture.detectChanges());
@@ -169,26 +215,8 @@ describe('SubmissionFormComponent', () => {
     });
 
     it('should init properly when collectionId and submissionId are defined', (done) => {
-      comp.collectionId = collectionId;
-      comp.submissionId = submissionId;
-      comp.submissionDefinition = submissionDefinition;
-      comp.selfUrl = selfUrl;
-      comp.sections = sectionsData;
-      comp.submissionErrors = null;
-      comp.item = new Item();
-      comp.entityType = 'publication';
-      submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionState));
-      submissionServiceStub.getSubmissionSections.and.returnValue(of(sectionsList));
-      spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
-
-      scheduler.schedule(() => {
-        comp.ngOnChanges({
-          collectionId: new SimpleChange(null, collectionId, true),
-          submissionId: new SimpleChange(null, submissionId, true),
-        });
-        fixture.detectChanges();
-      });
-      scheduler.flush();
+      arrangeSubmission();
+      triggerNgOnChanges();
 
       expect(comp.submissionSections).toBeObservable(cold('(a|)', { a: sectionsList }));
 
@@ -202,6 +230,86 @@ describe('SubmissionFormComponent', () => {
         null,
         undefined);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
+      done();
+    });
+
+    it('should follow the sections HAL link and initialize the form with ALL resolved sections', (done) => {
+      const allSections = buildPaginatedList(new PageInfo({
+        elementsPerPage: 2,
+        totalElements: 2,
+        totalPages: 1,
+        currentPage: 1,
+      }), [
+        { sectionType: 'submission-form', _links: { self: { href: 'https://rest.api/config/submissionsections/pageOne' }, config: '' } } as any,
+        { sectionType: 'submission-form', _links: { self: { href: 'https://rest.api/config/submissionsections/pageTwentyOne' }, config: '' } } as any,
+      ]);
+      submissionDefinitionsConfigService.findAllSections.and.returnValue(createSuccessfulRemoteDataObject$(allSections));
+
+      const originalDefinition = arrangeSubmission(Object.assign({}, submissionDefinition));
+      triggerNgOnChanges();
+
+      // The sections link is followed on the original definition
+      expect(submissionDefinitionsConfigService.findAllSections).toHaveBeenCalledWith(originalDefinition);
+      // The (frozen) store definition is NOT mutated: a clone carrying the resolved sections is used
+      expect(comp.submissionDefinition).not.toBe(originalDefinition);
+      expect(comp.submissionDefinition.sections).toBe(allSections);
+      // The definition passed to dispatchInit must carry ALL resolved sections
+      expect(submissionServiceStub.dispatchInit).toHaveBeenCalled();
+      const dispatchedDefinition = submissionServiceStub.dispatchInit.calls.mostRecent().args[3];
+      expect((dispatchedDefinition.sections as any).page.length).toBe(2);
+      done();
+    });
+
+    it('should initialize the form with ALL sections when the definition has more than 20 (paginated) sections', (done) => {
+      // Simulate a submission definition whose `sections` link returns more than a single page's
+      // worth of sections (the backend default page size is 20). All of them must reach the form.
+      const numberOfSections = 27;
+      const manySections = Array.from({ length: numberOfSections }, (_, index) => ({
+        sectionType: 'submission-form',
+        _links: { self: { href: `https://rest.api/config/submissionsections/field-${index}` }, config: '' },
+      } as any));
+      const allSections = buildPaginatedList(new PageInfo({
+        elementsPerPage: numberOfSections,
+        totalElements: numberOfSections,
+        totalPages: 1,
+        currentPage: 1,
+      }), manySections);
+      submissionDefinitionsConfigService.findAllSections.and.returnValue(createSuccessfulRemoteDataObject$(allSections));
+
+      arrangeSubmission(Object.assign({}, submissionDefinition));
+      triggerNgOnChanges();
+
+      expect(submissionServiceStub.dispatchInit).toHaveBeenCalled();
+      const dispatchedDefinition = submissionServiceStub.dispatchInit.calls.mostRecent().args[3];
+      // Every section beyond the 20th is present in the definition dispatched to the store.
+      expect((dispatchedDefinition.sections as any).page.length).toBe(numberOfSections);
+      expect((dispatchedDefinition.sections as any).page[26]._links.self.href)
+        .toBe('https://rest.api/config/submissionsections/field-26');
+      done();
+    });
+
+    it('should fall back to the embedded sections when the sections link resolution fails', (done) => {
+      submissionDefinitionsConfigService.findAllSections.and.returnValue(createFailedRemoteDataObject$('error', 500));
+
+      const embeddedDefinition = arrangeSubmission(Object.assign({}, submissionDefinition));
+      const embeddedSections = embeddedDefinition.sections;
+      triggerNgOnChanges();
+
+      // The embedded sections are kept untouched
+      expect(comp.submissionDefinition.sections).toBe(embeddedSections);
+      expect(submissionServiceStub.dispatchInit).toHaveBeenCalled();
+      done();
+    });
+
+    it('should fall back to the embedded sections when the sections link is missing (old backend)', (done) => {
+      submissionDefinitionsConfigService.findAllSections.and.returnValue(of(undefined));
+
+      const embeddedDefinition = arrangeSubmission(Object.assign({}, submissionDefinition));
+      const embeddedSections = embeddedDefinition.sections;
+      triggerNgOnChanges();
+
+      expect(comp.submissionDefinition.sections).toBe(embeddedSections);
+      expect(submissionServiceStub.dispatchInit).toHaveBeenCalled();
       done();
     });
 
