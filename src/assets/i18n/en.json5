@@ -31,7 +31,8 @@
 
   "error-page.description.404": "Page not found",
 
-  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have verified your ORCID account email address and shared it with DSpace. If the error persists, contact the administrator.",
+
 
   "listelement.badge.access-status": "Access status:",
 
