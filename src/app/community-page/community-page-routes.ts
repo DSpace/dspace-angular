@@ -22,7 +22,6 @@ import { createCommunityPageGuard } from './create-community-page/create-communi
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
-import { clientOnlyGuard } from "@dspace/core/ssr/client-only.guard";
 
 export const ROUTES: Route[] = [
   {
@@ -95,7 +94,6 @@ export const ROUTES: Route[] = [
             path: 'search',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
-            canActivate: [clientOnlyGuard],
             resolve: {
               breadcrumb: i18nBreadcrumbResolver,
             },
@@ -121,7 +119,7 @@ export const ROUTES: Route[] = [
             path: 'browse/:id',
             pathMatch: 'full',
             component: ComcolBrowseByComponent,
-            canActivate: [clientOnlyGuard, browseByGuard],
+            canActivate: [browseByGuard],
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },

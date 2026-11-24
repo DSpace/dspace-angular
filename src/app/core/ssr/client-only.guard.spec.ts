@@ -5,24 +5,50 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { clientOnlyGuard } from './client-only.guard';
 
 describe('clientOnlyGuard', () => {
-  const route = {} as ActivatedRouteSnapshot;
-  const state = {} as RouterStateSnapshot;
+  const appConfig = {
+    ssr: {
+      excludePathPatterns: [
+        { pattern: '^/search' },
+        { pattern: '^/communities/[a-f0-9-]{36}/(browse|search)(/.*)?$', flag: 'i' },
+      ],
+    },
+  };
 
-  function runGuard(platformId: string): ReturnType<typeof clientOnlyGuard> {
+  function runGuard(platformId: string, url: string, path = 'search'): ReturnType<typeof clientOnlyGuard> {
     TestBed.configureTestingModule({
-      providers: [{ provide: PLATFORM_ID, useValue: platformId }],
+      providers: [
+        { provide: PLATFORM_ID, useValue: platformId },
+        { provide: APP_CONFIG, useValue: appConfig },
+      ],
     });
-    return TestBed.runInInjectionContext(() => clientOnlyGuard(route, state));
+    return TestBed.runInInjectionContext(() => clientOnlyGuard({ routeConfig: { path } } as ActivatedRouteSnapshot, { url } as RouterStateSnapshot));
   }
 
-  it('should allow the activation in the browser', () => {
-    expect(runGuard('browser')).toBeTrue();
+  it('should allow every path in the browser', () => {
+    expect(runGuard('browser', '/search')).toBeTrue();
   });
 
-  it('should prevent the activation on the server', () => {
-    expect(runGuard('server')).toBeFalse();
+  it('should prevent excluded paths on the server', () => {
+    expect(runGuard('server', '/search')).toBeFalse();
+  });
+
+  it('should ignore query params when matching on the server', () => {
+    expect(runGuard('server', '/search?query=test')).toBeFalse();
+  });
+
+  it('should apply the pattern flag when matching on the server', () => {
+    expect(runGuard('server', '/communities/123E4567-E89B-12D3-A456-426614174000/browse')).toBeFalse();
+  });
+
+  it('should never block the wildcard route, so unknown paths still give a 404', () => {
+    expect(runGuard('server', '/search/unknown', '**')).toBeTrue();
+  });
+
+  it('should allow non excluded paths on the server', () => {
+    expect(runGuard('server', '/home')).toBeTrue();
   });
 });

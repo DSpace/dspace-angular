@@ -27,7 +27,6 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { itemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
-import { clientOnlyGuard } from "@dspace/core/ssr/client-only.guard";
 
 export const ROUTES: Route[] = [
   {
@@ -112,7 +111,6 @@ export const ROUTES: Route[] = [
             path: 'search',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
-            canActivate: [clientOnlyGuard],
             resolve: {
               breadcrumb: i18nBreadcrumbResolver,
             },
@@ -126,7 +124,7 @@ export const ROUTES: Route[] = [
             path: 'browse/:id',
             pathMatch: 'full',
             component: ComcolBrowseByComponent,
-            canActivate: [clientOnlyGuard, browseByGuard],
+            canActivate: [browseByGuard],
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
