@@ -47,6 +47,7 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { viewTrackerResolver } from './statistics/angulartics/dspace/view-tracker.resolver';
 import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import { clientOnlyGuard } from "./core/ssr/client-only.guard";
 
 export const APP_ROUTES: Route[] = [
   { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent, data: { title: '500.page-internal-server-error' } },
@@ -83,7 +84,7 @@ export const APP_ROUTES: Route[] = [
         path: 'community-list',
         loadChildren: () => import('./community-list-page/community-list-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'id',
@@ -158,27 +159,27 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./search-page/search-page-routes')
           .then((m) => m.ROUTES),
         data: { enableRSS: true },
-        canActivate: [endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'browse',
         loadChildren: () => import('./browse-by/browse-by-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: ADMIN_MODULE_PATH,
         loadChildren: () => import('./admin/admin-routes')
           .then((m) => m.ROUTES),
         data: { enableRSS: true },
-        canActivate: [siteAdministratorGuard, endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, siteAdministratorGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: NOTIFICATIONS_MODULE_PATH,
         loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],
-        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'login',
@@ -231,7 +232,7 @@ export const APP_ROUTES: Route[] = [
         path: PROCESS_MODULE_PATH,
         loadChildren: () => import('./process-page/process-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: SUGGESTION_MODULE_PATH,
@@ -258,17 +259,18 @@ export const APP_ROUTES: Route[] = [
         path: 'statistics',
         loadChildren: () => import('./statistics-page/statistics-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: HEALTH_PAGE_PATH,
         loadChildren: () => import('./health-page/health-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [clientOnlyGuard],
       },
       {
         path: ACCESS_CONTROL_MODULE_PATH,
         loadChildren: () => import('./access-control/access-control-routes').then((m) => m.ROUTES),
-        canActivate: [groupAdministratorGuard, endUserAgreementCurrentUserGuard],
+        canActivate: [clientOnlyGuard, groupAdministratorGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'auditlogs',
