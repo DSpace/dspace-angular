@@ -58,7 +58,7 @@ import {
  * This component represents a section that contains the submission license form.
  */
 @Component({
-  selector: 'ds-submission-section-license',
+  selector: 'ds-base-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
   providers: [],
@@ -67,7 +67,9 @@ import {
     FormComponent,
   ],
 })
-export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
+export class SubmissionSectionLicenseComponent
+  extends SectionModelComponent
+  implements AfterViewChecked {
 
   /**
    * The form id

@@ -3,7 +3,7 @@ import { SubmissionSectionCcLicensesComponent } from './cc-license/submission-se
 import { SubmissionSectionDuplicatesComponent } from './duplicates/section-duplicates.component';
 import { SubmissionSectionFormComponent } from './form/section-form.component';
 import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
-import { SubmissionSectionLicenseComponent } from './license/section-license.component';
+import { ThemedSubmissionSectionLicenseComponent } from './license/themed-section-license.component';
 import { SubmissionSectionJiscOpfPoliciesComponent } from './opf-policies/section-opf-policies.component';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify/section-coar-notify.component';
 import { SectionsType } from './sections-type';
@@ -12,7 +12,7 @@ import { SubmissionSectionUploadComponent } from './upload/section-upload.compon
 const submissionSectionsMap = new Map();
 
 submissionSectionsMap.set(SectionsType.AccessesCondition, SubmissionSectionAccessesComponent);
-submissionSectionsMap.set(SectionsType.License, SubmissionSectionLicenseComponent);
+submissionSectionsMap.set(SectionsType.License, ThemedSubmissionSectionLicenseComponent);
 submissionSectionsMap.set(SectionsType.CcLicense, SubmissionSectionCcLicensesComponent);
 submissionSectionsMap.set(SectionsType.OpfPolicies, SubmissionSectionJiscOpfPoliciesComponent);
 submissionSectionsMap.set(SectionsType.Upload, SubmissionSectionUploadComponent);
