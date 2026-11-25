@@ -37,6 +37,7 @@ import { FilterType } from '@dspace/core/shared/search/models/filter-type.model'
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
   SearchConfig,
   SortConfig,
@@ -130,9 +131,19 @@ const mockDso2 = Object.assign(new Item(), {
     },
   },
 });
-const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
-  page: [mockDso, mockDso2],
-});
+const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(
+  new SearchObjects<DSpaceObject>(),
+  {
+    page: [
+      Object.assign(new SearchResult<DSpaceObject>(), {
+        indexableObject: mockDso,
+      }),
+      Object.assign(new SearchResult<DSpaceObject>(), {
+        indexableObject: mockDso2,
+      }),
+    ],
+  },
+);
 const mockResultsRD: RemoteData<SearchObjects<DSpaceObject>> = createSuccessfulRemoteDataObject(mockSearchResults);
 const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = of(mockResultsRD);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
@@ -499,7 +510,7 @@ describe('SearchComponent', () => {
     it('should NOT navigate when requested page is within total pages', fakeAsync(() => {
       // Mock search to return results on page 2
       const searchResultsPage2: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
-        page: [mockDso],
+        page: [Object.assign(new SearchResult<DSpaceObject>(), { indexableObject: mockDso })],
         pageInfo: Object.assign(new PageInfo(), { totalPages: 3, totalElements: 25, elementsPerPage: 10, currentPage: 2 }),
       });
       const resultsRD = createSuccessfulRemoteDataObject(searchResultsPage2);

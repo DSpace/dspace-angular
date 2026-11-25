@@ -24,6 +24,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
@@ -202,7 +203,7 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.mappedItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
-        return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
+        return this.searchService.search<Item>(Object.assign(new PaginatedSearchOptions(options), {
           query: this.buildQuery(collectionRD.payload.id, options.query),
           scope: undefined,
           dsoTypes: [DSpaceObjectType.ITEM],

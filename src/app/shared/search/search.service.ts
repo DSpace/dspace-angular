@@ -1,9 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
 import { BaseDataService } from '@dspace/core/data/base/base-data.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { FacetValueResponseParsingService } from '@dspace/core/data/facet-value-response-parsing.service';
+import { HrefOnlyDataService } from '@dspace/core/data/href-only-data.service';
 import { ResponseParsingService } from '@dspace/core/data/parsing.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { GetRequest } from '@dspace/core/data/request.models';
@@ -110,7 +111,7 @@ export class SearchService {
     protected requestService: RequestService,
     private rdb: RemoteDataBuildService,
     private halService: HALEndpointService,
-    private dspaceObjectService: DSpaceObjectDataService,
+    private hrefOnlyDataService: HrefOnlyDataService,
     private paginationService: PaginationService,
     private searchConfigurationService: SearchConfigurationService,
     private angulartics2: Angulartics2,
@@ -167,7 +168,7 @@ export class SearchService {
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns {Observable<RemoteData<SearchObjects<T>>>} Emits a paginated list with all search results found
    */
-  search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
+  search<T extends CacheableObject & ListableObject = DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
     const href$ = this.getEndpoint(searchOptions);
 
     let startTime: number;
@@ -225,17 +226,17 @@ export class SearchService {
    *                                    {@link HALLink}s should be automatically resolved
    * @protected
    */
-  protected directlyAttachIndexableObjects<T extends DSpaceObject>(sqr$: Observable<RemoteData<SearchObjects<T>>>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
+  protected directlyAttachIndexableObjects<T extends CacheableObject & ListableObject>(sqr$: Observable<RemoteData<SearchObjects<T>>>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<SearchObjects<T>>> {
     return sqr$.pipe(
       switchMap((resultsRd: RemoteData<SearchObjects<T>>) => {
         if (hasValue(resultsRd.payload) && isNotEmpty(resultsRd.payload.page)) {
           // retrieve the indexableObjects for all search results on the page
           const searchResult$Array: Observable<SearchResult<T>>[] = resultsRd.payload.page.map((result: SearchResult<T>) =>
-            this.dspaceObjectService.findByHref(result._links.indexableObject.href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow as any).pipe(
+            this.hrefOnlyDataService.findByHref<T>(result._links.indexableObject.href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow as any).pipe(
               getFirstCompletedRemoteData(),
               getRemoteDataPayload(),
               hasValueOperator(),
-              switchMap((indexableObject: DSpaceObject) => {
+              switchMap((indexableObject: T) => {
                 // determine the constructor of the search result (ItemSearchResult,
                 // CollectionSearchResult, etc) based on the kind of the indeaxbleObject it
                 // contains. Recreate the result with that constructor
