@@ -56,7 +56,10 @@ import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
-import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import {
+  getSsrExcludeStrategy,
+  isExcludedFromSsr,
+} from './src/app/core/ssr/ssr-exclude.util';
 
 /*
  * Set path for the browser application's dist folder
@@ -241,7 +244,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && !isUserAuthenticated(req) && (req.path === '/' || !isExcludedFromSsr(req.path))) {
+  if (environment.ssr.enabled && req.method === 'GET' && !isExcludedByServer(req.path)) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -249,6 +252,20 @@ function ngApp(req, res, next) {
     console.log('Universal off, serving for direct client-side rendering (CSR)');
     clientSideRender(req, res);
   }
+}
+
+/**
+ * Whether SSR should be skipped for the given path directly in Express, before bootstrapping Angular.
+ * Only applies when `ssr.excludePathStrategy` is 'server'; with the 'router' strategy the exclusion is
+ * handled by the clientOnlyGuard instead.
+ *
+ * @param path the request path
+ */
+function isExcludedByServer(path: string): boolean {
+  if (getSsrExcludeStrategy(environment.ssr.excludePathStrategy) !== 'server' || path === '/') {
+    return false;
+  }
+  return isExcludedFromSsr(path, SSR_EXCLUDE_PATTERNS);
 }
 
 /**
@@ -662,15 +679,6 @@ function start() {
   } else {
     run();
   }
-}
-
-/**
- * Check if SSR should be skipped for path
- *
- * @param path
- */
-function isExcludedFromSsr(path: string): boolean {
-  return SSR_EXCLUDE_PATTERNS.some((regex) => regex.test(path));
 }
 
 /*

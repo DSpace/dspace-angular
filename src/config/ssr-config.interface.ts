@@ -4,6 +4,15 @@ export interface SsrExcludePatterns {
   pattern: string | RegExp;
 }
 
+/**
+ * Where the `excludePathPatterns` are enforced:
+ * - 'server': server.ts serves the plain CSR index.html before Angular is bootstrapped. Cheapest, but always responds
+ *   with a 200, even for paths that don't exist.
+ * - 'router': the clientOnlyGuard blocks the matched route during SSR. Angular is still bootstrapped, but the router
+ *   is involved, so unknown paths still fall through to the 404 page and return a proper status code.
+ */
+export type SsrExcludeStrategy = 'server' | 'router';
+
 export interface SSRConfig extends Config {
   /**
    * A boolean flag indicating whether the SSR configuration is enabled
@@ -46,6 +55,12 @@ export interface SSRConfig extends Config {
    * Patterns to be used as regexes to match url's path and check if SSR is disabled for it.
    */
   excludePathPatterns:  SsrExcludePatterns[];
+
+  /**
+   * Where the `excludePathPatterns` are enforced, see {@link SsrExcludeStrategy}.
+   * Defaults to 'router'.
+   */
+  excludePathStrategy?: SsrExcludeStrategy;
 
   /**
    * Whether to enable rendering of search component on SSR
