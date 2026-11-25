@@ -3,6 +3,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { MetadataValue } from '../core/shared/metadata.models';
 import { MetadataDirective } from './metadata.directive';
@@ -23,6 +24,7 @@ describe('MetadataDirective', () => {
   let fixture: ComponentFixture<HostComponent>;
   let host: HostComponent;
   let span: HTMLSpanElement;
+  let sanitizer: DomSanitizer;
 
   function createMetadata(value?: string, language?: string): MetadataValue {
     return {
@@ -42,6 +44,7 @@ describe('MetadataDirective', () => {
 
     fixture = TestBed.createComponent(HostComponent);
     host = fixture.componentInstance;
+    sanitizer = TestBed.inject(DomSanitizer);
     fixture.detectChanges();
     span = fixture.nativeElement.querySelector('span');
   });
@@ -94,5 +97,26 @@ describe('MetadataDirective', () => {
     host.mv = createMetadata('<em>Italic</em>', 'en');
     fixture.detectChanges();
     expect(span.innerHTML.toLowerCase()).toBe('<em>italic</em>');
+  });
+
+  it('sanitizes the value before setting innerHTML', () => {
+    const sanitizeSpy = spyOn(sanitizer, 'sanitize').and.callThrough();
+    host.mv = createMetadata('<em>Italic</em>', 'en');
+    fixture.detectChanges();
+    expect(sanitizeSpy).toHaveBeenCalledWith(jasmine.any(Number), '<em>Italic</em>');
+  });
+
+  it('strips out script tags from the value (XSS protection)', () => {
+    host.mv = createMetadata('<script>alert("XSS")</script>Safe text', 'en');
+    fixture.detectChanges();
+    expect(span.innerHTML).not.toContain('<script');
+    expect(span.innerHTML).toContain('Safe text');
+  });
+
+  it('strips out inline event handlers from the value (XSS protection)', () => {
+    host.mv = createMetadata('<img src="x" onerror="document.body.insertAdjacentHTML(\'afterbegin\',\'<h1>XSS!</h1>\')">', 'en');
+    fixture.detectChanges();
+    expect(span.innerHTML).not.toContain('onerror');
+    expect(document.body.querySelector('h1')).toBeNull();
   });
 });

@@ -15,14 +15,7 @@ export const environment: BuildConfig = {
     transferState: true,
     replaceRestUrl: false,
     excludePathPatterns: [
-      {
-        pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
-        flag: 'i',
-      },
-      {
-        pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
-        flag: 'i',
-      },
+      { pattern: '^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)' },
       { pattern: '^/browse/' },
       { pattern: '^/search' },
       { pattern: '^/community-list$' },
@@ -282,6 +275,8 @@ export const environment: BuildConfig = {
       pageSize: 5,
     },
     showDiscoverFilters: false,
+    editHomeNews: true,
+    editHomeHeader: true,
   },
   item: {
     edit: {

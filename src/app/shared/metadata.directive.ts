@@ -4,7 +4,9 @@ import {
   inject,
   Input,
   Renderer2,
+  SecurityContext,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { MetadataValue } from '../core/shared/metadata.models';
 import { normalizeLanguageCode } from './utils/normalize-language-code-utils';
@@ -38,6 +40,12 @@ export class MetadataDirective {
   private renderer = inject(Renderer2);
 
   /**
+   * Angular DomSanitizer instance used to sanitize the metadata value before
+   * inserting it into the DOM as innerHTML, preventing XSS attacks.
+   */
+  private sanitizer = inject(DomSanitizer);
+
+  /**
    * Input property for the directive. Accepts a `MetadataValue` object.
    * When set, it updates the host element's `innerHTML` and `lang` attribute.
    *
@@ -51,7 +59,7 @@ export class MetadataDirective {
   /**
    * Updates the host element's `innerHTML` and `lang` attribute based on the current `MetadataValue`.
    * - If `MetadataValue` is provided:
-   *   - Sets `innerHTML` to `MetadataValue.value` (or an empty string if `value` is null/undefined).
+   *   - Sets `innerHTML` to the sanitized `MetadataValue.value` (or an empty string if `value` is null/undefined).
    *   - Sets the `lang` attribute to `MetadataValue.language` (or removes it if `language` is null/undefined).
    * - If `MetadataValue` is null/undefined:
    *   - Clears the `innerHTML`.
@@ -60,7 +68,8 @@ export class MetadataDirective {
   private updateHost(): void {
     if (this._metadataValue) {
       const val = this._metadataValue.value ?? '';
-      this.renderer.setProperty(this.el.nativeElement, 'innerHTML', val);
+      const sanitizedVal = this.sanitizer.sanitize(SecurityContext.HTML, val) ?? '';
+      this.renderer.setProperty(this.el.nativeElement, 'innerHTML', sanitizedVal);
       if (this._metadataValue.language) {
         const normalizedLang = normalizeLanguageCode(this._metadataValue.language);
         this.renderer.setAttribute(this.el.nativeElement, 'lang', normalizedLang);

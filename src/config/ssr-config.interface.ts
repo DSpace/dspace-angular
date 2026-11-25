@@ -2,7 +2,6 @@ import { Config } from './config.interface';
 
 export interface SsrExcludePatterns {
   pattern: string | RegExp;
-  flag?: string;
 }
 
 export interface SSRConfig extends Config {

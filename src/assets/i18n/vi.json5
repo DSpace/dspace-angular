@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Bạn không có quyền truy cập trang này. Bạn có thể sử dụng nút chức năng phía dưới để quay lại trang chủ.",
 
@@ -11681,9 +11681,9 @@
   // TODO New key - Add a translation
   "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
 
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
+  // "ldn-new-service.form.label.addPattern": "Add more",
   // TODO New key - Add a translation
-  "ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.addPattern": "Add more",
 
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   // TODO New key - Add a translation
