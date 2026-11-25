@@ -37,6 +37,7 @@ import {
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
+import { clientOnlyGuard } from './core/ssr/client-only.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
@@ -54,7 +55,7 @@ export const APP_ROUTES: Route[] = [
   {
     path: '',
     canActivate: [authBlockingGuard],
-    canActivateChild: [ServerCheckGuard],
+    canActivateChild: [clientOnlyGuard, ServerCheckGuard],
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {

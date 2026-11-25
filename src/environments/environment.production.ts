@@ -16,6 +16,10 @@ export const environment: Partial<BuildConfig> = {
     // WARNING: changing these settings may impact your Search Engine Optimization (SEO). Any paths listed in "excludedPathPatterns"
     // may NOT be indexable by search engine crawlers (like Google Scholar). For search engine crawlers to fully index your site,
     // this "excludePathPatterns" should NEVER exclude SSR from the homepage, community/collection pages or item/entity pages.
+    // "excludePathStrategy" defines where the patterns are enforced:
+    // - 'router': the Angular router blocks the matched route during SSR, unknown paths still return a proper 404.
+    // - 'server': server.ts serves the CSR index.html without bootstrapping Angular (cheaper, but always returns a 200).
+    excludePathStrategy: 'server',
     excludePathPatterns: [
       { pattern: '^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)' },
       { pattern: '^/browse/' },
