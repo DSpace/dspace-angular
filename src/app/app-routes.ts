@@ -179,7 +179,7 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],
-        canActivate: [clientOnlyGuard, authenticatedGuard, endUserAgreementCurrentUserGuard],
+        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'login',
