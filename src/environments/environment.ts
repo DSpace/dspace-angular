@@ -15,7 +15,7 @@ export const environment: Partial<BuildConfig> = {
     inlineCriticalCss: false,
     transferState: true,
     replaceRestUrl: false,
-    excludePathStrategy: 'router',
+    excludePathStrategy: 'server',
     excludePathPatterns: [
       { pattern: '^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)' },
       { pattern: '^/browse/' },

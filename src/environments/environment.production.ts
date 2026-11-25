@@ -19,7 +19,7 @@ export const environment: Partial<BuildConfig> = {
     // "excludePathStrategy" defines where the patterns are enforced:
     // - 'router': the Angular router blocks the matched route during SSR, unknown paths still return a proper 404.
     // - 'server': server.ts serves the CSR index.html without bootstrapping Angular (cheaper, but always returns a 200).
-    excludePathStrategy: 'router',
+    excludePathStrategy: 'server',
     excludePathPatterns: [
       { pattern: '^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)' },
       { pattern: '^/browse/' },

@@ -7,16 +7,21 @@ import {
   CanActivateChildFn,
   RouterStateSnapshot,
 } from '@angular/router';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { BuildConfig } from '../../../config/build-config.interface';
+} from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { SsrExcludePatterns } from '@dspace/config/ssr-config.interface';
+
+import { environment } from '../../../environments/environment';
 import {
   getSsrExcludeStrategy,
   isExcludedFromSsr,
 } from './ssr-exclude.util';
+
+
+const SSR_EXCLUDE_PATTERNS: RegExp[] = environment.ssr.excludePathPatterns.map((p: SsrExcludePatterns) => new RegExp(p.pattern));
 
 /**
  * Placed as `canActivateChild` on the root of the router, prevents routes whose path matches one of the `ssr.excludePathPatterns`
@@ -35,5 +40,5 @@ export const clientOnlyGuard: CanActivateChildFn = (childRoute, state: RouterSta
     return true;
   }
   const path = state.url.split(/[?#]/)[0];
-  return !isExcludedFromSsr(path, appConfig.ssr?.excludePathPatterns);
+  return !isExcludedFromSsr(path, SSR_EXCLUDE_PATTERNS);
 };

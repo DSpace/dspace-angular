@@ -37,12 +37,12 @@ ssr:
   # [WARNING] changing these settings may impact your Search Engine Optimization (SEO). Any paths listed in "excludedPathPatterns"
   # may NOT be indexable by search engine crawlers (like Google Scholar). For search engine crawlers to fully index your site,
   # this "excludePathPatterns" should NEVER exclude SSR from the homepage, community/collection pages or item/entity pages.
-  # Where the "excludePathPatterns" are enforced. Defaults to "router".
+  # Where the "excludePathPatterns" are enforced. Defaults to "server".
   # - "router": the Angular router blocks the matched route during SSR. Angular is still bootstrapped on the server,
   #   but unknown paths still fall through to the 404 page and return a proper status code (better for crawlers).
   # - "server": the Node server serves the plain CSR index.html before bootstrapping Angular.
   #   Every matching path returns a 200, even if it doesn't exist.
-  excludePathStrategy: router
+  excludePathStrategy: server
   excludePathPatterns:
     - pattern: "^/(communities|collections)/[a-fA-F0-9-]{36}/(browse|search)"
     - pattern: "^/browse/"

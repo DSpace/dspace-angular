@@ -1,7 +1,4 @@
-import {
-  SsrExcludePatterns,
-  SsrExcludeStrategy,
-} from '../../../config/ssr-config.interface';
+import { SsrExcludeStrategy } from '../../../config/ssr-config.interface';
 
 /**
  * Default strategy used when `ssr.excludePathStrategy` is not configured.
@@ -21,6 +18,6 @@ export function getSsrExcludeStrategy(strategy?: SsrExcludeStrategy): SsrExclude
  * @param path            the url path, without query params or fragment
  * @param excludePatterns the configured `ssr.excludePathPatterns`
  */
-export function isExcludedFromSsr(path: string, excludePatterns: SsrExcludePatterns[] = []): boolean {
-  return excludePatterns.some((p) => new RegExp(p.pattern, p.flag || '').test(path));
+export function isExcludedFromSsr(path: string, excludePatterns: RegExp[] = []): boolean {
+  return excludePatterns.some((regExp) => regExp.test(path));
 }

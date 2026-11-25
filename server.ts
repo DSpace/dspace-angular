@@ -60,6 +60,7 @@ import {
   getSsrExcludeStrategy,
   isExcludedFromSsr,
 } from './src/app/core/ssr/ssr-exclude.util';
+import { SsrExcludePatterns } from "@dspace/config/ssr-config.interface";
 
 /*
  * Set path for the browser application's dist folder

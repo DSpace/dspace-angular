@@ -37,6 +37,7 @@ import {
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
+import { clientOnlyGuard } from './core/ssr/client-only.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
@@ -47,7 +48,6 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { viewTrackerResolver } from './statistics/angulartics/dspace/view-tracker.resolver';
 import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
-import { clientOnlyGuard } from "./core/ssr/client-only.guard";
 
 export const APP_ROUTES: Route[] = [
   { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent, data: { title: '500.page-internal-server-error' } },
