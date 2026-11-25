@@ -50,6 +50,7 @@ import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
+import { getSsrCacheKey } from '@dspace/core/locale/ssr-cache-key';
 import { CommonEngine } from '@angular/ssr/node';
 import { APP_BASE_HREF } from '@angular/common';
 import {
@@ -412,7 +413,7 @@ function anonymousCacheEnabled(): boolean {
 
 /**
  * Check if the currently requested page is in our server-side, in-memory cache.
- * Caching is ONLY done for SSR requests. Pages are cached base on their path (e.g. /home or /search?query=test)
+ * Caching is ONLY done for SSR requests. Pages are cached base on their path (e.g. /home or /search?query=test) and language
  */
 function cacheCheck(req, res, next) {
   // Authenticated users are never served via SSR
@@ -495,14 +496,13 @@ function checkCacheForRequest(cacheName: string, cache: LRUCache<string, any>, r
 
 /**
  * Create a cache key from the current request.
- * The cache key is the URL path (NOTE: this key will also include any querystring params).
- * E.g. "/home" or "/search?query=test"
+ * The cache key is the URL path (NOTE: this key will also include any querystring params) and the render language.
+ * E.g. "/home|en" or "/search?query=test|de"
  * @param req current request
  * @returns cache key to use for this page
  */
 function getCacheKey(req): string {
-  // NOTE: this will return the URL path *without* any baseUrl
-  return req.url;
+  return getSsrCacheKey(req, appConfig.languages, appConfig.fallbackLanguage);
 }
 
 /**
