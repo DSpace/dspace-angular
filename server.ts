@@ -245,7 +245,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && !isExcludedByServer(req.path)) {
+  if (environment.ssr.enabled && req.method === 'GET' && !isUserAuthenticated(req) && !isExcludedByServer(req.path)) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
