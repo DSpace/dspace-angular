@@ -510,7 +510,7 @@ describe('SearchComponent', () => {
     it('should NOT navigate when requested page is within total pages', fakeAsync(() => {
       // Mock search to return results on page 2
       const searchResultsPage2: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
-        page: [mockDso],
+        page: [Object.assign(new SearchResult<DSpaceObject>(), { indexableObject: mockDso })],
         pageInfo: Object.assign(new PageInfo(), { totalPages: 3, totalElements: 25, elementsPerPage: 10, currentPage: 2 }),
       });
       const resultsRD = createSuccessfulRemoteDataObject(searchResultsPage2);
