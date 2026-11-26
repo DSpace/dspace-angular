@@ -25,7 +25,7 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchService } from '../../search/search.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { DSOSelectorComponent } from './dso-selector.component';
 
 describe('DSOSelectorComponent', () => {
@@ -49,8 +49,8 @@ describe('DSOSelectorComponent', () => {
     createSearchResult('6'),
   ];
 
-  const searchService = {
-    search: (options: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true) => {
+  const searchResultsService = {
+    searchObjects: (options: PaginatedSearchOptions, useCachedVersionIfAvailable = true) => {
       if (hasValue(options.query) && options.query.startsWith('search.resourceid')) {
         return createSuccessfulRemoteDataObject$(createPaginatedList([searchResult]));
       } else if (options.pagination.currentPage === 1) {
@@ -84,7 +84,7 @@ describe('DSOSelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), DSOSelectorComponent],
       providers: [
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -141,14 +141,14 @@ describe('DSOSelectorComponent', () => {
 
   describe('search', () => {
     beforeEach(() => {
-      spyOn(searchService, 'search').and.callThrough();
+      spyOn(searchResultsService, 'searchObjects').and.callThrough();
     });
 
     it('should specify how to sort if no query is given', () => {
       component.sort = new SortOptions('dc.title', SortDirection.ASC);
       component.search(undefined, 0);
 
-      expect(searchService.search).toHaveBeenCalledWith(
+      expect(searchResultsService.searchObjects).toHaveBeenCalledWith(
         jasmine.objectContaining({
           query: undefined,
           sort: jasmine.objectContaining({
@@ -156,7 +156,6 @@ describe('DSOSelectorComponent', () => {
             direction: SortDirection.ASC,
           }),
         }),
-        null,
         true,
       );
     });
@@ -165,12 +164,11 @@ describe('DSOSelectorComponent', () => {
       component.sort = new SortOptions('dc.title', SortDirection.ASC);
       component.search('testQuery', 0);
 
-      expect(searchService.search).toHaveBeenCalledWith(
+      expect(searchResultsService.searchObjects).toHaveBeenCalledWith(
         jasmine.objectContaining({
           query: 'testQuery',
           sort: null,
         }),
-        null,
         true,
       );
     });
@@ -178,7 +176,7 @@ describe('DSOSelectorComponent', () => {
 
   describe('when search returns an error', () => {
     beforeEach(() => {
-      spyOn(searchService, 'search').and.returnValue(createFailedRemoteDataObject$());
+      spyOn(searchResultsService, 'searchObjects').and.returnValue(createFailedRemoteDataObject$());
       component.ngOnInit();
     });
 

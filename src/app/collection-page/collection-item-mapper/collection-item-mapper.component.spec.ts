@@ -33,7 +33,6 @@ import { NotificationsServiceStub } from '@dspace/core/testing/notifications-ser
 import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
@@ -56,6 +55,7 @@ import { ObjectSelectService } from '../../shared/object-select/object-select.se
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
@@ -129,11 +129,9 @@ describe('CollectionItemMapperComponent', () => {
     onTranslationChange: new EventEmitter(),
     onFallbackLangChange: new EventEmitter(),
   };
-  const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(emptyList),
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {},
-    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    invalidateSearchObjects: of(true),
   });
   const collectionDataServiceStub = {
     getMappedItems: () => of(emptyList),
@@ -188,7 +186,7 @@ describe('CollectionItemMapperComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
         { provide: TranslateService, useValue: translateServiceStub },

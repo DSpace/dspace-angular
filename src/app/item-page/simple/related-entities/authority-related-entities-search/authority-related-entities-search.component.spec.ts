@@ -13,7 +13,7 @@ import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 import { AuthorityRelatedEntitiesSearchComponent } from './authority-related-entities-search.component';
 
 
@@ -50,7 +50,7 @@ describe('AuthorityRelatedEntitiesSearchComponent', () => {
       .overrideComponent(AuthorityRelatedEntitiesSearchComponent, {
         remove: {
           imports: [
-            ThemedConfigurationSearchPageComponent,
+            ThemedSearchComponent,
           ],
         },
       })
@@ -82,7 +82,7 @@ describe('AuthorityRelatedEntitiesSearchComponent', () => {
 
     fixture.detectChanges();
 
-    const searchPage = fixture.nativeElement.querySelector('ds-configuration-search-page');
+    const searchPage = fixture.nativeElement.querySelector('ds-search');
     expect(searchPage).toBeTruthy();
   });
 
@@ -92,7 +92,7 @@ describe('AuthorityRelatedEntitiesSearchComponent', () => {
 
     fixture.detectChanges();
 
-    const searchPage = fixture.nativeElement.querySelector('ds-configuration-search-page');
+    const searchPage = fixture.nativeElement.querySelector('ds-search');
     expect(searchPage).toBeFalsy();
   });
 

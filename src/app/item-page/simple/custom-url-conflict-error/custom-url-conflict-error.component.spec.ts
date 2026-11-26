@@ -26,7 +26,7 @@ import {
 } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { SearchService } from '../../../shared/search/search.service';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { CustomUrlConflictErrorComponent } from './custom-url-conflict-error.component';
 
@@ -39,7 +39,7 @@ class AlertComponentStub {}
 describe('CustomUrlConflictErrorComponent', () => {
   let component: CustomUrlConflictErrorComponent;
   let fixture: ComponentFixture<CustomUrlConflictErrorComponent>;
-  let searchServiceSpy: jasmine.SpyObj<SearchService>;
+  let searchResultsDataServiceSpy: jasmine.SpyObj<SearchResultsDataService>;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   const customUrl = 'my-conflicting-url';
@@ -75,9 +75,9 @@ describe('CustomUrlConflictErrorComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    searchServiceSpy = jasmine.createSpyObj('SearchService', ['search']);
+    searchResultsDataServiceSpy = jasmine.createSpyObj('SearchResultsDataService', ['searchObjects']);
     authServiceSpy = jasmine.createSpyObj('AuthService', ['isAuthenticated']);
-    searchServiceSpy.search.and.returnValue(
+    searchResultsDataServiceSpy.searchObjects.and.returnValue(
       createSuccessfulRemoteDataObject$(buildSearchObjects([])),
     );
     authServiceSpy.isAuthenticated.and.returnValue(of(true));
@@ -92,7 +92,7 @@ describe('CustomUrlConflictErrorComponent', () => {
       providers: [
         provideNoopAnimations(),
         provideRouter([]),
-        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: SearchResultsDataService, useValue: searchResultsDataServiceSpy },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: AuthService, useValue: authServiceSpy },
       ],
@@ -106,7 +106,7 @@ describe('CustomUrlConflictErrorComponent', () => {
 
   describe('when search returns matching items', () => {
     beforeEach(() => {
-      searchServiceSpy.search.and.returnValue(
+      searchResultsDataServiceSpy.searchObjects.and.returnValue(
         createSuccessfulRemoteDataObject$(buildSearchObjects([mockItem1, mockItem2])),
       );
     });
@@ -118,7 +118,7 @@ describe('CustomUrlConflictErrorComponent', () => {
 
     it('should call SearchService.search with a query containing the custom URL', () => {
       createComponent();
-      expect(searchServiceSpy.search).toHaveBeenCalledOnceWith(
+      expect(searchResultsDataServiceSpy.searchObjects).toHaveBeenCalledOnceWith(
         jasmine.objectContaining({ query: `dspace.customurl:${customUrl}` }),
       );
     });
@@ -190,7 +190,7 @@ describe('CustomUrlConflictErrorComponent', () => {
 
   describe('when search returns no items', () => {
     beforeEach(() => {
-      searchServiceSpy.search.and.returnValue(
+      searchResultsDataServiceSpy.searchObjects.and.returnValue(
         createSuccessfulRemoteDataObject$(buildSearchObjects([])),
       );
       createComponent();
@@ -212,7 +212,7 @@ describe('CustomUrlConflictErrorComponent', () => {
 
   describe('when search throws an error', () => {
     beforeEach(() => {
-      searchServiceSpy.search.and.returnValue(throwError(() => new Error('Network error')));
+      searchResultsDataServiceSpy.searchObjects.and.returnValue(throwError(() => new Error('Network error')));
       createComponent();
     });
 

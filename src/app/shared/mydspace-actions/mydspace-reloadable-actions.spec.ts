@@ -24,7 +24,6 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
@@ -32,7 +31,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchService } from '../search/search.service';
+import { SearchResultsDataService } from '../search/services/search-results.data.service';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';
 
 let mockDataService: PoolTaskDataService;
@@ -44,7 +43,10 @@ let fixture: ComponentFixture<PoolTaskActionsComponent>;
 let mockObject: PoolTask;
 let notificationsServiceStub: NotificationsService;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -97,7 +99,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: PoolTaskDataService, useValue: mockDataService },
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],

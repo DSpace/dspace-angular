@@ -16,7 +16,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCommunitySelectorComponent } from './authorized-community-selector.component';
 
@@ -42,7 +42,7 @@ describe('AuthorizedCommunitySelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), AuthorizedCommunitySelectorComponent, VarDirective],
       providers: [
-        { provide: SearchService, useValue: {} },
+        { provide: SearchResultsDataService, useValue: {} },
         { provide: CommunityDataService, useValue: communityService },
         { provide: NotificationsService, useValue: notificationsService },
       ],

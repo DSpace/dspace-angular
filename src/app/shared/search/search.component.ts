@@ -22,7 +22,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
-import { SearchManager } from '@dspace/core/browse/search-manager';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -39,12 +38,15 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { SearchConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
@@ -71,6 +73,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { DiscoveryConfiguration } from '../../core/shared/search/discovery-configuration.model';
+import { Facet } from '../../core/shared/search/facet.model';
+import { SearchSortOption } from '../../core/shared/search/search-sort-option.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
@@ -86,6 +91,9 @@ import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import { DiscoveryConfigurationDataService } from './services/discovery-configuration.data.service';
+import { SearchFacetDataService } from './services/search-facet.data.service';
+import { SearchResultsDataService } from './services/search-results.data.service';
 
 @Component({
   selector: 'ds-base-search',
@@ -267,9 +275,19 @@ export class SearchComponent implements OnDestroy, OnInit {
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
 
   /**
-   * An observable containing configuration about which filters are shown and how they are shown
+   * An observable containing configuration about which filters are available
    */
-  filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+  filtersRD$: BehaviorSubject<RemoteData<PaginatedList<SearchFilterConfig>>> = new BehaviorSubject<RemoteData<PaginatedList<SearchFilterConfig>>>(null);
+
+  /**
+   * An observable containing configuration about which facets are shown and how they are shown
+   */
+  facetsRD$: BehaviorSubject<RemoteData<PaginatedList<Facet>>> = new BehaviorSubject<RemoteData<PaginatedList<Facet>>>(null);
+
+  /**
+   * An observable containing configuration of filters that are supported by the current available facets
+   */
+  facetFilters$: BehaviorSubject<SearchFilterConfig[]> = new BehaviorSubject<SearchFilterConfig[]>([]);
 
   /**
    * Maintains the last search options, so it can be used in refresh
@@ -349,6 +367,9 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   constructor(protected service: SearchService,
+              protected searchResultsService: SearchResultsDataService,
+              protected facetService: SearchFacetDataService,
+              protected discoveryConfigurationService: DiscoveryConfigurationDataService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -356,7 +377,6 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(PLATFORM_ID) public platformId: string,
-              protected searchManager: SearchManager,
               protected paginationService: PaginationService,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -403,27 +423,60 @@ export class SearchComponent implements OnDestroy, OnInit {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
-    const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
-      switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
-      map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
+    const discoveryConfiguration$: Observable<DiscoveryConfiguration> = combineLatest([configuration$, this.currentScope$]).pipe(
+      switchMap(([configuration, scope]: [string, string]) =>
+        this.discoveryConfigurationService.findByIdOrScope(configuration, scope, undefined, undefined,
+          followLink('sortoptions'), followLink('defaultsortoption'), followLink('searchfilters'))),
+      getAllSucceededRemoteDataPayload(),
+    );
+    const defaultSortOption$: Observable<SortOptions> = discoveryConfiguration$.pipe(
+      switchMap((discoveryConfiguration: DiscoveryConfiguration) => discoveryConfiguration.defaultsortoption),
+      getAllSucceededRemoteDataPayload(),
+      map((searchSortOption: SearchSortOption) => searchSortOption.option),
+    );
+    const searchSortOptions$: Observable<SortOptions[]> = discoveryConfiguration$.pipe(
+      switchMap((discoveryConfiguration: DiscoveryConfiguration) => discoveryConfiguration.sortoptions),
+      getAllSucceededRemoteDataPayload(),
+      map((sortOptions: PaginatedList<SearchSortOption>) => sortOptions.page.map((searchSortOption: SearchSortOption) => searchSortOption.option)),
       distinctUntilChanged(),
     );
-    const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
-      switchMap((searchSortOptions: SortOptions[]) => {
-        const defaultSort: SortOptions = searchSortOptions[0];
-        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
-      }),
+    const sortOption$: Observable<SortOptions> = defaultSortOption$.pipe(
+      switchMap((defaultSort: SortOptions) => this.searchConfigService.getCurrentSort(this.paginationId, defaultSort)),
       distinctUntilChanged(),
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
+    const searchFilters$: Observable<RemoteData<PaginatedList<SearchFilterConfig>>> = discoveryConfiguration$.pipe(
+      switchMap((discoveryConfiguration: DiscoveryConfiguration) => discoveryConfiguration.searchfilters),
+      getAllCompletedRemoteData(),
+    );
+    const facets$: Observable<RemoteData<PaginatedList<Facet>>> = combineLatest([configuration$, this.currentScope$]).pipe(
+      switchMap(([configuration, scope]: [string, string]) => this.facetService.findAll(new PaginatedSearchOptions({ configuration, scope }))),
+      getAllCompletedRemoteData(),
+    );
+    const facetFilters$: Observable<SearchFilterConfig[]> = combineLatest([
+      searchFilters$,
+      facets$,
+    ]).pipe(
+      map(([filters, facets]: [RemoteData<PaginatedList<SearchFilterConfig>>, RemoteData<PaginatedList<Facet>>]) => {
+        if (filters.hasSucceeded) {
+          if (facets.hasSucceeded) {
+            return filters.payload.page.filter((searchFilter) => facets.payload.page.some((facet) => facet.name === searchFilter.name));
+          } else {
+            return filters.payload.page;
+          }
+        } else {
+          return [];
+        }
+      }),
+    );
 
-    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
-      filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, searchFilters$, facets$, facetFilters$, this.currentScope$]).pipe(
+      filter(([configuration, searchSortOptions, searchOptions, sortOption, searchFilters, facets, facetFilters, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, RemoteData<PaginatedList<SearchFilterConfig>>, RemoteData<PaginatedList<Facet>>, SearchFilterConfig[], string]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
       }),
       debounceTime(100),
-    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
+    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, searchFilters, facets, facetFilters, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, RemoteData<PaginatedList<SearchFilterConfig>>, RemoteData<PaginatedList<Facet>>, SearchFilterConfig[], string]) => {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
@@ -448,7 +501,9 @@ export class SearchComponent implements OnDestroy, OnInit {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
-        this.retrieveFilters(newSearchOptions);
+        this.filtersRD$.next(searchFilters);
+        this.facetsRD$.next(facets);
+        this.facetFilters$.next(facetFilters);
       }
     }));
 
@@ -485,15 +540,6 @@ export class SearchComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Emit event to refresh filter content
-   * @param $event
-   */
-  public onContentChange($event: any) {
-    this.retrieveFilters(this.lastSearchOptions);
-    this.refreshFilters.next(true);
-  }
-
-  /**
    * Unsubscribe from the subscriptions
    */
   ngOnDestroy(): void {
@@ -506,19 +552,6 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   protected getSearchOptions(): Observable<PaginatedSearchOptions> {
     return this.searchConfigService.paginatedSearchOptions;
-  }
-
-  /**
-   * Retrieve search filters by the given search options
-   * @param searchOptions
-   * @private
-   */
-  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
-    this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
-      this.filtersRD$.next(filtersRD);
-    });
   }
 
   /**
@@ -549,7 +582,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       }
     }
 
-    this.searchManager.search(
+    this.searchResultsService.searchObjects(
       searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,

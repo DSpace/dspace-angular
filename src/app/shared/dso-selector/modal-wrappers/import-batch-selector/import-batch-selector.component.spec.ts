@@ -9,11 +9,13 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
@@ -41,12 +43,17 @@ describe('ImportBatchSelectorComponent', () => {
     },
   });
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    invalidateSearchObjects: of(true),
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ImportBatchSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],

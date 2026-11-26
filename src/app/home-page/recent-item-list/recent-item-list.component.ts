@@ -45,8 +45,8 @@ import {
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
@@ -82,7 +82,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
   private _placeholderFontClass: string;
 
   constructor(
-    private searchService: SearchService,
+    private searchResultsService: SearchResultsDataService,
     private paginationService: PaginationService,
     public searchConfigurationService: SearchConfigurationService,
     protected elementRef: ElementRef,
@@ -107,13 +107,12 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
       linksToFollow.push(followLink('accessStatus'));
     }
 
-    this.itemRD$ = this.searchService.search(
+    this.itemRD$ = this.searchResultsService.searchObjects(
       new PaginatedSearchOptions({
         pagination: this.paginationConfig,
         dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
       }),
-      undefined,
       undefined,
       undefined,
       ...linksToFollow,

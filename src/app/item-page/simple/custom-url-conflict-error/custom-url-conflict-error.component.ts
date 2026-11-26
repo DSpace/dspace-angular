@@ -28,7 +28,7 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SearchService } from '../../../shared/search/search.service';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 
 /**
@@ -72,7 +72,7 @@ export class CustomUrlConflictErrorComponent implements OnInit {
   isAuthenticated$: Observable<boolean>;
 
   constructor(
-    private searchService: SearchService,
+    private searchResultsDataService: SearchResultsDataService,
     private dsoNameService: DSONameService,
     private authService: AuthService,
   ) {}
@@ -84,7 +84,7 @@ export class CustomUrlConflictErrorComponent implements OnInit {
       query: `dspace.customurl:${this.customUrl}`,
     });
 
-    this.conflictingItems$ = this.searchService.search<Item>(searchOptions).pipe(
+    this.conflictingItems$ = this.searchResultsDataService.searchObjects(searchOptions).pipe(
       getFirstCompletedRemoteData(),
       map((rd: RemoteData<SearchObjects<Item>>) => {
         if (rd.hasSucceeded && rd.payload?.page?.length > 0) {

@@ -46,6 +46,7 @@ import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/f
 import { SearchService } from '../../../search.service';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFilterService } from '../../search-filter.service';
 import {
   facetLoad,
@@ -78,6 +79,7 @@ import { renderFacetFor } from '../search-filter-type-decorator';
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
 
   constructor(protected searchService: SearchService,
+              protected facetService: SearchFacetDataService,
               protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
@@ -88,6 +90,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   ) {
     super(
       searchService,
+      facetService,
       filterService,
       rdbs,
       router,

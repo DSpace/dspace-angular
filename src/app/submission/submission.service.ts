@@ -69,6 +69,7 @@ import {
 
 import { environment } from '../../environments/environment';
 import { SearchService } from '../shared/search/search.service';
+import { SearchResultsDataService } from '../shared/search/services/search-results.data.service';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -138,8 +139,7 @@ export class SubmissionService {
    * @param {RouteService} routeService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
-   * @param {RequestService} requestService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
   constructor(protected notificationsService: NotificationsService,
@@ -150,6 +150,7 @@ export class SubmissionService {
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService,
+              protected searchResultsService: SearchResultsDataService,
               protected jsonPatchOperationService: SubmissionJsonPatchOperationsService,
               protected itemDataService: ItemDataService) {
   }
@@ -661,10 +662,8 @@ export class SubmissionService {
   redirectToMyDSpace() {
     // This assures that the cache is empty before redirecting to mydspace.
     // See https://github.com/DSpace/dspace-angular/pull/468
-    this.searchService.getEndpoint().pipe(
+    this.searchResultsService.invalidateSearchObjects().pipe(
       take(1),
-      tap((url) => this.requestService.removeByHrefSubstring(url)),
-      // Now, do redirect.
       concatMap(
         () => this.routeService.getPreviousUrl().pipe(
           take(1),

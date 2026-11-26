@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
 import { Context } from '@dspace/core/shared/context.model';
 
-import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
+import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-base-admin-search-page',
   templateUrl: './admin-search-page.component.html',
   styleUrls: ['./admin-search-page.component.scss'],
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService,
+    },
+  ],
   imports: [
-    ThemedConfigurationSearchPageComponent,
+    ThemedSearchComponent,
   ],
 })
 

@@ -58,13 +58,10 @@ export class ItemCollectionComponent implements OnInit {
    * Initialize collection object
    */
   ngOnInit() {
-
-    this.linkService.resolveLinks(this.object, followLink('workflowitem', {
-      isOptional: true,
-    },
-    followLink('collection',{}),
-    ));
-    this.collection$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
+    this.collection$ = this.linkService.resolveLinkWithoutAttaching(
+      this.object,
+      followLink('workflowitem', { isOptional: true }, followLink('collection')),
+    ).pipe(
       getFirstCompletedRemoteData(),
       mergeMap((rd: RemoteData<WorkflowItem>) => {
         if (rd.hasSucceeded && isNotEmpty(rd.payload)) {

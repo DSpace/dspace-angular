@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
 
@@ -43,7 +43,7 @@ describe('AuthorizedCollectionSelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), AuthorizedCollectionSelectorComponent, VarDirective],
       providers: [
-        { provide: SearchService, useValue: {} },
+        { provide: SearchResultsDataService, useValue: {} },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: NotificationsService, useValue: notificationsService },
       ],

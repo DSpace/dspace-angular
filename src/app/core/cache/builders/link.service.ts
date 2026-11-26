@@ -53,10 +53,12 @@ export class LinkService {
    *
    * @param model the {@link HALResource} to resolve the links for
    * @param linksToFollow the {@link FollowLinkConfig}s to resolve
+   * @returns the model with the resolved links attached. May be a shallow clone of the
+   *          input when the original model was not extensible (e.g. frozen NgRx state).
    */
   public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: FollowLinkConfig<T>[]): T {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      this.resolveLink(model, linkToFollow);
+      model = this.resolveLink(model, linkToFollow);
     });
     return model;
   }
@@ -107,11 +109,21 @@ export class LinkService {
   /**
    * Resolve the given {@link FollowLinkConfig} for the given model and return the model with the
    * link property attached.
+   * <p>
+   * When the given model is not extensible (e.g. because it originates from frozen NgRx state),
+   * a shallow clone is created before attaching the link. Callers must use the returned model
+   * instead of relying on in-place mutation of the input.
    *
    * @param model the {@link HALResource} to resolve the link for
    * @param linkToFollow the {@link FollowLinkConfig} to resolve
+   * @returns the model with the resolved link attached
    */
   public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
+    // NgRx strictStateImmutability freezes store objects; never mutate those in place.
+    if (!Object.isExtensible(model)) {
+      model = Object.assign(new (model.constructor as GenericConstructor<T>)(), model);
+    }
+
     const linkDefinitions = this.getLinkDefinitions(model.constructor as GenericConstructor<T>);
     const linkDef = linkDefinitions.get(linkToFollow.name);
 

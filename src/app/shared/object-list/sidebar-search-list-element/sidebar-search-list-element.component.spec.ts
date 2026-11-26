@@ -61,9 +61,7 @@ export function createSidebarSearchListElementTests(
       }
 
       linkService = jasmine.createSpyObj('linkService', {
-        resolveLink: Object.assign(new HALResource(), {
-          [object.indexableObject.getParentLinkKey()]: createSuccessfulRemoteDataObject$(parent),
-        }),
+        resolveLinkWithoutAttaching: createSuccessfulRemoteDataObject$(parent),
       });
       const breadcrumbs: Breadcrumb[] = [];
       if (expectedParentTitle) {

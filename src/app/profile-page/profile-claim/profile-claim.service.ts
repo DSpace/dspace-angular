@@ -16,7 +16,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SearchService } from '../../shared/search/search.service';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 
 /**
  * Service that handle profiles claim.
@@ -24,7 +24,7 @@ import { SearchService } from '../../shared/search/search.service';
 @Injectable({ providedIn: 'root' })
 export class ProfileClaimService {
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchResultsService: SearchResultsDataService) {
   }
 
   /**
@@ -63,10 +63,10 @@ export class ProfileClaimService {
     if (isEmpty(query)) {
       return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
-    return this.searchService.search(new PaginatedSearchOptions({
+    return this.searchResultsService.searchObjects(new PaginatedSearchOptions({
       configuration: 'eperson_claims',
       query: query,
-    }), null, false, true);
+    }), false, true);
   }
 
   /**

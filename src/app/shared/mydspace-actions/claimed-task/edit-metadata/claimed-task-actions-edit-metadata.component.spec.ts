@@ -22,20 +22,25 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -60,7 +65,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },

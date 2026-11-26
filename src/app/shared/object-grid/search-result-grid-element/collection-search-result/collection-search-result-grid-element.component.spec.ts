@@ -68,9 +68,8 @@ mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), 
     ],
   },
 });
-const linkService = jasmine.createSpyObj('linkService', {
-  resolveLink: mockCollectionWithAbstract,
-});
+const linkService = jasmine.createSpyObj('linkService', ['resolveLink']);
+linkService.resolveLink.and.callFake((object) => object);
 
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {

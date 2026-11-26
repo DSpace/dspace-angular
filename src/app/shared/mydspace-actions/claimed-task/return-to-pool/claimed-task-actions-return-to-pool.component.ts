@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { ClaimedTaskType } from '../claimed-task-type';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
@@ -44,10 +44,10 @@ export class ClaimedTaskActionsReturnToPoolComponent extends ClaimedTaskActionsA
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService,
               private poolTaskService: PoolTaskDataService) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {

@@ -25,7 +25,6 @@ import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   NgbModal,
@@ -37,7 +36,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 
 let component: ClaimedTaskActionsRejectComponent;
@@ -45,7 +44,10 @@ let fixture: ComponentFixture<ClaimedTaskActionsRejectComponent>;
 let formBuilder: UntypedFormBuilder;
 let modalService: NgbModal;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -77,7 +79,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         UntypedFormBuilder,
@@ -191,8 +193,8 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
   describe('convertReloadedObject', () => {
 
-    it('should return a ClaimedDeclinedTaskSearchResult instance', async () => {
-      const reloadedObject = await component.convertReloadedObject(component.object);
+    it('should return a ClaimedDeclinedTaskSearchResult instance', () => {
+      const reloadedObject = component.convertReloadedObject(component.object);
       expect(reloadedObject instanceof ClaimedDeclinedTaskSearchResult).toEqual(true);
     });
   });

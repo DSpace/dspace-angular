@@ -4,6 +4,9 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DiscoveryConfiguration } from '@dspace/core/shared/search/discovery-configuration.model';
+import { Facet } from '@dspace/core/shared/search/facet.model';
+import { SearchSortOption } from '@dspace/core/shared/search/search-sort-option.model';
 import { SubmissionCustomUrl } from '@dspace/core/submission/models/submission-custom-url.model';
 
 import { Audit } from './audit/model/audit.model';
@@ -232,4 +235,7 @@ export const models =
     CorrectionType,
     SupervisionOrder,
     SubmissionCustomUrl,
+    DiscoveryConfiguration,
+    Facet,
+    SearchSortOption,
   ];

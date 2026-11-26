@@ -6,4 +6,4 @@ import { ResourceType } from '../../resource-type';
  * Needs to be in a separate file to prevent circular
  * dependencies in webpack.
  */
-export const SEARCH_OBJECTS = new ResourceType('discovery-objects');
+export const SEARCH_OBJECTS = new ResourceType('searchresult');

@@ -35,8 +35,10 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../../search.service';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
@@ -51,6 +53,7 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   let searchService: SearchServiceStub;
+  let facetService: SearchFacetDataService;
   const searchFilterService = {
     getPage: () => of(0),
   };
@@ -70,6 +73,9 @@ describe('SearchHierarchyFilterComponent', () => {
 
   beforeEach(() => {
     searchService = new SearchServiceStub();
+    facetService = jasmine.createSpyObj('facetService',{
+      searchFacet: createSuccessfulRemoteDataObject$(null),
+    });
     searchConfigService = new SearchConfigurationServiceStub();
     router = new RouterStub();
 
@@ -82,6 +88,7 @@ describe('SearchHierarchyFilterComponent', () => {
       ],
       providers: [
         { provide: SearchService, useValue: searchService },
+        { provide: SearchFacetDataService, useValue: facetService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: Router, useValue: router },
@@ -98,7 +105,7 @@ describe('SearchHierarchyFilterComponent', () => {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
     comp = fixture.componentInstance;
     comp.inPlaceSearch = false;
-    comp.filterConfig = Object.assign(new SearchFilterConfig(), { name: testSearchFilter });
+    comp.filterConfig = Object.assign(new SearchFilterConfig(), { filter: testSearchFilter });
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));

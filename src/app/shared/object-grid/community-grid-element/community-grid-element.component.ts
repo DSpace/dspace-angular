@@ -49,7 +49,7 @@ export class CommunityGridElementComponent extends AbstractListableElementCompon
   @Input() set object(object: Community) {
     this._object = object;
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
-      this.linkService.resolveLink<Community>(this._object, followLink('logo'));
+      this._object = this.linkService.resolveLink<Community>(this._object, followLink('logo'));
     }
   }
 

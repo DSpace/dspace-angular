@@ -138,7 +138,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   getParent(): Observable<RemoteData<DSpaceObject>> {
     if (this.isChildHALResource(this.dso)) {
       const propertyName = this.dso.getParentLinkKey() as string;
-      return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
+      return this.linkService.resolveLinkWithoutAttaching(this.dso, followLink(propertyName)).pipe(
         find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       );
     }

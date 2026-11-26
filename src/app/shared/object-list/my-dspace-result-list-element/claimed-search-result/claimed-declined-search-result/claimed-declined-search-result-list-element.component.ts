@@ -73,7 +73,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.linkService.resolveLinks(this.dso,
+    this.dso = this.linkService.resolveLinks(this.dso,
       followLink('workflowitem',
         { useCachedVersionIfAvailable: false },
         followLink('item'),

@@ -175,14 +175,14 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   private invalidate(newBitstream: Bitstream) {
     // the Bitstream returned after upload is not an instance of Bitstream yet
     newBitstream = Object.assign(new Bitstream(), newBitstream);
-    this.linkService.resolveLink<Bitstream>(newBitstream, followLink('bundle'));
+    newBitstream = this.linkService.resolveLink<Bitstream>(newBitstream, followLink('bundle'));
     this.requestService.setStaleByHrefSubstring(newBitstream.firstMetadata('dspace.bitstream.isReplacementOf')?.authority);
 
     newBitstream.bundle.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((bundle: Bundle) => {
         this.requestService.setStaleByHrefSubstring(bundle.self);
-        this.linkService.resolveLink<Bundle>(bundle, followLink('item'));
+        bundle = this.linkService.resolveLink<Bundle>(bundle, followLink('item'));
         return bundle.item;
       }),
       getFirstSucceededRemoteDataPayload(),

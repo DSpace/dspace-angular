@@ -9,6 +9,8 @@ import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
 import { LICENSE } from '../shared/license.resource-type';
+import { SEARCH_FILTER_CONFIG } from '../shared/search/types/search-filter-config.resource-type';
+import { SEARCH_SORT_OPTION } from '../shared/search/types/search-sort-option.resource-type';
 import { VOCABULARY_ENTRY } from '../submission/vocabularies/models/vocabularies.resource-type';
 import { BaseDataService } from './base/base-data.service';
 import { HALDataService } from './base/hal-data-service.interface';
@@ -37,6 +39,8 @@ import { RequestService } from './request.service';
 @dataService(VOCABULARY_ENTRY)
 @dataService(ITEM_TYPE)
 @dataService(LICENSE)
+@dataService(SEARCH_FILTER_CONFIG)
+@dataService(SEARCH_SORT_OPTION)
 export class HrefOnlyDataService implements HALDataService<any> {
   /**
    * Works with a {@link BaseDataService} internally, but only exposes two of its methods

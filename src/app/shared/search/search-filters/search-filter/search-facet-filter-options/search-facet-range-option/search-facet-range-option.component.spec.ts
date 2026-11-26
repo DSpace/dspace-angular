@@ -41,7 +41,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   const filterName1 = 'test name';
   const value2 = '20 - 30';
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
+    filter: filterName1,
     type: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,

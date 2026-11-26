@@ -37,12 +37,10 @@ import { FilterType } from '@dspace/core/shared/search/models/filter-type.model'
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import {
-  SearchConfig,
-  SortConfig,
-} from '@dspace/core/shared/search/search-filters/search-config.model';
+import { SearchSortOption } from '@dspace/core/shared/search/search-sort-option.model';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -59,6 +57,7 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment.test';
+import { DiscoveryConfiguration } from '../../core/shared/search/discovery-configuration.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
@@ -72,6 +71,9 @@ import { SearchFilterService } from './search-filters/search-filter.service';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
+import { DiscoveryConfigurationDataService } from './services/discovery-configuration.data.service';
+import { SearchFacetDataService } from './services/search-facet.data.service';
+import { SearchResultsDataService } from './services/search-results.data.service';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -81,19 +83,25 @@ const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   select: of(true),
 });
-const sortConfigList: SortConfig[] = [
-  { name: 'score', sortOrder: SortDirection.DESC },
-  { name: 'dc.title', sortOrder: SortDirection.ASC },
-  { name: 'dc.title', sortOrder: SortDirection.DESC },
+const searchSortOptionList: SearchSortOption[] = [
+  Object.assign(new SearchSortOption(), {
+    name: 'score',
+    sortOrder: 'desc',
+  }),
+  Object.assign(new SearchSortOption(), {
+    name: 'dc.title',
+    sortOrder: 'asc',
+  }),
+  Object.assign(new SearchSortOption(), {
+    name: 'dc.title',
+    sortOrder: 'desc',
+  }),
 ];
 const sortOptionsList: SortOptions[] = [
   new SortOptions('score', SortDirection.DESC),
   new SortOptions('dc.title', SortDirection.ASC),
   new SortOptions('dc.title', SortDirection.DESC),
 ];
-const searchConfig = Object.assign(new SearchConfig(), {
-  sortOptions: sortConfigList,
-});
 const paginationId = 'search-test-page-id';
 const pagination: PaginationComponentOptions = new PaginationComponentOptions();
 pagination.id = paginationId;
@@ -136,14 +144,15 @@ const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchO
 const mockResultsRD: RemoteData<SearchObjects<DSpaceObject>> = createSuccessfulRemoteDataObject(mockSearchResults);
 const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = of(mockResultsRD);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
-  search: mockResultsRD$,
   getSearchLink: '/search',
   getScopes: of(['test-scope']),
-  getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
   trackSearch: {},
 }) as SearchService;
 const searchManagerStub = jasmine.createSpyObj('SearchManager', {
   search: mockResultsRD$,
+});
+const searchResultsServiceStub = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: mockResultsRD$,
 });
 const queryParam = 'test query';
 const hiddenQuery = 'hidden query';
@@ -167,21 +176,21 @@ const activatedRouteStub = {
 };
 
 const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-  name: 'test1',
+  filter: 'test1',
   filterType: FilterType.text,
   hasFacets: false,
   isOpenByDefault: false,
   pageSize: 2,
 });
 const mockFilterConfig2: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-  name: 'test2',
+  filter: 'test2',
   filterType: FilterType.text,
   hasFacets: false,
   isOpenByDefault: false,
   pageSize: 1,
 });
 
-const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mockFilterConfig2]);
+const filtersConfigRD = createSuccessfulRemoteDataObject(createPaginatedList([mockFilterConfig, mockFilterConfig2]));
 const filtersConfigRD$ = of(filtersConfigRD);
 
 const routeServiceStub = {
@@ -197,16 +206,22 @@ const routeServiceStub = {
 };
 
 let searchConfigurationServiceStub;
+const facetServiceStub = jasmine.createSpyObj('facetService', {
+  findAll: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+});
+const discoveryConfigurationServiceStub = jasmine.createSpyObj('discoveryConfigurationService', {
+  findByIdOrScope: createSuccessfulRemoteDataObject$(Object.assign(new DiscoveryConfiguration(), {
+    defaultsortoption: createSuccessfulRemoteDataObject$(searchSortOptionList[0]),
+    sortoptions: createSuccessfulRemoteDataObject$(createPaginatedList(searchSortOptionList)),
+    searchfilters: filtersConfigRD$,
+  })),
+});
 
 export function configureSearchComponentTestingModule(compType, additionalDeclarations: any[] = []) {
   searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
-    getConfigurationSortOptions: sortOptionsList,
-    getConfig: filtersConfigRD$,
-    getConfigurationSearchConfig: of(searchConfig),
     getCurrentConfiguration: of('default'),
     getCurrentScope: of('test-id'),
     getCurrentSort: of(sortOptionsList[0]),
-    updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
     setPaginationId: jasmine.createSpy('setPaginationId'),
   });
 
@@ -224,6 +239,9 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
       { provide: SearchManager, useValue: searchManagerStub },
+      { provide: SearchResultsDataService, useValue: searchResultsServiceStub },
+      { provide: SearchFacetDataService, useValue: facetServiceStub },
+      { provide: DiscoveryConfigurationDataService, useValue: discoveryConfigurationServiceStub },
       {
         provide: CommunityDataService,
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll']),
@@ -452,7 +470,7 @@ describe('SearchComponent', () => {
         comp.ngOnInit();
         tick(100);
         //Check that the last method from which the search depend upon is being called
-        expect(searchManagerStub.search).toHaveBeenCalled();
+        expect(searchResultsServiceStub.searchObjects).toHaveBeenCalled();
       }));
     });
   });

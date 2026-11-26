@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 import { RelatedEntitiesSearchComponent } from './related-entities-search.component';
 
 describe('RelatedEntitiesSearchComponent', () => {
@@ -30,7 +30,9 @@ describe('RelatedEntitiesSearchComponent', () => {
     })
       .overrideComponent(RelatedEntitiesSearchComponent, {
         remove: {
-          imports: [ThemedConfigurationSearchPageComponent],
+          imports: [
+            ThemedSearchComponent,
+          ],
         },
       })
       .compileComponents();

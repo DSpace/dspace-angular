@@ -20,7 +20,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
-import { SearchService } from '../../shared/search/search.service';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 
@@ -140,7 +140,7 @@ describe('AdminNotifyDashboardComponent', () => {
         AdminNotifyDashboardComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
+        { provide: SearchResultsDataService, useValue: { searchObjects: () => createSuccessfulRemoteDataObject$(results) } },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { getClassForType } from '@dspace/core/cache/builders/build-decorators';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 
+import { getSearchResultFor } from '../../shared/search/search-result-element-decorator-sync';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import {
   MetadataMap,
   MetadataValue,
@@ -21,12 +28,9 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
         objects: [],
       },
     };
-    const payload = data.payload._embedded.searchResult || emptyPayload;
-    payload.appliedFilters = data.payload.appliedFilters;
-    payload.sort = data.payload.sort;
-    payload.scope = data.payload.scope;
-    payload.configuration = data.payload.configuration;
-    const hitHighlights: MetadataMap[] = payload._embedded.objects
+    const payload: any = data.payload || emptyPayload;
+    const embeddedObjects = isNotEmpty(payload?._embedded?.objects) ? payload._embedded.objects : [];
+    const hitHighlights: MetadataMap[] = embeddedObjects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
         const mdMap: MetadataMap = {};
@@ -39,21 +43,27 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
         return mdMap;
       });
 
-    const dsoSelfLinks = payload._embedded.objects
-      .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.indexableObject)
-      .map((dso) => this.process(dso, request))
-      .map((obj) => obj._links.self.href)
-      .reduce((combined, thisElement) => [...combined, thisElement], []);
-
-    const objects = payload._embedded.objects
+    const objects = embeddedObjects
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
-        indexableObject: dsoSelfLinks[index],
+        indexableObject: object._embedded.indexableObject,
         hitHighlights: hitHighlights[index],
       }));
     payload.objects = objects;
-    const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    const deserialized: SearchObjects<any> = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    deserialized.page = deserialized.page.map((result) => {
+      const indexableObject = new DSpaceSerializer(getClassForType(result.indexableObject.type)).deserialize(result.indexableObject);
+
+      // determine the constructor of the search result (ItemSearchResult,
+      // CollectionSearchResult, etc) based on the kind of the indexableObject it
+      // contains. Recreate the result with that constructor
+      const constructor: GenericConstructor<ListableObject> = indexableObject.constructor as GenericConstructor<ListableObject>;
+      const resultConstructor = getSearchResultFor(constructor);
+
+      return Object.assign(new resultConstructor(), result, {
+        indexableObject,
+      });
+    });
     deserialized.pageInfo = this.processPageInfo(payload);
     this.addToObjectCache(deserialized, request, data);
     return new ParsedResponse(data.statusCode, deserialized._links.self);

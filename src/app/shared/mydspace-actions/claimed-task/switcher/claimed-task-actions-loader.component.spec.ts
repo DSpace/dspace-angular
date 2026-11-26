@@ -25,18 +25,21 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ClaimedTaskType } from '../claimed-task-type';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -94,7 +97,7 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: {} },
         { provide: ThemeService, useValue: themeService },

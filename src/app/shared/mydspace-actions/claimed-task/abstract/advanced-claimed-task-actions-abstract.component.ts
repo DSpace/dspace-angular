@@ -16,7 +16,7 @@ import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model'
 import { TranslateService } from '@ngx-translate/core';
 
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 
 /**
@@ -46,11 +46,11 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
     protected route: ActivatedRoute,
   ) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   ngOnInit(): void {

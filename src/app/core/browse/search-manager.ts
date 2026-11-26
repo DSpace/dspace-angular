@@ -13,9 +13,9 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import { SearchService } from 'src/app/shared/search/search.service';
 
 import { environment } from '../../../environments/environment';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { ItemDataService } from '../data/item-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -41,7 +41,7 @@ export class SearchManager {
   constructor(
     protected itemService: ItemDataService,
     protected browseService: BrowseService,
-    protected searchService: SearchService,
+    protected searchResultsDataService: SearchResultsDataService,
   ) {
   }
 
@@ -62,8 +62,8 @@ export class SearchManager {
     useCachedVersionIfAvailable = true,
     reRequestOnStale = true,
     ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
-    return this.searchService.search(searchOptions, responseMsToLive, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)
-      .pipe(this.completeSearchObjectsWithExtraData());
+    return this.searchResultsDataService.searchObjects(searchOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)
+      .pipe(this.completeSearchObjectsWithExtraData()) as Observable<RemoteData<SearchObjects<T>>>;
   }
 
 

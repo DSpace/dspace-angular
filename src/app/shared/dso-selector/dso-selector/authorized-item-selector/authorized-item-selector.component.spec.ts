@@ -11,11 +11,11 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { Item } from 'src/app/core/shared/item.model';
-import { SearchService } from 'src/app/shared/search/search.service';
 
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedItemSelectorComponent } from './authorized-item-selector.component';
 
@@ -39,7 +39,7 @@ describe('AuthorizedItemSelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), AuthorizedItemSelectorComponent, VarDirective],
       providers: [
-        { provide: SearchService, useValue: {} },
+        { provide: SearchResultsDataService, useValue: {} },
         { provide: ItemDataService, useValue: itemService },
         { provide: NotificationsService, useValue: notificationsService },
       ],

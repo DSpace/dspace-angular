@@ -32,7 +32,7 @@ import {
 } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { ClaimedTaskType } from '../claimed-task-type';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
@@ -70,11 +70,11 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService,
               private formBuilder: UntypedFormBuilder,
               private modalService: NgbModal) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**
@@ -117,10 +117,9 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
     return of(this.object);
   }
 
-  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
-    const reloadedObject = Object.assign(new ClaimedDeclinedTaskSearchResult(), dso, {
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+    return Object.assign(new ClaimedDeclinedTaskSearchResult(), dso, {
       indexableObject: dso,
     });
-    return reloadedObject;
   }
 }

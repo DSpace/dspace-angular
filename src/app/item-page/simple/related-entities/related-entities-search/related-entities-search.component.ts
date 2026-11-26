@@ -7,13 +7,13 @@ import { Item } from '@dspace/core/shared/item.model';
 import { getFilterByRelation } from '@dspace/core/utilities/relation-query.utils';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
-import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-related-entities-search',
   templateUrl: './related-entities-search.component.html',
   imports: [
-    ThemedConfigurationSearchPageComponent,
+    ThemedSearchComponent,
   ],
 })
 /**

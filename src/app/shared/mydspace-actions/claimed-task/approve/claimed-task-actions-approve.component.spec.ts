@@ -20,7 +20,6 @@ import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
@@ -28,13 +27,16 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchService } from '../../../search/search.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
 
 let component: ClaimedTaskActionsApproveComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsApproveComponent>;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -68,7 +70,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         { provide: WorkflowItemDataService, useValue: mockWorkflowItemDataService },

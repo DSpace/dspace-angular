@@ -22,7 +22,6 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
@@ -31,7 +30,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchService } from '../../search/search.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 
 let component: WorkflowitemActionsComponent;
@@ -41,7 +40,10 @@ let mockObject: WorkflowItem;
 
 const mockDataService = {};
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestServce = getMockRequestService();
 
@@ -94,7 +96,7 @@ describe('WorkflowitemActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestServce },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],

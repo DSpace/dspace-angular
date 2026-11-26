@@ -25,7 +25,6 @@ import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   createSuccessfulRemoteDataObject,
@@ -37,7 +36,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SearchService } from '../../search/search.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { VarDirective } from '../../utils/var.directive';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 
@@ -49,7 +48,7 @@ let notificationsServiceStub: NotificationsServiceStub;
 let router: RouterStub;
 
 let mockDataService;
-let searchService;
+let searchResultsService;
 let requestServce;
 let workflowActionService: WorkflowActionDataService;
 
@@ -65,7 +64,10 @@ function init() {
     rejectTask: jasmine.createSpy('rejectTask'),
     returnToPoolTask: jasmine.createSpy('returnToPoolTask'),
   });
-  searchService = getMockSearchService();
+  searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: '',
+    invalidateSearchObjects: of(true),
+  });
   requestServce = getMockRequestService();
 
   item = Object.assign(new Item(), {
@@ -127,7 +129,7 @@ describe('ClaimedTaskActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ClaimedTaskDataService, useValue: mockDataService },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestServce },
         { provide: WorkflowActionDataService, useValue: workflowActionService },
       ],

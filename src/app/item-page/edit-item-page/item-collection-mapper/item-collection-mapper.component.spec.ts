@@ -29,7 +29,6 @@ import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
@@ -51,6 +50,7 @@ import { ObjectSelectService } from '../../../shared/object-select/object-select
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { SearchService } from '../../../shared/search/search.service';
 import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -105,11 +105,9 @@ describe('ItemCollectionMapperComponent', () => {
   const collectionDataServiceStub = {
     findListByHref: () => of(mockCollectionsRD),
   };
-  const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(mockCollectionsRD),
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: of(mockCollectionsRD),
+    invalidateSearchObjects: of(true),
   });
   const activatedRouteStub = {
     parent: {
@@ -138,7 +136,7 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },

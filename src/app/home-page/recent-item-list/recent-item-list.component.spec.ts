@@ -12,26 +12,22 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { RecentItemListComponent } from './recent-item-list.component';
 
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
   let fixture: ComponentFixture<RecentItemListComponent>;
-  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   let paginationService;
-  const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(emptyList),
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {},
-    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    invalidateSearchObjects: of(true),
   });
   paginationService = new PaginationServiceStub();
   const mockSearchOptions = of(new PaginatedSearchOptions({
@@ -49,7 +45,7 @@ describe('RecentItemListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RecentItemListComponent],
       providers: [
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },

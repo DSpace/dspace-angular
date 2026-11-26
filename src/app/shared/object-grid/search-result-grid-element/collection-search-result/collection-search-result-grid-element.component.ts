@@ -55,7 +55,7 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
   @Input() set dso(dso: Collection) {
     this._dso = dso;
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {
-      this.linkService.resolveLink<Collection>(
+      this._dso = this.linkService.resolveLink<Collection>(
         this._dso,
         followLink('logo'),
       );

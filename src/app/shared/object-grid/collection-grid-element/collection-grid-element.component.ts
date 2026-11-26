@@ -50,7 +50,7 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
   @Input() set object(object: Collection) {
     this._object = object;
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
-      this.linkService.resolveLink<Collection>(
+      this._object = this.linkService.resolveLink<Collection>(
         this._object,
         followLink('logo'),
       );

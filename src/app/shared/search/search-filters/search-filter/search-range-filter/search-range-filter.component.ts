@@ -11,7 +11,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { RouteService } from '@dspace/core/services/route.service';
+import { getAllCompletedRemoteData } from '@dspace/core/shared/operators';
+import { Facet } from '@dspace/core/shared/search/facet.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { yearFromString } from '@dspace/shared/utils/date.util';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -20,7 +23,10 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { NouisliderComponent } from 'ng2-nouislider';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+} from 'rxjs';
 import {
   map,
   startWith,
@@ -30,6 +36,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-c
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import { SearchService } from '../../../search.service';
 import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFilterService } from '../../search-filter.service';
 import {
   facetLoad,
@@ -70,7 +77,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Fallback minimum for the range
    */
-  min = 1950;
+  minDefault = 1950;
+  min$ = new BehaviorSubject(this.minDefault);
 
   /**
    * i18n Label to use for minimum field
@@ -80,7 +88,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Fallback maximum for the range
    */
-  max = new Date().getUTCFullYear();
+  maxDefault = new Date().getUTCFullYear();
+  max$ = new BehaviorSubject(this.maxDefault);
 
   /**
    * i18n Label to use for maximum field
@@ -110,6 +119,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   keyboardControl: boolean;
 
   constructor(protected searchService: SearchService,
+              protected facetService: SearchFacetDataService,
               protected filterService: SearchFilterService,
               protected router: Router,
               protected route: RouteService,
@@ -120,6 +130,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   ) {
     super(
       searchService,
+      facetService,
       filterService,
       rdbs,
       router,
@@ -133,16 +144,27 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.min = yearFromString(this.filterConfig.minValue) || this.min;
-    this.max = yearFromString(this.filterConfig.maxValue) || this.max;
+
+    this.subs.push(
+      this.facet$.pipe(getAllCompletedRemoteData()).subscribe((facetRD: RemoteData<Facet>) => {
+        if (facetRD.hasSucceeded) {
+          this.min$.next(yearFromString(facetRD.payload.minValue) || this.minDefault);
+          this.max$.next(yearFromString(facetRD.payload.maxValue) || this.maxDefault);
+        } else {
+          this.min$.next(this.minDefault);
+          this.max$.next(this.maxDefault);
+        }
+      }),
+    );
+
     this.minLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.min.placeholder');
     this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
-    this.subs.push(observableCombineLatest([iniMin, iniMax]).pipe(
-      map(([min, max]: [string, string]) => {
-        const minimum = hasValue(min) ? Number(min) : this.min;
-        const maximum = hasValue(max) ? Number(max) : this.max;
+    this.subs.push(observableCombineLatest([iniMin, iniMax, this.min$, this.max$]).pipe(
+      map(([min, max, currentMin, currentMax]: [string, string, number, number]) => {
+        const minimum = hasValue(min) ? Number(min) : currentMin;
+        const maximum = hasValue(max) ? Number(max) : currentMax;
         return [minimum, maximum];
       }),
     ).subscribe((minmax: [number, number]) => this.range = minmax));
@@ -174,8 +196,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       return;  // don't submit if a key is being held down
     }
 
-    const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
-    const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
+    const newMin = this.range[0] !== this.min$.value ? [this.range[0]] : null;
+    const newMax = this.range[1] !== this.max$.value ? [this.range[1]] : null;
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams:
         {

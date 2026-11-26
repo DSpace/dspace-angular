@@ -32,7 +32,7 @@
     </form>
 
     @if (shouldShowSlider()) {
-      <nouislider [connect]="true" [config]="config" [min]="min" [max]="max" [step]="1"
+      <nouislider [connect]="true" [config]="config" [min]="min$ | async" [max]="max$ | async" [step]="1"
         [dsDebounce]="250"
         (change)="onSliderChange($event)"
         (keydown)="startKeyboardControl()" (keyup)="stopKeyboardControl()"

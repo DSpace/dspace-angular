@@ -56,7 +56,6 @@
         [selectionConfig]="selectionConfig"
         [showCsvExport]="showCsvExport"
         [showThumbnails]="showThumbnails"
-        (contentChange)="onContentChange($event)"
         (deselectObject)="deselectObject.emit($event)"
       (selectObject)="selectObject.emit($event)"></ds-search-results>
     }
@@ -70,7 +69,8 @@
       [configurationList]="configurationList"
       [configuration]="(currentConfiguration$ | async)"
       [currentScope]="(currentScope$ | async)"
-      [filters]="filtersRD$.asObservable()"
+      [facets]="facetsRD$.asObservable()"
+      [facetFilters]="facetFilters$.asObservable()"
       [refreshFilters]="refreshFilters"
       [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
       [searchOptions]="(searchOptions$ | async)"
@@ -87,7 +87,8 @@
       [configurationList]="configurationList"
       [configuration]="(currentConfiguration$ | async)"
       [currentScope]="(currentScope$ | async)"
-      [filters]="filtersRD$.asObservable()"
+      [facets]="facetsRD$.asObservable()"
+      [facetFilters]="facetFilters$.asObservable()"
       [refreshFilters]="refreshFilters"
       [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
       [searchOptions]="(searchOptions$ | async)"

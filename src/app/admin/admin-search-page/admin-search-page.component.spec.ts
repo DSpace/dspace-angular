@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
-import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
+import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
 import { AdminSearchPageComponent } from './admin-search-page.component';
 
 describe('AdminSearchPageComponent', () => {
@@ -23,7 +23,9 @@ describe('AdminSearchPageComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdminSearchPageComponent, {
       remove: {
-        imports: [ThemedConfigurationSearchPageComponent],
+        imports: [
+          ThemedSearchComponent,
+        ],
       },
     })
       .compileComponents();

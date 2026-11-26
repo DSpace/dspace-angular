@@ -134,14 +134,11 @@ describe('AccessStatusBadgeComponent', () => {
     }));
     beforeEach(() => {
       item.accessStatus = null;
-      linkService.resolveLink.and.callFake((model: any) => {
-        item.accessStatus = createSuccessfulRemoteDataObject$(embargoStatus);
-        return model;
-      });
+      linkService.resolveLinkWithoutAttaching.and.returnValue(createSuccessfulRemoteDataObject$(embargoStatus));
       initFixtureAndComponentWithItem();
     });
     it('should show the embargo badge', () => {
-      expect(linkService.resolveLink).toHaveBeenCalledWith(item, followLink('accessStatus'));
+      expect(linkService.resolveLinkWithoutAttaching).toHaveBeenCalledWith(item, followLink('accessStatus'));
       lookForAccessStatusBadgeForItem('embargo');
     });
   });
@@ -237,14 +234,11 @@ describe('AccessStatusBadgeComponent', () => {
     }));
     beforeEach(() => {
       bitstream.accessStatus = null;
-      linkService.resolveLink.and.callFake((model: any) => {
-        bitstream.accessStatus = createSuccessfulRemoteDataObject$(embargoStatus);
-        return model;
-      });
+      linkService.resolveLinkWithoutAttaching.and.returnValue(createSuccessfulRemoteDataObject$(embargoStatus));
       initFixtureAndComponentWithBitstream();
     });
     it('should show the badge', () => {
-      expect(linkService.resolveLink).toHaveBeenCalledWith(bitstream, followLink('accessStatus'));
+      expect(linkService.resolveLinkWithoutAttaching).toHaveBeenCalledWith(bitstream, followLink('accessStatus'));
       lookForAccessStatusBadgeForBitstream();
     });
   });
