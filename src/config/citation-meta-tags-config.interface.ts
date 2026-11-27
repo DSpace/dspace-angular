@@ -4,6 +4,7 @@ import { Config } from './config.interface';
  * Metadata fields used to fill each Google Scholar / Highwire Press `citation_*` `<meta>` tag
  * that the {@link HeadTagService} adds to Item pages.
  *
+ * Unless stated otherwise, a tag gets the first value of the first listed field that has one.
  * Each entry is an ordered list of metadata keys. Wildcards are supported (e.g. `dc.contributor.*`).
  * An empty list disables the tag.
  */
@@ -12,8 +13,14 @@ export interface CitationMetaTagFieldsConfig extends Config {
   title: string[];
   /** `citation_author`: one tag per value, for all values of all listed fields, in the listed order */
   author: string[];
-  /** `citation_publication_date`: the first value of the first listed field that has one */
+  /**
+   * `citation_publication_date`: the first value of the first listed field that has one.
+   * Google Scholar requires the date that would normally be cited in references, not the date the Item was
+   * added to the repository (that belongs in `citation_online_date`).
+   */
   publicationDate: string[];
+  /** `citation_online_date`: the date the Item became available online. The first value of the first listed field */
+  onlineDate: string[];
   /** `citation_issn`: the first value of the first listed field that has one */
   issn: string[];
   /** `citation_isbn`: the first value of the first listed field that has one */
@@ -37,6 +44,20 @@ export interface CitationMetaTagFieldsConfig extends Config {
   dissertationInstitution: string[];
   /** `citation_technical_report_institution`: used instead of `citation_publisher` for technical reports */
   technicalReportInstitution: string[];
+  /** `citation_technical_report_number`: only added for technical reports */
+  technicalReportNumber: string[];
+  /** `citation_journal_title`: the full or standard abbreviated name of the journal */
+  journalTitle: string[];
+  /** `citation_conference_title`: the name of the conference */
+  conferenceTitle: string[];
+  /** `citation_volume` */
+  volume: string[];
+  /** `citation_issue` */
+  issue: string[];
+  /** `citation_firstpage` */
+  firstPage: string[];
+  /** `citation_lastpage` */
+  lastPage: string[];
 }
 
 /**

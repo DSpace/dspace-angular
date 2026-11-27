@@ -551,6 +551,38 @@ describe('HeadTagService', () => {
       expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_technical_report_institution', content: 'Mock Publisher' });
     }));
 
+    it('should not use the repository deposit date as citation_publication_date', fakeAsync(() => {
+      processItem(mockMetadata(ItemMock, 'dc.date.issued', []));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publication_date' }));
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_online_date', content: '1650-06-26T19:58:25Z' });
+    }));
+
+    it('should not add journal tags by default', fakeAsync(() => {
+      processItem(mockMetadata(ItemMock, 'dc.relation.ispartof', ['Mock Journal']));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_journal_title' }));
+    }));
+
+    it('should add configured journal tags', fakeAsync(() => {
+      appConfig.citationMetaTags.fields.journalTitle = ['dc.relation.ispartof'];
+      appConfig.citationMetaTags.fields.volume = ['dc.citation.volume'];
+      appConfig.citationMetaTags.fields.firstPage = ['dc.citation.spage'];
+      let item = mockMetadata(ItemMock, 'dc.relation.ispartof', ['Mock Journal']);
+      item = mockMetadata(item, 'dc.citation.volume', ['271']);
+      item = mockMetadata(item, 'dc.citation.spage', ['11761']);
+      processItem(item);
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_journal_title', content: 'Mock Journal' });
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_volume', content: '271' });
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_firstpage', content: '11761' });
+    }));
+
+    it('should add citation_technical_report_number only for technical reports', fakeAsync(() => {
+      appConfig.citationMetaTags.fields.technicalReportNumber = ['dc.identifier.other'];
+      processItem(mockMetadata(mockType(ItemMock, 'Article'), 'dc.identifier.other', ['TR-42']));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_number' }));
+      processItem(mockMetadata(mockType(ItemMock, 'Technical Report'), 'dc.identifier.other', ['TR-42']));
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_technical_report_number', content: 'TR-42' });
+    }));
+
     it('should link citation_pdf_url to the first Bitstream with a configured MIME type', fakeAsync(() => {
       // MockBitstream3 is application/octet-stream, which is not in the default list
       appConfig.citationMetaTags.pdfUrlMimeTypes = ['application/octet-stream'];

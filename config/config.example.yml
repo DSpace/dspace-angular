@@ -829,12 +829,15 @@ citationMetaTags:
       - dc.author
       - dc.contributor.author
       - dc.creator
-    # citation_publication_date: the first value of the first field that has one
+    # citation_publication_date: the first value of the first field that has one.
+    # Google Scholar requires the date that would normally be cited in references. Do not add the date the Item
+    # was added to the repository (dc.date.accessioned / dc.date.available): that belongs in citation_online_date.
     publicationDate:
-      - dc.date.copyright
       - dc.date.issued
+      - dc.date.copyright
+    # citation_online_date: the date the Item became available online
+    onlineDate:
       - dc.date.available
-      - dc.date.accessioned
     # citation_issn, citation_isbn, citation_language, citation_doi: the first value of the first field that has one
     issn:
       - dc.identifier.issn
@@ -863,6 +866,19 @@ citationMetaTags:
     # citation_technical_report_institution: only for technical reports
     technicalReportInstitution:
       - dc.publisher
+    # citation_technical_report_number: only for technical reports. Not set by default.
+    technicalReportNumber: []
+    # Journal and conference papers: citation_journal_title, citation_conference_title, citation_volume,
+    # citation_issue, citation_firstpage and citation_lastpage. Not set by default, because the default metadata
+    # schemas have no dedicated fields for them. Example:
+    #   journalTitle:
+    #     - dc.relation.ispartof
+    journalTitle: []
+    conferenceTitle: []
+    volume: []
+    issue: []
+    firstPage: []
+    lastPage: []
   # dc.type values (case-insensitive) that identify an Item as a dissertation or a technical report
   dissertationTypes:
     - Thesis

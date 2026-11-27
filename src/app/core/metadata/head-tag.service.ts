@@ -168,6 +168,7 @@ export class HeadTagService {
     this.setCitationTitleTag();
     this.setCitationAuthorTags();
     this.setCitationPublicationDateTag();
+    this.setCitationOnlineDateTag();
     this.setCitationISSNTag();
     this.setCitationISBNTag();
 
@@ -182,17 +183,20 @@ export class HeadTagService {
     if (this.isDissertation()) {
       this.setCitationDissertationNameTag();
     }
+    if (this.isTechReport()) {
+      this.setCitationTechnicalReportNumberTag();
+    }
 
-    // this.setCitationJournalTitleTag();
-    // this.setCitationVolumeTag();
-    // this.setCitationIssueTag();
-    // this.setCitationFirstPageTag();
-    // this.setCitationLastPageTag();
+    this.setCitationJournalTitleTag();
+    this.setCitationConferenceTitleTag();
+    this.setCitationVolumeTag();
+    this.setCitationIssueTag();
+    this.setCitationFirstPageTag();
+    this.setCitationLastPageTag();
+
     // this.setCitationPMIDTag();
 
     // this.setCitationFullTextTag();
-
-    // this.setCitationConferenceTag();
 
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
@@ -248,6 +252,62 @@ export class HeadTagService {
   protected setCitationPublicationDateTag(): void {
     const value = this.getFirstMetaTagValue(this.citationFields.publicationDate);
     this.addMetaTag('citation_publication_date', value);
+  }
+
+  /**
+   * Add <meta name="citation_online_date" ... >  to the <head>
+   */
+  protected setCitationOnlineDateTag(): void {
+    this.addFirstValueTag('citation_online_date', this.citationFields.onlineDate);
+  }
+
+  /**
+   * Add <meta name="citation_technical_report_number" ... >  to the <head>
+   */
+  protected setCitationTechnicalReportNumberTag(): void {
+    this.addFirstValueTag('citation_technical_report_number', this.citationFields.technicalReportNumber);
+  }
+
+  /**
+   * Add <meta name="citation_journal_title" ... >  to the <head>
+   */
+  protected setCitationJournalTitleTag(): void {
+    this.addFirstValueTag('citation_journal_title', this.citationFields.journalTitle);
+  }
+
+  /**
+   * Add <meta name="citation_conference_title" ... >  to the <head>
+   */
+  protected setCitationConferenceTitleTag(): void {
+    this.addFirstValueTag('citation_conference_title', this.citationFields.conferenceTitle);
+  }
+
+  /**
+   * Add <meta name="citation_volume" ... >  to the <head>
+   */
+  protected setCitationVolumeTag(): void {
+    this.addFirstValueTag('citation_volume', this.citationFields.volume);
+  }
+
+  /**
+   * Add <meta name="citation_issue" ... >  to the <head>
+   */
+  protected setCitationIssueTag(): void {
+    this.addFirstValueTag('citation_issue', this.citationFields.issue);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  protected setCitationFirstPageTag(): void {
+    this.addFirstValueTag('citation_firstpage', this.citationFields.firstPage);
+  }
+
+  /**
+   * Add <meta name="citation_lastpage" ... >  to the <head>
+   */
+  protected setCitationLastPageTag(): void {
+    this.addFirstValueTag('citation_lastpage', this.citationFields.lastPage);
   }
 
   /**
@@ -525,6 +585,15 @@ export class HeadTagService {
       this.meta.addTag(tag);
       this.storeTag(name);
     }
+  }
+
+  /**
+   * Add a meta tag with the first value of the first of the given metadata fields that has one
+   * @param name    the name of the meta tag
+   * @param keys    the metadata fields, in order of preference
+   */
+  protected addFirstValueTag(name: string, keys: string[]): void {
+    this.addMetaTag(name, this.getFirstMetaTagValue(keys));
   }
 
   protected addMetaTags(name: string, content: string[]): void {
