@@ -11,6 +11,7 @@ import {
   Router,
 } from '@angular/router';
 import { AppConfig } from '@dspace/config/app-config.interface';
+import { DefaultAppConfig } from '@dspace/config/default-app-config';
 import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -111,6 +112,7 @@ describe('HeadTagService', () => {
           pageSize: 5,
         },
       },
+      citationMetaTags: new DefaultAppConfig().citationMetaTags,
     } as any;
 
     headTagService = new HeadTagService(
@@ -492,6 +494,82 @@ describe('HeadTagService', () => {
       expect(store.dispatch.calls.argsFor(2)).toEqual([new AddMetaTagAction('description')]);
     });
   });
+
+  describe('configured citation fields', () => {
+    const processItem = (item: Item) => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(item),
+          },
+        },
+      });
+      tick();
+    };
+
+    it('should add citation_author tags for all values of all configured fields, in order', fakeAsync(() => {
+      appConfig.citationMetaTags.fields.author = ['dc.contributor.other', 'dc.creator'];
+      const item = mockMetadata(ItemMock, 'dc.contributor.other', ['External, Co-Author']);
+      processItem(item);
+      const authors = (meta.addTag as jasmine.Spy).calls.allArgs()
+        .map(([tag]) => tag)
+        .filter((tag) => tag.name === 'citation_author')
+        .map((tag) => tag.content);
+      expect(authors).toEqual(['External, Co-Author', 'Doe, Jane']);
+    }));
+
+    it('should use the first configured field that has a value', fakeAsync(() => {
+      appConfig.citationMetaTags.fields.title = ['dc.title.alternative', 'dc.title'];
+      processItem(mockMetadata(ItemMock, 'dc.title.alternative', ['Alternative title']));
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_title', content: 'Alternative title' });
+      expect(meta.addTag).not.toHaveBeenCalledWith({ name: 'citation_title', content: 'Test PowerPoint Document' });
+    }));
+
+    it('should not add a tag whose field list is empty', fakeAsync(() => {
+      appConfig.citationMetaTags.fields.keywords = [];
+      processItem(ItemMock);
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_keywords' }));
+    }));
+
+    it('should use the configured fields for citation_dissertation_institution', fakeAsync(() => {
+      appConfig.citationMetaTags.fields.dissertationInstitution = ['dc.publisher.department'];
+      const item = mockMetadata(mockPublisher(mockType(ItemMock, 'Thesis')), 'dc.publisher.department', ['Mock Department']);
+      processItem(item);
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_dissertation_institution', content: 'Mock Department' });
+    }));
+
+    it('should recognise configured dissertation types', fakeAsync(() => {
+      appConfig.citationMetaTags.dissertationTypes = ['Thesis', 'Doctoral Thesis'];
+      processItem(mockPublisher(mockType(ItemMock, 'doctoral thesis')));
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_dissertation_name', content: 'Test PowerPoint Document' });
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_dissertation_institution', content: 'Mock Publisher' });
+    }));
+
+    it('should recognise configured technical report types', fakeAsync(() => {
+      appConfig.citationMetaTags.technicalReportTypes = ['Report'];
+      processItem(mockPublisher(mockType(ItemMock, 'Report')));
+      expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_technical_report_institution', content: 'Mock Publisher' });
+    }));
+
+    it('should link citation_pdf_url to the first Bitstream with a configured MIME type', fakeAsync(() => {
+      // MockBitstream3 is application/octet-stream, which is not in the default list
+      appConfig.citationMetaTags.pdfUrlMimeTypes = ['application/octet-stream'];
+      (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(
+        mockBundleRD$([MockBitstream3, MockBitstream2]),
+      );
+      processItem(ItemMock);
+      expect(meta.addTag).toHaveBeenCalledWith({
+        name: 'citation_pdf_url',
+        content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
+      });
+    }));
+  });
+
+  const mockMetadata = (mockItem: Item, field: string, values: string[]): Item => {
+    const item = Object.assign(new Item(), mockItem, { metadata: Object.assign({}, mockItem.metadata) }) as Item;
+    item.metadata[field] = values.map((value: string) => ({ value })) as MetadataValue[];
+    return item;
+  };
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;

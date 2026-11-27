@@ -16,9 +16,11 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { CitationMetaTagFieldsConfig } from '@dspace/config/citation-meta-tags-config.interface';
 import {
   hasNoValue,
   hasValue,
+  isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
@@ -95,21 +97,6 @@ const tagsInUseSelector =
 export class HeadTagService {
 
   private currentObject: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
-
-  /**
-   * When generating the citation_pdf_url meta tag for Items with more than one Bitstream (and no primary Bitstream),
-   * the first Bitstream to match one of the following MIME types is selected.
-   * See {@linkcode getFirstAllowedFormatBitstreamLink}
-   * @private
-   */
-  private readonly CITATION_PDF_URL_MIMETYPES = [
-    'application/pdf',                                                          // .pdf
-    'application/postscript',                                                   // .ps
-    'application/msword',                                                       // .doc
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
-    'application/rtf',                                                          // .rtf
-    'application/epub+zip',                                                     // .epub
-  ];
 
   constructor(
     protected router: Router,
@@ -243,7 +230,7 @@ export class HeadTagService {
    * Add <meta name="citation_title" ... >  to the <head>
    */
   protected setCitationTitleTag(): void {
-    const value = this.getMetaTagValue('dc.title');
+    const value = this.getFirstMetaTagValue(this.citationFields.title);
     this.addMetaTag('citation_title', value);
   }
 
@@ -251,7 +238,7 @@ export class HeadTagService {
    * Add <meta name="citation_author" ... >  to the <head>
    */
   protected setCitationAuthorTags(): void {
-    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator']);
+    const values: string[] = this.getMetaTagValues(this.citationFields.author);
     this.addMetaTags('citation_author', values);
   }
 
@@ -259,7 +246,7 @@ export class HeadTagService {
    * Add <meta name="citation_publication_date" ... >  to the <head>
    */
   protected setCitationPublicationDateTag(): void {
-    const value = this.getFirstMetaTagValue(['dc.date.copyright', 'dc.date.issued', 'dc.date.available', 'dc.date.accessioned']);
+    const value = this.getFirstMetaTagValue(this.citationFields.publicationDate);
     this.addMetaTag('citation_publication_date', value);
   }
 
@@ -267,7 +254,7 @@ export class HeadTagService {
    * Add <meta name="citation_issn" ... >  to the <head>
    */
   protected setCitationISSNTag(): void {
-    const value = this.getMetaTagValue('dc.identifier.issn');
+    const value = this.getFirstMetaTagValue(this.citationFields.issn);
     this.addMetaTag('citation_issn', value);
   }
 
@@ -275,7 +262,7 @@ export class HeadTagService {
    * Add <meta name="citation_isbn" ... >  to the <head>
    */
   protected setCitationISBNTag(): void {
-    const value = this.getMetaTagValue('dc.identifier.isbn');
+    const value = this.getFirstMetaTagValue(this.citationFields.isbn);
     this.addMetaTag('citation_isbn', value);
   }
 
@@ -283,7 +270,7 @@ export class HeadTagService {
    * Add <meta name="citation_language" ... >  to the <head>
    */
   protected setCitationLanguageTag(): void {
-    const value = this.getFirstMetaTagValue(['dc.language', 'dc.language.iso']);
+    const value = this.getFirstMetaTagValue(this.citationFields.language);
     this.addMetaTag('citation_language', value);
   }
 
@@ -291,21 +278,22 @@ export class HeadTagService {
    * Add <meta name="citation_dissertation_name" ... >  to the <head>
    */
   protected setCitationDissertationNameTag(): void {
-    const value = this.getMetaTagValue('dc.title');
+    const value = this.getFirstMetaTagValue(this.citationFields.dissertationName);
     this.addMetaTag('citation_dissertation_name', value);
   }
 
   /**
-   * Add dc.publisher to the <head>. The tag name depends on the item type.
+   * Add the publisher to the <head>. The tag name and the metadata fields used depend on the item type.
    */
   protected setCitationPublisherTag(): void {
-    const value = this.getMetaTagValue('dc.publisher');
     if (this.isDissertation()) {
-      this.addMetaTag('citation_dissertation_institution', value);
+      this.addMetaTag('citation_dissertation_institution',
+        this.getFirstMetaTagValue(this.citationFields.dissertationInstitution));
     } else if (this.isTechReport()) {
-      this.addMetaTag('citation_technical_report_institution', value);
+      this.addMetaTag('citation_technical_report_institution',
+        this.getFirstMetaTagValue(this.citationFields.technicalReportInstitution));
     } else {
-      this.addMetaTag('citation_publisher', value);
+      this.addMetaTag('citation_publisher', this.getFirstMetaTagValue(this.citationFields.publisher));
     }
   }
 
@@ -313,7 +301,7 @@ export class HeadTagService {
    * Add <meta name="citation_keywords" ... >  to the <head>
    */
   protected setCitationKeywordsTag(): void {
-    const value = this.getMetaTagValuesAndCombine('dc.subject');
+    const value = this.getMetaTagValues(this.citationFields.keywords).join('; ');
     this.addMetaTag('citation_keywords', value);
   }
 
@@ -322,7 +310,7 @@ export class HeadTagService {
    */
   protected setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
-      let url = this.getMetaTagValue('dc.identifier.uri');
+      let url = this.getFirstMetaTagValue(this.citationFields.abstractHtmlUrl);
       if (hasNoValue(url)) {
         url = new URLCombiner(this.hardRedirectService.getBaseUrl(), this.router.url).toString();
       }
@@ -335,7 +323,7 @@ export class HeadTagService {
    */
   protected setCitationDoiTag(): void {
     if (this.currentObject.value instanceof Item) {
-      const doi = this.getMetaTagValue('dc.identifier.doi');
+      const doi = this.getFirstMetaTagValue(this.citationFields.doi);
       if (hasValue(doi)) {
         this.addMetaTag('citation_doi', doi);
       }
@@ -435,7 +423,7 @@ export class HeadTagService {
    * config) of bitstreams for performance reasons.
    * See https://github.com/DSpace/DSpace/issues/8648 for more info
    *
-   * included in {@linkcode CITATION_PDF_URL_MIMETYPES}
+   * included in the citationMetaTags.pdfUrlMimeTypes configuration
    * @param bitstreamRd
    * @private
    */
@@ -457,7 +445,7 @@ export class HeadTagService {
         )),
         // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
         filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
-          hasValue(format) && hasValue(bitstream) && this.CITATION_PDF_URL_MIMETYPES.includes(format.mimetype)),
+          hasValue(format) && hasValue(bitstream) && this.appConfig.citationMetaTags.pdfUrlMimeTypes.includes(format.mimetype)),
         // We only need 1
         take(1),
         // Emit the link of the match
@@ -486,20 +474,27 @@ export class HeadTagService {
    * Returns true if this._item is a dissertation
    *
    * @returns {boolean}
-   *      true if this._item has a dc.type equal to 'Thesis'
+   *      true if this._item has a dc.type equal to one of the configured citationMetaTags.dissertationTypes
    */
   protected isDissertation(): boolean {
-    return this.hasType('thesis');
+    return this.appConfig.citationMetaTags.dissertationTypes.some((type: string) => this.hasType(type));
   }
 
   /**
    * Returns true if this._item is a technical report
    *
    * @returns {boolean}
-   *      true if this._item has a dc.type equal to 'Technical Report'
+   *      true if this._item has a dc.type equal to one of the configured citationMetaTags.technicalReportTypes
    */
   protected isTechReport(): boolean {
-    return this.hasType('technical report');
+    return this.appConfig.citationMetaTags.technicalReportTypes.some((type: string) => this.hasType(type));
+  }
+
+  /**
+   * The metadata fields used for each citation_* meta tag, from the citationMetaTags configuration
+   */
+  protected get citationFields(): CitationMetaTagFieldsConfig {
+    return this.appConfig.citationMetaTags.fields;
   }
 
   protected getMetaTagValue(key: string): string {
@@ -507,6 +502,9 @@ export class HeadTagService {
   }
 
   protected getFirstMetaTagValue(keys: string[]): string {
+    if (isEmpty(keys)) {
+      return undefined;
+    }
     return this.currentObject.value.firstMetadataValue(keys);
   }
 
@@ -515,6 +513,9 @@ export class HeadTagService {
   }
 
   protected getMetaTagValues(keys: string[]): string[] {
+    if (isEmpty(keys)) {
+      return [];
+    }
     return this.currentObject.value.allMetadataValues(keys);
   }
 

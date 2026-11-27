@@ -636,4 +636,32 @@ export const environment: BuildConfig = {
       'dspace.cms.footer',
     ],
   },
+
+  citationMetaTags: {
+    fields: {
+      title: ['dc.title'],
+      author: ['dc.author', 'dc.contributor.author', 'dc.creator'],
+      publicationDate: ['dc.date.copyright', 'dc.date.issued', 'dc.date.available', 'dc.date.accessioned'],
+      issn: ['dc.identifier.issn'],
+      isbn: ['dc.identifier.isbn'],
+      language: ['dc.language', 'dc.language.iso'],
+      keywords: ['dc.subject'],
+      abstractHtmlUrl: ['dc.identifier.uri'],
+      doi: ['dc.identifier.doi'],
+      publisher: ['dc.publisher'],
+      dissertationName: ['dc.title'],
+      dissertationInstitution: ['dc.publisher'],
+      technicalReportInstitution: ['dc.publisher'],
+    },
+    dissertationTypes: ['Thesis'],
+    technicalReportTypes: ['Technical Report'],
+    pdfUrlMimeTypes: [
+      'application/pdf',
+      'application/postscript',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/rtf',
+      'application/epub+zip',
+    ],
+  },
 };
