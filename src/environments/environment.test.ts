@@ -641,7 +641,7 @@ export const environment: BuildConfig = {
     fields: {
       title: ['dc.title'],
       author: ['dc.author', 'dc.contributor.author', 'dc.creator'],
-      publicationDate: ['dc.date.issued', 'dc.date.copyright'],
+      publicationDate: ['dc.date.issued'],
       onlineDate: ['dc.date.available'],
       issn: ['dc.identifier.issn'],
       isbn: ['dc.identifier.isbn'],

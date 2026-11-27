@@ -832,9 +832,9 @@ citationMetaTags:
     # citation_publication_date: the first value of the first field that has one.
     # Google Scholar requires the date that would normally be cited in references. Do not add the date the Item
     # was added to the repository (dc.date.accessioned / dc.date.available): that belongs in citation_online_date.
+    # Only dc.date.issued by default: an inaccurate date is worse than none (see DSpace issue #7451).
     publicationDate:
       - dc.date.issued
-      - dc.date.copyright
     # citation_online_date: the date the Item became available online
     onlineDate:
       - dc.date.available
