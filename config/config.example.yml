@@ -811,3 +811,85 @@ addToAnyPlugin:
   showPlusButton: true
   showCounters: true
   title: DSpace demo
+
+# Google Scholar / Highwire Press "citation_*" <meta> tags added to Item pages.
+# See https://scholar.google.com/intl/en/scholar/inclusion.html#indexing
+# Google Scholar requires at least citation_title, citation_author and citation_publication_date.
+# These settings replace the backend's "google-metadata.properties", which the UI does not read.
+citationMetaTags:
+  # The metadata fields used for each tag. Each one is an ordered list; wildcards such as "dc.contributor.*"
+  # are supported, and an empty list ([]) disables the tag.
+  # When you override a list, it replaces the default list rather than being added to it.
+  fields:
+    # citation_title: the first value of the first field that has one
+    title:
+      - dc.title
+    # citation_author: one tag per value, for all values of all fields, in this order
+    author:
+      - dc.author
+      - dc.contributor.author
+      - dc.creator
+    # citation_publication_date: the first value of the first field that has one.
+    # Google Scholar requires the date that would normally be cited in references. Do not add the date the Item
+    # was added to the repository (dc.date.accessioned / dc.date.available): that belongs in citation_online_date.
+    # Only dc.date.issued by default: an inaccurate date is worse than none (see DSpace issue #7451).
+    publicationDate:
+      - dc.date.issued
+    # citation_online_date: the date the Item became available online
+    onlineDate:
+      - dc.date.available
+    # citation_issn, citation_isbn, citation_language, citation_doi: the first value of the first field that has one
+    issn:
+      - dc.identifier.issn
+    isbn:
+      - dc.identifier.isbn
+    language:
+      - dc.language
+      - dc.language.iso
+    doi:
+      - dc.identifier.doi
+    # citation_keywords: all values of all fields, joined with "; "
+    keywords:
+      - dc.subject
+    # citation_abstract_html_url: the first value of the first field that has one,
+    # falling back to the URL of the Item page
+    abstractHtmlUrl:
+      - dc.identifier.uri
+    # citation_publisher: for Items that are neither a dissertation nor a technical report
+    publisher:
+      - dc.publisher
+    # citation_dissertation_name and citation_dissertation_institution: only for dissertations
+    dissertationName:
+      - dc.title
+    dissertationInstitution:
+      - dc.publisher
+    # citation_technical_report_institution: only for technical reports
+    technicalReportInstitution:
+      - dc.publisher
+    # citation_technical_report_number: only for technical reports. Not set by default.
+    technicalReportNumber: []
+    # Journal and conference papers: citation_journal_title, citation_conference_title, citation_volume,
+    # citation_issue, citation_firstpage and citation_lastpage. Not set by default, because the default metadata
+    # schemas have no dedicated fields for them. Example:
+    #   journalTitle:
+    #     - dc.relation.ispartof
+    journalTitle: []
+    conferenceTitle: []
+    volume: []
+    issue: []
+    firstPage: []
+    lastPage: []
+  # dc.type values (case-insensitive) that identify an Item as a dissertation or a technical report
+  dissertationTypes:
+    - Thesis
+  technicalReportTypes:
+    - Technical Report
+  # When an Item has no downloadable primary Bitstream and more than one Bitstream in its ORIGINAL bundle,
+  # citation_pdf_url links to the first downloadable Bitstream with one of these MIME types.
+  pdfUrlMimeTypes:
+    - application/pdf
+    - application/postscript
+    - application/msword
+    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    - application/rtf
+    - application/epub+zip

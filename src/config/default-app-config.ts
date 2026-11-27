@@ -11,6 +11,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CitationMetaTagsConfig } from './citation-meta-tags-config.interface';
 import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
@@ -870,6 +871,46 @@ export class DefaultAppConfig implements AppConfig {
       'dspace.cms.home-header',
       'dspace.cms.home-news',
       'dspace.cms.footer',
+    ],
+  };
+
+  /**
+   * Google Scholar / Highwire Press citation_* <meta> tags on Item pages.
+   * Check more details at {@link CitationMetaTagsConfig}
+   */
+  citationMetaTags: CitationMetaTagsConfig = {
+    fields: {
+      title: ['dc.title'],
+      author: ['dc.author', 'dc.contributor.author', 'dc.creator'],
+      publicationDate: ['dc.date.issued'],
+      onlineDate: ['dc.date.available'],
+      issn: ['dc.identifier.issn'],
+      isbn: ['dc.identifier.isbn'],
+      language: ['dc.language', 'dc.language.iso'],
+      keywords: ['dc.subject'],
+      abstractHtmlUrl: ['dc.identifier.uri'],
+      doi: ['dc.identifier.doi'],
+      publisher: ['dc.publisher'],
+      dissertationName: ['dc.title'],
+      dissertationInstitution: ['dc.publisher'],
+      technicalReportInstitution: ['dc.publisher'],
+      technicalReportNumber: [],
+      journalTitle: [],
+      conferenceTitle: [],
+      volume: [],
+      issue: [],
+      firstPage: [],
+      lastPage: [],
+    },
+    dissertationTypes: ['Thesis'],
+    technicalReportTypes: ['Technical Report'],
+    pdfUrlMimeTypes: [
+      'application/pdf',                                                          // .pdf
+      'application/postscript',                                                   // .ps
+      'application/msword',                                                       // .doc
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
+      'application/rtf',                                                          // .rtf
+      'application/epub+zip',                                                     // .epub
     ],
   };
 }
